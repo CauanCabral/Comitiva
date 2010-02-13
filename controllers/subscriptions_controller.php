@@ -6,7 +6,7 @@ class SubscriptionsController extends AppController
 	
 	public function isAuthorized()
 	{
-		if($this->loggedUser === TRUE && $this->params['prefix'] == User::get('type'))
+		if($this->userLogged === TRUE && $this->params['prefix'] == User::get('type'))
 		{
 			return true;
 		}

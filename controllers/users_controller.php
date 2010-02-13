@@ -5,8 +5,12 @@ class UsersController extends AppController
 	public $name = 'Users';
 	
 	public function isAuthorized()
-	{
-		if($this->loggedUser === TRUE && $this->params['prefix'] == User::get('type'))
+	{		
+		if($this->userLogged === TRUE && $this->params['prefix'] == User::get('type'))
+		{
+			return true;
+		}
+		else if(empty($this->params['prefix']))
 		{
 			return true;
 		}
@@ -80,9 +84,10 @@ class UsersController extends AppController
 		}
 	}
 
-	public function profile()
+	public function admin_profile()
 	{	
-		$this->set('user', User::get());
+		$this->set('user', User::get('User'));
+		$this->render('profile');
 	}
 	
 	public function admin_index()
@@ -140,6 +145,22 @@ class UsersController extends AppController
 		}
 		$this->Session->setFlash(__('User was not deleted', true));
 		$this->redirect(array('action' => 'index'));
+	}
+	
+	public function admin_login()
+	{
+		//$this->redirect('login');
+	}
+	
+	public function participant_login()
+	{
+		//$this->redirect('login');
+	}
+	
+	public function participant_profile()
+	{	
+		$this->set('user', User::get('User'));
+		$this->render('profile');
 	}
 	
 	/***************************

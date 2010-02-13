@@ -91,22 +91,20 @@ class AppController extends Controller
 		//Configure AuthComponent
 		$this->Auth->authorize = 'controller';
 
-		$this->Auth->allowedActions = array('logout', 'login');
-
 		if( !isset($this->params['prefix']) || !( in_array($this->params['prefix'], Configure::read('Routing.prefixes')) ) )
 		{
 			// all non-prefixed actions are allowed
 			$this->Auth->allow('*');
 		}
 
-		$this->Auth->loginAction = array('controller' => 'users', 'action' => 'login');
-		$this->Auth->logoutRedirect = array('controller' => 'pages', 'action' => 'index');
+		$this->Auth->loginAction = '/login';
+		$this->Auth->logoutRedirect = '/';
 		$this->Auth->loginRedirect = array('controller' => 'users', 'action' => 'profile');
 
 		// What to say when the login was incorrect.
-		$this->Auth->loginError = __('Falha no login. Por favor, verifique se o usuário e senha digitado estão corretos.', 1);
+		$this->Auth->loginError = __('Falha no login. Por favor, verifique se o usuário e senha digitado estão corretos.', TRUE);
 		// What to say when unauthorized access has detected
-		$this->Auth->authError = __('Desculpe, você precisa estar autenticado para acessar esta página.', 1);
+		$this->Auth->authError = __('Desculpe, você precisa estar autenticado para acessar esta página.', TRUE);
 		
 		// Define a static access to user information
 		App::import('Model', 'User');
