@@ -49,7 +49,7 @@
  *
  */
 
-Configure::write('Language.default', 'pt-br');
+
 /*
  * Include local bootstrap, only for settings specify enviroment (local machine of developer or production)
  */

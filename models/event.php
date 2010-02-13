@@ -1,79 +1,50 @@
 <?php
-class Event extends AppModel {
-	var $name = 'Event';
-	var $displayField = 'title';
-	var $validate = array(
+class Event extends AppModel
+{
+	public $name = 'Event';
+	
+	public $displayField = 'alias';
+	
+	public $validate = array(
 		'title' => array(
-			'notempty' => array('rule' => array('notempty')),
+			'notempty' => array('rule' => array('notempty'))
+		),
+		'alias' => array(
+			'notempty' => array('rule' => array('notempty'))
 		),
 		'description' => array(
-			'notempty' => array('rule' => array('notempty')),
+			'notempty' => array('rule' => array('notempty'))
 		),
 	);
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
-	var $belongsTo = array(
+	public $belongsTo = array(
 		'ParentEvent' => array(
 			'className' => 'Event',
 			'foreignKey' => 'parent_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
+			'conditions' => array('parent_id IS NOT NULL'),
 		)
 	);
 
-	var $hasMany = array(
+	public $hasMany = array(
 		'EventDate' => array(
 			'className' => 'EventDate',
 			'foreignKey' => 'event_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
+			'dependent' => true
 		),
 		'EventPrice' => array(
 			'className' => 'EventPrice',
 			'foreignKey' => 'event_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
+			'dependent' => true
 		),
 		'ChildEvent' => array(
 			'className' => 'Event',
 			'foreignKey' => 'parent_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
+			'dependent' => true
 		),
 		'Subscription' => array(
 			'className' => 'Subscription',
 			'foreignKey' => 'event_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
+			'dependent' => false
 		)
 	);
 

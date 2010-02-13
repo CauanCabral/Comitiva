@@ -38,9 +38,9 @@ class AppController extends Controller
 	
 	public $components = array('Auth', 'RequestHandler', 'Session');
 	
-	public $helpers = array('Html', 'Form');
+	public $helpers = array('Html', 'Form', 'Session');
 	
-	public $uses = array(); // não carregue modelos no  AppController. Em último caso utilize Controller::loadModel
+	public $uses = array(); // ATENÇÃO! não carregue modelos no  AppController. Em último caso utilize Controller::loadModel
 	
 	
 	/************************

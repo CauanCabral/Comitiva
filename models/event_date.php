@@ -1,14 +1,15 @@
 <?php
-class EventDate extends AppModel {
-	var $name = 'EventDate';
-	var $validate = array(
+class EventDate extends AppModel
+{
+	public $name = 'EventDate';
+	
+	public $validate = array(
 		'date' => array(
 			'date' => array('rule' => array('date')),
 		),
 	);
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
-	var $belongsTo = array(
+	public $belongsTo = array(
 		'Event' => array(
 			'className' => 'Event',
 			'foreignKey' => 'event_id',
