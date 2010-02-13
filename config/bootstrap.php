@@ -48,4 +48,13 @@
  * Inflector::rule('plural', array('rules' => array(), 'irregular' => array(), 'uninflected' => array()));
  *
  */
+
+Configure::write('Language.default', 'pt-br');
+/*
+ * Include local bootstrap, only for settings specify enviroment (local machine of developer or production)
+ */
+if(file_exists(CONFIGS . 'bootstrap.local.php'))
+{
+	include(CONFIGS . 'bootstrap.local.php');
+}
 ?>
