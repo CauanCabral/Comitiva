@@ -147,16 +147,6 @@ class UsersController extends AppController
 		$this->redirect(array('action' => 'index'));
 	}
 	
-	public function admin_login()
-	{
-		//$this->redirect('login');
-	}
-	
-	public function participant_login()
-	{
-		//$this->redirect('login');
-	}
-	
 	public function participant_profile()
 	{	
 		$this->set('user', User::get('User'));
