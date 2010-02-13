@@ -1,9 +1,8 @@
 <div class="subscriptions form">
 <?php echo $form->create('Subscription');?>
 	<fieldset>
- 		<legend><?php __('Edit Subscription');?></legend>
+ 		<legend><?php __('Editar Inscrição',1);?></legend>
 	<?php
-		echo $form->input('id');
 		echo $form->input('user_id');
 		echo $form->input('event_id');
 	?>
@@ -12,13 +11,13 @@
 </div>
 <div class="actions">
 	<ul>
-		<li><?php echo $html->link(__('Delete', true), array('action' => 'delete', $form->value('Subscription.id')), null, sprintf(__('Are you sure you want to delete # %s?', true), $form->value('Subscription.id'))); ?></li>
-		<li><?php echo $html->link(__('List Subscriptions', true), array('action' => 'index'));?></li>
-		<li><?php echo $html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New User', true), array('controller' => 'users', 'action' => 'add')); ?> </li>
-		<li><?php echo $html->link(__('List Events', true), array('controller' => 'events', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Event', true), array('controller' => 'events', 'action' => 'add')); ?> </li>
-		<li><?php echo $html->link(__('List Payments', true), array('controller' => 'payments', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Payment', true), array('controller' => 'payments', 'action' => 'add')); ?> </li>
+		<li><?php echo $html->link(__('Apagar', true), array('action' => 'delete', $form->value('Subscription.id')), null, sprintf(__('Tem certeza que deseja apagar # %s?', true), $form->value('Subscription.id'))); ?></li>
+		<li><?php echo $html->link(__('Listar Inscrições', true), array('action' => 'index'));?></li>
+		<li><?php echo $html->link(__('Listar Usuários', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('Novo Usuário', true), array('controller' => 'users', 'action' => 'add')); ?> </li>
+		<li><?php echo $html->link(__('Lisar Eventos', true), array('controller' => 'events', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('Novos Eventos', true), array('controller' => 'events', 'action' => 'add')); ?> </li>
+		<li><?php echo $html->link(__('Listar Pagamentos', true), array('controller' => 'payments', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('Novos Pagamentos', true), array('controller' => 'payments', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

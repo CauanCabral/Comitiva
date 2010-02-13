@@ -1,22 +1,22 @@
+<div class="actions">
+	<ul>
+		<li><?php echo $html->link(__('Listar Inscrições', true), array('action' => 'index'));?></li>
+		<li><?php echo $html->link(__('Listar Usuários', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('Novo Usuário', true), array('controller' => 'users', 'action' => 'add')); ?> </li>
+		<li><?php echo $html->link(__('Listar Eventos', true), array('controller' => 'events', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('Novo Evento', true), array('controller' => 'events', 'action' => 'add')); ?> </li>
+		<li><?php echo $html->link(__('Listar Pagamentos', true), array('controller' => 'payments', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('Novo Pagamento', true), array('controller' => 'payments', 'action' => 'add')); ?> </li>
+	</ul>
+</div>
 <div class="subscriptions form">
 <?php echo $form->create('Subscription');?>
 	<fieldset>
- 		<legend><?php __('Add Subscription');?></legend>
+ 		<legend><?php __('Nova Inscrição',1);?></legend>
 	<?php
 		echo $form->input('user_id');
 		echo $form->input('event_id');
 	?>
 	</fieldset>
-<?php echo $form->end('Submit');?>
-</div>
-<div class="actions">
-	<ul>
-		<li><?php echo $html->link(__('List Subscriptions', true), array('action' => 'index'));?></li>
-		<li><?php echo $html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New User', true), array('controller' => 'users', 'action' => 'add')); ?> </li>
-		<li><?php echo $html->link(__('List Events', true), array('controller' => 'events', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Event', true), array('controller' => 'events', 'action' => 'add')); ?> </li>
-		<li><?php echo $html->link(__('List Payments', true), array('controller' => 'payments', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Payment', true), array('controller' => 'payments', 'action' => 'add')); ?> </li>
-	</ul>
+<?php echo $form->end('Enviar');?>
 </div>
