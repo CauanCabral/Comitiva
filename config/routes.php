@@ -28,4 +28,21 @@
  * to use (in this case, /app/views/pages/home.ctp)...
  */
 Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'index'));
+
+/**
+ * Alias for login/logout actions
+ */
+Router::connect('/login', array('controller' => 'users', 'action' => 'login', 'prefix' => ''));
+Router::connect('/logout', array('controller' => 'users', 'action' => 'logout', 'prefix' => ''));
+
+/**
+ * Administrators route
+ */
+Router::connect('/admin', array('controller' => 'users', 'action' => 'profile', 'prefix' => 'admin'));
+
+/**
+ * Participants route
+ */
+Router::connect('/participante', array('controller' => 'users', 'action' => 'profile', 'prefix' => 'participant'));
+Router::connect('/participante/:controller/:action/*', array('controller' => ':controller', 'action' => ':action', 'prefix' => 'participant'));
 ?>

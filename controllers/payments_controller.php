@@ -115,18 +115,5 @@ class PaymentsController extends AppController {
 		$subscriptions = $this->Payment->Subscription->find('list');
 		$this->set(compact('subscriptions'));
 	}
-
-	function participant_delete($id = null) {
-		if (!$id) {
-			$this->Session->setFlash(__('Id de pagamento inválido', true));
-			$this->redirect(array('action'=>'index'));
-		}
-		if ($this->Payment->del($id)) {
-			$this->Session->setFlash(__('Pagamento apagado!', true));
-			$this->redirect(array('action'=>'index'));
-		}
-		$this->Session->setFlash(__('Pagamento não foi apagado.', true));
-		$this->redirect(array('action' => 'index'));
-	}
 }
 ?>

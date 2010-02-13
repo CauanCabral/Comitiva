@@ -98,10 +98,12 @@ class AppController extends Controller
 			// all non-prefixed actions are allowed
 			$this->Auth->allow('*');
 		}
+		
+		$this->Auth->allow('*');
 
-		$this->Auth->loginAction = array('controller' => 'users', 'action' => 'login', 'admin' => false);
-		$this->Auth->logoutRedirect = array('controller' => 'pages', 'action' => 'index', 'admin' => false);
-		$this->Auth->loginRedirect = array('controller' => 'users', 'action' => 'profile', 'admin' => false);
+		$this->Auth->loginAction = array('controller' => 'users', 'action' => 'login', 'prefix' => '');
+		$this->Auth->logoutRedirect = array('controller' => 'pages', 'action' => 'index', 'prefix' => '');
+		$this->Auth->loginRedirect = array('controller' => 'users', 'action' => 'profile', 'prefix' => '');
 
 		// What to say when the login was incorrect.
 		$this->Auth->loginError = __('Falha no login. Por favor, verifique se o usuário e senha digitado estão corretos.', 1);
@@ -128,7 +130,7 @@ class AppController extends Controller
 	{
 		if($this->name == 'CakeError')
 		{
-			$this->layout = 'error';
+			//$this->layout = 'error';
 		}
 	}
 }
