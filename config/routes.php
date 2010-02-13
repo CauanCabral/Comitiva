@@ -32,8 +32,8 @@ Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'inde
 /**
  * Alias for login/logout actions
  */
-Router::connect('/login', array('controller' => 'users', 'action' => 'login', 'prefix' => ''));
-Router::connect('/logout', array('controller' => 'users', 'action' => 'logout', 'prefix' => ''));
+Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
+Router::connect('/logout', array('controller' => 'users', 'action' => 'logout'));
 
 /**
  * Administrators route

@@ -6,7 +6,7 @@ class EventsController extends AppController
 
 	public function isAuthorized()
 	{
-		if($this->loggedUser === TRUE)
+		if($this->loggedUser === TRUE && $this->params['prefix'] == User::get('type'))
 		{
 			return true;
 		}
@@ -17,13 +17,16 @@ class EventsController extends AppController
 	/*
 	 *  Ações para rota administrativa
 	 */
-	function admin_index() {
+	public function admin_index()
+	{
 		$this->Event->recursive = 0;
 		$this->set('events', $this->paginate());
 	}
 
-	function admin_view($id = null) {
-		if (!$id) {
+	public function admin_view($id = null)
+	{
+		if (!$id)
+		{
 			$this->Session->setFlash(__('Evento inválido', true));
 			$this->redirect(array('action' => 'index'));
 		}
@@ -46,9 +49,10 @@ class EventsController extends AppController
 			}
 		}
 		
-		$parentEvents = $this->Event->ParentEvent->find('list');
+		// FIXME cake diz que não exite propriedade 'ParentEvent', porém este é um relacionamento belongsTo
+		//$parentEvents = $this->Event->ParentEvent->find('list');
 		
-		$this->set(compact('parentEvents'));
+		//$this->set(compact('parentEvents'));
 	}
 
 	function admin_edit($id = null) {
