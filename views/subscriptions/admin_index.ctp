@@ -1,16 +1,11 @@
 <div class="actions">
 	<ul>
 		<li><?php echo $html->link(__('Nova Inscrição', true), array('action' => 'add')); ?></li>
-		<li><?php echo $html->link(__('Listar Usuários', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('Novo Usuário', true), array('controller' => 'users', 'action' => 'add')); ?> </li>
 		<li><?php echo $html->link(__('Listar Eventos', true), array('controller' => 'events', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('Novo Evento', true), array('controller' => 'events', 'action' => 'add')); ?> </li>
-		<li><?php echo $html->link(__('Listar Pagamentos', true), array('controller' => 'payments', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('Novo Pagamento', true), array('controller' => 'payments', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
 <div class="subscriptions index">
-<h2><?php __('Inscrições',1);?></h2>
+<h2><?php __('Inscrições');?></h2>
 <p>
 <?php
 echo $paginator->counter(array(
@@ -47,9 +42,9 @@ foreach ($subscriptions as $subscription):
 			<?php echo $subscription['Subscription']['created']; ?>
 		</td>
 		<td class="actions">
-			<?php echo $html->link(__('Visualizar', true), array('action' => 'view', $subscription['Subscription']['id'])); ?>
-			<?php echo $html->link(__('Editar', true), array('action' => 'edit', $subscription['Subscription']['id'])); ?>
-			<?php echo $html->link(__('Apagar', true), array('action' => 'delete', $subscription['Subscription']['id']), null, sprintf(__('Tem certeza que deseja deletar # %s?', true), $subscription['Subscription']['id'])); ?>
+			<?php echo $html->link(__('Ver', true), array('action' => 'view', $subscription['Subscription']['id'])); ?>
+			<?php echo $html->link(__('Alterar', true), array('action' => 'edit', $subscription['Subscription']['id'])); ?>
+			<?php echo $html->link(__('Remover', true), array('action' => 'delete', $subscription['Subscription']['id']), null, sprintf(__('Deseja realmente excluir # %s?', true), $subscription['Subscription']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

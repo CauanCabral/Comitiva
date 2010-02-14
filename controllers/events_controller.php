@@ -3,6 +3,8 @@ class EventsController extends AppController
 {
 
 	public $name = 'Events';
+	
+	public $uses = array('Event');
 
 	public function isAuthorized()
 	{

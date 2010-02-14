@@ -4,6 +4,8 @@ class UsersController extends AppController
 
 	public $name = 'Users';
 	
+	public $uses = array('User');
+	
 	public function isAuthorized()
 	{		
 		if($this->userLogged === TRUE && $this->params['prefix'] == User::get('type'))

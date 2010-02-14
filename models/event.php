@@ -21,7 +21,7 @@ class Event extends AppModel
 		'ParentEvent' => array(
 			'className' => 'Event',
 			'foreignKey' => 'parent_id',
-			'conditions' => array('parent_id IS NOT NULL'),
+			'conditions' => array('Event.parent_id IS NOT NULL'),
 		)
 	);
 
