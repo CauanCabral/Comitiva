@@ -111,15 +111,21 @@ class AppController extends Controller
 		// What to say when unauthorized access has detected
 		$this->Auth->authError = __('Desculpe, você precisa estar autenticado para acessar esta página.', TRUE);
 		
-		// Define a static access to user information
-		App::import('Model', 'User');
-		User::store($this->Auth->user());
+		// tmp var to load logged user information
+		$activeUser = $this->Auth->user();
 		
-		// Define flag to indique logged user
-		//$this->userLogged = true;
-
-		// Define user information in view class
-		$this->set('activeUser', $this->Auth->user());
+		if($activeUser !== null)
+		{
+			// set control flag
+			$this->userLogged = true;
+			
+			// Define a static access to user information
+			App::import('Model', 'User');
+			User::store($activeUser);
+	
+			// Define user information in view class
+			$this->set('activeUser', $activeUser);
+		}
 	}
 	
 	/**

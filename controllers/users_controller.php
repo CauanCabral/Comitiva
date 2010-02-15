@@ -28,7 +28,7 @@ class UsersController extends AppController
 	{
 		if($this->Auth->login())
 		{
-			$this->userLogged = true;
+			// display a response
 			$this->Session->setFlash(__('Você está autenticado', 1));
 		}
 		else
