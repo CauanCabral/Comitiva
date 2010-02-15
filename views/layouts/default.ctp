@@ -22,22 +22,44 @@
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php __('CakePHP: the rapid development php framework:'); ?>
+		<?php __('Comitiva: '); ?>
 		<?php echo $title_for_layout; ?>
 	</title>
 	<?php
 		echo $this->Html->meta('icon');
 
+		
 		echo $this->Html->css('cake.generic');
+		echo $this->Html->css('menu');
+		
+		echo $this->Html->css('jquery/ui');
 
+		echo $this->Html->script('jquery.min');
+		
+		// jquery-ui related
+		echo $this->Html->script('jquery/ui/jquery.ui.core.min');
+		echo $this->Html->script('jquery/ui/jquery.ui.widget.min');
+		echo $this->Html->script('jquery/ui/jquery.ui.button.min');
+		
+		// others
+		echo $this->Html->script('menu');
+
+		
 		echo $scripts_for_layout;
 	?>
 </head>
 <body>
 	<div id="container">
 		<div id="header">
-			<h1><?php echo $this->Html->link(__('CakePHP: the rapid development php framework', true), 'http://cakephp.org'); ?></h1>
+			<h1><?php echo $this->Html->link(__('Comitiva: Sistema de controle de eventos do PHPMS', true), 'http://phpms.org'); ?></h1>
 		</div>
+		
+		<?php if(isset($menuItems) && !empty($menuItems)): ?>
+		<ul id="menu">
+			<?php echo $this->element('menu', $menuItems); ?>
+		</ul>
+		<?php endif; ?>
+		
 		<div id="content">
 
 			<?php echo $this->Session->flash(); ?>

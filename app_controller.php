@@ -68,6 +68,11 @@ class AppController extends Controller
 	{
 		$this->__setupAuth();
 		
+		if($this->userLogged === true)
+		{
+			$this->__buildMenu();
+		}
+		
 		parent::beforeFilter();
 	}
 	
@@ -111,10 +116,32 @@ class AppController extends Controller
 		User::store($this->Auth->user());
 		
 		// Define flag to indique logged user
-		$this->userLogged = true;
+		//$this->userLogged = true;
 
 		// Define user information in view class
 		$this->set('activeUser', $this->Auth->user());
+	}
+	
+	/**
+	 * TODO make this a dynamic menu generate
+	 * 
+	 * @return unknown_type
+	 */
+	private function __buildMenu()
+	{
+		$menu = array(
+			__('Eventos', TRUE) => array(
+				'controller' => 'events',
+				'action' => 'index'
+			),
+			__('Usuários', TRUE) => array(
+				'controller' => 'users',
+				'action' => 'index'
+			),
+			__('Sair', TRUE) => '/logout',
+		);
+		
+		$this->set('menuItems', $menu);
 	}
 	
 	/**

@@ -30,10 +30,13 @@
 Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'index'));
 
 /**
- * Alias for login/logout actions
+ * Alias for non-prefixed actions (hack for bug route in cake 1.3-dev)
  */
 Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
 Router::connect('/logout', array('controller' => 'users', 'action' => 'logout'));
+Router::connect('/account_create', array('controller' => 'users', 'action' => 'account_create'));
+Router::connect('/recover', array('controller' => 'users', 'action' => 'recover'));
+Router::connect('/reset_password', array('controller' => 'users', 'action' => 'reset_password'));
 
 /**
  * Administrators route

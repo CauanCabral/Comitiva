@@ -206,8 +206,8 @@ div.paging span a {
 /** Scaffold View **/
 dl {
 	line-height: 2em;
-	margin: 0em 0em;
-	width: 60%;
+	margin: 0;
+	width: 80%;
 }
 dl .altrow {
 	background: #f4f4f4;
@@ -216,10 +216,10 @@ dt {
 	font-weight: bold;
 	padding-left: 4px;
 	vertical-align: top;
+	width: 10em;
 }
 dd {
-	margin-left: 10em;
-	margin-top: -2em;
+	margin: -2em 0 0 10em;
 	vertical-align: top;
 }
 
@@ -285,7 +285,7 @@ input, textarea {
 	clear: both;
 	font-size: 140%;
 	font-family: "frutiger linotype", "lucida grande", "verdana", sans-serif;
-	padding: 1%;
+	padding: 0.1em;
 	width:98%;
 }
 select {

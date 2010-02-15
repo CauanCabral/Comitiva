@@ -7,7 +7,7 @@ class UsersController extends AppController
 	public $uses = array('User');
 	
 	public function isAuthorized()
-	{		
+	{
 		if($this->userLogged === TRUE && $this->params['prefix'] == User::get('type'))
 		{
 			return true;
@@ -20,11 +20,20 @@ class UsersController extends AppController
 		return false;
 	}
 	
+	/***********************
+	 * Public actions 
+	 ***********************/
+	
 	public function login()
 	{
 		if($this->Auth->login())
 		{
+			$this->userLogged = true;
 			$this->Session->setFlash(__('Você está autenticado', 1));
+		}
+		else
+		{
+			$this->userLogged = false;
 		}
 	}
 	
@@ -85,7 +94,16 @@ class UsersController extends AppController
 			$this->Session->setFlash('Você não possui autorização para executar esta tarefa. Verique o endereço acessado, por favor.');
 		}
 	}
+	
+	public function account_create()
+	{
+		
+	}
 
+	/*******************
+	 * Admin actions
+	 ******************/
+	
 	public function admin_profile()
 	{	
 		$this->set('user', User::get('User'));
@@ -98,56 +116,78 @@ class UsersController extends AppController
 		$this->set('users', $this->paginate());
 	}
 
-	public function admin_view($id = null) {
-		if (!$id) {
-			$this->Session->setFlash(__('Invalid User', true));
+	public function admin_view($id = null)
+	{
+		if (!$id)
+		{
+			$this->Session->setFlash(__('Usuário inválido', true));
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->set('user', $this->User->read(null, $id));
 	}
 
-	public function admin_add() {
-		if (!empty($this->data)) {
+	public function admin_add()
+	{
+		if (!empty($this->data))
+		{
 			$this->User->create();
-			if ($this->User->save($this->data)) {
-				$this->Session->setFlash(__('The User has been saved', true));
+			
+			if ($this->User->save($this->data))
+			{
+				$this->Session->setFlash(__('Usuário adicionado', true));
 				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The User could not be saved. Please, try again.', true));
+			}
+			else
+			{
+				$this->Session->setFlash(__('Usuário não pode ser salvo. Tente novamente, por favor.', true));
 			}
 		}
 	}
 
-	public function admin_edit($id = null) {
-		if (!$id && empty($this->data)) {
-			$this->Session->setFlash(__('Invalid User', true));
+	public function admin_edit($id = null)
+	{
+		if (!$id && empty($this->data))
+		{
+			$this->Session->setFlash(__('Usuário inválido', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		if (!empty($this->data)) {
-			if ($this->User->save($this->data)) {
-				$this->Session->setFlash(__('The User has been saved', true));
+		
+		if (!empty($this->data))
+		{
+			if ($this->User->save($this->data))
+			{
+				$this->Session->setFlash(__('Usuário salvo', true));
 				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The User could not be saved. Please, try again.', true));
+			}
+			else
+			{
+				$this->Session->setFlash(__('Não foi possível salvar a alteração. Tente novamente, por favor.', true));
 			}
 		}
-		if (empty($this->data)) {
+		
+		if (empty($this->data))
+		{
 			$this->data = $this->User->read(null, $id);
 		}
 	}
 
 	public function admin_delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for User', true));
+			$this->Session->setFlash(__('Usuário inválido', true));
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->User->del($id)) {
-			$this->Session->setFlash(__('User deleted', true));
+			$this->Session->setFlash(__('Usuário removido', true));
 			$this->redirect(array('action'=>'index'));
 		}
-		$this->Session->setFlash(__('User was not deleted', true));
+		
+		$this->Session->setFlash(__('Usuário não pode ser removido', true));
 		$this->redirect(array('action' => 'index'));
 	}
+	
+	/***************************
+	 * Participant actions
+	 ***************************/
 	
 	public function participant_profile()
 	{	
