@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: Fev 13, 2010 as 12:51 PM
+-- Tempo de Geração: Fev 17, 2010 as 12:32 AM
 -- Versão do Servidor: 5.0.67
 -- Versão do PHP: 5.2.11
 
@@ -39,11 +39,6 @@ CREATE TABLE IF NOT EXISTS `events` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Extraindo dados da tabela `events`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -57,11 +52,6 @@ CREATE TABLE IF NOT EXISTS `event_dates` (
   `date` date NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Extraindo dados da tabela `event_dates`
---
-
 
 -- --------------------------------------------------------
 
@@ -78,11 +68,6 @@ CREATE TABLE IF NOT EXISTS `event_prices` (
   `final_date` date NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Extraindo dados da tabela `event_prices`
---
-
 
 -- --------------------------------------------------------
 
@@ -103,11 +88,6 @@ CREATE TABLE IF NOT EXISTS `payments` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Extraindo dados da tabela `payments`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -122,11 +102,6 @@ CREATE TABLE IF NOT EXISTS `subscriptions` (
   `created` datetime NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Extraindo dados da tabela `subscriptions`
---
-
 
 -- --------------------------------------------------------
 
@@ -150,9 +125,4 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created` datetime default NULL,
   `modified` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Extraindo dados da tabela `users`
---
-
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;

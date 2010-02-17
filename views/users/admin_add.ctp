@@ -17,5 +17,5 @@
 		echo $form->input('email', array('label' => __('Email', TRUE)));
 	?>
 	</fieldset>
-<?php echo $form->end('Submit');?>
+<?php echo $form->end(__('Enviar', TRUE));?>
 </div>

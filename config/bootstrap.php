@@ -42,13 +42,9 @@
  */
 
 /**
- * As of 1.3, additional rules for the inflector are added below
- *
- * Inflector::rule('singular', array('rules' => array(), irregular' => array(), 'uninflected' => array()));
- * Inflector::rule('plural', array('rules' => array(), 'irregular' => array(), 'uninflected' => array()));
- *
+ * Definição de timezone pra poder usar a classe DateTime e manter compatibilidade com PHP 5.3 
  */
-
+date_default_timezone_set('America/Campo_Grande');
 
 /*
  * Include local bootstrap, only for settings specify enviroment (local machine of developer or production)

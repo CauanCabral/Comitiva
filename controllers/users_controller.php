@@ -4,6 +4,8 @@ class UsersController extends AppController
 
 	public $name = 'Users';
 	
+	public $components = array('Email');
+	
 	public $uses = array('User');
 	
 	public function isAuthorized()
@@ -97,7 +99,27 @@ class UsersController extends AppController
 	
 	public function account_create()
 	{
+		if (!empty($this->data))
+		{
+			$d = new DateTime();
+			$d->modify('+1 day');
 		
+			$this->data['User']['account_validation_expires_at'] = $d->format(DateTime::ISO8601);
+			$this->data['User']['account_validation_token'] = sha1(md5($this->data['User']['password']) . time());
+			
+			$this->User->create($this->data);
+			
+			if ($this->User->save())
+			{
+				$this->__sendAccountConfirmMail($this->User->read());
+				
+				$this->redirect('/login');
+			}
+			else
+			{
+				$this->Session->setFlash(__('Não foi possível criar a conta. Verifique os dados inseridos.', true));
+			}
+		}
 	}
 
 	/*******************
@@ -199,18 +221,33 @@ class UsersController extends AppController
 	 * Auxiliar methods
 	 **************************/
 	
+	/**
+	 * Envia um email para o endereço associado ao usuário
+	 * com informações para recuperação da senha
+	 * 
+	 * @param array $userData
+	 * @return bool
+	 */
 	protected function __sendLinkToMail($userData)
 	{
 		$secureHash = sha1($userData['User']['password'] . time());
+		
+		$d = new DateTime();
+		$d->modify('+1 day');
+		
+		$token_expires = $d->format(DateTime::ISO8601);  
 
 		$success = $this->User->save(
 			array(
 				'User' => array(
 					'id' => $userData['User']['id'],
-					'reset' => $secureHash
+					'token' => $secureHash,
+					'token_expires_at' => $token_expires
 				)
 			)
 		);
+		
+		$this->set('token', $secureHash);
 
 		if($success)
 		{
@@ -228,7 +265,7 @@ class UsersController extends AppController
 
 			if($this->Email->send())
 			{
-				$this->Session->setFlash('Instruções para resetar a senha foram enviadas para seu email cadastrado.');
+				$this->Session->setFlash('Instruções para redefinir a senha foram enviadas para seu email cadastrado.');
 				return true;
 			}
 			else
@@ -241,6 +278,45 @@ class UsersController extends AppController
 			$this->Session->setFlash('Não foi possível iniciar processo para rercuperação da senha. Entre em contato através do email admin.phpms@gmail.com para obter ajuda.');
 		}
 
+		return false;
+	}
+	
+	/**
+	 * Envia um email para o usuário com os dados de sua conta
+	 * * Não inclui senha
+	 * 
+	 * @param array $userData
+	 * @return bool
+	 */
+	protected function __sendAccountConfirmMail($userData)
+	{		
+		$this->set('token', $user['User']['account_validation_token']);
+		
+		if($success)
+		{
+			$this->Email->reset();
+	
+			/* Setup parameters of EmailComponent */
+			$this->Email->to = $userData['User']['email'];
+			$this->Email->subject = '[PHPMS - Inscrições] Confirmação de conta';
+			$this->Email->replyTo = 'admin.phpms@gmail.com';
+			$this->Email->from = 'PHPMS <admin.phpms@gmail.com>';
+			$this->Email->template = 'account_confirm';
+			$this->Email->charset = 'utf-8';
+	
+			$this->Email->sendAs = 'html';
+	
+			if($this->Email->send())
+			{
+				$this->Session->setFlash('Foi enviado um email para confirmação da sua conta.');
+				return true;
+			}
+			else
+			{
+				$this->Session->setFlash('Não foi possível enviar o email de confirmação da conta para seu endereço. Entre em contato através do email admin.phpms@gmail.com para obter ajuda.');
+			}
+		}
+		
 		return false;
 	}
 }
