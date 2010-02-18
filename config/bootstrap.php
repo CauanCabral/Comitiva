@@ -41,10 +41,14 @@
  *
  */
 
-/**
- * Definição de timezone pra poder usar a classe DateTime e manter compatibilidade com PHP 5.3 
- */
+/* Definição de timezone pra poder usar a classe DateTime e manter compatibilidade com PHP 5.3 */
 date_default_timezone_set('America/Campo_Grande');
+
+/* Definição de locale para formatar saída de Data, Hora, moedas e etc */
+setlocale(LC_ALL, 'pt_BR.utf-8', 'pt_BR', 'pt-br', 'pt', 'pt_BR.iso-8859-1', 'portuguese');
+
+/* Definição de variável de localização para uso no sistema */
+Configure::write('Config.language', 'pt_br');
 
 /*
  * Include local bootstrap, only for settings specify enviroment (local machine of developer or production)

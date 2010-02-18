@@ -6,6 +6,8 @@ class UsersController extends AppController
 	
 	public $components = array('Email');
 	
+	public $helpers = array('Locale');
+	
 	public $uses = array('User');
 	
 	public function isAuthorized()
@@ -32,6 +34,11 @@ class UsersController extends AppController
 		{
 			// display a response
 			$this->Session->setFlash(__('Você está autenticado', 1));
+			
+			$now = new DateTime();
+			
+			// update 'last_access' field
+			$this->User->saveField('last_access', $now->format(DateTime::ISO8601));
 		}
 		else
 		{

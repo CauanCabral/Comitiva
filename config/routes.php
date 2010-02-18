@@ -42,6 +42,7 @@ Router::connect('/reset_password', array('controller' => 'users', 'action' => 'r
  * Administrators route
  */
 Router::connect('/admin', array('controller' => 'users', 'action' => 'profile', 'prefix' => 'admin'));
+Router::connect('/admin/:controller/:action/*', array('controller' => ':controller', 'action' => ':action', 'prefix' => 'admin'));
 
 /**
  * Participants route
