@@ -102,6 +102,7 @@ class AppController extends Controller
 			$this->Auth->allow('*');
 		}
 
+		$this->Auth->autoRedirect = false;
 		$this->Auth->loginAction = '/login';
 		$this->Auth->logoutRedirect = '/';
 		$this->Auth->loginRedirect = array('controller' => 'users', 'action' => 'profile');

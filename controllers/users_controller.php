@@ -30,15 +30,21 @@ class UsersController extends AppController
 	
 	public function login()
 	{
-		if($this->Auth->login())
+		if($this->Auth->user())
 		{
 			// display a response
 			$this->Session->setFlash(__('Você está autenticado', 1));
 			
 			$now = new DateTime();
 			
+			// load user model
+			$this->User->create($this->Auth->user());
+			
 			// update 'last_access' field
 			$this->User->saveField('last_access', $now->format(DateTime::ISO8601));
+			
+			// redirect
+			$this->redirect($this->Auth->loginRedirect);
 		}
 		else
 		{
