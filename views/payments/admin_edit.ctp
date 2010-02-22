@@ -1,6 +1,6 @@
 <div class="actions">
 	<ul>
-		<li><?php echo $html->link(__('Apagar', true), array('action' => 'delete', $form->value('Payment.id')), null, sprintf(__('Are you sure you want to delete # %s?', true), $form->value('Payment.id'))); ?></li>
+		<li><?php echo $html->link(__('Apagar', true), array('action' => 'delete', $form->value('Payment.id')), null, sprintf(__('Tem certeza que deseja apagar # %s?', true), $form->value('Payment.id'))); ?></li>
 		<li><?php echo $html->link(__('Listar Pagamentos', true), array('action' => 'index'));?></li>
 		<li><?php echo $html->link(__('Listar Inscrições', true), array('controller' => 'subscriptions', 'action' => 'index')); ?> </li>
 		<li><?php echo $html->link(__('Nova Inscrição', true), array('controller' => 'subscriptions', 'action' => 'add')); ?> </li>

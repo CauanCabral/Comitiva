@@ -1,28 +1,23 @@
+<div class="actions">
+	<ul>
+		<li><?php echo $html->link(__('Apagar', true), array('action' => 'delete', $form->value('Event.id')), null, sprintf(__('Tem certeza que deseja apagar # %s?', true), $form->value('Event.id'))); ?></li>
+		<li><?php echo $html->link(__('Listar Eventos', true), array('action' => 'index'));?></li>
+		<li><?php echo $html->link(__('Listar Datas de Eventos', true), array('controller' => 'event_dates', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('Listar Preços de Eventos', true), array('controller' => 'event_prices', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('Listar Inscrições', true), array('controller' => 'subscriptions', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('Nova Inscriçao', true), array('controller' => 'subscriptions', 'action' => 'add')); ?> </li>
+	</ul>
+</div>
 <div class="events form">
 <?php echo $form->create('Event');?>
 	<fieldset>
- 		<legend><?php __('Edit Event');?></legend>
+ 		<legend><?php __('Editar Evento');?></legend>
 	<?php
-		echo $form->input('id');
-		echo $form->input('title');
-		echo $form->input('description');
-		echo $form->input('parent_id');
-		echo $form->input('free');
+		echo $form->input('title',__('Titulo'));
+		echo $form->input('description',__('Descrição'));
+		echo $form->input('parent_id',__('Evento Pai'));
+		echo $form->input('free', __('Gratuito?'));
 	?>
 	</fieldset>
 <?php echo $form->end('Submit');?>
-</div>
-<div class="actions">
-	<ul>
-		<li><?php echo $html->link(__('Delete', true), array('action' => 'delete', $form->value('Event.id')), null, sprintf(__('Are you sure you want to delete # %s?', true), $form->value('Event.id'))); ?></li>
-		<li><?php echo $html->link(__('List Events', true), array('action' => 'index'));?></li>
-		<li><?php echo $html->link(__('List Events', true), array('controller' => 'events', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Parent Event', true), array('controller' => 'events', 'action' => 'add')); ?> </li>
-		<li><?php echo $html->link(__('List Event Dates', true), array('controller' => 'event_dates', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Event Date', true), array('controller' => 'event_dates', 'action' => 'add')); ?> </li>
-		<li><?php echo $html->link(__('List Event Prices', true), array('controller' => 'event_prices', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Event Price', true), array('controller' => 'event_prices', 'action' => 'add')); ?> </li>
-		<li><?php echo $html->link(__('List Subscriptions', true), array('controller' => 'subscriptions', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Subscription', true), array('controller' => 'subscriptions', 'action' => 'add')); ?> </li>
-	</ul>
 </div>
