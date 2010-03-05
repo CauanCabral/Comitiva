@@ -51,10 +51,8 @@ class EventsController extends AppController
 			}
 		}
 		
-		// FIXME cake diz que não exite propriedade 'ParentEvent', porém este é um relacionamento belongsTo
-		//$parentEvents = $this->Event->ParentEvent->find('list');
-		
-		//$this->set(compact('parentEvents'));
+		$events = $this->Event->find('list');
+		$this->set(compact('events'));
 	}
 
 	function admin_edit($id = null) {

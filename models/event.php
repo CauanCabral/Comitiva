@@ -3,7 +3,7 @@ class Event extends AppModel
 {
 	public $name = 'Event';
 	
-	public $displayField = 'alias';
+	public $displayField = 'title';
 	
 	public $validate = array(
 		'title' => array(
