@@ -80,7 +80,7 @@
  *
  * [Note Routing.admin is deprecated in 1.3.  Use Routing.prefixes instead]
  */
-	//Configure::write('Routing.admin', 'admin');
+	Configure::write('Routing.admin', 'admin');
 
 /**
  * Uncomment the define below to use CakePHP prefix routes.
@@ -204,7 +204,7 @@
 /**
  * A random string used in security hashing methods.
  */
-	Configure::write('Security.salt', '2ad8ef521f45b17f93450d48ab883f611cdef14a');
+	Configure::write('Security.salt', '79271b7807b063cbc7388e8ab65b3c842d1588c5');
 
 /**
  * A random numeric string (digits only) used to encrypt/decrypt strings.

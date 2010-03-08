@@ -27,7 +27,10 @@ class UsersController extends AppController
 	/***********************
 	 * Public actions 
 	 ***********************/
-	
+	public function index()
+	{
+		$this->redirect('login');
+	}
 	public function login()
 	{
 		if($this->Auth->user())
@@ -126,7 +129,7 @@ class UsersController extends AppController
 			{
 				$this->__sendAccountConfirmMail($this->User->read());
 				
-				$this->redirect('/login');
+				$this->redirect('login');
 			}
 			else
 			{
@@ -303,7 +306,8 @@ class UsersController extends AppController
 	 */
 	protected function __sendAccountConfirmMail($userData)
 	{		
-		$this->set('token', $user['User']['account_validation_token']);
+		
+		$this->set('token', $this->data['User']['account_validation_token']);
 		
 		if($success)
 		{

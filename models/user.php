@@ -8,16 +8,21 @@ class User extends AppModel
 	public $validate = array(
 		'username' => array(
 			'notempty' => array('rule' => array('notempty')),
-			'alphanumeric' => array('rule' => array('alphanumeric')),
+			'unique' => array('rule' => array('isUnique')),
+			'alphanumeric' => array('rule' => array('alphanumeric'))
 		),
 		'email' => array(
-			'email' => array('rule' => array('email')),
-			'notempty' => array('rule' => array('notempty')),
+			'email' => array(
+				'rule' => array('email'),
+			),
+			'notempty' => array(
+				'rule' => array('notempty')
+			),
+			'unique' => array(
+				'rule' => array('isUnique'),
+			)
 		),
 		'name' => array(
-			'notempty' => array('rule' => array('notempty')),
-		),
-		'nickname' => array(
 			'notempty' => array('rule' => array('notempty')),
 		),
 		'birthday' => array(
