@@ -138,6 +138,17 @@ class UsersController extends AppController
 		}
 	}
 
+	public function account_confirm($user,$hash = NULL)
+	{
+		if(isset($hash))
+		{
+			
+		}
+		else
+		{
+			
+		}
+	}
 	/*******************
 	 * Admin actions
 	 ******************/
