@@ -14,7 +14,6 @@ echo $paginator->counter(array(
 </p>
 <table cellpadding="0" cellspacing="0">
 <tr>
-	<th><?php echo $paginator->sort(__('ID', TRUE), 'Event.id');?></th>
 	<th><?php echo $paginator->sort(__('Título', TRUE), 'Event.title');?></th>
 	<th><?php echo $paginator->sort(__('Macro Evento', TRUE), 'Event.parent_id');?></th>
 	<th><?php echo $paginator->sort(__('Gratuito?', TRUE), 'Event.free');?></th>
@@ -31,9 +30,6 @@ foreach ($events as $event):
 	}
 ?>
 	<tr<?php echo $class;?>>
-		<td>
-			<?php echo $event['Event']['id']; ?>
-		</td>
 		<td>
 			<?php echo $event['Event']['title']; ?>
 		</td>

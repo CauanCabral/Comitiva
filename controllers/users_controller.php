@@ -122,7 +122,7 @@ class UsersController extends AppController
 			
 			$this->User->create($this->data);
 			
-			if ($this->User->save())
+			if ($this->__validPassword() && $this->User->save())
 			{
 				$this->__sendAccountConfirmMail($this->User->read());
 				
@@ -167,7 +167,7 @@ class UsersController extends AppController
 		{
 			$this->User->create();
 			
-			if ($this->User->save($this->data))
+			if ($this->__validPassword() && $this->User->save($this->data))
 			{
 				$this->Session->setFlash(__('Usuário adicionado', true));
 				$this->redirect(array('action' => 'index'));
@@ -331,6 +331,16 @@ class UsersController extends AppController
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * Usa os dados vindos de formulário para confirmar se a senha e a confirmação de senha batem
+	 * 
+	 * @return boolean
+	 */
+	private function __validPassword()
+	{
+		return ($this->data['User']['password'] == $this->Auth->password($this->data['User']['password_confirm']));
 	}
 }
 ?>

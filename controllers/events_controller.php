@@ -5,6 +5,8 @@ class EventsController extends AppController
 	public $name = 'Events';
 	
 	public $uses = array('Event');
+	
+	public $helpers = array('Js'); //inclui helper Javascript, por default, com suporte a Jquery
 
 	public function isAuthorized()
 	{
@@ -40,6 +42,7 @@ class EventsController extends AppController
 		if (!empty($this->data))
 		{
 			$this->Event->create();
+			
 			if ($this->Event->save($this->data))
 			{
 				$this->Session->setFlash(__('Novo evento salvo!', true));
