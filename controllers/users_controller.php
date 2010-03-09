@@ -138,16 +138,36 @@ class UsersController extends AppController
 		}
 	}
 
-	public function account_confirm($user,$hash = NULL)
+	public function account_confirm($hash = NULL,$user)
 	{
-		if(isset($hash))
+		if(isset($hash) && isset($user))
 		{
-			
+			$userData = $this->User->find('first', array(
+				'conditions' => array(
+					'username' => $user
+				)
+			));
+			if($userData['User']['active'])
+			{
+				$this->Session->setFlash(__('Seu cadastro já foi verificado',1));
+				$this->redirect('/');
+			}
+			if($userData['User']['account_validation_token'] == $hash)
+			{
+				$userData['User']['active'] = true;
+				$this->User->save($userData);
+				$this->Session->setFlash(__('Cadastro Verificado com Sucesso!',1));
+				$this->redirect('/');
+			}
+			else
+			{
+				$this->Session->setFlash(__('Código de verificação inválido!',1));
+				$this->redirect('/');
+			}
 		}
-		else
-		{
-			
-		}
+		$this->Session->setFlash(__('Verifique o nome de usuário e código de verificação!',1));
+		$this->redirect('/');
+
 	}
 	/*******************
 	 * Admin actions
