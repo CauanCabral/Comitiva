@@ -38,7 +38,7 @@ class AppController extends Controller
 	
 	public $components = array('Auth', 'RequestHandler', 'Session');
 	
-	public $helpers = array('Html', 'Form', 'Session');
+	public $helpers = array('Html', 'Form', 'Js', 'Session');
 	
 	public $uses = array(); // ATENÇÃO! não carregue modelos no  AppController. Em último caso utilize Controller::loadModel
 	
@@ -136,21 +136,38 @@ class AppController extends Controller
 	 */
 	private function __buildMenu()
 	{
-		$menu = array(
-			__('Eventos', TRUE) => array(
-				'controller' => 'events',
-				'action' => 'index'
-			),
-			__('Usuários', TRUE) => array(
-				'controller' => 'users',
-				'action' => 'index'
-			),
-			__('Meus Dados',TRUE) => array(
-				'controller' => 'users',
-				'action' => 'profile'
-			),
-			__('Sair', TRUE) => '/logout',
-		);
+		if(User::get('type') == 'admin')
+		{
+			$menu = array(
+				__('Eventos', TRUE) => array(
+					'controller' => 'events',
+					'action' => 'index'
+				),
+				__('Usuários', TRUE) => array(
+					'controller' => 'users',
+					'action' => 'index'
+				),
+				__('Minha conta',TRUE) => array(
+					'controller' => 'users',
+					'action' => 'profile'
+				),
+				__('Sair', TRUE) => '/logout',
+			);
+		}
+		else
+		{
+			$menu = array(
+				__('Eventos', TRUE) => array(
+					'controller' => 'events',
+					'action' => 'index'
+				),
+				__('Minha conta', TRUE) => array(
+					'controller' => 'users',
+					'action' => 'profile'
+				),
+				__('Sair', TRUE) => '/logout',
+			);
+		}
 		
 		$this->set('menuItems', $menu);
 	}
@@ -166,6 +183,17 @@ class AppController extends Controller
 		{
 			//$this->layout = 'error';
 		}
+	}
+	
+	/**
+	 * This method prepare default a ajax response
+	 */
+	protected function __prepareAjax($autoRender = false)
+	{
+		Configure::write('Cache.disable', true);
+		Configure::write('debug', 0);
+		
+		$this->autoRender = $autoRender;
 	}
 }
 ?>

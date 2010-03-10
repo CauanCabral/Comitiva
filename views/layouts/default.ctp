@@ -34,7 +34,7 @@
 		
 		echo $this->Html->css('jquery/ui');
 
-		echo $this->Html->script('jquery.min');
+		echo $this->Html->script('jquery/jquery.min');
 		
 		// jquery-ui related
 		echo $this->Html->script('jquery/ui/jquery.ui.core.min');
@@ -44,7 +44,6 @@
 		// others
 		echo $this->Html->script('menu');
 
-		
 		echo $scripts_for_layout;
 	?>
 </head>
@@ -76,6 +75,11 @@
 			?>
 		</div>
 	</div>
-	<?php echo $this->element('sql_dump'); ?>
+	<?php
+		// include js generated code
+		echo $this->Js->writeBuffer();
+	
+		echo $this->element('sql_dump');
+	?>
 </body>
 </html>

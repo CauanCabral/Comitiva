@@ -12,7 +12,12 @@
 		echo $this->Form->input('Event.description', array('label' => __('Descrição',TRUE)));
 		echo $this->Form->input('Event.parent_id', array('label' => __('Macro Evento', TRUE), 'options' => $events));
 		echo $this->Form->input('Event.free', array('label' => __('Gratuito?',TRUE)));
-		echo $this->Html->link(__('Adicionar data ao evento', TRUE), '');
+		echo '<div id="eventDates"></div>';
+		echo $this->Js->link(
+			__('Adicionar data ao evento', TRUE),
+			array('controller' => 'events', 'action' => 'event_date_add', 'prefix' => 'admin'),
+			array('wrapCallbacks' => false, 'success' => 'function(data, textStatus) {$("#eventDates").append(data);}')
+		);
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Salvar', TRUE));?>

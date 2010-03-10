@@ -5,8 +5,6 @@ class EventsController extends AppController
 	public $name = 'Events';
 	
 	public $uses = array('Event');
-	
-	public $helpers = array('Js'); //inclui helper Javascript, por default, com suporte a Jquery
 
 	public function isAuthorized()
 	{
@@ -109,5 +107,37 @@ class EventsController extends AppController
 		}
 		$this->set('event', $this->Event->read(null, $id));
 	}
+	
+	/*
+	 * Ações assíncronaas (admin)
+	 */
+	
+	public function admin_event_date_add()
+	{
+		if($this->RequestHandler->isAjax())
+		{
+			$this->__prepareAjax();
+			$this->viewPath = '/elements/forms';
+			
+			$this->render('event_date_add');
+		}
+	}
+	
+	public function admin_event_date_delete()
+	{
+		if($this->RequestHandler->isAjax())
+		{
+			
+		}
+	}
+	
+	public function admin_event_price_add()
+	{
+		if($this->RequestHandler->isAjax())
+		{
+			
+		}
+	}
+	
 }
 ?>
