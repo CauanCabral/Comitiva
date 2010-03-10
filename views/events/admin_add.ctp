@@ -16,7 +16,10 @@
 		echo $this->Js->link(
 			__('Adicionar data ao evento', TRUE),
 			array('controller' => 'events', 'action' => 'event_date_add', 'prefix' => 'admin'),
-			array('wrapCallbacks' => false, 'success' => 'function(data, textStatus) {$("#eventDates").append(data);}')
+			array(
+				'wrapCallbacks' => false,
+				'success' => 'function(data, textStatus) {$("#eventDates").append(data);}'
+			)
 		);
 	?>
 	</fieldset>

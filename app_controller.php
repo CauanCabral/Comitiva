@@ -159,11 +159,13 @@ class AppController extends Controller
 			$menu = array(
 				__('Eventos', TRUE) => array(
 					'controller' => 'events',
-					'action' => 'index'
+					'action' => 'index',
+					'prefix' => 'participant'
 				),
 				__('Minha conta', TRUE) => array(
 					'controller' => 'users',
-					'action' => 'profile'
+					'action' => 'profile',
+					'prefix' => 'participant'
 				),
 				__('Sair', TRUE) => '/logout',
 			);

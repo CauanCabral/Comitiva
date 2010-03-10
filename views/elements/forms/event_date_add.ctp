@@ -1,3 +1,7 @@
 <?php
-	echo $this->Form->input('EventDate.date', array('label' => __('Data', TRUE)));
+	if(!isset($i) || !is_int($i))
+	{
+		$i = 0;
+	}
+	echo $this->Form->input("EventDate.{$i}.date", array('label' => __('Data', TRUE)));
 ?>
