@@ -27,10 +27,7 @@ class UsersController extends AppController
 	/***********************
 	 * Public actions 
 	 ***********************/
-	public function index()
-	{
-		$this->redirect('login');
-	}
+
 	public function login()
 	{
 		if($this->Auth->user())
@@ -262,6 +259,28 @@ class UsersController extends AppController
 	{	
 		$this->set('user', User::get('User'));
 		$this->render('profile');
+	}
+	
+	public function participant_edit()
+	{
+		
+		if(isset($this->data))
+		{
+		/*	if($this->User->save($this->data))
+			{
+				pr($this->data);
+				$this->Session->setFlash(__('Dados Atualizados!',1));
+				$this->redirect('users/profile');
+			}
+			else
+			{
+				
+			}*/
+		}
+		
+		$this->data = User::get('User');
+
+		
 	}
 	
 	/***************************

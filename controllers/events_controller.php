@@ -102,7 +102,8 @@ class EventsController extends AppController
 
 	public function participant_view($id = null)
 	{
-		if (!$id) {
+		if (!$id) 
+		{
 			$this->Session->setFlash(__('Evento inválido', true));
 			$this->redirect(array('action' => 'index'));
 		}

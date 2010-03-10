@@ -1,27 +1,36 @@
 <div class="users form">
-<?php echo $form->create('User');?>
+<?php echo $form->create('User', array('action' => 'edit'));?>
 	<fieldset>
- 		<legend><?php __('Edit User');?></legend>
+ 		<legend><?php __('Editar Dados');?></legend>
 	<?php
-		echo $form->input('id');
-		echo $form->input('username');
-		echo $form->input('password');
+		echo $form->input('id', array('type'=>'hidden','value' => $this->data['User']['id']));
+		echo $form->input('username', array(
+			'label' => __('Nome de Usuário'),
+			'disabled' => true
+		));
+		echo $form->input('password',array(
+			'label' => __('Senha')	
+		));
 		echo $form->input('email');
-		echo $form->input('name');
-		echo $form->input('nickname');
-		echo $form->input('birthday');
-		echo $form->input('token');
-		echo $form->input('token_expires_at');
-		echo $form->input('last_access');
+		echo $form->input('User.name',array(
+			'label' => __('Nome')
+		));
+		echo $form->input('nickname',array(
+			'label' => __('Sobrenome')
+		));
+		echo $form->input('birthday',array(
+			'label' => __('Nascimento'),
+			'type' => 'date',
+			'minYear' => '1910',
+			'maxYear' => '2010',
+			'dateFormat' => 'DMY'
+		));
 	?>
 	</fieldset>
 <?php echo $form->end('Submit');?>
 </div>
 <div class="actions">
 	<ul>
-		<li><?php echo $html->link(__('Delete', true), array('action' => 'delete', $form->value('User.id')), null, sprintf(__('Are you sure you want to delete # %s?', true), $form->value('User.id'))); ?></li>
-		<li><?php echo $html->link(__('List Users', true), array('action' => 'index'));?></li>
-		<li><?php echo $html->link(__('List Subscriptions', true), array('controller' => 'subscriptions', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Subscription', true), array('controller' => 'subscriptions', 'action' => 'add')); ?> </li>
+		<li><?php echo $html->link(__('Minhas Inscrições', true), array('controller' => 'subscriptions', 'action' => 'index')); ?> </li>
 	</ul>
 </div>

@@ -145,6 +145,10 @@ class AppController extends Controller
 				'controller' => 'users',
 				'action' => 'index'
 			),
+			__('Meus Dados',TRUE) => array(
+				'controller' => 'users',
+				'action' => 'profile'
+			),
 			__('Sair', TRUE) => '/logout',
 		);
 		
