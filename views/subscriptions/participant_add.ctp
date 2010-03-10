@@ -1,22 +1,36 @@
 <div class="subscriptions form">
-<?php echo $form->create('Subscription');?>
+
+<?php echo $form->create('Subscription', array('action' => 'add'));?>
+<?php ?>
 	<fieldset>
- 		<legend><?php __('Add Subscription');?></legend>
-	<?php
-		echo $form->input('user_id');
-		echo $form->input('event_id');
-	?>
+ 		<legend><?php __('Confirme sua Inscrição');?></legend>
+	<h1><?php __('Nome do Evento') ?></h1>
+		<?php  if(isset($event)) { 
+	
+		 	echo $form->input('Event.id', array('type' => 'hidden', 'value' => $event['Event']['id']));
+			echo '<h3>'.$event['Event']['title'].'</h3>'; 
+		?>
+		<h1><?php __('Data do Evento') ?></h1>
+		<h3><?php echo @$event['EventDate']['date']; ?> </h3>
+		<h1><?php __('Valor do Evento') ?></h1>
+		<h3><?php echo @$event['EventPrice']['price']; ?> </h3>
+		<h1><?php __('Macro Evento') ?></h1>
+		<h3><?php echo $event['ParentEvent']['title']; ?> </h3>
+		<?php 
+		}
+		else
+		{ 
+			echo $form->input('event_id');
+		}
+		?> 
+	
 	</fieldset>
-<?php echo $form->end('Submit');?>
+<?php echo $form->end('Confirmar');?>
 </div>
 <div class="actions">
 	<ul>
 		<li><?php echo $html->link(__('List Subscriptions', true), array('action' => 'index'));?></li>
-		<li><?php echo $html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New User', true), array('controller' => 'users', 'action' => 'add')); ?> </li>
 		<li><?php echo $html->link(__('List Events', true), array('controller' => 'events', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Event', true), array('controller' => 'events', 'action' => 'add')); ?> </li>
-		<li><?php echo $html->link(__('List Payments', true), array('controller' => 'payments', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Payment', true), array('controller' => 'payments', 'action' => 'add')); ?> </li>
+
 	</ul>
 </div>

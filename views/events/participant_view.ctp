@@ -37,7 +37,7 @@
 <div class="actions">
 	<ul>
 		<li><?php echo $html->link(__('Listar Eventos', true), array('action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('Inscrever neste evento', true), array('controller' => 'events', 'action' => 'subscribe',$event['Event']['id'])); ?> </li>
+		<li><?php echo $html->link(__('Inscrever neste evento', true), array('controller' => 'subscriptions', 'action' => 'add',$event['Event']['id'])); ?> </li>
 	</ul>
 </div>
 <div class="related">

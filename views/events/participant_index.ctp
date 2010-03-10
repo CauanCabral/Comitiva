@@ -38,7 +38,7 @@ foreach ($events as $event):
 		</td>
 		<td class="actions">
 			<?php echo $html->link(__('Visualizar', true), array('action' => 'view', $event['Event']['id'])); ?>
-			<?php echo $html->link(__('Inscrever-se', true), array('action' => 'subscribe', $event['Event']['id']), null, sprintf(__('Tem certeza que deseja inscrever-se neste evento? # %s?', true), $event['Event']['id'])); ?>
+			<?php echo $html->link(__('Inscrever-se', true), array('controller' => 'subscriptions' ,'action' => 'add', $event['Event']['id']), null, sprintf(__('Tem certeza que deseja inscrever-se no evento %s?', true), $event['Event']['title'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

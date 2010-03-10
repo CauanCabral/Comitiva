@@ -3,7 +3,7 @@ class SubscriptionsController extends AppController
 {
 
 	public $name = 'Subscriptions';
-	
+	public $uses = array('Subscription');
 	public function isAuthorized()
 	{
 		if($this->userLogged === TRUE && $this->params['prefix'] == User::get('type'))
@@ -125,26 +125,30 @@ class SubscriptionsController extends AppController
 		$this->set('subscription', $this->Subscription->read(null, $id));
 	}
 
-	public function participant_add()
+	public function participant_add($event_id = null)
 	{
-		if (!empty($this->data))
-		{
-			$this->Subscription->create();
 			
-			if ($this->Subscription->save($this->data))
-			{
-				$this->Session->setFlash(__('Nova inscrição salva!', true));
-				$this->redirect(array('action' => 'index'));
-			}
-			else
-			{
-				$this->Session->setFlash(__('A inscrição não pôde ser salva. Tente novamente.', true));
-			}
+		if(isset($event_id))
+		{
+			$event = $this->Subscription->Event->read(null,$event_id);
+			$this->set(compact( 'event'));
 		}
-		
-		$users = $this->Subscription->User->find('list');
+		if (!empty($this->data))
+			{
+				$this->Subscription->create();
+				pr($this->data);
+				/*if ($this->Subscription->save($this->data))
+				{
+					$this->Session->setFlash(__('Sua inscrição no evento foi efetuada!', true));
+					$this->redirect(array('action' => 'index'));
+				}
+				else
+				{
+					$this->Session->setFlash(__('A inscrição não pôde ser feita. Tente novamente.', true));
+				}*/
+		}
 		$events = $this->Subscription->Event->find('list');
-		$this->set(compact('users', 'events'));
+		$this->set(compact( 'events'));
 	}
 
 	public function participant_edit($id = null)

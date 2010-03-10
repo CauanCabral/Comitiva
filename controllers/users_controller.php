@@ -264,18 +264,18 @@ class UsersController extends AppController
 	public function participant_edit()
 	{
 		
-		if(isset($this->data))
+		if(!empty($this->data))
 		{
-		/*	if($this->User->save($this->data))
+			if($this->User->save($this->data))
 			{
-				pr($this->data);
 				$this->Session->setFlash(__('Dados Atualizados!',1));
-				$this->redirect('users/profile');
+				$this->redirect('profile');
 			}
 			else
 			{
-				
-			}*/
+				$this->Session->setFlash(__('Erro ao Atualizar Dados',1));
+				$this->redirect('profile');
+			}
 		}
 		
 		$this->data = User::get('User');
