@@ -37,7 +37,7 @@ foreach ($events as $event):
 			<?php echo $html->link($event['ParentEvent']['title'], array('controller' => 'events', 'action' => 'view', $event['ParentEvent']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $event['Event']['free']; ?>
+			<?php $event['Event']['free'] == TRUE ? __('Sim') : __('Não'); ?>
 		</td>
 		<td>
 			<?php echo $event['Event']['created']; ?>
