@@ -39,8 +39,6 @@ foreach ($subscriptions as $subscription):
 		</td>
 		<td class="actions">
 			<?php echo $html->link(__('Ver', true), array('action' => 'view', $subscription['Subscription']['id'])); ?>
-			<?php echo $html->link(__('Alterar', true), array('action' => 'edit', $subscription['Subscription']['id'])); ?>
-			<?php echo $html->link(__('Remover', true), array('action' => 'delete', $subscription['Subscription']['id']), null, sprintf(__('Deseja realmente excluir # %s?', true), $subscription['Subscription']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

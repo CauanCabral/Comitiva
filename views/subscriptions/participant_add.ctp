@@ -5,8 +5,7 @@
 	<fieldset>
  		<legend><?php __('Confirme sua Inscrição');?></legend>
 	<h1><?php __('Nome do Evento') ?></h1>
-		<?php  if(isset($event)) { 
-	
+		<?php
 		 	echo $form->input('Event.id', array('type' => 'hidden', 'value' => $event['Event']['id']));
 			echo '<h3>'.$event['Event']['title'].'</h3>'; 
 		?>
@@ -16,13 +15,7 @@
 		<h3><?php echo @$event['EventPrice']['price']; ?> </h3>
 		<h1><?php __('Macro Evento') ?></h1>
 		<h3><?php echo $event['ParentEvent']['title']; ?> </h3>
-		<?php 
-		}
-		else
-		{ 
-			echo $form->input('event_id');
-		}
-		?> 
+	
 	
 	</fieldset>
 <?php echo $form->end('Confirmar');?>
