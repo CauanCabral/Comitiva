@@ -119,6 +119,17 @@ class EventsController extends AppController
 			$this->__prepareAjax();
 			$this->viewPath = '/elements/forms';
 			
+			if(isset($this->params['url']['lastDateIndex']) && $this->params['url']['lastDateIndex'] != null)
+			{
+				$i = Sanitize::paranoid($this->params['url']['lastDateIndex']) + 1;
+			}
+			else
+			{
+				$i = 0;
+			}
+			
+			$this->set('i',$i);
+			
 			$this->render('event_date_add');
 		}
 	}
