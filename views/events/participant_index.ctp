@@ -14,8 +14,8 @@ echo $paginator->counter(array(
 <table cellpadding="0" cellspacing="0">
 <tr>
 	<th><?php echo $paginator->sort('id');?></th>
-	<th><?php echo $paginator->sort('title');?></th>
-	<th><?php echo $paginator->sort('free');?></th>
+	<th><?php echo __('Nome do Evento',1);?></th>
+	<th><?php echo __('Grátis',1);?></th>
 	<th class="actions"><?php __('Ações');?></th>
 </tr>
 <?php
@@ -38,7 +38,7 @@ foreach ($events as $event):
 		</td>
 		<td class="actions">
 			<?php echo $html->link(__('Visualizar', true), array('action' => 'view', $event['Event']['id'])); ?>
-			<?php echo $html->link(__('Inscrever-se', true), array('controller' => 'subscriptions' ,'action' => 'add', $event['Event']['id']), null, sprintf(__('Tem certeza que deseja inscrever-se no evento %s?', true), $event['Event']['title'])); ?>
+			<?php echo $html->link(__('Inscrever-se', true), array('controller' => 'subscriptions' ,'action' => 'add', $event['Event']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

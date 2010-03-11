@@ -6,7 +6,7 @@
  		<legend><?php __('Confirme sua Inscrição');?></legend>
 	<h1><?php __('Nome do Evento') ?></h1>
 		<?php
-		 	echo $form->input('Event.id', array('type' => 'hidden', 'value' => $event['Event']['id']));
+		 	echo $form->input('Subscription.event_id', array('type' => 'hidden', 'value' => $event['Event']['id']));
 			echo '<h3>'.$event['Event']['title'].'</h3>'; 
 		?>
 		<h1><?php __('Data do Evento') ?></h1>

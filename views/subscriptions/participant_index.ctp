@@ -1,6 +1,5 @@
 <div class="actions">
 	<ul>
-		<li><?php echo $html->link(__('Nova Inscrição', true), array('action' => 'add')); ?></li>
 		<li><?php echo $html->link(__('Listar Eventos', true), array('controller' => 'events', 'action' => 'index')); ?> </li>
 	</ul>
 </div>
@@ -16,7 +15,7 @@ echo $paginator->counter(array(
 <tr>
 	<th><?php echo $paginator->sort('id');?></th>
 	<th><?php echo $paginator->sort(__('Evento', TRUE), 'event_id');?></th>
-	<th><?php echo $paginator->sort(__('Data', TRUE), 'created');?></th>
+	<th><?php echo __('Pagamento', TRUE);?></th>
 	<th class="actions"><?php __('Ações');?></th>
 </tr>
 <?php
@@ -39,6 +38,7 @@ foreach ($subscriptions as $subscription):
 		</td>
 		<td class="actions">
 			<?php echo $html->link(__('Ver', true), array('action' => 'view', $subscription['Subscription']['id'])); ?>
+			<?php echo $html->link(__('Informar Pagamento', true), array('controller' => 'payments', 'action' => 'add', $subscription['Subscription']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

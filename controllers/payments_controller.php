@@ -124,15 +124,20 @@ class PaymentsController extends AppController
 		$this->set('payment', $this->Payment->read(null, $id));
 	}
 
-	public function participant_add()
+	public function participant_add($subscription_id)
 	{
+		if(!isset($subscription_id))
+		{
+			$this->Session->setFlash(__('Pagamento Inválido', true));
+			$this->redirect(array('action' => 'index'));
+		}
 		if (!empty($this->data))
 		{
 			$this->Payment->create();
-			
+		
 			if ($this->Payment->save($this->data))
 			{
-				$this->Session->setFlash(__('Novo pagamento registrado!', true));
+				$this->Session->setFlash(__('Pagamento Informado!', true));
 				$this->redirect(array('action' => 'index'));
 			}
 			else
@@ -141,8 +146,13 @@ class PaymentsController extends AppController
 			}
 		}
 		
-		$subscriptions = $this->Payment->Subscription->find('list');
-		$this->set(compact('subscriptions'));
+		$subscription = $this->Payment->Subscription->find('first',array('conditions' => array('Subscription.id' => $subscription_id)));
+		if(!empty($subscription))
+		{
+			$this->Session->setFlash(__('Este Pagamento Já Foi Informado!', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		$this->set(compact('subscription'));
 	}
 }
 ?>

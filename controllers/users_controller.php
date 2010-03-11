@@ -266,6 +266,7 @@ class UsersController extends AppController
 		
 		if(!empty($this->data))
 		{
+			$this->data['User']['password'] =  $this->Auth->password($this->data['User']['password']);
 			if($this->User->save($this->data))
 			{
 				$this->Session->setFlash(__('Dados Atualizados!',1));

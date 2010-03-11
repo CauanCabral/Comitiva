@@ -4,10 +4,13 @@ class SubscriptionsController extends AppController
 
 	public $name = 'Subscriptions';
 	public $uses = array('Subscription');
+	public $user ;
+	
 	public function isAuthorized()
 	{
 		if($this->userLogged === TRUE && $this->params['prefix'] == User::get('type'))
 		{
+			$this->user = $this->Auth->user();
 			return true;
 		}
 		
@@ -111,7 +114,7 @@ class SubscriptionsController extends AppController
 	public function participant_index()
 	{
 		$this->Subscription->recursive = 0;
-		$this->set('subscriptions', $this->paginate());
+		$this->set('subscriptions', $this->paginate(array('user_id' => $this->user['User']['id'])));
 	}
 
 	public function participant_view($id = null)
@@ -128,27 +131,34 @@ class SubscriptionsController extends AppController
 	public function participant_add($event_id = null)
 	{
 			
+		if (!empty($this->data))
+		{
+			$this->Subscription->create();
+			$this->data['Subscription']['user_id'] = $this->user['User']['id'];
+
+			if ($this->Subscription->save($this->data))
+			{
+				$this->Session->setFlash(__('Sua inscrição no evento foi efetuada!', true));
+				$this->redirect(array('action' => 'index'));
+			}
+			else
+			{
+				$this->Session->setFlash(__('A inscrição não pôde ser feita. Tente novamente.', true));
+				$this->redirect(array('action' => 'index'));
+			}
+		}
 		if(isset($event_id))
 		{
+			$subscription = $this->Subscription->find('first', array('conditions' => array('event_id' => $event_id)));
+			
+			if(!empty($subscription))
+			{
+				$this->Session->setFlash(__('Sua inscrição neste evento já foi efetuada!', true));
+				$this->redirect(array('action' => 'index'));
+			}
 			$event = $this->Subscription->Event->read(null,$event_id);
 			$this->set(compact( 'event'));
 		}
-		if (!empty($this->data))
-			{
-				$this->Subscription->create();
-				pr($this->data);
-				/*if ($this->Subscription->save($this->data))
-				{
-					$this->Session->setFlash(__('Sua inscrição no evento foi efetuada!', true));
-					$this->redirect(array('action' => 'index'));
-				}
-				else
-				{
-					$this->Session->setFlash(__('A inscrição não pôde ser feita. Tente novamente.', true));
-				}*/
-		}
-		$events = $this->Subscription->Event->find('list');
-		$this->set(compact( 'events'));
 	}
 
 	public function participant_edit($id = null)

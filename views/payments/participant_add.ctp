@@ -1,21 +1,19 @@
 <div class="payments form">
-<?php echo $form->create('Payment');?>
+<?php echo $form->create('Payment', array('action' => 'add'));?>
 	<fieldset>
- 		<legend><?php __('Add Payment');?></legend>
+ 		<legend><?php __('Informar Pagamento');?></legend>
 	<?php
-		echo $form->input('subscription_id');
-		echo $form->input('date');
-		echo $form->input('amount');
-		echo $form->input('information');
-		echo $form->input('confirmed');
+		echo '<h3>'.$subscription['Event']['title'].'</h3>';
+		echo $form->input('Payment.amount', array('label' => __('Valor',1)));
+		echo $form->input('Payment.date', array('type' => 'date', 'label' => 'Data', 'dateFormat' => 'DMY', 'minYear' => '2010', 'maxYear' => '2010'));
+		echo $form->input('Payment.information', array('label' => __('Informações',1), 'type' => 'textarea'));
 	?>
 	</fieldset>
 <?php echo $form->end('Submit');?>
 </div>
 <div class="actions">
 	<ul>
-		<li><?php echo $html->link(__('List Payments', true), array('action' => 'index'));?></li>
-		<li><?php echo $html->link(__('List Subscriptions', true), array('controller' => 'subscriptions', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Subscription', true), array('controller' => 'subscriptions', 'action' => 'add')); ?> </li>
+		<li><?php echo $html->link(__('Minhas Inscrições', true), array('controller' => 'subscriptions', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('Listar Eventos', true), array('controller' => 'subscriptions', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

@@ -25,16 +25,10 @@
 </div>
 <div class="actions">
 	<ul>
-		<li><?php echo $html->link(__('Edit Subscription', true), array('action' => 'edit', $subscription['Subscription']['id'])); ?> </li>
-		<li><?php echo $html->link(__('Delete Subscription', true), array('action' => 'delete', $subscription['Subscription']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $subscription['Subscription']['id'])); ?> </li>
-		<li><?php echo $html->link(__('List Subscriptions', true), array('action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Subscription', true), array('action' => 'add')); ?> </li>
-		<li><?php echo $html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New User', true), array('controller' => 'users', 'action' => 'add')); ?> </li>
-		<li><?php echo $html->link(__('List Events', true), array('controller' => 'events', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Event', true), array('controller' => 'events', 'action' => 'add')); ?> </li>
-		<li><?php echo $html->link(__('List Payments', true), array('controller' => 'payments', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Payment', true), array('controller' => 'payments', 'action' => 'add')); ?> </li>
+		
+		<li><?php echo $html->link(__('Listar Inscrições', true), array('action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('Listar Eventos', true), array('controller' => 'events', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('Novo Pagamento', true), array('controller' => 'payments', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
 <div class="related">
@@ -71,8 +65,6 @@
 			<td><?php echo $payment['modified'];?></td>
 			<td class="actions">
 				<?php echo $html->link(__('View', true), array('controller' => 'payments', 'action' => 'view', $payment['id'])); ?>
-				<?php echo $html->link(__('Edit', true), array('controller' => 'payments', 'action' => 'edit', $payment['id'])); ?>
-				<?php echo $html->link(__('Delete', true), array('controller' => 'payments', 'action' => 'delete', $payment['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $payment['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -81,7 +73,7 @@
 
 	<div class="actions">
 		<ul>
-			<li><?php echo $html->link(__('New Payment', true), array('controller' => 'payments', 'action' => 'add'));?> </li>
+			
 		</ul>
 	</div>
 </div>
