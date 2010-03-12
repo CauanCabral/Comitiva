@@ -124,17 +124,13 @@ class PaymentsController extends AppController
 		$this->set('payment', $this->Payment->read(null, $id));
 	}
 
-	public function participant_add($subscription_id)
+	public function participant_add($subscription_id = null)
 	{
-		if(!isset($subscription_id))
-		{
-			$this->Session->setFlash(__('Pagamento Inválido', true));
-			$this->redirect(array('action' => 'index'));
-		}
+		pr($this->data);
 		if (!empty($this->data))
 		{
 			$this->Payment->create();
-		
+			$this->data['Payment']['subscription_id'] = $this->data['Subscription']['id'];
 			if ($this->Payment->save($this->data))
 			{
 				$this->Session->setFlash(__('Pagamento Informado!', true));
@@ -143,13 +139,23 @@ class PaymentsController extends AppController
 			else
 			{
 				$this->Session->setFlash(__('O pagamento não pôde ser registrado. Tente novamente.', true));
+				$this->redirect(array('action' => 'index'));
 			}
 		}
+		$payment = $this->Payment->find('first',array('conditions' => array(
+			'subscription_id' => $subscription_id,
+		)));
 		
-		$subscription = $this->Payment->Subscription->find('first',array('conditions' => array('Subscription.id' => $subscription_id)));
-		if(!empty($subscription))
+		$subscription = $this->Payment->Subscription->read(null, $subscription_id);
+		if(!empty($payment))
 		{
 			$this->Session->setFlash(__('Este Pagamento Já Foi Informado!', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		
+		if(!isset($subscription_id))
+		{
+			$this->Session->setFlash(__('Pagamento Inválido', true));
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->set(compact('subscription'));

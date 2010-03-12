@@ -22,16 +22,6 @@
 			<?php echo $event['Event']['free']?__('Sim'):__('Não'); ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Criado em'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $event['Event']['created']; ?>
-			&nbsp;
-		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Modificado em'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $event['Event']['modified']; ?>
-			&nbsp;
-		</dd>
 	</dl>
 </div>
 <div class="actions">

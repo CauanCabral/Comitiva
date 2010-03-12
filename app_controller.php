@@ -42,7 +42,7 @@ class AppController extends Controller
 	
 	public $uses = array(); // ATENÇÃO! não carregue modelos no  AppController. Em último caso utilize Controller::loadModel
 	
-	
+	public $activeUser;
 	/************************
 	 * Aditional atributes
 	 ***********************/
@@ -113,19 +113,19 @@ class AppController extends Controller
 		$this->Auth->authError = __('Desculpe, você precisa estar autenticado para acessar esta página.', TRUE);
 		
 		// tmp var to load logged user information
-		$activeUser = $this->Auth->user();
+		$this->activeUser = $this->Auth->user();
 		
-		if($activeUser !== null)
+		if($this->activeUser !== null)
 		{
 			// set control flag
 			$this->userLogged = true;
 			
 			// Define a static access to user information
 			App::import('Model', 'User');
-			User::store($activeUser);
+			User::store($this->activeUser);
 	
 			// Define user information in view class
-			$this->set('activeUser', $activeUser);
+			$this->set('activeUser', $this->activeUser);
 		}
 	}
 	
@@ -154,7 +154,7 @@ class AppController extends Controller
 				__('Sair', TRUE) => '/logout',
 			);
 		}
-		else
+		else 
 		{
 			$menu = array(
 				__('Eventos', TRUE) => array(

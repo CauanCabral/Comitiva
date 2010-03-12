@@ -10,7 +10,7 @@
 	<?php
 		echo $this->Form->input('Event.title', array('label' => __('Titulo',TRUE)));
 		echo $this->Form->input('Event.description', array('label' => __('Descrição',TRUE)));
-		echo $this->Form->input('Event.parent_id', array('label' => __('Macro Evento', TRUE), 'options' => $events));
+		echo $this->Form->input('Event.parent_id', array('label' => __('Macro Evento', TRUE), 'options' => array_merge(array('Selecione um evento'),$events)));
 		echo $this->Form->input('Event.free', array('label' => __('Gratuito?',TRUE)));
 		echo '<div id="eventDates"></div>';
 		/**

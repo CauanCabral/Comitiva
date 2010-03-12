@@ -1,6 +1,7 @@
 <div class="actions">
 	<ul>
 		<li><?php echo $html->link(__('Minhas Inscrições', true), array('controller' => 'subscriptions', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('Meus Pagamentos', true), array('controller' => 'payments', 'action' => 'index')); ?> </li>
 	</ul>
 </div>
 <div class="events index">

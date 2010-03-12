@@ -31,10 +31,10 @@ foreach ($subscriptions as $subscription):
 			<?php echo $subscription['Subscription']['id']; ?>
 		</td>
 		<td>
-			<?php echo $html->link($subscription['Event']['title'], array('controller' => 'events', 'action' => 'view', $subscription['Event']['id'])); ?>
+			<?php echo $html->link($subscription['Event']['title'], array('controller' => 'subscriptions', 'action' => 'view', $subscription['Subscription']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $subscription['Subscription']['created']; ?>
+			<?php //pr($subscriptions) ?>
 		</td>
 		<td class="actions">
 			<?php echo $html->link(__('Ver', true), array('action' => 'view', $subscription['Subscription']['id'])); ?>

@@ -1,3 +1,9 @@
+<div class="actions">
+	<ul>
+		<li><?php echo $html->link(__('Minhas Inscrições', true), array('controller' => 'subscriptions', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('Listar Eventos', true), array('controller' => 'events', 'action' => 'index')); ?> </li>
+	</ul>
+</div>
 <div class="payments index">
 <h2><?php __('Meus Pagamentos');?></h2>
 <p>
@@ -10,8 +16,8 @@ echo $paginator->counter(array(
 <tr>
 	<th><?php echo $paginator->sort('id');?></th>
 	<th><?php echo $paginator->sort('date');?></th>
+	<th><?php echo __('Evento');?></th>
 	<th><?php echo $paginator->sort('amount');?></th>
-	<th><?php echo $paginator->sort('information');?></th>
 	<th><?php echo $paginator->sort('confirmed');?></th>
 
 </tr>
@@ -32,10 +38,10 @@ foreach ($payments as $payment):
 			<?php echo $payment['Payment']['date']; ?>
 		</td>
 		<td>
-			<?php echo $payment['Payment']['amount']; ?>
+			<?php //echo pr($payment) ?>
 		</td>
 		<td>
-			<?php echo $payment['Payment']['information']; ?>
+			<?php echo $payment['Payment']['amount']; ?>
 		</td>
 		<td>
 			<?php echo ($payment['Payment']['confirmed']?__('Sim',1):__('Não',1)); ?>
@@ -50,11 +56,4 @@ foreach ($payments as $payment):
 	<?php echo $paginator->prev('<< '.__('Página Anterior', true), array(), null, array('class'=>'disabled'));?>
  | 	<?php echo $paginator->numbers();?>
 	<?php echo $paginator->next(__('Próxima Página', true).' >>', array(), null, array('class' => 'disabled'));?>
-</div>
-<div class="actions">
-	<ul>
-		<li><?php echo $html->link(__('New Payment', true), array('action' => 'add')); ?></li>
-		<li><?php echo $html->link(__('List Subscriptions', true), array('controller' => 'subscriptions', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Subscription', true), array('controller' => 'subscriptions', 'action' => 'add')); ?> </li>
-	</ul>
 </div>
