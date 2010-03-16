@@ -1,4 +1,6 @@
 <?php
+App::import('CORE', 'Sanitize');
+
 class EventsController extends AppController
 {
 
@@ -22,6 +24,7 @@ class EventsController extends AppController
 	public function admin_index()
 	{
 		$this->Event->recursive = 0;
+		
 		$this->set('events', $this->paginate());
 	}
 
@@ -41,7 +44,7 @@ class EventsController extends AppController
 		{
 			$this->Event->create();
 			
-			if ($this->Event->save($this->data))
+			if ($this->Event->saveAll($this->data))
 			{
 				$this->Session->setFlash(__('Novo evento salvo!', true));
 				$this->redirect(array('action' => 'index'));
@@ -121,14 +124,14 @@ class EventsController extends AppController
 			
 			if(isset($this->params['url']['lastDateIndex']) && $this->params['url']['lastDateIndex'] != null)
 			{
-				$i = Sanitize::paranoid($this->params['url']['lastDateIndex']) + 1;
+				$i = Sanitize::paranoid($this->params['url']['lastDateIndex']) - 1;
 			}
 			else
 			{
 				$i = 0;
 			}
 			
-			$this->set('i',$i);
+			$this->set('i', $i);
 			
 			$this->render('event_date_add');
 		}
@@ -146,7 +149,21 @@ class EventsController extends AppController
 	{
 		if($this->RequestHandler->isAjax())
 		{
+			$this->__prepareAjax();
+			$this->viewPath = '/elements/forms';
 			
+			if(isset($this->params['url']['lastPriceIndex']) && $this->params['url']['lastPriceIndex'] != null)
+			{
+				$i = Sanitize::paranoid($this->params['url']['lastPriceIndex']) - 1;
+			}
+			else
+			{
+				$i = 0;
+			}
+			
+			$this->set('i', $i);
+			
+			$this->render('event_price_add');
 		}
 	}
 	

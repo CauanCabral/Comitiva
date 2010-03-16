@@ -18,7 +18,6 @@ echo $paginator->counter(array(
 	<th><?php echo $paginator->sort(__('Macro Evento', TRUE), 'Event.parent_id');?></th>
 	<th><?php echo $paginator->sort(__('Gratuito?', TRUE), 'Event.free');?></th>
 	<th><?php echo $paginator->sort(__('Data de criação', TRUE), 'Event.created');?></th>
-	<th><?php echo $paginator->sort(__('Data do evento', TRUE), 'EventDate.date');?></th>
 	<th class="actions"><?php __('Actions');?></th>
 </tr>
 <?php
@@ -41,9 +40,6 @@ foreach ($events as $event):
 		</td>
 		<td>
 			<?php echo $event['Event']['created']; ?>
-		</td>
-		<td>
-			<?php echo $event['EventDate']['date']; ?>
 		</td>
 		<td class="actions">
 			<?php echo $html->link(__('Visualizar', true), array('action' => 'view', $event['Event']['id'])); ?>

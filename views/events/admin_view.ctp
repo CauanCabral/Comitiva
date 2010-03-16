@@ -31,10 +31,64 @@
 			&nbsp;
 		</dd>
 	</dl>
+	
+	<?php if (!empty($event['EventDate'])):?>
+	<br />
+	<div class="related">
+		<h3><?php __('Datas');?></h3>
+		
+		<table cellpadding = "0" cellspacing = "0">
+		<tr>
+			<th><?php __('Legenda'); ?></th>
+			<th><?php __('Data'); ?></th>
+		</tr>
+		<?php
+			$i = 0;
+			foreach ($event['EventDate'] as $eventDate):
+				$class = null;
+				if ($i++ % 2 == 0) {
+					$class = ' class="altrow"';
+				}
+			?>
+			<tr<?php echo $class;?>>
+				<td><?php echo $eventDate['label'];?></td>
+				<td><?php echo $eventDate['date'];?></td>
+			</tr>
+		<?php endforeach; ?>
+		</table>
+	</div>
+	<?php endif; ?>
+	
+	<?php if (!empty($event['EventPrice'])):?>
+	<br />
+	<div class="related">
+		<h3><?php __('Valores');?></h3>
+		<table cellpadding = "0" cellspacing = "0">
+		<tr>
+			<th><?php __('Valor'); ?></th>
+			<th><?php __('Período'); ?></th>
+		</tr>
+		<?php
+			$i = 0;
+			foreach ($event['EventPrice'] as $eventPrice):
+				$class = null;
+				if ($i++ % 2 == 0) {
+					$class = ' class="altrow"';
+				}
+			?>
+			<tr<?php echo $class;?>>
+				<td><?php echo $eventPrice['value'];?></td>
+				<td><?php echo $eventPrice['period'];?></td>
+			</tr>
+		<?php endforeach; ?>
+		</table>
+	</div>
+	<?php endif; ?>
+	
+	<?php if (!empty($event['ChildEvent'])):?>
 	<br />
 	<div class="related">
 		<h3><?php __('Sub-eventos');?></h3>
-		<?php if (!empty($event['ChildEvent'])):?>
 		<table cellpadding = "0" cellspacing = "0">
 		<tr>
 			<th><?php __('Nome'); ?></th>
@@ -57,13 +111,13 @@
 				<td><?php echo $childEvent['ParentEvent']['title'];?></td>
 				<td><?php $childEvent['free'] == TRUE ? __('Sim') : __('Não');?></td>
 				<td class="actions">
-					<?php echo $html->link(__('View', true), array('controller' => 'events', 'action' => 'view', $childEvent['id'])); ?>
-					<?php echo $html->link(__('Edit', true), array('controller' => 'events', 'action' => 'edit', $childEvent['id'])); ?>
-					<?php echo $html->link(__('Delete', true), array('controller' => 'events', 'action' => 'delete', $childEvent['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $childEvent['id'])); ?>
+					<?php echo $html->link(__('Visualizar', true), array('controller' => 'events', 'action' => 'view', $childEvent['id'])); ?>
+					<?php echo $html->link(__('Alterar', true), array('controller' => 'events', 'action' => 'edit', $childEvent['id'])); ?>
+					<?php echo $html->link(__('Remover', true), array('controller' => 'events', 'action' => 'delete', $childEvent['id']), null, sprintf(__('Deseja realmente excluir o evento \'%s\'?', true), $childEvent['title'])); ?>
 				</td>
 			</tr>
 		<?php endforeach; ?>
 		</table>
-	<?php endif; ?>
 	</div>
+	<?php endif; ?>
 </div>
