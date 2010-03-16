@@ -42,9 +42,14 @@ class EventsController extends AppController
 	{
 		if (!empty($this->data))
 		{
-			$this->Event->create();
+			// removo variáveis de controle
+			if(isset($this->data['EventPrice']['counter']))
+				unset($this->data['EventPrice']['counter']);
+				
+			if(isset($this->data['EventDate']['counter']))
+				unset($this->data['EventDate']['counter']);
 			
-			if ($this->Event->saveAll($this->data))
+			if ($this->Event->saveAll($this->data, array('atomic' => true)))
 			{
 				$this->Session->setFlash(__('Novo evento salvo!', true));
 				$this->redirect(array('action' => 'index'));
@@ -124,7 +129,7 @@ class EventsController extends AppController
 			
 			if(isset($this->params['url']['lastDateIndex']) && $this->params['url']['lastDateIndex'] != null)
 			{
-				$i = Sanitize::paranoid($this->params['url']['lastDateIndex']) - 1;
+				$i = Sanitize::paranoid($this->params['url']['lastDateIndex']);
 			}
 			else
 			{
@@ -154,7 +159,7 @@ class EventsController extends AppController
 			
 			if(isset($this->params['url']['lastPriceIndex']) && $this->params['url']['lastPriceIndex'] != null)
 			{
-				$i = Sanitize::paranoid($this->params['url']['lastPriceIndex']) - 1;
+				$i = Sanitize::paranoid($this->params['url']['lastPriceIndex']);
 			}
 			else
 			{

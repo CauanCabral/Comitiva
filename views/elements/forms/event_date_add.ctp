@@ -1,5 +1,5 @@
 <?php
-	if(!isset($i) || !is_int($i))
+	if(!isset($i))
 	{
 		$i = 0;
 	}
