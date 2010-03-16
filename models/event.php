@@ -48,5 +48,31 @@ class Event extends AppModel
 		)
 	);
 
+	public function add($event = null)
+	{
+		if($event === null)
+		{
+			return FALSE;
+		}
+		
+		if(!isset($event['Event']['alias']))
+		{
+			$event['Event']['alias'] = Inflector::slug(mb_strtolower($event['Event']['title']), '-');
+		}
+		
+		// init transaction
+		$this->begin();
+		
+		if($this->saveAll($event, array('validate' => 'first')))
+		{
+			// save database changes
+			$this->commit();
+			return TRUE;
+		}
+		
+		// has an error
+		$this->rollback();
+		return FALSE;
+	}
 }
 ?>

@@ -51,7 +51,7 @@
 				}
 			?>
 			<tr<?php echo $class;?>>
-				<td><?php echo $eventDate['label'];?></td>
+				<td><?php echo $eventDate['desc'];?></td>
 				<td><?php echo $eventDate['date'];?></td>
 			</tr>
 		<?php endforeach; ?>
@@ -66,7 +66,8 @@
 		<table cellpadding = "0" cellspacing = "0">
 		<tr>
 			<th><?php __('Valor'); ?></th>
-			<th><?php __('Período'); ?></th>
+			<th><?php __('Data inicial'); ?></th>
+			<th><?php __('Data final'); ?></th>
 		</tr>
 		<?php
 			$i = 0;
@@ -77,8 +78,9 @@
 				}
 			?>
 			<tr<?php echo $class;?>>
-				<td><?php echo $eventPrice['value'];?></td>
-				<td><?php echo $eventPrice['period'];?></td>
+				<td><?php echo $eventPrice['price'];?></td>
+				<td><?php echo $eventPrice['start_date'];?></td>
+				<td><?php echo $eventPrice['final_date'];?></td>
 			</tr>
 		<?php endforeach; ?>
 		</table>

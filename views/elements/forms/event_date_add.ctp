@@ -11,7 +11,7 @@
 			'maxYear' => date('Y') + 5
 			)
 		);
-		echo $this->Form->input("EventDate.{$i}.label", array(
+		echo $this->Form->input("EventDate.{$i}.desc", array(
 			'label' => __('Desc', TRUE)
 			)
 		);

@@ -7,6 +7,8 @@ class EventsController extends AppController
 	public $name = 'Events';
 	
 	public $uses = array('Event');
+	
+	public $helpers = array('TinyMce.TinyMce');
 
 	public function isAuthorized()
 	{
@@ -49,10 +51,10 @@ class EventsController extends AppController
 			if(isset($this->data['EventDate']['counter']))
 				unset($this->data['EventDate']['counter']);
 			
-			if ($this->Event->saveAll($this->data, array('atomic' => true)))
+			if ($this->Event->add($this->data))
 			{
 				$this->Session->setFlash(__('Novo evento salvo!', true));
-				$this->redirect(array('action' => 'index'));
+				//$this->redirect(array('action' => 'index'));
 			}
 			else
 			{
@@ -122,10 +124,11 @@ class EventsController extends AppController
 	
 	public function admin_event_date_add()
 	{
+		$this->viewPath = '/elements/forms';
+		
 		if($this->RequestHandler->isAjax())
 		{
 			$this->__prepareAjax();
-			$this->viewPath = '/elements/forms';
 			
 			if(isset($this->params['url']['lastDateIndex']) && $this->params['url']['lastDateIndex'] != null)
 			{
@@ -136,6 +139,13 @@ class EventsController extends AppController
 				$i = 0;
 			}
 			
+			$this->set('i', $i);
+			
+			$this->render('event_date_add');
+		}
+		else if(isset($this->passedArgs['id']) && is_numeric($this->passedArgs['id']))
+		{			
+			$i = $this->passedArgs['id'];
 			$this->set('i', $i);
 			
 			$this->render('event_date_add');
@@ -152,10 +162,11 @@ class EventsController extends AppController
 	
 	public function admin_event_price_add()
 	{
+		$this->viewPath = '/elements/forms';
+		
 		if($this->RequestHandler->isAjax())
 		{
 			$this->__prepareAjax();
-			$this->viewPath = '/elements/forms';
 			
 			if(isset($this->params['url']['lastPriceIndex']) && $this->params['url']['lastPriceIndex'] != null)
 			{
@@ -166,6 +177,13 @@ class EventsController extends AppController
 				$i = 0;
 			}
 			
+			$this->set('i', $i);
+			
+			$this->render('event_price_add');
+		}
+		else if(isset($this->passedArgs['id']) && is_numeric($this->passedArgs['id']))
+		{			
+			$i = $this->passedArgs['id'];
 			$this->set('i', $i);
 			
 			$this->render('event_price_add');

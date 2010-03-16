@@ -1,3 +1,6 @@
+<?php
+	echo $this->element('editor'); 
+?>
 <div class="actions">
 	<ul>
 		<li><?php echo $this->Html->link(__('Listar Eventos', true), array('action' => 'index'));?></li>
@@ -9,7 +12,7 @@
  		<legend><?php __('Novo Evento');?></legend>
 	<?php
 		echo $this->Form->input('Event.title', array('label' => __('Titulo',TRUE)));
-		echo $this->Form->input('Event.description', array('label' => __('Descrição',TRUE)));
+		echo $this->Form->input('Event.description', array('label' => __('Descrição',TRUE), 'rows' => 15));
 		echo $this->Form->input('Event.parent_id', array('label' => __('Macro Evento', TRUE), 'options' => array_merge(array('Selecione um evento'),$events)));
 		echo $this->Form->input('Event.free', array('label' => __('Gratuito?',TRUE)));
 		
@@ -18,7 +21,21 @@
 		 */
 		echo $this->Html->link(__('Adicionar preço', TRUE), array('action' => 'eventPriceAdd', 'prefix' => 'admin'), array('id' => 'addEventPrice'));
 		echo $this->Form->input('EventPrice.counter', array('type' => 'hidden', 'value' => 0, 'id' => 'priceCounter'));
-		echo '<fieldset id="pricesEvent"></fieldset>';	
+		echo '<fieldset id="pricesEvent"></fieldset>';
+		
+		// Recover error state
+		if(isset($this->data['EventPrice']) && !empty($this->data['EventPrice']))
+		{
+			$counter = 0;
+			
+			foreach($this->data['EventPrice'] as $i => $eventPrice)
+			{
+				echo $this->requestAction("/admin/events/event_price_add/id:{$i}");
+				$counter++;
+			}
+			
+			$this->Html->scriptBlock('$("#priceCounter").val('. $counter .')');
+		}
 		
 		/******
 		 * EventDate hasMany add
@@ -26,6 +43,20 @@
 		echo $this->Html->link(__('Adicionar data', TRUE), array('action' => 'eventPriceAdd', 'prefix' => 'admin'), array('id' => 'addEventDate'));
 		echo $this->Form->input('EventDate.counter', array('type' => 'hidden', 'value' => 0, 'id' => 'dateCounter'));
 		echo '<fieldset id="datesEvent"></fieldset>';
+		
+		// Recover error state
+		if(isset($this->data['EventDate']) && !empty($this->data['EventDate']))
+		{
+			$counter = 0;
+			
+			foreach($this->data['EventDate'] as $i => $eventDate)
+			{
+				echo $this->requestAction("/admin/events/event_date_add/id:{$i}");
+				$counter++;
+			}
+			
+			$this->Html->scriptBlock('$("#dateCounter").val('. $counter .')');
+		}
 		
 $handlers = <<<SCRIPT
 	$('#EventFree').bind('click', function (e) {

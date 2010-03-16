@@ -1,7 +1,7 @@
 <?php
 	if(!isset($i))
 	{
-		//$i = 0;
+		$i = 0;
 	}
 	echo '<div class="eventPrice">';
 		echo $this->Form->input("EventPrice.{$i}.price", array(
