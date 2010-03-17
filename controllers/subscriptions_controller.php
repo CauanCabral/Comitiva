@@ -4,7 +4,9 @@ class SubscriptionsController extends AppController
 
 	public $name = 'Subscriptions';
 	public $uses = array('Subscription');
-	public $user ;
+	public $user;
+	
+	public $helpers = array('Formatacao');
 	
 	public function isAuthorized()
 	{
