@@ -113,13 +113,13 @@ class SubscriptionsController extends AppController
 	/*
 	 * Ações para rota de participantes
 	 */
-	public function index()
+	public function participant_index()
 	{
 		$this->Subscription->recursive = 0;
 		$this->set('subscriptions', $this->paginate(array('user_id' => User::get('id'))));
 	}
 
-	public function view($id = null)
+	public function participant_view($id = null)
 	{
 		if (!$id)
 		{
@@ -130,7 +130,7 @@ class SubscriptionsController extends AppController
 		$this->set('subscription', $this->Subscription->read(null, $id));
 	}
 
-	public function add($event_id = null)
+	public function participant_add($event_id = null)
 	{
 			
 		if (!empty($this->data))
@@ -164,7 +164,7 @@ class SubscriptionsController extends AppController
 		}
 	}
 
-	public function edit($id = null)
+	public function participant_edit($id = null)
 	{
 		if (!$id && empty($this->data))
 		{
@@ -195,7 +195,7 @@ class SubscriptionsController extends AppController
 		$this->set(compact('users', 'events'));
 	}
 
-	public function delete($id = null)
+	public function participant_delete($id = null)
 	{
 		if (!$id)
 		{

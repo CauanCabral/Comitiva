@@ -119,7 +119,7 @@ class EventsController extends AppController
 	/*
 	 *  Ações para rota de participante
 	 */
-	public function index()
+	public function participant_index()
 	{
 		$this->Event->recursive = 0;
 		$this->set('events', $this->paginate());
@@ -127,7 +127,7 @@ class EventsController extends AppController
 
 	}
 
-	public function view($id = null)
+	public function participant_view($id = null)
 	{
 		if (!$id) 
 		{
