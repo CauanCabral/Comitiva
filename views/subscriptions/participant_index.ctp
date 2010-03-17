@@ -1,6 +1,7 @@
 <div class="actions">
 	<ul>
 		<li><?php echo $html->link(__('Listar Eventos', true), array('controller' => 'events', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('Pagamentos Efetuados', true), array('controller' => 'payments', 'action' => 'index')); ?> </li>
 	</ul>
 </div>
 <div class="subscriptions index">
@@ -45,7 +46,7 @@ foreach ($subscriptions as $subscription):
 </table>
 </div>
 <div class="paging">
-	<?php echo $paginator->prev('<< '.__('previous', true), array(), null, array('class'=>'disabled'));?>
+	<?php echo $paginator->prev('<< '.__('anterior', true), array(), null, array('class'=>'disabled'));?>
  | 	<?php echo $paginator->numbers();?>
-	<?php echo $paginator->next(__('next', true).' >>', array(), null, array('class' => 'disabled'));?>
+	<?php echo $paginator->next(__('próxima', true).' >>', array(), null, array('class' => 'disabled'));?>
 </div>

@@ -109,7 +109,7 @@ class PaymentsController extends AppController
 	 */
 	public function participant_index()
 	{
-		$this->Payment->recursive = 0;
+		$this->Payment->recursive = 2;
 		$this->set('payments', $this->paginate());
 	}
 
@@ -126,7 +126,7 @@ class PaymentsController extends AppController
 
 	public function participant_add($subscription_id = null)
 	{
-		pr($this->data);
+		
 		if (!empty($this->data))
 		{
 			$this->Payment->create();
@@ -152,7 +152,11 @@ class PaymentsController extends AppController
 			$this->Session->setFlash(__('Este Pagamento Já Foi Informado!', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		
+		if($subscription['Event']['free'])
+		{
+			$this->Session->setFlash(__('Este evento é gratuito!', true));
+			$this->redirect(array('action' => 'index'));
+		}
 		if(!isset($subscription_id))
 		{
 			$this->Session->setFlash(__('Pagamento Inválido', true));

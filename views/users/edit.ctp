@@ -8,9 +8,6 @@
 			'label' => __('Nome de Usuário',1),
 			'disabled' => true
 		));
-		echo $form->input('password',array(
-			'label' => __('Senha',1)	
-		));
 		echo $form->input('email');
 		echo $form->input('User.name',array(
 			'label' => __('Nome',1)

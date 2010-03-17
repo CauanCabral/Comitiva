@@ -1,19 +1,19 @@
 <div class="payments view">
-<h2><?php  __('Payment');?></h2>
+<h2><?php  __('Pagamento');?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
 		
 
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Date'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Data'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $payment['Payment']['date']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Amount'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Quantia'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $payment['Payment']['amount']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Information'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Informações'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $payment['Payment']['information']; ?>
 			&nbsp;

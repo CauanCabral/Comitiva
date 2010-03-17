@@ -9,7 +9,7 @@
 <p>
 <?php
 echo $paginator->counter(array(
-'format' => __('Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%', true)
+'format' => __('Página %page% de %pages%, mostrando %current% registros de um total de %count%, começando no registro %start%, terminando em %end%', true)
 ));
 ?></p>
 <table cellpadding="0" cellspacing="0">
@@ -38,7 +38,7 @@ foreach ($payments as $payment):
 			<?php echo $payment['Payment']['date']; ?>
 		</td>
 		<td>
-			<?php //echo pr($payment) ?>
+			<?php echo  $payment['Subscription']['Event']['title'] ?>
 		</td>
 		<td>
 			<?php echo $payment['Payment']['amount']; ?>
@@ -53,7 +53,7 @@ foreach ($payments as $payment):
 </table>
 </div>
 <div class="paging">
-	<?php echo $paginator->prev('<< '.__('Página Anterior', true), array(), null, array('class'=>'disabled'));?>
+	<?php echo $paginator->prev('<< '.__('anterior', true), array(), null, array('class'=>'disabled'));?>
  | 	<?php echo $paginator->numbers();?>
-	<?php echo $paginator->next(__('Próxima Página', true).' >>', array(), null, array('class' => 'disabled'));?>
+	<?php echo $paginator->next(__('próxima', true).' >>', array(), null, array('class' => 'disabled'));?>
 </div>
