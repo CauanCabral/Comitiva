@@ -1,10 +1,11 @@
 <?php
+App::import('Sanitize');
+
 class SubscriptionsController extends AppController
 {
 
 	public $name = 'Subscriptions';
 	public $uses = array('Subscription');
-	public $user;
 	
 	public $helpers = array('Formatacao');
 	
@@ -12,7 +13,6 @@ class SubscriptionsController extends AppController
 	{
 		if($this->userLogged === TRUE && $this->params['prefix'] == User::get('type'))
 		{
-			$this->user = $this->Auth->user();
 			return true;
 		}
 		
@@ -132,10 +132,9 @@ class SubscriptionsController extends AppController
 
 	public function participant_add($event_id = null)
 	{
-			
-		if (!empty($this->data))
+		if (!empty($this->data) && is_numeric($event_id))
 		{
-			$this->Subscription->create();
+			$this->data['Subscription']['event_id'] = $event_id;
 			$this->data['Subscription']['user_id'] = User::get('id');
 
 			if ($this->Subscription->save($this->data))
