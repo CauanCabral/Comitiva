@@ -5,6 +5,10 @@ class User extends AppModel
 	
 	public $displayField = 'name';
 	
+	public $actAs = array(
+		'BrValidation'
+	);
+	
 	public $validate = array(
 		'username' => array(
 			'notempty' => array('rule' => array('notempty')),
@@ -28,6 +32,11 @@ class User extends AppModel
 		'birthday' => array(
 			'date' => array('rule' => array('date')),
 		),
+		'cpf' => array(
+			'cpf' => array(
+				'rule' => 'cpf',
+				'notempty' => 'false'	
+		))
 	);
 
 	public $hasMany = array(

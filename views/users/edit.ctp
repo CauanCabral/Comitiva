@@ -5,26 +5,31 @@
 	<?php
 		echo $form->input('id', array('type'=>'hidden','value' => $this->data['User']['id']));
 		echo $form->input('username', array(
-			'label' => __('Nome de Usuário'),
+			'label' => __('Nome de Usuário',1),
 			'disabled' => true
 		));
 		echo $form->input('password',array(
-			'label' => __('Senha')	
+			'label' => __('Senha',1)	
 		));
 		echo $form->input('email');
 		echo $form->input('User.name',array(
-			'label' => __('Nome')
+			'label' => __('Nome',1)
 		));
 		echo $form->input('nickname',array(
-			'label' => __('Sobrenome')
+			'label' => __('Sobrenome',1)
 		));
 		echo $form->input('birthday',array(
-			'label' => __('Nascimento'),
+			'label' => __('Nascimento',1),
 			'type' => 'date',
-			'minYear' => '1910',
-			'maxYear' => '2010',
+			'minYear' => date('Y')-100,
+			'maxYear' => date('Y'),
 			'dateFormat' => 'DMY'
 		));
+		echo $form->input('cpf', array('label' => __('CPF', 1)));
+		echo $form->input('address', array('label' => __('Endereço', 1)));
+		echo $form->input('city', array('label' => __('Cidade',1)));
+		echo $form->input('state', array('label' => __('Estado', 1)));
+		echo $form->input('phone', array('label' => 'Telefone',1));
 	?>
 	</fieldset>
 <?php echo $form->end('Submit');?>

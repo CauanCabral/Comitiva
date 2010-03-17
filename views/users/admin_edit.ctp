@@ -12,9 +12,20 @@
 		echo $form->input('id');
 		echo $form->input('name', array('label' => __('Nome', TRUE)));
 		echo $form->input('nickname', array('label' => __('Sobrenome', TRUE)));
-		echo $form->input('birthday', array('label' => __('Data de nascimento', TRUE)));
+		echo $form->input('birthday', array(
+			'label' => __('Data de nascimento', TRUE),
+			'type' => 'date',
+			'minYear' => date('Y')-100,
+			'maxYear' => date('Y')
+		));
 		echo $form->input('email', array('label' => __('Email', TRUE)));
+		echo $form->input('cpf', array('label' => __('CPF', 1)));
+		echo $form->input('address', array('label' => __('Endereço', 1)));
+		echo $form->input('city', array('label' => __('Cidade',1)));
+		echo $form->input('state', array('label' => __('Estado', 1)));
+		echo $form->input('phone', array('label' => 'Telefone',1));
 	?>
+	
 	</fieldset>
 <?php echo $form->end('Submit');?>
 </div>

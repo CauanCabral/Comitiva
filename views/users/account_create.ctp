@@ -14,8 +14,8 @@
 			'label' => __('Data de nascimento', TRUE),
 			'type' => 'date',
 			'dateFormat' => 'DMY',
-			'minYear' => '1910',
-			'maxYear' => '2010'
+			'minYear' => date('Y')-100,
+			'maxYear' => date('Y')
 		));
 		echo $form->input('email', array('label' => __('Email', TRUE),
 			'error' => array(
@@ -37,7 +37,11 @@
 		'label' => __('Re-digite a senha', TRUE),
 		'type' => 'password'
 		));
-		
+		echo $form->input('cpf', array('label' => __('CPF', 1)));
+		echo $form->input('address', array('label' => __('Endereço', 1)));
+		echo $form->input('city', array('label' => __('Cidade',1)));
+		echo $form->input('state', array('label' => __('Estado', 1)));
+		echo $form->input('phone', array('label' => 'Telefone',1));
 	?>
 	</fieldset>
 <?php echo $form->end(__('Criar', TRUE));?>
@@ -45,6 +49,6 @@
 </div>
 <div class="actions">
 	<ul>
-		<li></li>
+		<li><?php echo $html->link(__('Principal',1), '/') ?></li>
 	</ul>
 </div>

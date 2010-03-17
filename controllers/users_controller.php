@@ -129,7 +129,7 @@ class UsersController extends AppController
 			if ($this->__validPassword() && $this->User->save())
 			{
 				$this->__sendAccountConfirmMail($this->User->read());
-				
+				$this->Session->setFlash('Cadastro Efetuado!');
 				$this->redirect('login');
 			}
 			else

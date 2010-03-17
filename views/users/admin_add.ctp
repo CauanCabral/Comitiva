@@ -15,6 +15,11 @@
 		echo $form->input('password', array('label' => __('Senha', TRUE)));
 		echo $form->input('password_confirm', array('label' => __('Re-digite a senha', TRUE)));
 		echo $form->input('email', array('label' => __('Email', TRUE)));
+		echo $form->input('cpf', array('label' => __('CPF', 1)));
+		echo $form->input('address', array('label' => __('Endereço', 1)));
+		echo $form->input('city', array('label' => __('Cidade',1)));
+		echo $form->input('state', array('label' => __('Estado', 1)));
+		echo $form->input('phone', array('label' => 'Telefone',1));
 	?>
 	</fieldset>
 <?php echo $form->end(__('Enviar', TRUE));?>
