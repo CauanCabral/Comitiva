@@ -136,20 +136,24 @@ class AppController extends Controller
 	 */
 	private function __buildMenu()
 	{
-		if(User::get('type') == 'admin')
+            //$this->Session->read('User')->get('username')
+		if(User::get('username') == 'admin')
 		{
 			$menu = array(
 				__('Eventos', TRUE) => array(
 					'controller' => 'events',
-					'action' => 'index'
+					'action' => 'index',
+                                        'admin' => true
 				),
 				__('Usuários', TRUE) => array(
 					'controller' => 'users',
-					'action' => 'index'
+					'action' => 'index',
+                                        'admin' => true
 				),
 				__('Minha conta',TRUE) => array(
 					'controller' => 'users',
-					'action' => 'profile'
+					'action' => 'profile',
+                                        'admin' => true
 				),
 				__('Sair', TRUE) => '/logout',
 			);
@@ -159,13 +163,11 @@ class AppController extends Controller
 			$menu = array(
 				__('Eventos', TRUE) => array(
 					'controller' => 'events',
-					'action' => 'index',
-					'prefix' => 'participant'
+					'action' => 'index'
 				),
 				__('Minha conta', TRUE) => array(
 					'controller' => 'users',
-					'action' => 'profile',
-					'prefix' => 'participant'
+					'action' => 'profile'
 				),
 				__('Sair', TRUE) => '/logout',
 			);
