@@ -316,7 +316,7 @@ class UsersController extends AppController
 				)
 			)
 		);
-		
+		$this->set('user', $userData['User']['name']);
 		$this->set('token', $secureHash);
 
 		if($success)
