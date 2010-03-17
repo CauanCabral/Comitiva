@@ -47,6 +47,6 @@ Router::connect('/admin/:controller/:action/*', array('controller' => ':controll
 /**
  * Participants route
  */
-Router::connect('/participante', array('controller' => 'users', 'action' => 'profile', 'prefix' => 'participant'));
-Router::connect('/participante/:controller/:action/*', array('controller' => ':controller', 'action' => ':action', 'prefix' => 'participant'));
+Router::connect('/participant', array('controller' => 'users', 'action' => 'profile', 'prefix' => 'participant'));
+Router::connect('/participant/:controller/:action/*', array('controller' => ':controller', 'action' => ':action', 'prefix' => 'participant'));
 ?>

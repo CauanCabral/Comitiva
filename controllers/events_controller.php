@@ -8,7 +8,7 @@ class EventsController extends AppController
 	
 	public $uses = array('Event');
 	
-	public $helpers = array('TinyMce.TinyMce');
+	public $helpers = array('Formatacao', 'TinyMce.TinyMce');
 
 	public function isAuthorized()
 	{
@@ -54,7 +54,7 @@ class EventsController extends AppController
 			if ($this->Event->add($this->data))
 			{
 				$this->Session->setFlash(__('Novo evento salvo!', true));
-				//$this->redirect(array('action' => 'index'));
+				$this->redirect(array('action' => 'index'));
 			}
 			else
 			{
@@ -66,24 +66,41 @@ class EventsController extends AppController
 		$this->set(compact('events'));
 	}
 
-	function admin_edit($id = null) {
-		if (!$id && empty($this->data)) {
+	function admin_edit($id = null)
+	{
+		if (!$id && empty($this->data))
+		{
 			$this->Session->setFlash(__('Evento inválido', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		if (!empty($this->data)) {
-			if ($this->Event->save($this->data)) {
+		
+		if (!empty($this->data))
+		{
+			// removo variáveis de controle
+			if(isset($this->data['EventPrice']['counter']))
+				unset($this->data['EventPrice']['counter']);
+				
+			if(isset($this->data['EventDate']['counter']))
+				unset($this->data['EventDate']['counter']);
+			
+			if ($this->Event->add($this->data))
+			{
 				$this->Session->setFlash(__('Evento atualizado!', true));
 				$this->redirect(array('action' => 'index'));
-			} else {
+			}
+			else
+			{
 				$this->Session->setFlash(__('O evento não pode ser salvo. Tente novamente.', true));
 			}
 		}
-		if (empty($this->data)) {
-			$this->data = $this->Event->read(null, $id);
+		
+		if (empty($this->data))
+		{
+			$this->data = $this->Event->find('first', array('conditions' => array('Event.id' => $id)));
 		}
-		$parentEvents = $this->Event->ParentEvent->find('list');
-		$this->set(compact('parentEvents'));
+		
+		$events = $this->Event->find('list');
+		$this->set(compact('events'));
 	}
 
 	function admin_delete($id = null) {

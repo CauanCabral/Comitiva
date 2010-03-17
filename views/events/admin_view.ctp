@@ -15,6 +15,11 @@
 			<?php echo $event['Event']['title']; ?>
 			&nbsp;
 		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Inscritos'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $event['Event']['subscription_count']; ?>
+			&nbsp;
+		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Descrição'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $event['Event']['description']; ?>
@@ -52,7 +57,7 @@
 			?>
 			<tr<?php echo $class;?>>
 				<td><?php echo $eventDate['desc'];?></td>
-				<td><?php echo $eventDate['date'];?></td>
+				<td><?php echo $this->Formatacao->dataHora($eventDate['date']);?></td>
 			</tr>
 		<?php endforeach; ?>
 		</table>
@@ -78,9 +83,9 @@
 				}
 			?>
 			<tr<?php echo $class;?>>
-				<td><?php echo $eventPrice['price'];?></td>
-				<td><?php echo $eventPrice['start_date'];?></td>
-				<td><?php echo $eventPrice['final_date'];?></td>
+				<td><?php echo $this->Formatacao->moeda($eventPrice['price']);?></td>
+				<td><?php echo $this->Formatacao->dataHora($eventPrice['start_date']);?></td>
+				<td><?php echo $this->Formatacao->dataHora($eventPrice['final_date']);?></td>
 			</tr>
 		<?php endforeach; ?>
 		</table>
@@ -95,7 +100,6 @@
 		<tr>
 			<th><?php __('Nome'); ?></th>
 			<th><?php __('Descrição'); ?></th>
-			<th><?php __('Macro Evento'); ?></th>
 			<th><?php __('Gratuito'); ?></th>
 			<th class="actions"><?php __('Ações');?></th>
 		</tr>
@@ -110,7 +114,6 @@
 			<tr<?php echo $class;?>>
 				<td><?php echo $childEvent['title'];?></td>
 				<td><?php echo $childEvent['description'];?></td>
-				<td><?php echo $childEvent['ParentEvent']['title'];?></td>
 				<td><?php $childEvent['free'] == TRUE ? __('Sim') : __('Não');?></td>
 				<td class="actions">
 					<?php echo $html->link(__('Visualizar', true), array('controller' => 'events', 'action' => 'view', $childEvent['id'])); ?>

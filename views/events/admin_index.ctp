@@ -4,7 +4,7 @@
 	</ul>
 </div>
 <div class="events index">
-<h2><?php __('Events');?></h2>
+<h2><?php __('Eventos');?></h2>
 <p>
 <?php
 echo $paginator->counter(array(
@@ -39,7 +39,7 @@ foreach ($events as $event):
 			<?php $event['Event']['free'] == TRUE ? __('Sim') : __('Não'); ?>
 		</td>
 		<td>
-			<?php echo $event['Event']['created']; ?>
+			<?php echo $this->Formatacao->data($event['Event']['created']); ?>
 		</td>
 		<td class="actions">
 			<?php echo $html->link(__('Visualizar', true), array('action' => 'view', $event['Event']['id'])); ?>

@@ -17,6 +17,7 @@ echo $paginator->counter(array(
 	<th><?php echo $paginator->sort('id');?></th>
 	<th><?php echo __('Nome do Evento',1);?></th>
 	<th><?php echo __('Grátis',1);?></th>
+	<th><?php echo __('Inscritos',1);?></th>
 	<th class="actions"><?php __('Ações');?></th>
 </tr>
 <?php
@@ -33,6 +34,9 @@ foreach ($events as $event):
 		</td>
 		<td>
 			<?php echo $event['Event']['title']; ?>
+		</td>
+		<td>
+			<?php echo $event['Event']['subscription_count']; ?>
 		</td>
 		<td>
 			<?php echo $event['Event']['free']?__('Sim'):__('Não'); ?>
