@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `subscriptions` (
 -- Estrutura da tabela `users`
 --
 
-DROP TABLE IF EXISTS `users`;
+DDROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL auto_increment,
   `username` varchar(30) NOT NULL,
@@ -120,9 +120,18 @@ CREATE TABLE IF NOT EXISTS `users` (
   `birthday` date NOT NULL,
   `token` varchar(40) default NULL,
   `token_expires_at` date default NULL,
-  `type` varchar(30) NOT NULL default 'participant',
   `last_access` datetime default NULL,
   `created` datetime default NULL,
   `modified` datetime default NULL,
+  `type` varchar(30) NOT NULL default 'participant',
+  `active` tinyint(1) NOT NULL default '0',
+  `account_validation_token` varchar(40) default NULL,
+  `account_validation_expires_at` datetime default NULL,
+  `cpf` varchar(14) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `city` varchar(40) NOT NULL,
+  `state` varchar(2) NOT NULL,
+  `phone` varchar(15) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
