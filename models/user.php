@@ -1,13 +1,11 @@
 <?php
+App::import('Lib', 'Localized.BrValidation');
+
 class User extends AppModel
 {
 	public $name = 'User';
 	
 	public $displayField = 'name';
-	
-	public $actAs = array(
-		'BrValidation'
-	);
 	
 	public $validate = array(
 		'username' => array(
@@ -34,9 +32,10 @@ class User extends AppModel
 		),
 		'cpf' => array(
 			'cpf' => array(
-				'rule' => 'cpf',
-				'notempty' => 'false'	
-		))
+				'rule' => array('ssn', null, 'br'),
+				'message' => 'Verifique o número digitado'
+			)
+		)
 	);
 
 	public $hasMany = array(

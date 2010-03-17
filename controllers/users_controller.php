@@ -28,26 +28,23 @@ class UsersController extends AppController
 	{
 		if($this->Auth->user())
 		{
-                    // load user model
-                    $this->User->set($this->Auth->user());
+			// load user model
+			$this->User->set($this->Auth->user());
+			
+			$now = new DateTime();
+			
+			// update 'last_access' field
+			$this->User->saveField('last_access', $now->format("Y-m-d H:i:s"));
+			
+			$this->Session->write('User',$this->User);
+			$this->Session->setFlash(__('Você está autenticado', 1));
 
-                    debug($this->User->id);
-
-                    $now = new DateTime();
-
-                    // update 'last_access' field
-                    $this->User->saveField('last_access', $now->format("Y-m-d H:i:s"));
-
-
-                    $this->Session->write('User',$this->User);
-                    $this->Session->setFlash(__('Você está autenticado', 1));
-
-                    // redirect
-                    $this->redirect($this->Auth->loginRedirect);
+			// redirect
+			$this->redirect($this->Auth->loginRedirect);
 		}
 		else
 		{
-                    $this->userLogged = false;
+			$this->userLogged = false;
 		}
 	}
 	
@@ -116,7 +113,7 @@ class UsersController extends AppController
 			$d = new DateTime();
 			$d->modify('+1 day');
 
-                        $this->data['User']['type'] = 'participant';
+			$this->data['User']['type'] = 'participant';
 			$this->data['User']['account_validation_expires_at'] = $d->format(DateTime::ISO8601);
 			$this->data['User']['account_validation_token'] = sha1(md5($this->data['User']['password']) . time());
 			
@@ -130,6 +127,12 @@ class UsersController extends AppController
 			}
 			else
 			{
+				if(isset($this->data['User']['password']))
+					unset($this->data['User']['password']);
+				
+				if(isset($this->data['User']['password_confirm']))
+					unset($this->data['User']['password_confirm']);
+				
 				$this->Session->setFlash(__('Não foi possível criar a conta. Verifique os dados inseridos.', true));
 			}
 		}
