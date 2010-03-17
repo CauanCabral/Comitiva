@@ -132,9 +132,8 @@ class SubscriptionsController extends AppController
 
 	public function participant_add($event_id = null)
 	{
-		if (!empty($this->data) && is_numeric($event_id))
+		if (!empty($this->data))
 		{
-			$this->data['Subscription']['event_id'] = $event_id;
 			$this->data['Subscription']['user_id'] = User::get('id');
 
 			if ($this->Subscription->save($this->data))
@@ -148,7 +147,7 @@ class SubscriptionsController extends AppController
 				$this->redirect(array('action' => 'index'));
 			}
 		}
-		if($event_id === null)
+		if($event_id != null)
 		{
 			$subscription = $this->Subscription->find('first', array('conditions' => array('event_id' => $event_id)));
 			

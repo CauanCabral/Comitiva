@@ -5,13 +5,15 @@
 	</ul>
 </div>
 <div class="subscriptions form">
-<?php echo $form->create('Subscription', array('action' => 'add'));?>
+<?php
+	echo $this->Form->create('Subscription', array('action' => 'add'));
+	echo $this->Form->input('Subscription.event_id', array('type' => 'hidden', 'value' => $event['Event']['id']));
+?>
 <?php ?>
 	<fieldset>
  		<legend><?php __('Confirme sua Inscrição');?></legend>
 		<h1><?php __('Nome do Evento') ?></h1>
 		<?php
-		 	echo $form->input('Subscription.event_id', array('type' => 'hidden', 'value' => $event['Event']['id']));
 			echo '<h3>'.$event['Event']['title'].'</h3>'; 
 		?>
 		<h2><?php __('Macro Evento') ?></h2>
