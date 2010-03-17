@@ -44,14 +44,11 @@ Router::connect('/reset_password', array('controller' => 'users', 'action' => 'r
 /**
  * Administrators route
  */
-Router::connect('/admin', array('controller' => 'users', 'action' => 'profile', 'admin' => true)); //'prefix' => 'admin', 
-Router::connect('/admin/:controller/:action/*', array('admin' => true)); //'controller' => ':controller', 'action' => ':action', 'prefix' => 'admin', 
+Router::connect('/admin', array('controller' => 'users', 'action' => 'profile', 'prefix' => 'admin'));  
 
 /**
  * Participants route
- *//*
+ */
 Router::connect('/participant', array('controller' => 'users', 'action' => 'profile', 'prefix' => 'participant'));
-Router::connect('/participant/:controller/:action/*', array('controller' => ':controller', 'action' => ':action', 'prefix' => 'participant'));
-*/
 
 ?>
