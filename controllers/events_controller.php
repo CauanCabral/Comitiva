@@ -12,7 +12,7 @@ class EventsController extends AppController
 
 	public function isAuthorized()
 	{
-		if($this->userLogged === TRUE && $this->params['prefix'] == User::get('type'))
+		if($this->userLogged == TRUE && $this->params['prefix'] == User::get('type'))
 		{
 			return true;
 		}
@@ -119,13 +119,15 @@ class EventsController extends AppController
 	/*
 	 *  Ações para rota de participante
 	 */
-	public function participant_index()
+	public function index()
 	{
 		$this->Event->recursive = 0;
 		$this->set('events', $this->paginate());
+
+
 	}
 
-	public function participant_view($id = null)
+	public function view($id = null)
 	{
 		if (!$id) 
 		{

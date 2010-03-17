@@ -107,13 +107,13 @@ class PaymentsController extends AppController
 	/*
 	 * Ações para rota de participante
 	 */
-	public function participant_index()
+	public function index()
 	{
 		$this->Payment->recursive = 0;
 		$this->set('payments', $this->paginate());
 	}
 
-	public function participant_view($id = null)
+	public function view($id = null)
 	{
 		if (!$id)
 		{
@@ -124,7 +124,7 @@ class PaymentsController extends AppController
 		$this->set('payment', $this->Payment->read(null, $id));
 	}
 
-	public function participant_add($subscription_id = null)
+	public function add($subscription_id = null)
 	{
 		pr($this->data);
 		if (!empty($this->data))

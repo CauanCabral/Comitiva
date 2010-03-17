@@ -32,23 +32,26 @@ class UsersController extends AppController
 	{
 		if($this->Auth->user())
 		{
-			// display a response
-			$this->Session->setFlash(__('Você está autenticado', 1));
-			
-			$now = new DateTime();
-			
-			// load user model
-			$this->User->create($this->Auth->user());
-			
-			// update 'last_access' field
-			$this->User->saveField('last_access', $now->format(DateTime::ISO8601));
-			
-			// redirect
-			$this->redirect($this->Auth->loginRedirect);
+                    // load user model
+                    $this->User->set($this->Auth->user());
+
+                    debug($this->User->id);
+
+                    $now = new DateTime();
+
+                    // update 'last_access' field
+                    $this->User->saveField('last_access', $now->format("Y-m-d H:i:s"));
+
+
+                    $this->Session->write('User',$this->User);
+                    $this->Session->setFlash(__('Você está autenticado', 1));
+
+                    // redirect
+                    $this->redirect($this->Auth->loginRedirect);
 		}
 		else
 		{
-			$this->userLogged = false;
+                    $this->userLogged = false;
 		}
 	}
 	
@@ -116,7 +119,8 @@ class UsersController extends AppController
 		{
 			$d = new DateTime();
 			$d->modify('+1 day');
-		
+
+                        $this->data['User']['type'] = 'participant';
 			$this->data['User']['account_validation_expires_at'] = $d->format(DateTime::ISO8601);
 			$this->data['User']['account_validation_token'] = sha1(md5($this->data['User']['password']) . time());
 			
@@ -255,13 +259,13 @@ class UsersController extends AppController
 	 * Participant actions
 	 ***************************/
 	
-	public function participant_profile()
+	public function profile()
 	{	
 		$this->set('user', User::get('User'));
 		$this->render('profile');
 	}
 	
-	public function participant_edit()
+	public function edit()
 	{
 		
 		if(!empty($this->data))

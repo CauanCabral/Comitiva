@@ -29,6 +29,8 @@
  */
 Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'index'));
 
+	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
+
 /**
  * Alias for non-prefixed actions (hack for bug route in cake 1.3-dev)
  */
@@ -36,17 +38,20 @@ Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
 Router::connect('/logout', array('controller' => 'users', 'action' => 'logout'));
 Router::connect('/account_create', array('controller' => 'users', 'action' => 'account_create'));
 Router::connect('/recover', array('controller' => 'users', 'action' => 'recover'));
+Router::connect('/profile', array('controller' => 'users', 'action' => 'profile'));
 Router::connect('/reset_password', array('controller' => 'users', 'action' => 'reset_password'));
 
 /**
  * Administrators route
  */
-Router::connect('/admin', array('controller' => 'users', 'action' => 'profile', 'prefix' => 'admin'));
-Router::connect('/admin/:controller/:action/*', array('controller' => ':controller', 'action' => ':action', 'prefix' => 'admin'));
+Router::connect('/admin', array('controller' => 'users', 'action' => 'profile', 'admin' => true)); //'prefix' => 'admin', 
+Router::connect('/admin/:controller/:action/*', array('admin' => true)); //'controller' => ':controller', 'action' => ':action', 'prefix' => 'admin', 
 
 /**
  * Participants route
- */
+ *//*
 Router::connect('/participant', array('controller' => 'users', 'action' => 'profile', 'prefix' => 'participant'));
 Router::connect('/participant/:controller/:action/*', array('controller' => ':controller', 'action' => ':action', 'prefix' => 'participant'));
+*/
+
 ?>

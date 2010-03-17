@@ -49,9 +49,9 @@
 </head>
 <body>
 	<div id="container">
-		<div id="header">
+		<!--div id="header">
 			<h1><?php echo $this->Html->link(__('Comitiva: Sistema de controle de eventos do PHPMS', true), 'http://phpms.org'); ?></h1>
-		</div>
+		</div-->
 		
 		<?php if(isset($menuItems) && !empty($menuItems)): ?>
 		<ul id="menu">
@@ -66,14 +66,14 @@
 			<?php echo $content_for_layout; ?>
 
 		</div>
-		<div id="footer">
+		<!--div id="footer">
 			<?php echo $this->Html->link(
 					$this->Html->image('cake.power.gif', array('alt'=> __('CakePHP: the rapid development php framework', true), 'border' => '0')),
 					'http://www.cakephp.org/',
 					array('target' => '_blank', 'escape' => false)
 				);
 			?>
-		</div>
+		</div-->
 	</div>
 	<?php
 		// include js generated code

@@ -78,6 +78,9 @@ class PagesController extends AppController {
 		if (!empty($path[$count - 1])) {
 			$title = Inflector::humanize($path[$count - 1]);
 		}
+
+                //debug(gettype( $this->Auth->user()));
+                $this->set('logged', ($this->Auth->user()==NULL?false:true));
 		$this->set(compact('page', 'subpage', 'title'));
 		$this->render(implode('/', $path));
 	}

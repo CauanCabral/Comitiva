@@ -105,7 +105,7 @@ class AppController extends Controller
 		$this->Auth->autoRedirect = false;
 		$this->Auth->loginAction = '/login';
 		$this->Auth->logoutRedirect = '/';
-		$this->Auth->loginRedirect = array('controller' => 'users', 'action' => 'profile');
+		$this->Auth->loginRedirect = '/pages/logged'; //array('controller' => 'users', 'action' => 'profile');
 
 		// What to say when the login was incorrect.
 		$this->Auth->loginError = __('Falha no login. Por favor, verifique se o usuário e senha digitado estão corretos.', TRUE);
