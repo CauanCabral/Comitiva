@@ -136,7 +136,6 @@ class AppController extends Controller
 	 */
 	private function __buildMenu()
 	{
-            //$this->Session->read('User')->get('username')
 		if(User::get('username') == 'admin')
 		{
 			$menu = array(

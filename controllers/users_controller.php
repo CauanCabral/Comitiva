@@ -16,10 +16,6 @@ class UsersController extends AppController
 		{
 			return true;
 		}
-		else if(empty($this->params['prefix']))
-		{
-			return true;
-		}
 		
 		return false;
 	}

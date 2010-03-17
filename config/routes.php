@@ -28,8 +28,7 @@
  * to use (in this case, /app/views/pages/home.ctp)...
  */
 Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'index'));
-
-	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
+Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
 /**
  * Alias for non-prefixed actions (hack for bug route in cake 1.3-dev)
