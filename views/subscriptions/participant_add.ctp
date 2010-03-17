@@ -74,20 +74,5 @@
 		</div>
 		<?php endif; ?>
 	</fieldset>
-	
-	<h2><?php __('Formas de pagamento')?></h2>
-	<fieldset>
-		Você pode efetuar a inscrição pagamento utilizando o MoIP:
-			<form method='post' action='https://www.moip.com.br/PagamentoSimples.do'>
-			<input type='hidden' name='id_carteira' value='cauan'/>
-			<input type='hidden' name='valor' value='2000'/>
-			<input type='hidden' name='nome' value='Inscrição no 3º Workshop PHPMS'/>
-			<input type='hidden' name='descricao' value='Valor válido para pagamentos realizados até 24/03/2010.'/>
-			<input type='image' name='submit' src='https://www.moip.com.br/imgs/buttons/bt_pagar_c01_e01.png' alt='Pagar' border='0' />
-			</form>
-		<br />
-		Os seguintes meios de pagamento são aceitos: Cartão de débito, Boleto Bancário, Transferência Bancária e Transferência entre contas MoIP.
-		<img src="http://www.moip.com.br/imgs/banner_3_1.gif" border="0">
-	</fieldset>
 <?php echo $form->end('Confirmar');?>
 </div>

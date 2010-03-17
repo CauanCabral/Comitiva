@@ -258,13 +258,13 @@ class UsersController extends AppController
 	 * Participant actions
 	 ***************************/
 	
-	public function profile()
+	public function participant_profile()
 	{	
 		$this->set('user', User::get('User'));
 		$this->render('profile');
 	}
 	
-	public function edit()
+	public function participant_edit()
 	{
 		
 		if(!empty($this->data))

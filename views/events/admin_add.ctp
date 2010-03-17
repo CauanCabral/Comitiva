@@ -30,7 +30,7 @@
 			
 			foreach($this->data['EventPrice'] as $i => $eventPrice)
 			{
-				echo $this->requestAction("/admin/events/event_price_add/id:{$i}");
+				echo $this->requestAction("/admin/events/event_price_add/index:{$i}");
 				$counter++;
 			}
 			
@@ -51,7 +51,7 @@
 			
 			foreach($this->data['EventDate'] as $i => $eventDate)
 			{
-				echo $this->requestAction("/admin/events/event_date_add/id:{$i}");
+				echo $this->requestAction("/admin/events/event_date_add/index:{$i}");
 				$counter++;
 			}
 			

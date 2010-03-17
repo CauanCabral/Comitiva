@@ -30,18 +30,11 @@
 			
 			foreach($this->data['EventPrice'] as $i => $eventPrice)
 			{
-				// if this is a saved price
-				if(isset($eventPrice['id']))
-				{
-					// display field to save id value
-					echo $this->Form->input("EventPrice.{$i}.id", array('type'=> 'hidden', 'value' => $eventPrice['id']));
-				}
-				
-				echo $this->requestAction("/admin/events/event_price_add/id:{$i}");
+				echo $this->requestAction("/admin/events/event_price_add/index:{$i}/id:{$eventPrice['id']}");
 				$counter++;
 			}
 			
-			$this->Html->scriptBlock('$("#priceCounter").val('. $counter .')');
+			echo $this->Html->scriptBlock('$("#priceCounter").val('. $counter .')', array('inline' => false));
 		}
 		
 		echo '</fieldset>';
@@ -59,19 +52,12 @@
 			$counter = 0;
 			
 			foreach($this->data['EventDate'] as $i => $eventDate)
-			{
-				// if this is a saved date
-				if(isset($eventDate['id']))
-				{
-					// display field to save id value
-					echo $this->Form->input("EventDate.{$i}.id", array('type'=> 'hidden', 'value' => $eventDate['id']));
-				}
-				
-				echo $this->requestAction("/admin/events/event_date_add/id:{$i}");
+			{	
+				echo $this->requestAction("/admin/events/event_date_add/index:{$i}/id:{$eventDate['id']}");
 				$counter++;
 			}
 			
-			$this->Html->scriptBlock('$("#dateCounter").val('. $counter .')');
+			echo $this->Html->scriptBlock('$("#dateCounter").val('. $counter .')', array('inline' => false));
 		}
 		
 		echo '</fieldset>';

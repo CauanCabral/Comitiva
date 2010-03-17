@@ -162,10 +162,29 @@ class EventsController extends AppController
 			
 			$this->render('event_date_add');
 		}
-		else if(isset($this->passedArgs['id']) && is_numeric($this->passedArgs['id']))
-		{			
-			$i = $this->passedArgs['id'];
-			$this->set('i', $i);
+		else if(isset($this->passedArgs['index']) && is_numeric($this->passedArgs['index']))
+		{
+			$this->set('i', $this->passedArgs['index']);
+			
+			if(isset($this->passedArgs['id']) && is_numeric($this->passedArgs['id']))
+			{
+				$this->set('id', $this->passedArgs['id']);
+				
+				// recupera do banco os dados da data
+				$eventDate = $this->Event->EventDate->find('first', array('recursive' => -1, 'conditions' => array('EventDate.id' => $this->passedArgs['id'])));
+				
+				// formata para utilização na view
+				$output = array('EventDate' => array(
+						$this->passedArgs['index'] => array(
+							'id' => $eventDate['EventDate']['id'],
+							'date' => $eventDate['EventDate']['date'],
+							'desc' => $eventDate['EventDate']['desc']
+						)
+					)
+				);
+				
+				$this->data = $output;
+			}
 			
 			$this->render('event_date_add');
 		}
@@ -200,10 +219,15 @@ class EventsController extends AppController
 			
 			$this->render('event_price_add');
 		}
-		else if(isset($this->passedArgs['id']) && is_numeric($this->passedArgs['id']))
-		{			
-			$i = $this->passedArgs['id'];
-			$this->set('i', $i);
+		else if(isset($this->passedArgs['index']) && is_numeric($this->passedArgs['index']))
+		{
+			$this->set('i', $this->passedArgs['index']);
+			
+			if(isset($this->passedArgs['id']) && is_numeric($this->passedArgs['id']))
+			{
+				$this->set('id', $this->passedArgs['id']);
+				$this->data = $this->Event->EventDate->find('first', array('conditions' => array('EventDate.id' => $this->passedArgs['id'])));
+			}
 			
 			$this->render('event_price_add');
 		}

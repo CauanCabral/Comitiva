@@ -15,5 +15,11 @@
 			'label' => __('Desc', TRUE)
 			)
 		);
+		
+		// case form is showed in edit action
+		if(isset($id))
+		{
+			echo $this->Form->input("EventPrice.{$i}.id", array('type'=> 'hidden', 'value' => $id));
+		}
 	echo '</div>';
 ?>

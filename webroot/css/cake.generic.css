@@ -230,6 +230,12 @@ form {
 	padding: 0;
 	width: 95%;
 }
+form.moip {
+	width: auto;
+}
+form.moip input {
+	width: auto;
+}
 fieldset {
 	border: 1px solid #ccc;
 	margin-bottom: 1em;

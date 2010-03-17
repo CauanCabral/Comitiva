@@ -34,6 +34,39 @@
 		</dd>
 	</dl>
 	
+	<div class="related">
+		<h3><?php __('Pagamento')?></h3>
+		<p>Você pode realizar o pagamento de sua inscrição pelo serviço MoIP.<br/>
+		   Basta clicar no botão abaixo e seguir os passos pedidos. Após realizar o pagamento, vá até<br />
+		   a página de suas inscrições e confirme o pagamento informando o email utilizado.
+		</p>
+		<form method='post' action='https://www.moip.com.br/PagamentoSimples.do' class="moip">
+			<input type='hidden' name='id_carteira' value='cauan'/>
+			<input type='hidden' name='valor' value='2000'/>
+			<input type='hidden' name='nome' value='Inscrição no 3º Workshop PHPMS'/>
+			<input type='hidden' name='descricao' value='Valor válido para pagamentos realizados até 24/03/2010.'/>
+			<input type='image' name='submit' src='https://www.moip.com.br/imgs/buttons/bt_pagar_c01_e01.png' alt='Pagar' border='0' />
+		</form>
+		<br />
+		<p>
+			Se preferir, você ainda pode fazer uma transferência ou depósito para a conta:
+		</p>
+		<dl>
+			<dt>Banco</dt>
+			<dd>Bradesco</dd>
+			<dt class="altrow">Agência</dt>
+			<dd class="altrow">3585-0</dd>
+			<dt>Conta Poupança</dt>
+			<dd>1000103-0</dd>
+			<dt class="altrow">Titular</dt>
+			<dd class="altrow">Cauan Gama Cabral</dd>
+		</dl>
+		<p>
+			Não se esqueça de confirmar seu pagamento, informando o valor, data e horário do depósito ou transferênciam, caso tenha optado por este.
+		</p>
+	</div>
+	
+	
 	<?php if (!empty($event['EventDate'])):?>
 	<br />
 	<div class="related">
