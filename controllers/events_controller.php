@@ -50,14 +50,14 @@ class EventsController extends AppController
 				
 			if(isset($this->data['EventDate']['counter']))
 				unset($this->data['EventDate']['counter']);
-			
+				
 			if ($this->Event->add($this->data))
 			{
 				$this->Session->setFlash(__('Novo evento salvo!', true));
 				$this->redirect(array('action' => 'index'));
 			}
 			else
-			{
+			{	
 				$this->Session->setFlash(__('Novo evento não pode ser salvo. Tente novamente.', true));
 			}
 		}

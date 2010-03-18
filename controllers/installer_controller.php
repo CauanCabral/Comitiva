@@ -106,7 +106,7 @@ class InstallerController extends AppController
 	
 	private function __thanks()
 	{
-		$this->render(NULL, NULL, '/pages/thanks');
+		$this->render(NULL, NULL, '/pages/index');
 	}
 }
 ?>

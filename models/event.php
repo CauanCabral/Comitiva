@@ -20,8 +20,7 @@ class Event extends AppModel
 	public $belongsTo = array(
 		'ParentEvent' => array(
 			'className' => 'Event',
-			'foreignKey' => 'parent_id',
-			'conditions' => array('Event.parent_id IS NOT NULL'),
+			'foreignKey' => 'parent_id'
 		)
 	);
 
@@ -59,6 +58,12 @@ class Event extends AppModel
 		{
 			$event['Event']['alias'] = Inflector::slug(mb_strtolower($event['Event']['title']), '-');
 		}
+		
+		if(empty($event['EventDate']))
+			unset($event['EventDate']);
+			
+		if(empty($event['EventPrice']))
+			unset($event['EventPrice']);
 		
 		// init transaction
 		$this->begin();

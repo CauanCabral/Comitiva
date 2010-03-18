@@ -1,5 +1,5 @@
 <?php
-if(!$logged):
+if(!isset($activeUser)):
 ?>
 <ul id="menu">
     <li><a href="/login" class="button">Logar</a></li>

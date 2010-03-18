@@ -123,7 +123,7 @@ class AppController extends Controller
 			// Define a static access to user information
 			App::import('Model', 'User');
 			User::store($this->activeUser);
-	
+			
 			// Define user information in view class
 			$this->set('activeUser', $this->activeUser);
 		}
@@ -162,10 +162,6 @@ class AppController extends Controller
 			$menu = array(
 				__('Eventos', TRUE) => '/participant/events/',
 				__('Minha conta', TRUE) => '/participant/users/profile/',
-                            /*array(
-					'controller' => 'users',
-					'action' => 'profile'
-				),*/
 				__('Sair', TRUE) => '/logout',
 			);
 		}

@@ -156,7 +156,7 @@ class SubscriptionsController extends AppController
 			$this->Subscription->create();
 			
 			$this->data['Subscription']['user_id'] = User::get('id');
-
+			
 			if ($this->Subscription->save($this->data))
 			{
 				$this->Session->setFlash(__('Sua inscrição no evento foi efetuada!', true));
@@ -168,9 +168,10 @@ class SubscriptionsController extends AppController
 				$this->redirect(array('action' => 'index'));
 			}
 		}
+		
 		if($event_id != null)
 		{
-			$subscription = $this->Subscription->find('first', array('conditions' => array('event_id' => $event_id, 'user_id' => User::get('id'))));
+			$subscription = $this->Subscription->find('first', array('recursive' => -1, 'conditions' => array('event_id' => $event_id, 'user_id' => User::get('id'))));
 			
 			if(!empty($subscription))
 			{
@@ -179,7 +180,7 @@ class SubscriptionsController extends AppController
 			}
 			
 			$event = $this->Subscription->Event->read(null,$event_id);
-			$this->set(compact( 'event'));
+			$this->set(compact('event'));
 		}
 	}
 

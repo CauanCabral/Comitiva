@@ -28,7 +28,7 @@ class UsersController extends AppController
 	{
 		if($this->Auth->user())
 		{	
-			// load user model
+			// load user model and save data user to direct access
 			$this->User->store($this->Auth->user());
 			
 			// verify if logged user has active account
@@ -44,10 +44,12 @@ class UsersController extends AppController
 			
 			$now = new DateTime();
 			
+			// init model user to update field
+			$this->User->create(User::get('User'));
+			
 			// update 'last_access' field
 			$this->User->saveField('last_access', $now->format("Y-m-d H:i:s"));
 			
-			$this->Session->write('User',$this->User);
 			$this->Session->setFlash(__('Você está autenticado', 1));
 
 			// redirect

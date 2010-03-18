@@ -33,7 +33,10 @@ foreach ($events as $event):
 			<?php echo $event['Event']['title']; ?>
 		</td>
 		<td>
-			<?php echo $html->link($event['ParentEvent']['title'], array('controller' => 'events', 'action' => 'view', $event['ParentEvent']['id'])); ?>
+			<?php
+			if(isset($event['ParentEvent']['title'])) 
+				echo $this->Html->link($event['ParentEvent']['title'], array('controller' => 'events', 'action' => 'view', $event['ParentEvent']['id']));
+			?>
 		</td>
 		<td>
 			<?php $event['Event']['free'] == TRUE ? __('Sim') : __('Não'); ?>
