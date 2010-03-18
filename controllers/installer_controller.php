@@ -87,12 +87,14 @@ class InstallerController extends AppController
 			'name' => 'PHPMS',
 			'username' => 'admin',
 			'password' => $this->Auth->password('capivara'),
-			'email' => 'admin.phpms@gmail.com'
+			'email' => 'admin.phpms@gmail.com',
+			'type' => 'admin',
+			'active' => 1
 			);
 
 		$this->loadModel('User');
 		$this->User->create();
-		$this->User->save($user);
+		$this->User->save($user, false); // save without validate
 	}
 
 	/**
