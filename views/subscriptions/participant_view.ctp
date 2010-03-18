@@ -27,8 +27,6 @@
 	<?php if (!empty($subscription['Payment']['id'])):?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
-	
-	
 		<th><?php __('Data'); ?></th>
 		<th><?php __('Valor'); ?></th>
 		<th><?php __('Informções'); ?></th>
