@@ -161,7 +161,7 @@ class AppController extends Controller
 		{
 			$menu = array(
 				__('Eventos', TRUE) => '/participant/events/',
-				__('Minha conta', TRUE) => '/participant/profile/',
+				__('Minha conta', TRUE) => '/participant/users/profile/',
                             /*array(
 					'controller' => 'users',
 					'action' => 'profile'
