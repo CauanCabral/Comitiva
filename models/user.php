@@ -9,7 +9,8 @@ class User extends AppModel
 	
 	public $validate = array(
 		'username' => array(
-			'notempty' => array('rule' => array('notempty')),
+			'notempty' => array('rule' => array('notempty'),
+                                'message' => 'Por favor, preencha o username'),
 			'unique' => array('rule' => array('isUnique')),
 			'alphanumeric' => array('rule' => array('alphanumeric'))
 		),
@@ -18,10 +19,11 @@ class User extends AppModel
 				'rule' => array('email'),
 			),
 			'notempty' => array(
-				'rule' => array('notempty')
+				'rule' => array('notempty'),
+                                'message' => 'Por favor, preencha o email'
 			),
 			'unique' => array(
-				'rule' => array('isUnique'),
+				'rule' => array('isUnique')
 			)
 		),
 		'name' => array(
@@ -31,13 +33,21 @@ class User extends AppModel
 			)
 		),
 		'birthday' => array(
-			'date' => array('rule' => array('date')),
+			'notempty' => array(
+                                'rule' => array('notempty'),
+                                'message' => 'Informação obrigatória para geração de certificado'
+                        ),
+			'date' => array('rule' => array('date'))
 		),
 		'cpf' => array(
 			'cpf' => array(
 				'rule' => array('ssn', null, 'br'),
 				'message' => 'Verifique o número digitado'
-			)
+			),
+			'notempty' => array(
+                                'rule' => array('notempty'),
+                                'message' => 'Informação obrigatória para geração de certificado'
+                        )
 		),
 		'address' => array(
 			'notempty' => array(

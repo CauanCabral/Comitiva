@@ -42,6 +42,7 @@
 		echo $form->input('city', array('label' => __('Cidade',1)));
 		echo $form->input('state', array('label' => __('Estado', 1)));
 		echo $form->input('phone', array('label' => 'Telefone',1));
+                echo "<p class='small' style='color:red;'>* Informações obrigatórias para geração de certificado.</p>";
 	?>
 	</fieldset>
 <?php echo $form->end(__('Criar', TRUE));?>

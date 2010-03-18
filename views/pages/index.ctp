@@ -23,3 +23,6 @@ os eventos disponíveis.</p>
 <p>Este sistema é software-livre, e é desenvolvido por membros do PHPMS, portanto, caso encontre algum erro/bug/problema <br />
 ou queira apenas fazer um comentário, entre em contato através do endereço de email <strong>admin.phpms [arroba] gmail.com</strong></p>
 
+<p>&nbsp;</p>
+
+<p class="small">* Os certificados de participação no Workshop serão gerados pelo nosso parceiro SENAC/MS.</p>

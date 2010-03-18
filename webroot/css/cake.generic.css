@@ -539,3 +539,9 @@ div.code-coverage-results span.result-ok {
 div.code-coverage-results span.result-good {
 	color: #0a0;
 }
+
+.small
+{
+    font-size: x-small;
+    margin-left: 20px;
+}
