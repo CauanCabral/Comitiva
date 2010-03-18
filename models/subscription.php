@@ -2,12 +2,6 @@
 class Subscription extends AppModel
 {
 	public $name = 'Subscription';
-	
-	public $virualFields = array(
-		'subscription' => 'CONCAT(Event.alias, " - ", User.username)'
-	);
-	
-	public $displayField = 'subscription';
 
 	public $belongsTo = array(
 		'User' => array(

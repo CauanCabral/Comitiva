@@ -23,7 +23,7 @@ class PaymentsController extends AppController
 	 */
 	public function admin_index()
 	{
-		$this->Payment->recursive = 0;
+		$this->Payment->recursive = 2;
 		
 		$this->set('payments', $this->paginate());
 	}
@@ -114,7 +114,7 @@ class PaymentsController extends AppController
 			$this->redirect(array('action'=>'index'));
 		}
 		
-		$success = $this->save(
+		$success = $this->Payment->save(
 			array(
 				'Payment' => array(
 					'id' => $id,

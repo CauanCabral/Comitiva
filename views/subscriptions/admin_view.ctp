@@ -1,7 +1,16 @@
 <div class="actions">
-		<ul>
-			<li><?php echo $html->link(__('Novo Pagamento', true), array('controller' => 'payments', 'action' => 'add'));?> </li>
-		</ul>
+	<ul>
+		<li><?php echo $html->link(__('Editar Inscrição', true), array('action' => 'edit', $subscription['Subscription']['id'])); ?> </li>
+		<li><?php echo $html->link(__('Apagar Inscrição', true), array('action' => 'delete', $subscription['Subscription']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $subscription['Subscription']['id'])); ?> </li>
+		<li><?php echo $html->link(__('Listar Inscrições', true), array('action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('Nova Inscrição', true), array('action' => 'add')); ?> </li>
+		<li><?php echo $html->link(__('Listar Usuários', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('Novo Usuário', true), array('controller' => 'users', 'action' => 'add')); ?> </li>
+		<li><?php echo $html->link(__('Listar Eventos', true), array('controller' => 'events', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('Novo Evento', true), array('controller' => 'events', 'action' => 'add')); ?> </li>
+		<li><?php echo $html->link(__('Listar Pagamentos', true), array('controller' => 'payments', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('Novo Pagamento', true), array('controller' => 'payments', 'action' => 'add')); ?> </li>
+	</ul>
 </div>
 <div class="subscriptions view">
 <h2><?php  __('Inscrição',1);?></h2>
@@ -18,27 +27,13 @@
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Criado',1); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $subscription['Subscription']['created']; ?>
+			<?php echo $this->Formatacao->data($subscription['Subscription']['created']); ?>
 			&nbsp;
 		</dd>
 	</dl>
 </div>
-<div class="actions">
-	<ul>
-		<li><?php echo $html->link(__('Editar Inscrição', true), array('action' => 'edit', $subscription['Subscription']['id'])); ?> </li>
-		<li><?php echo $html->link(__('Apagar Inscrição', true), array('action' => 'delete', $subscription['Subscription']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $subscription['Subscription']['id'])); ?> </li>
-		<li><?php echo $html->link(__('Listar Inscrições', true), array('action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('Nova Inscrição', true), array('action' => 'add')); ?> </li>
-		<li><?php echo $html->link(__('Listar Usuários', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('Novo Usuário', true), array('controller' => 'users', 'action' => 'add')); ?> </li>
-		<li><?php echo $html->link(__('Listar Eventos', true), array('controller' => 'events', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('Novo Evento', true), array('controller' => 'events', 'action' => 'add')); ?> </li>
-		<li><?php echo $html->link(__('Listar Pagamentos', true), array('controller' => 'payments', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('Novo Pagamento', true), array('controller' => 'payments', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
 <div class="related">
-	<h3><?php __('Related Payments');?></h3>
+	<h3><?php __('Pagamentos relacionados');?></h3>
 	<?php if (!empty($subscription['Payment'])):?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>

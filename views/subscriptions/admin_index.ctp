@@ -14,11 +14,12 @@ echo $paginator->counter(array(
 ?></p>
 <table cellpadding="0" cellspacing="0">
 <tr>
-	<th><?php echo $paginator->sort('id');?></th>
-	<th><?php echo $paginator->sort('user_id');?></th>
-	<th><?php echo $paginator->sort('event_id');?></th>
-	<th><?php echo $paginator->sort('created');?></th>
-	<th class="actions"><?php __('Ações',1);?></th>
+	<th><?php echo $paginator->sort(__('ID',  TRUE), 'Subscription.id');?></th>
+	<th><?php echo $paginator->sort(__('Usuário', TRUE), 'User.name');?></th>
+	<th><?php echo $paginator->sort(__('Evento', TRUE), 'Event.title');?></th>
+	<th><?php echo $paginator->sort(__('Data da inscrição', TRUE), 'Subscription.created');?></th>
+	<th><?php __('Pagamento');?></th>
+	<th class="actions"><?php __('Ações');?></th>
 </tr>
 <?php
 $i = 0;
@@ -39,9 +40,23 @@ foreach ($subscriptions as $subscription):
 			<?php echo $html->link($subscription['Event']['title'], array('controller' => 'events', 'action' => 'view', $subscription['Event']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $subscription['Subscription']['created']; ?>
+			<?php echo $this->Formatacao->data($subscription['Subscription']['created']); ?>
+		</td>
+		<td>
+			<?php
+				if(isset($subscription['Payment']['amount']))
+					$subscription['Payment']['confirmed'] ? __('Confirmado') : __('Em confirmação');
+				else if($subscription['Event']['free'])
+					__('Gratuito');
+				else
+					__('Não realizado');
+			?>
 		</td>
 		<td class="actions">
+			<?php 
+				if(!$subscription['Event']['free'])
+				echo $html->link(__('Confirmar pagamento', TRUE), array('controller' => 'payments', 'action' => 'confirm', $subscription['Payment']['id']), null, sprintf(__('Deseja realmente confirmar o pagamento da inscrição # %s?', true), $subscription['Subscription']['id']))
+			?>
 			<?php echo $html->link(__('Ver', true), array('action' => 'view', $subscription['Subscription']['id'])); ?>
 			<?php echo $html->link(__('Alterar', true), array('action' => 'edit', $subscription['Subscription']['id'])); ?>
 			<?php echo $html->link(__('Remover', true), array('action' => 'delete', $subscription['Subscription']['id']), null, sprintf(__('Deseja realmente excluir # %s?', true), $subscription['Subscription']['id'])); ?>

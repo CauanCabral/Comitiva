@@ -22,9 +22,19 @@ class SubscriptionsController extends AppController
 	/*
 	 * Ações para rota administrativa
 	 */
-	public function admin_index()
+	public function admin_index($event_id = null)
 	{
 		$this->Subscription->recursive = 0;
+		
+		if(is_numeric($event_id))
+		{
+			$this->paginate = array(
+				'conditions' => array(
+					'event_id' => $event_id
+				)
+			);
+		}
+		
 		$this->set('subscriptions', $this->paginate());
 	}
 
