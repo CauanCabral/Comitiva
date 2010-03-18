@@ -137,13 +137,24 @@ class SubscriptionsController extends AppController
 			$this->redirect(array('action' => 'index'));
 		}
 		
-		$this->set('subscription', $this->Subscription->read(null, $id));
+		$this->set('subscription', $this->Subscription->find(
+			'first',
+			array(
+				'conditions' => array(
+					'Subscription.id' => $id,
+					'Subscription.user_id' => User::get('id')
+					)
+				)
+			)
+		);
 	}
 
 	public function participant_add($event_id = null)
 	{
 		if (!empty($this->data))
 		{
+			$this->Subscription->create();
+			
 			$this->data['Subscription']['user_id'] = User::get('id');
 
 			if ($this->Subscription->save($this->data))

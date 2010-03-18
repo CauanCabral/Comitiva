@@ -141,6 +141,13 @@ class PaymentsController extends AppController
 	public function participant_index()
 	{
 		$this->Payment->recursive = 2;
+		
+		$this->paginate = array(
+			'conditions' => array(
+				'Subscription.user_id' => User::get('id')
+			)
+		);
+		
 		$this->set('payments', $this->paginate());
 	}
 
@@ -152,7 +159,16 @@ class PaymentsController extends AppController
 			$this->redirect(array('action' => 'index'));
 		}
 		
-		$this->set('payment', $this->Payment->read(null, $id));
+		$this->set('payment', $this->Payment->find(
+			'first',
+			array(
+				'conditions' => array(
+					'Payment.id' => $id,
+					'Subscription.user_id' => User::get('id')
+					)
+				)
+			)
+		);
 	}
 
 	public function participant_add($subscription_id = null)
@@ -178,6 +194,7 @@ class PaymentsController extends AppController
 			array(
 				'conditions' => array(
 					'subscription_id' => $subscription_id,
+					'Subscription.user_id' => User::get('id')
 				)
 			)
 		);
