@@ -226,7 +226,16 @@ class EventsController extends AppController
 			if(isset($this->passedArgs['id']) && is_numeric($this->passedArgs['id']))
 			{
 				$this->set('id', $this->passedArgs['id']);
-				$this->data = $this->Event->EventDate->find('first', array('conditions' => array('EventDate.id' => $this->passedArgs['id'])));
+				
+				$eventPrice = $this->Event->EventPrice->find('first', array('recursive' => -1, 'conditions' => array('EventPrice.id' => $this->passedArgs['id'])));
+
+				// formata para utilização na view
+				$output = array('EventPrice' => array(
+					$this->passedArgs['index'] => $eventPrice['EventPrice']
+					)
+				);
+				
+				$this->data = $output;
 			}
 			
 			$this->render('event_price_add');
