@@ -37,7 +37,7 @@
 	</tr>
 		<tr>
 			<td><?php echo $this->Formatacao->data($subscription['Payment']['date']);?></td>
-			<td><?php echo $subscription['Payment']['amount'];?></td>
+			<td><?php echo $this->Formatacao->moeda($subscription['Payment']['amount']);?></td>
 			<td><?php echo $subscription['Payment']['information'];?></td>
 			<td><?php $subscription['Payment']['confirmed'] ? __('Sim') : __('Não');?></td>
 

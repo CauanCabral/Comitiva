@@ -6,6 +6,8 @@ class PaymentsController extends AppController
 	
 	public $uses = array('Payment');
 	
+	public $helpers = array('Formatacao');
+	
 	public function isAuthorized()
 	{
 		if($this->userLogged === TRUE && $this->params['prefix'] == User::get('type'))

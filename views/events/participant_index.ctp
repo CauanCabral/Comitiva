@@ -16,7 +16,7 @@ echo $paginator->counter(array(
 <tr>
 	<th><?php echo $paginator->sort('id');?></th>
 	<th><?php echo __('Nome do Evento',1);?></th>
-	<th><?php echo __('Grátis',1);?></th>
+	<th><?php echo __('Gratuito?',1);?></th>
 	<th><?php echo __('Inscritos',1);?></th>
 	<th class="actions"><?php __('Ações');?></th>
 </tr>

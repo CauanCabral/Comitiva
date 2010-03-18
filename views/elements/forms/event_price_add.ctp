@@ -20,6 +20,10 @@
 			'maxYear' => date('Y') + 5
 			)
 		);
+		echo $this->Form->input("EventPrice.{$i}.observation", array(
+			'label' => __('Observação', TRUE)
+			)
+		);
 		
 		// case form is showed in edit action
 		if(isset($id))

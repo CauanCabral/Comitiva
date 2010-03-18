@@ -5,12 +5,12 @@
 
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Data'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $payment['Payment']['date']; ?>
+			<?php echo $this->Formatacao->data($payment['Payment']['date']); ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Quantia'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Valor'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $payment['Payment']['amount']; ?>
+			<?php echo $this->Formatacao->moeda($payment['Payment']['amount']); ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Informações'); ?></dt>
@@ -18,7 +18,7 @@
 			<?php echo $payment['Payment']['information']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Confirmed'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Confirmado'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo ($payment['Payment']['confirmed']?__('Sim',1):__('Não')); ?>
 			&nbsp;

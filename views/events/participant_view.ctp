@@ -100,6 +100,7 @@
 		<h3><?php __('Valores');?></h3>
 		<table cellpadding = "0" cellspacing = "0">
 		<tr>
+			<th><?php __('Observação');?></th>
 			<th><?php __('Valor'); ?></th>
 			<th><?php __('Data inicial'); ?></th>
 			<th><?php __('Data final'); ?></th>
@@ -113,6 +114,7 @@
 				}
 			?>
 			<tr<?php echo $class;?>>
+				<td><?php echo $eventPrice['observation'];?></td>
 				<td><?php echo $this->Formatacao->moeda($eventPrice['price']);?></td>
 				<td><?php echo $this->Formatacao->data($eventPrice['start_date']);?></td>
 				<td><?php echo $this->Formatacao->data($eventPrice['final_date']);?></td>
