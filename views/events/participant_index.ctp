@@ -36,10 +36,10 @@ foreach ($events as $event):
 			<?php echo $event['Event']['title']; ?>
 		</td>
 		<td>
-			<?php echo $event['Event']['subscription_count']; ?>
+			<?php echo $event['Event']['free']?__('Sim'):__('Não'); ?>
 		</td>
 		<td>
-			<?php echo $event['Event']['free']?__('Sim'):__('Não'); ?>
+			<?php echo $event['Event']['subscription_count']; ?>
 		</td>
 		<td class="actions">
 			<?php echo $html->link(__('Visualizar', true), array('action' => 'view', $event['Event']['id'])); ?>

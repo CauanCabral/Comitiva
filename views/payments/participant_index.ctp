@@ -14,11 +14,10 @@ echo $paginator->counter(array(
 ?></p>
 <table cellpadding="0" cellspacing="0">
 <tr>
-	<th><?php echo $paginator->sort('id');?></th>
-	<th><?php echo $paginator->sort('date');?></th>
+	<th><?php echo $paginator->sort(__('Data', TRUE), 'Payment.date');?></th>
 	<th><?php echo __('Evento');?></th>
-	<th><?php echo $paginator->sort('amount');?></th>
-	<th><?php echo $paginator->sort('confirmed');?></th>
+	<th><?php echo $paginator->sort(__('Valor', TRUE), 'Payment.amount');?></th>
+	<th><?php echo $paginator->sort(__('Confirmado?', TRUE), 'Payment.confirmed');?></th>
 
 </tr>
 <?php
@@ -30,10 +29,6 @@ foreach ($payments as $payment):
 	}
 ?>
 	<tr<?php echo $class;?>>
-		<td>
-			<?php echo $payment['Payment']['id']; ?>
-		</td>
-	
 		<td>
 			<?php echo $payment['Payment']['date']; ?>
 		</td>

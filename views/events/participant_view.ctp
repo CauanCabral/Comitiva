@@ -114,8 +114,8 @@
 			?>
 			<tr<?php echo $class;?>>
 				<td><?php echo $this->Formatacao->moeda($eventPrice['price']);?></td>
-				<td><?php echo $this->Formatacao->dataHora($eventPrice['start_date']);?></td>
-				<td><?php echo $this->Formatacao->dataHora($eventPrice['final_date']);?></td>
+				<td><?php echo $this->Formatacao->data($eventPrice['start_date']);?></td>
+				<td><?php echo $this->Formatacao->data($eventPrice['final_date']);?></td>
 			</tr>
 		<?php endforeach; ?>
 		</table>

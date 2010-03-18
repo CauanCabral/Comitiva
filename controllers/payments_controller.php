@@ -142,26 +142,36 @@ class PaymentsController extends AppController
 				$this->redirect(array('action' => 'index'));
 			}
 		}
-		$payment = $this->Payment->find('first',array('conditions' => array(
-			'subscription_id' => $subscription_id,
-		)));
 		
-		$subscription = $this->Payment->Subscription->read(null, $subscription_id);
+		$payment = $this->Payment->find(
+			'first',
+			array(
+				'conditions' => array(
+					'subscription_id' => $subscription_id,
+				)
+			)
+		);
+		
 		if(!empty($payment))
 		{
 			$this->Session->setFlash(__('Este Pagamento Já Foi Informado!', true));
 			$this->redirect(array('action' => 'index'));
 		}
+		
+		$subscription = $this->Payment->Subscription->read(null, $subscription_id);
+		
 		if($subscription['Event']['free'])
 		{
 			$this->Session->setFlash(__('Este evento é gratuito!', true));
 			$this->redirect(array('action' => 'index'));
 		}
+		
 		if(!isset($subscription_id))
 		{
 			$this->Session->setFlash(__('Pagamento Inválido', true));
 			$this->redirect(array('action' => 'index'));
 		}
+		
 		$this->set(compact('subscription'));
 	}
 }

@@ -24,8 +24,7 @@ class Subscription extends AppModel
 	public $hasOne = array(
 		'Payment' => array(
 			'className' => 'Payment',
-			'foreignKey' => 'subscription_id',
-			'conditions' => array('Event.free' => FALSE)
+			'foreignKey' => 'subscription_id'
 		)
 	);
 

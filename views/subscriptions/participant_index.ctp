@@ -35,11 +35,21 @@ foreach ($subscriptions as $subscription):
 			<?php echo $html->link($subscription['Event']['title'], array('controller' => 'subscriptions', 'action' => 'view', $subscription['Subscription']['id'])); ?>
 		</td>
 		<td>
-			<?php //pr($subscriptions) ?>
+			<?php
+				if(isset($subscription['Payment']['amount']))
+					$subscription['Payment']['confirmed'] ? __('Confirmado') : __('Em confirmação');
+				else if($subscription['Event']['free'])
+					__('Gratuito');
+				else
+					__('Não realizado');
+			?>
 		</td>
 		<td class="actions">
 			<?php echo $html->link(__('Ver', true), array('action' => 'view', $subscription['Subscription']['id'])); ?>
-			<?php echo $html->link(__('Informar Pagamento', true), array('controller' => 'payments', 'action' => 'add', $subscription['Subscription']['id'])); ?>
+			<?php
+				if($subscription['Event']['free'] == 0)
+					echo $html->link(__('Informar Pagamento', true), array('controller' => 'payments', 'action' => 'add', $subscription['Subscription']['id']));
+			?>
 		</td>
 	</tr>
 <?php endforeach; ?>
