@@ -21,5 +21,5 @@ uma conta, faça o login através da página <a href="/login">www.comitiva.phpms
 os eventos disponíveis.</p>
 <br />
 <p>Este sistema é software-livre, e é desenvolvido por membros do PHPMS, portanto, caso encontre algum erro/bug/problema <br />
-ou queira apenas fazer um comentário, entre em contato através do endereço de email admin.phpms [arroba] gmail.com</p>
+ou queira apenas fazer um comentário, entre em contato através do endereço de email <strong>admin.phpms [arroba] gmail.com</strong></p>
 
