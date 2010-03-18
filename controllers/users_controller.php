@@ -27,9 +27,20 @@ class UsersController extends AppController
 	public function login()
 	{
 		if($this->Auth->user())
-		{
+		{	
 			// load user model
-			$this->User->set($this->Auth->user());
+			$this->User->store($this->Auth->user());
+			
+			// verify if logged user has active account
+			if(User::get('active') == 0)
+			{
+				// if not, force loggout and display help message to user active account
+				$this->userLogged = false;
+				
+				$this->Session->setFlash(__('Você precisa confirmar sua conta. Verifique seu email por favor.', TRUE));
+				
+				$this->redirect($this->Auth->logout());
+			}
 			
 			$now = new DateTime();
 			
@@ -110,20 +121,16 @@ class UsersController extends AppController
 	{
 		if (!empty($this->data))
 		{
-			$d = new DateTime();
-			$d->modify('+1 day');
-
 			$this->data['User']['type'] = 'participant';
-			$this->data['User']['account_validation_expires_at'] = $d->format(DateTime::ISO8601);
-			$this->data['User']['account_validation_token'] = sha1(md5($this->data['User']['password']) . time());
 			
 			$this->User->create($this->data);
 			
 			if ($this->__validPassword() && $this->User->save())
 			{
-				$this->__sendAccountConfirmMail($this->User->read());
-				$this->Session->setFlash('Cadastro Efetuado!');
-				$this->redirect('login');
+				if($this->__sendAccountConfirmMail($this->User->read()))
+				{
+					$this->redirect('login');
+				}
 			}
 			else
 			{
@@ -200,6 +207,9 @@ class UsersController extends AppController
 		if (!empty($this->data))
 		{
 			$this->User->create();
+			
+			// default, all admin added user has confirmed
+			$this->data['User']['active'] = TRUE;
 			
 			if ($this->__validPassword() && $this->User->save($this->data))
 			{
@@ -360,13 +370,28 @@ class UsersController extends AppController
 	 */
 	protected function __sendAccountConfirmMail($userData)
 	{		
+		$d = new DateTime();
+		$d->modify('+1 day');
 		
-		$this->set('token', $this->data['User']['account_validation_token']);
+		$token = sha1(md5($this->data['User']['password']) . time());
+		
+		$success = $this->User->save(
+			array(
+				'User' => array(
+					'id' => $userData['User']['id'],
+					'account_validation_token' => $token,
+					'account_validation_expires_at' => $d->format(DateTime::ISO8601)
+				)
+			)
+		);
+		
+		$this->set('user', $userData['User']);
+		$this->set('token', $token);
 		
 		if($success)
 		{
 			$this->Email->reset();
-	
+		
 			/* Setup parameters of EmailComponent */
 			$this->Email->to = $userData['User']['email'];
 			$this->Email->subject = '[PHPMS - Inscrições] Confirmação de conta';
