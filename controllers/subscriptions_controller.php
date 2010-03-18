@@ -149,7 +149,7 @@ class SubscriptionsController extends AppController
 		}
 		if($event_id != null)
 		{
-			$subscription = $this->Subscription->find('first', array('conditions' => array('event_id' => $event_id)));
+			$subscription = $this->Subscription->find('first', array('conditions' => array('event_id' => $event_id, 'user_id' => User::get('id'))));
 			
 			if(!empty($subscription))
 			{
