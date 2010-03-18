@@ -26,9 +26,9 @@ class User extends AppModel
 		),
 		'name' => array(
 			'notempty' => array(
-                                'rule' => array('notempty'),
-                                'message' => 'Por favor, preencha o nome'
-                        )
+				'rule' => array('notempty'),
+				'message' => 'Por favor, preencha o nome'
+			)
 		),
 		'birthday' => array(
 			'date' => array('rule' => array('date')),
@@ -41,10 +41,10 @@ class User extends AppModel
 		),
 		'address' => array(
 			'notempty' => array(
-                                'rule' => array('notempty'),
-                                'message' => 'Por favor, preencha o endereço'
-                        )
-                )
+				'rule' => array('notempty'),
+				'message' => 'Por favor, preencha o endereço'
+				)
+			)
 	);
 
 	public $hasMany = array(

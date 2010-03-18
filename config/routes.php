@@ -39,7 +39,7 @@ Router::connect('/account_create', array('controller' => 'users', 'action' => 'a
 Router::connect('/account_confirm/*', array('controller' => 'users', 'action' => 'account_confirm'));
 Router::connect('/recover', array('controller' => 'users', 'action' => 'recover'));
 Router::connect('/profile', array('controller' => 'users', 'action' => 'profile'));
-Router::connect('/reset_password', array('controller' => 'users', 'action' => 'reset_password'));
+Router::connect('/reset_password/*', array('controller' => 'users', 'action' => 'reset_password'));
 
 /**
  * Administrators route

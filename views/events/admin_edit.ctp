@@ -11,6 +11,7 @@
 	<fieldset>
  		<legend><?php __('Novo Evento');?></legend>
 	<?php
+		echo $this->Form->input('Event.id');
 		echo $this->Form->input('Event.title', array('label' => __('Titulo',TRUE)));
 		echo $this->Form->input('Event.description', array('label' => __('Descrição',TRUE), 'rows' => 15));
 		echo $this->Form->input('Event.parent_id', array('label' => __('Macro Evento', TRUE), 'options' => array_merge(array('Selecione um evento'),$events)));
