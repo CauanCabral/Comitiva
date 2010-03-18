@@ -1,10 +1,16 @@
+<div class="actions">
+	<ul>
+		<li><?php echo $html->link(__('Minhas Inscrições', true), array('controller' => 'subscriptions', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('Listar Eventos', true), array('controller' => 'subscriptions', 'action' => 'add')); ?> </li>
+	</ul>
+</div>
 <div class="payments form">
 <?php echo $form->create('Payment', array('action' => 'add'));?>
 	<fieldset>
  		<legend><?php __('Informar Pagamento');?></legend>
 		<h3>Evento: <?php echo $subscription['Event']['title']; ?></h3>
 		<p>
-		Por favor, preencha corretament os campos abaixo. Os dados serão confirmados
+		Por favor, preencha corretamente os campos abaixo. Os dados serão confirmados
 		pela organização do evento.
 		</p>
 		<br />
@@ -19,10 +25,4 @@
 	?>
 	</fieldset>
 <?php echo $form->end('Confirmar');?>
-</div>
-<div class="actions">
-	<ul>
-		<li><?php echo $html->link(__('Minhas Inscrições', true), array('controller' => 'subscriptions', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('Listar Eventos', true), array('controller' => 'subscriptions', 'action' => 'add')); ?> </li>
-	</ul>
 </div>

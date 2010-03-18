@@ -18,7 +18,6 @@ echo $paginator->counter(array(
 	<th><?php echo __('Evento');?></th>
 	<th><?php echo $paginator->sort(__('Valor', TRUE), 'Payment.amount');?></th>
 	<th><?php echo $paginator->sort(__('Confirmado?', TRUE), 'Payment.confirmed');?></th>
-
 </tr>
 <?php
 $i = 0;
@@ -41,8 +40,6 @@ foreach ($payments as $payment):
 		<td>
 			<?php echo ($payment['Payment']['confirmed']?__('Sim',1):__('Não',1)); ?>
 		</td>
-	
-	
 	</tr>
 <?php endforeach; ?>
 </table>

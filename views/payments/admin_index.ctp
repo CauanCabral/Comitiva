@@ -6,7 +6,7 @@
 	</ul>
 </div>
 <div class="payments index">
-<h2><?php __('Payments');?></h2>
+<h2><?php __('Pagamentos');?></h2>
 <p>
 <?php
 echo $paginator->counter(array(
@@ -15,14 +15,11 @@ echo $paginator->counter(array(
 ?></p>
 <table cellpadding="0" cellspacing="0">
 <tr>
-	<th><?php echo $paginator->sort('id');?></th>
-	<th><?php echo $paginator->sort('subscription_id');?></th>
-	<th><?php echo $paginator->sort('date');?></th>
-	<th><?php echo $paginator->sort('amount');?></th>
-	<th><?php echo $paginator->sort('information');?></th>
-	<th><?php echo $paginator->sort('confirmed');?></th>
-	<th><?php echo $paginator->sort('created');?></th>
-	<th><?php echo $paginator->sort('modified');?></th>
+	<th><?php echo $paginator->sort(__('Inscrição'), 'Payment.subscription_id');?></th>
+	<th><?php echo $paginator->sort(__('Data', TRUE), 'Payment.date');?></th>
+	<th><?php echo __('Evento');?></th>
+	<th><?php echo $paginator->sort(__('Valor', TRUE), 'Payment.amount');?></th>
+	<th><?php echo $paginator->sort(__('Confirmado?', TRUE), 'Payment.confirmed');?></th>
 	<th class="actions"><?php __('Ações',1);?></th>
 </tr>
 <?php
@@ -35,30 +32,22 @@ foreach ($payments as $payment):
 ?>
 	<tr<?php echo $class;?>>
 		<td>
-			<?php echo $payment['Payment']['id']; ?>
+			<?php echo $html->link($payment['Subscription']['subscription'], array('controller' => 'subscriptions', 'action' => 'view', $payment['Subscription']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $html->link($payment['Subscription']['id'], array('controller' => 'subscriptions', 'action' => 'view', $payment['Subscription']['id'])); ?>
+			<?php echo $this->Formatacao->data($payment['Payment']['date']); ?>
 		</td>
 		<td>
-			<?php echo $payment['Payment']['date']; ?>
+			<?php echo  $payment['Subscription']['Event']['title'] ?>
 		</td>
 		<td>
-			<?php echo $payment['Payment']['amount']; ?>
+			<?php echo $this->Formatacao->moeda($payment['Payment']['amount']); ?>
 		</td>
 		<td>
-			<?php echo $payment['Payment']['information']; ?>
-		</td>
-		<td>
-			<?php echo $payment['Payment']['confirmed']; ?>
-		</td>
-		<td>
-			<?php echo $payment['Payment']['created']; ?>
-		</td>
-		<td>
-			<?php echo $payment['Payment']['modified']; ?>
+			<?php echo ($payment['Payment']['confirmed']?__('Sim',1):__('Não',1)); ?>
 		</td>
 		<td class="actions">
+			<?php echo $html->link(__('Confirmar', TRUE), array('action' => 'confirm', $payment['Payment']['id']), null, sprintf(__('Deseja realmente confirmar o pagamento da inscrição # %s?', true), $payment['Subscription']['id']));?>
 			<?php echo $html->link(__('Visualizar', true), array('action' => 'view', $payment['Payment']['id'])); ?>
 			<?php echo $html->link(__('Editar', true), array('action' => 'edit', $payment['Payment']['id'])); ?>
 			<?php echo $html->link(__('Apagar', true), array('action' => 'delete', $payment['Payment']['id']), null, sprintf(__('Tem certeza que deseja apagar # %s?', true), $payment['Payment']['id'])); ?>

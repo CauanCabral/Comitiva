@@ -106,6 +106,35 @@ class PaymentsController extends AppController
 		$this->redirect(array('action' => 'index'));
 	}
 	
+	public function admin_confirm($id = null)
+	{
+		if ($id == null)
+		{
+			$this->Session->setFlash(__('Id de inscrição inválido', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		
+		$success = $this->save(
+			array(
+				'Payment' => array(
+					'id' => $id,
+					'confirmed' => 1
+				)
+			)
+		);
+		
+		if($success)
+		{
+			$this->Session->setFlash(__('Pagamento confirmado', true));
+		}
+		else
+		{
+			$this->Session->setFlash(__('Não foi possível confirmar o pagamento', true));
+		}
+		
+		$this->redirect(array('action'=>'index'));
+	}
+	
 	/*
 	 * Ações para rota de participante
 	 */
@@ -128,7 +157,6 @@ class PaymentsController extends AppController
 
 	public function participant_add($subscription_id = null)
 	{
-		
 		if (!empty($this->data))
 		{
 			$this->Payment->create();
