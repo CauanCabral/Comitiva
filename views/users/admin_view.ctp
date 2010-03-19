@@ -63,13 +63,13 @@
 	<?php
 		$i = 0;
 		foreach ($user['Subscription'] as $subscription):
-			$class = null;
+			$class = null; 
 			if ($i++ % 2 == 0) {
 				$class = ' class="altrow"';
 			}
 		?>
 		<tr<?php echo $class;?>>
-			<td><?php echo $subscription['Event']['alias'];?></td>
+			<td><?php echo $subscription['Event']['title'];?></td>
 			<td><?php echo $subscription['Event']['created'];?></td>
 			<td class="actions">
 				<?php echo $html->link(__('Ver', true), array('controller' => 'subscriptions', 'action' => 'view', $subscription['id'])); ?>

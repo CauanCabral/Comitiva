@@ -201,7 +201,16 @@ class UsersController extends AppController
 			$this->Session->setFlash(__('Usuário inválido', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('user', $this->User->read(null, $id));
+		$this->set('user', $this->User->find(
+			'first',
+			array(
+				'conditions' => array(
+					'User.id' => $id
+					),
+				'recursive' => 2
+				)
+			)
+		);
 	}
 
 	public function admin_add()
