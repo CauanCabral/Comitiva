@@ -54,7 +54,7 @@ foreach ($subscriptions as $subscription):
 		</td>
 		<td class="actions">
 			<?php 
-				if(!$subscription['Event']['free'])
+				if(!$subscription['Event']['free'] && !$subscription['Payment']['confirmed'])
 				echo $html->link(__('Confirmar pagamento', TRUE), array('controller' => 'payments', 'action' => 'confirm', $subscription['Payment']['id']), null, sprintf(__('Deseja realmente confirmar o pagamento da inscrição # %s?', true), $subscription['Subscription']['id']))
 			?>
 			<?php echo $html->link(__('Ver', true), array('action' => 'view', $subscription['Subscription']['id'])); ?>

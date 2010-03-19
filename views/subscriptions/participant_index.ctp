@@ -47,7 +47,7 @@ foreach ($subscriptions as $subscription):
 		<td class="actions">
 			<?php echo $html->link(__('Ver', true), array('action' => 'view', $subscription['Subscription']['id'])); ?>
 			<?php
-				if($subscription['Event']['free'] == 0)
+				if($subscription['Event']['free'] == 0 && !isset($subscription['Payment']['id']))
 					echo $html->link(__('Informar Pagamento', true), array('controller' => 'payments', 'action' => 'add', $subscription['Subscription']['id']));
 			?>
 		</td>

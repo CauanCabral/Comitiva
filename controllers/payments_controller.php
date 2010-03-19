@@ -173,6 +173,31 @@ class PaymentsController extends AppController
 
 	public function participant_add($subscription_id = null)
 	{
+		// verify if event is free (no need payments)
+		$subscription = $this->Payment->Subscription->read(null, $subscription_id);
+		if($subscription['Event']['free'])
+		{
+			$this->Session->setFlash(__('Este evento é gratuito!', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		
+		// verify if payment already has been saved
+		$payment = $this->Payment->find(
+			'first',
+			array(
+				'conditions' => array(
+					'subscription_id' => $subscription_id,
+					'Subscription.user_id' => User::get('id')
+				)
+			)
+		);
+		if(!empty($payment))
+		{
+			$this->Session->setFlash(__('Este Pagamento Já Foi Informado!', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		
+		// verify if form has submited
 		if (!empty($this->data))
 		{
 			$this->Payment->create();
@@ -189,30 +214,7 @@ class PaymentsController extends AppController
 			}
 		}
 		
-		$payment = $this->Payment->find(
-			'first',
-			array(
-				'conditions' => array(
-					'subscription_id' => $subscription_id,
-					'Subscription.user_id' => User::get('id')
-				)
-			)
-		);
-		
-		if(!empty($payment))
-		{
-			$this->Session->setFlash(__('Este Pagamento Já Foi Informado!', true));
-			$this->redirect(array('action' => 'index'));
-		}
-		
-		$subscription = $this->Payment->Subscription->read(null, $subscription_id);
-		
-		if($subscription['Event']['free'])
-		{
-			$this->Session->setFlash(__('Este evento é gratuito!', true));
-			$this->redirect(array('action' => 'index'));
-		}
-		
+		// else verify if not setted id
 		if(!isset($subscription_id))
 		{
 			$this->Session->setFlash(__('Pagamento Inválido', true));
