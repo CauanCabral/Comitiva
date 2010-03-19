@@ -5,6 +5,10 @@ class Payment extends AppModel
 	
 	public $displayField = 'date';
 	
+	public $actAs = array(
+		'Locale'
+	);
+	
 	public $validate = array(
 		'date' => array(
 			'date' => array('rule' => array('date')),

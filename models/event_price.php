@@ -3,6 +3,10 @@ class EventPrice extends AppModel
 {
 	public $name = 'EventPrice';
 	
+	public $actAs = array(
+		'Locale'
+	);
+	
 	public $validate = array(
 		'price' => array(
 			'numeric' => array('rule' => array('numeric')),

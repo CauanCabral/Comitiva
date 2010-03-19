@@ -12,9 +12,6 @@
  * @version $Rev$
  * 
  * Este behavior requer PHP versão >= 5.2.4
- * Utiliza a lib "intl", disponível no PECL - http://pecl.php.net/package/intl
- * 
- * Caso utilize PHP versão >= 5.3, ela já esta builtin (não precisa instalar nada)
  */
 
 class LocaleBehavior extends ModelBehavior
@@ -53,8 +50,6 @@ class LocaleBehavior extends ModelBehavior
 		{
 			$this->langs['initLang'] = Configure::read('Language.default_php');
 		}
-		
-		ini_set('intl.default_locale', $this->langs['initLang']);
 	}
 
 	public function beforeValidate()
@@ -76,8 +71,6 @@ class LocaleBehavior extends ModelBehavior
 							$success = $this->__dateConvert($value);
 							break;
 						case 'decimal':
-							$success = $this->__decimalConvert($value);
-							break;
 						case 'float':
 						case 'double':
 							$success = $this->__stringToFloat($value);
@@ -92,28 +85,6 @@ class LocaleBehavior extends ModelBehavior
 				}
 			}
 		}
-	}
-
-	/**
-	 * Converte uma string para um decimal localizado
-	 * 
-	 * @param string $value
-	 * @return bool
-	 */
-	private function __decimalConvert(&$value)
-	{
-		$this->__stringToFloat($value);
-		
-		$nf = new NumberFormatter($this->langs['finalLang'], NumberFormatter::DECIMAL);
-		
-		if($nf === FALSE)
-		{
-			return FALSE;
-		}
-		
-		$value = $nf->format($value);
-		
-		return ($value !== FALSE);
 	}
 
 	/**
@@ -154,7 +125,12 @@ class LocaleBehavior extends ModelBehavior
 			// find decimal digits
 			if(preg_match('/([\.|,])([0-9]*)$/', $value, $d))
 			{
-			  $d = $d[2];
+				$d = $d[2];
+			}
+			else
+			{
+				// insert zero to rigth side (two for convenience)
+				$d = '00';
 			}
 			
 			// extract integer digits
