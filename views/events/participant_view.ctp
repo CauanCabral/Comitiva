@@ -49,7 +49,7 @@
 		</form>
 		<br />
 		<p>
-			Se preferir, você ainda pode fazer uma transferência ou depósito para a conta:
+			Se preferir, você ainda pode fazer uma transferência, DOC ou depósito para a conta:
 		</p>
 		<dl>
 			<dt>Banco</dt>
@@ -60,6 +60,8 @@
 			<dd>1000103-0</dd>
 			<dt class="altrow">Titular</dt>
 			<dd class="altrow">Cauan Gama Cabral</dd>
+			<dt>CPF do Titular</dt>
+			<dd>019.155.051-51</dd>
 		</dl>
 		<p>
 			Não se esqueça de confirmar seu pagamento, informando o valor, data e horário do depósito ou transferênciam, caso tenha optado por este.
