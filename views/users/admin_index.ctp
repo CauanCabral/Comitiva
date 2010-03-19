@@ -43,10 +43,10 @@ foreach ($users as $user):
 			<?php echo $user['User']['email']; ?>
 		</td>
 		<td>
-			<?php echo $user['User']['last_access']; ?>
+			<?php echo $this->Formatacao->data($user['User']['last_access']); ?>
 		</td>
 		<td>
-			<?php echo $user['User']['created']; ?>
+			<?php echo $this->Formatacao->data($user['User']['created']); ?>
 		</td>
 		<td class="actions">
 			<?php echo $html->link(__('Ver', true), array('action' => 'view', $user['User']['id'])); ?>

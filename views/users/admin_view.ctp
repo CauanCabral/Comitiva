@@ -21,7 +21,7 @@
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Data de nascimento'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $user['User']['birthday']; ?>
+			<?php echo $this->Formatacao->data($user['User']['birthday']); ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Nome de usuário'); ?></dt>
@@ -36,17 +36,17 @@
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Último acesso'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $user['User']['last_access']; ?>
+			<?php echo $this->Formatacao->data($user['User']['last_access']); ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Data de registro'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $user['User']['created']; ?>
+			<?php echo $this->Formatacao->data($user['User']['created']); ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Última alteração'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $user['User']['modified']; ?>
+			<?php echo $this->Formatacao->data($user['User']['modified']); ?>
 			&nbsp;
 		</dd>
 	</dl>
@@ -58,7 +58,7 @@
 	<tr>
 		<th><?php __('Evento'); ?></th>
 		<th><?php __('Data'); ?></th>
-		<th class="actions"><?php __('Actions');?></th>
+		<th class="actions"><?php __('Ações');?></th>
 	</tr>
 	<?php
 		$i = 0;
@@ -70,7 +70,7 @@
 		?>
 		<tr<?php echo $class;?>>
 			<td><?php echo $subscription['Event']['title'];?></td>
-			<td><?php echo $subscription['Event']['created'];?></td>
+			<td><?php echo $this->Formatacao->data($subscription['Event']['created']);?></td>
 			<td class="actions">
 				<?php echo $html->link(__('Ver', true), array('controller' => 'subscriptions', 'action' => 'view', $subscription['id'])); ?>
 				<?php echo $html->link(__('Alterar', true), array('controller' => 'subscriptions', 'action' => 'edit', $subscription['id'])); ?>
