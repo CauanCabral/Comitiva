@@ -63,8 +63,10 @@
 			<dt>CPF do Titular</dt>
 			<dd>019.155.051-51</dd>
 		</dl>
+		<br />
 		<p>
 			<strong>ATENÇÃO: a Conta é Poupança. Depósito/transferência para conta Corrente será desconsiderado.</strong>
+			<br />
 			Não se esqueça de confirmar seu pagamento, informando o valor, data e horário do depósito ou transferência, caso tenha optado por este método.
 		</p>
 	</div>
