@@ -73,8 +73,7 @@
 		<tr>
 			<th><?php __('Observação');?></th>
 			<th><?php __('Valor'); ?></th>
-			<th><?php __('Data inicial'); ?></th>
-			<th><?php __('Data final'); ?></th>
+			<th><?php __('Período'); ?></th>
 		</tr>
 		<?php
 			$i = 0;
@@ -87,8 +86,7 @@
 			<tr<?php echo $class;?>>
 				<td><?php echo $eventPrice['observation'];?></td>
 				<td><?php echo $this->Formatacao->moeda($eventPrice['price']);?></td>
-				<td><?php echo $this->Formatacao->data($eventPrice['start_date']);?></td>
-				<td><?php echo $this->Formatacao->data($eventPrice['final_date']);?></td>
+				<td><?php echo __('entre'), ' ', $this->Formatacao->data($eventPrice['start_date']), ' ', __('e', TRUE), ' ',$this->Formatacao->data($eventPrice['final_date']);?></td>
 			</tr>
 		<?php endforeach; ?>
 		</table>
