@@ -27,6 +27,16 @@ class EventsController extends AppController
 	{
 		$this->Event->recursive = 0;
 		
+		// list just root events
+		$this->paginate = array(
+			'conditions' => array(
+				'OR' => array(
+					'Event.parent_id ' => 0,
+					'Event.parent_id IS NULL'
+				)
+			)
+		);
+		
 		$this->set('events', $this->paginate());
 	}
 
@@ -122,9 +132,18 @@ class EventsController extends AppController
 	public function participant_index()
 	{
 		$this->Event->recursive = 0;
+		
+		// list just root events
+		$this->paginate = array(
+			'conditions' => array(
+				'OR' => array(
+					'Event.parent_id ' => 0,
+					'Event.parent_id IS NULL'
+				)
+			)
+		);
+		
 		$this->set('events', $this->paginate());
-
-
 	}
 
 	public function participant_view($id = null)

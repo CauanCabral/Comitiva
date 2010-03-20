@@ -25,7 +25,6 @@
 		echo $form->input('state', array('label' => __('Estado', 1)));
 		echo $form->input('phone', array('label' => 'Telefone',1));
 	?>
-	
 	</fieldset>
-<?php echo $form->end('Submit');?>
+<?php echo $form->end(__('Salvar'));?>
 </div>

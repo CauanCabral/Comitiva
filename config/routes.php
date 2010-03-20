@@ -23,9 +23,7 @@
  */
 
 /**
- * Here, we are connecting '/' (base path) to controller called 'Pages',
- * its action called 'display', and we pass a param to select the view file
- * to use (in this case, /app/views/pages/home.ctp)...
+ * Connect requested address to controller with static pages
  */
 Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'index'));
 Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
@@ -50,5 +48,4 @@ Router::connect('/admin', array('controller' => 'users', 'action' => 'profile', 
  * Participants route
  */
 Router::connect('/participant', array('controller' => 'users', 'action' => 'profile', 'prefix' => 'participant'));
-
 ?>

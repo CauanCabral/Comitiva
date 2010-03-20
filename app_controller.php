@@ -142,17 +142,22 @@ class AppController extends Controller
 				__('Eventos', TRUE) => array(
 					'controller' => 'events',
 					'action' => 'index',
-                                        'admin' => true
+					'prefix' => 'admin'
+				),
+				__('Pagamentos', TRUE) => array(
+					'controller' => 'payments',
+					'action' => 'index',
+					'prefix' => 'admin'
 				),
 				__('Usuários', TRUE) => array(
 					'controller' => 'users',
 					'action' => 'index',
-                                        'admin' => true
+					'prefix' => 'admin'
 				),
 				__('Minha conta',TRUE) => array(
 					'controller' => 'users',
 					'action' => 'profile',
-                                        'admin' => true
+					'prefix' => 'admin'
 				),
 				__('Sair', TRUE) => '/logout',
 			);

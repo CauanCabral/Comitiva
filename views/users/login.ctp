@@ -7,7 +7,7 @@
 	echo $form->end(__('Entrar', TRUE));
 	?>
 	<br />
-	<?php echo $this->Html->link(__('Esqueceu sua senha?', TRUE), array('controller' => 'users', 'action' => 'recover')); ?>
+	<?php echo $this->Html->link(__('Esqueceu sua senha?', TRUE), '/recover'); ?>
 	<br />
-	<?php echo $this->Html->link(__('Crie uma conta aqui.', TRUE), array('controller' => 'users', 'action' => 'account_create')); ?>
+	<?php echo $this->Html->link(__('Crie uma conta aqui.', TRUE), '/account_create'); ?>
 </div>

@@ -3,7 +3,6 @@
 	<fieldset>
  		<legend><?php __('Editar Dados');?></legend>
 	<?php
-		echo $form->input('id', array('type'=>'hidden','value' => $this->data['User']['id']));
 		echo $form->input('username', array(
 			'label' => __('Nome de Usuário',1),
 			'disabled' => true

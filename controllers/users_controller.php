@@ -287,7 +287,6 @@ class UsersController extends AppController
 	
 	public function participant_edit()
 	{
-		
 		if(!empty($this->data))
 		{
 			// force field id to use User logged id
@@ -307,6 +306,7 @@ class UsersController extends AppController
 			}
 		}
 		
+		// read and set the User data based on value of logged user
 		$this->data = User::get('User');
 	}
 	

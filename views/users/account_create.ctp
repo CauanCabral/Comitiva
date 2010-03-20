@@ -1,3 +1,8 @@
+<div class="actions">
+	<ul>
+		<li><?php echo $html->link(__('Início',1), '/') ?></li>
+	</ul>
+</div>
 <div class="form">
 <?php echo $form->create('User');?>
 	<fieldset>
@@ -42,14 +47,9 @@
 		echo $form->input('city', array('label' => __('Cidade',1)));
 		echo $form->input('state', array('label' => __('Estado', 1)));
 		echo $form->input('phone', array('label' => 'Telefone',1));
-                echo "<p class='small' style='color:red;'>* Informações obrigatórias para geração de certificado.</p>";
+		
+		echo "<p class='small' style='color:red;'>* Informações obrigatórias para geração de certificado.</p>";
 	?>
 	</fieldset>
 <?php echo $form->end(__('Criar', TRUE));?>
-
-</div>
-<div class="actions">
-	<ul>
-		<li><?php echo $html->link(__('Principal',1), '/') ?></li>
-	</ul>
 </div>
