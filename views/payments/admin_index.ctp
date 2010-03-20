@@ -44,10 +44,13 @@ foreach ($payments as $payment):
 			<?php echo $this->Formatacao->moeda($payment['Payment']['amount']); ?>
 		</td>
 		<td>
-			<?php echo ($payment['Payment']['confirmed']?__('Sim',1):__('Não',1)); ?>
+			<?php echo ($payment['Payment']['confirmed'] ? __('Sim',1) : __('Não',1)); ?>
 		</td>
 		<td class="actions">
-			<?php echo $html->link(__('Confirmar', TRUE), array('action' => 'confirm', $payment['Payment']['id']), null, sprintf(__('Deseja realmente confirmar o pagamento da inscrição # %s?', true), $payment['Subscription']['id']));?>
+			<?php
+			if($payment['Payment']['confirmed'] == 0)
+				echo $html->link(__('Confirmar', TRUE), array('action' => 'confirm', $payment['Payment']['id']), null, sprintf(__('Deseja realmente confirmar o pagamento da inscrição # %s?', true), $payment['Subscription']['id']));
+			?>
 			<?php echo $html->link(__('Visualizar', true), array('action' => 'view', $payment['Payment']['id'])); ?>
 			<?php echo $html->link(__('Editar', true), array('action' => 'edit', $payment['Payment']['id'])); ?>
 			<?php echo $html->link(__('Apagar', true), array('action' => 'delete', $payment['Payment']['id']), null, sprintf(__('Tem certeza que deseja apagar # %s?', true), $payment['Payment']['id'])); ?>
