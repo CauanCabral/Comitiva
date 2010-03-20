@@ -29,7 +29,7 @@
 		echo $form->input('phone', array('label' => 'Telefone',1));
 	?>
 	</fieldset>
-<?php echo $form->end('Submit');?>
+<?php echo $form->end('Salvar');?>
 </div>
 <div class="actions">
 	<ul>

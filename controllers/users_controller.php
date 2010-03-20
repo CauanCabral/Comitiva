@@ -290,7 +290,11 @@ class UsersController extends AppController
 		
 		if(!empty($this->data))
 		{
-			$this->data['User']['password'] =  $this->Auth->password($this->data['User']['password']);
+			// force field id to use User logged id
+			$this->data['User']['id'] = User::get('id');
+			// force field username to use User logged username
+			$this->data['User']['username'] = User::get('username');
+			
 			if($this->User->save($this->data))
 			{
 				$this->Session->setFlash(__('Dados Atualizados!',1));
@@ -304,8 +308,6 @@ class UsersController extends AppController
 		}
 		
 		$this->data = User::get('User');
-
-		
 	}
 	
 	/***************************
