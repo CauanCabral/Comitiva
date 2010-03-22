@@ -119,7 +119,7 @@ class PaymentsController extends AppController
 		// verify if this payment is already confirmed
 		$verify = $this->Payment->read(null, $id);
 		
-		if($verify)
+		if(is_array($verify) && $verify['Payment']['confirmed'] == 1)
 		{
 			$this->Session->setFlash(__('Pagamento já havia sido confirmado', true));
 			
