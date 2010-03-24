@@ -93,29 +93,50 @@ class UsersController extends AppController
 	{
 		if(!empty($secureHash))
 		{
-			if(!empty($this->data) && $this->data['User']['id'] == $userToAlter['User']['id'])
-			{
-				$toSave = array(
-					'password' => $this->Auth->password($this->data['User']['new_pass']),
-					'id' => $this->data['User']['id']
-				);
-				$this->User->save($toSave);
-			}
-		}
-
-		$userToAlter = $this->User->find(
+			$this->set('secureHash', $secureHash);
+			
+			$userToAlter = $this->User->find(
 				'first',
 				array(
 					'conditions' => array(
-						'User.reset' => $secureHash
+						'User.token' => $secureHash
 					),
-					'contains' => array()
+					'recursive' => -1
 				)
 			);
-
-		if(empty($userToAlter))
+			
+			if(empty($userToAlter))
+			{
+				$this->Session->setFlash(__('Token fornecido inválido. Verique o endereço acessado, por favor.', TRUE));
+				$this->redirect('/');
+			}
+			
+			$this->set('user_id', $userToAlter['User']['id']);
+			
+			if(!empty($this->data) && $this->data['User']['id'] == $userToAlter['User']['id'])
+			{
+				$toSave = array(
+					'token' => NULL,
+					'token_expires_at' => NULL,
+					'password' => $this->Auth->password($this->data['User']['new_pass']),
+					'id' => $this->data['User']['id']
+				);
+				
+				if($this->User->save($toSave, array('validate' => false)))
+				{
+					$this->Session->setFlash(__('Senha atualizada. Agora você já pode fazer seu login com a nova senha.', TRUE));
+					$this->redirect('/login');
+				}
+				else
+				{
+					$this->Session->setFlash(__('Falha ao atualizar senha. Tente novamente.', TRUE));
+				}
+			}
+		}
+		else
 		{
-			$this->Session->setFlash('Você não possui autorização para executar esta tarefa. Verique o endereço acessado, por favor.');
+			$this->Session->setFlash(__('O endereço acessado não é válido.', TRUE));
+			$this->redirect('/');
 		}
 	}
 	
