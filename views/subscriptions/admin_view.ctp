@@ -46,7 +46,7 @@
 		<td><?php echo $subscription['Payment']['information'];?></td>
 		<td><?php $subscription['Payment']['confirmed'] ? __('Sim') : __('Não');?></td>
 		<td><?php echo $this->Formatacao->data($subscription['Payment']['created']);?></td>
-		<td>
+		<td class="actions">
 			<?php
 			if(!$subscription['Event']['free'] && !$subscription['Payment']['confirmed'])
 				echo $html->link(__('Confirmar pagamento', TRUE), array('controller' => 'payments', 'action' => 'confirm', $subscription['Payment']['id']), null, sprintf(__('Deseja realmente confirmar o pagamento da inscrição # %s?', true), $subscription['Payment']['id']));

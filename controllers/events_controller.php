@@ -120,7 +120,7 @@ class EventsController extends AppController
 			$this->Session->setFlash(__('Id de evento inválido.', true));
 			$this->redirect(array('action'=>'index'));
 		}
-		if ($this->Event->del($id))
+		if ($this->Event->delete($id))
 		{
 			$this->Session->setFlash(__('Evento apagado!', true));
 			$this->redirect(array('action'=>'index'));

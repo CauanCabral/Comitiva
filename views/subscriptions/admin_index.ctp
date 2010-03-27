@@ -57,7 +57,10 @@ foreach ($subscriptions as $subscription):
 			<?php $subscription['Subscription']['checked'] ? __('Realizado') : __('Pendente');?>
 		</td>
 		<td class="actions">
-			<?php 
+			<?php
+				if(!$subscription['Event']['free'] && !isset($subscription['Payment']['id']))
+					echo $this->Html->link(__('Informar pagamento', TRUE), array('controller' => 'payments', 'action' => 'add', $subscription['Subscription']['id']));
+					
 				if(!$subscription['Event']['free'] && isset($subscription['Payment']['id']) && !$subscription['Payment']['confirmed'])
 					echo $html->link(__('Confirmar pagamento', TRUE), array('controller' => 'payments', 'action' => 'confirm', $subscription['Payment']['id']), null, sprintf(__('Deseja realmente confirmar o pagamento da inscrição # %s?', true), $subscription['Subscription']['id']));
 				

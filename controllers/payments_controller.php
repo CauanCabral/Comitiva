@@ -41,7 +41,7 @@ class PaymentsController extends AppController
 		$this->set('payment', $this->Payment->read(null, $id));
 	}
 
-	public function admin_add()
+	public function admin_add($id = null)
 	{
 		if (!empty($this->data))
 		{
@@ -56,8 +56,15 @@ class PaymentsController extends AppController
 				$this->Session->setFlash(__('O pagamento não pôde ser salvo. Tente novamente.', true));
 			}
 		}
-		$subscriptions = $this->Payment->Subscription->find('list');
-		$this->set(compact('subscriptions'));
+		
+		if($id == null)
+		{
+			$this->Session->setFlash(__('Inscrição inválida', TRUE));
+			$this->redirect(array('action' => 'index'));
+		}
+		
+		$subscription = $this->Payment->Subscription->read(null, $id);
+		$this->set(compact('subscription'));
 	}
 
 	public function admin_edit($id = null)

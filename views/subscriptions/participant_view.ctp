@@ -1,3 +1,11 @@
+<div class="actions">
+	<ul>
+		
+		<li><?php echo $html->link(__('Listar Inscrições', true), array('action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('Listar Eventos', true), array('controller' => 'events', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('Informar pagamento', true), array('controller' => 'payments', 'action' => 'add', $subscription['Subscription']['id'])); ?> </li>
+	</ul>
+</div>
 <div class="subscriptions view">
 <h2><?php  __('Inscrição');?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
@@ -13,14 +21,6 @@
 			&nbsp;
 		</dd>
 	</dl>
-</div>
-<div class="actions">
-	<ul>
-		
-		<li><?php echo $html->link(__('Listar Inscrições', true), array('action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('Listar Eventos', true), array('controller' => 'events', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('Informar pagamento', true), array('controller' => 'payments', 'action' => 'add', $subscription['Subscription']['id'])); ?> </li>
-	</ul>
 </div>
 <div class="related">
 	<h3><?php __('Pagamentos Efetuados');?></h3>
@@ -46,9 +46,4 @@
 	</table>
 <?php endif; ?>
 
-	<div class="actions">
-		<ul>
-			
-		</ul>
-	</div>
 </div>

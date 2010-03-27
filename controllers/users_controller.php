@@ -287,7 +287,7 @@ class UsersController extends AppController
 			$this->Session->setFlash(__('Usuário inválido', true));
 			$this->redirect(array('action'=>'index'));
 		}
-		if ($this->User->del($id)) {
+		if ($this->User->delete($id)) {
 			$this->Session->setFlash(__('Usuário removido', true));
 			$this->redirect(array('action'=>'index'));
 		}
