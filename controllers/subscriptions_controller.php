@@ -138,7 +138,7 @@ class SubscriptionsController extends AppController
 		
 		$this->Subscription->create($subscription);
 		
-		if($this->Subscription->saveField('checked', TRUE))
+		if($this->Subscription->saveField('checked', 1))
 		{
 			$this->Session->setFlash(__('Check-in realizado com sucesso!', true));
 			$this->redirect(array('action'=>'index'));
