@@ -1,3 +1,9 @@
+<div class="actions">
+	<ul>
+			<li><?php echo $html->link(__('Listar Inscrições', true), array('controller' => 'subscriptions', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('Listar Eventos', true), array('controller' => 'events')); ?> </li>
+	</ul>
+</div>
 <div class="payments view">
 <h2><?php  __('Pagamento');?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
@@ -25,10 +31,4 @@
 		</dd>
 	
 	</dl>
-</div>
-<div class="actions">
-	<ul>
-			<li><?php echo $html->link(__('List Inscrições', true), array('controller' => 'subscriptions', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('Listar Eventos', true), array('controller' => 'events')); ?> </li>
-	</ul>
 </div>

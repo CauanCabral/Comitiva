@@ -80,7 +80,7 @@
  *
  * [Note Routing.admin is deprecated in 1.3.  Use Routing.prefixes instead]
  */
-	Configure::write('Routing.admin', 'admin');
+	//Configure::write('Routing.admin', 'admin');
 
 /**
  * Uncomment the define below to use CakePHP prefix routes.

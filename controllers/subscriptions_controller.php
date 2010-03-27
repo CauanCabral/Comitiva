@@ -94,7 +94,7 @@ class SubscriptionsController extends AppController
 		
 		if (empty($this->data))
 		{
-			$this->data = $this->Subscription->read(null, $id);
+			$this->data = $this->Subscription->find('first', array('conditions' => array('Subscription.id' => $id)));
 		}
 		
 		$users = $this->Subscription->User->find('list');
@@ -106,11 +106,11 @@ class SubscriptionsController extends AppController
 	{
 		if (!$id)
 		{
-			$this->Session->setFlash(__('Id de inscrição inválido!', true));
+			$this->Session->setFlash(__('Inscrição inválido!', true));
 			$this->redirect(array('action'=>'index'));
 		}
 		
-		if ($this->Subscription->del($id))
+		if ($this->Subscription->delete($id))
 		{
 			$this->Session->setFlash(__('Inscrição apagada!', true));
 			$this->redirect(array('action'=>'index'));
@@ -118,6 +118,36 @@ class SubscriptionsController extends AppController
 		
 		$this->Session->setFlash(__('Inscrição não foi apagada', true));
 		$this->redirect(array('action' => 'index'));
+	}
+	
+	public function admin_checkin($id = null)
+	{
+		if(!$id)
+		{
+			$this->Session->setFlash(__('Inscrição inválido!', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		
+		$subscription = $this->Subscription->read(null, $id);
+		
+		if(!$subscription)
+		{
+			$this->Session->setFlash(__('Inscrição inválido!', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		
+		$this->Subscription->create($subscription);
+		
+		if($this->Subscription->saveField('checked', TRUE))
+		{
+			$this->Session->setFlash(__('Check-in realizado com sucesso!', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		else
+		{
+			$this->Session->setFlash(__('Falha no check-in.', true));
+			$this->redirect(array('action'=>'index'));
+		}
 	}
 	
 	/*
@@ -223,7 +253,7 @@ class SubscriptionsController extends AppController
 			$this->redirect(array('action'=>'index'));
 		}
 		
-		if ($this->Subscription->del($id))
+		if ($this->Subscription->delete($id))
 		{
 			$this->Session->setFlash(__('Inscriçao apagada!', true));
 			$this->redirect(array('action'=>'index'));

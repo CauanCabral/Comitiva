@@ -24,7 +24,8 @@ class Payment extends AppModel
 	public $belongsTo = array(
 		'Subscription' => array(
 			'className' => 'Subscription',
-			'foreignKey' => 'subscription_id'
+			'foreignKey' => 'subscription_id',
+			'dependent' => true
 		)
 	);
 }

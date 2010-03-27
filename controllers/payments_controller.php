@@ -83,8 +83,10 @@ class PaymentsController extends AppController
 		
 		if (empty($this->data))
 		{
-			$this->data = $this->Payment->read(null, $id);
+			$this->data = $this->Payment->Subscription->find('first', array('conditions' => array('Payment.id' => $id), 'recursive' => 2));
 		}
+		
+		$this->set('subscription', $this->data);
 		
 		$subscriptions = $this->Payment->Subscription->find('list');
 		$this->set(compact('subscriptions'));
@@ -98,7 +100,7 @@ class PaymentsController extends AppController
 			$this->redirect(array('action'=>'index'));
 		}
 		
-		if ($this->Payment->del($id))
+		if ($this->Payment->delete($id))
 		{
 			$this->Session->setFlash(__('Pagamento apagado!', true));
 			$this->redirect(array('action'=>'index'));

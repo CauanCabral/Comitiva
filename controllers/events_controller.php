@@ -50,7 +50,7 @@ class EventsController extends AppController
 		$this->set('event', $this->Event->read(null, $id));
 	}
 
-	function admin_add()
+	public function admin_add()
 	{
 		if (!empty($this->data))
 		{
@@ -76,7 +76,7 @@ class EventsController extends AppController
 		$this->set(compact('events'));
 	}
 
-	function admin_edit($id = null)
+	public function admin_edit($id = null)
 	{
 		if (!$id && empty($this->data))
 		{
@@ -113,15 +113,19 @@ class EventsController extends AppController
 		$this->set(compact('events'));
 	}
 
-	function admin_delete($id = null) {
-		if (!$id) {
+	public function admin_delete($id = null)
+	{
+		if (!$id) 
+		{
 			$this->Session->setFlash(__('Id de evento inválido.', true));
 			$this->redirect(array('action'=>'index'));
 		}
-		if ($this->Event->del($id)) {
+		if ($this->Event->del($id))
+		{
 			$this->Session->setFlash(__('Evento apagado!', true));
 			$this->redirect(array('action'=>'index'));
 		}
+		
 		$this->Session->setFlash(__('Evento não foi apagado!', true));
 		$this->redirect(array('action' => 'index'));
 	}

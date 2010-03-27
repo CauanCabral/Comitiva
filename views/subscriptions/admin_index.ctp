@@ -19,6 +19,7 @@ echo $paginator->counter(array(
 	<th><?php echo $paginator->sort(__('Evento', TRUE), 'Event.title');?></th>
 	<th><?php echo $paginator->sort(__('Data da inscrição', TRUE), 'Subscription.created');?></th>
 	<th><?php __('Pagamento');?></th>
+	<th><?php echo $paginator->sort(__('Check-in', TRUE), 'Subscription.checked');?></th>
 	<th class="actions"><?php __('Ações');?></th>
 </tr>
 <?php
@@ -52,10 +53,16 @@ foreach ($subscriptions as $subscription):
 					__('Não realizado');
 			?>
 		</td>
+		<td>
+			<?php $subscription['Subscription']['checked'] ? __('Realizado') : __('Pendente');?>
+		</td>
 		<td class="actions">
 			<?php 
 				if(!$subscription['Event']['free'] && !$subscription['Payment']['confirmed'])
-				echo $html->link(__('Confirmar pagamento', TRUE), array('controller' => 'payments', 'action' => 'confirm', $subscription['Payment']['id']), null, sprintf(__('Deseja realmente confirmar o pagamento da inscrição # %s?', true), $subscription['Subscription']['id']))
+					echo $html->link(__('Confirmar pagamento', TRUE), array('controller' => 'payments', 'action' => 'confirm', $subscription['Payment']['id']), null, sprintf(__('Deseja realmente confirmar o pagamento da inscrição # %s?', true), $subscription['Subscription']['id']));
+				
+				if(($subscription['Event']['free'] || $subscription['Payment']['confirmed']) && !$subscription['Subscription']['checked'])
+					echo $html->link(__('Check-in', TRUE), array('controller' => 'subscriptions', 'action' => 'checkin', $subscription['Subscription']['id']));
 			?>
 			<?php echo $html->link(__('Ver', true), array('action' => 'view', $subscription['Subscription']['id'])); ?>
 			<?php echo $html->link(__('Alterar', true), array('action' => 'edit', $subscription['Subscription']['id'])); ?>

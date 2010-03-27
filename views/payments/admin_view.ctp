@@ -1,5 +1,6 @@
 <div class="actions">
 	<ul>
+		<li><?php echo $html->link(__('Confirmar pagamento', TRUE), array('controller' => 'payments', 'action' => 'confirm', $payment['Payment']['id']), null, sprintf(__('Deseja realmente confirmar o pagamento da inscrição # %s?', true), $payment['Payment']['id'])); ?></li>
 		<li><?php echo $html->link(__('Editar Pagamento', true), array('action' => 'edit', $payment['Payment']['id'])); ?> </li>
 		<li><?php echo $html->link(__('Apagar Pagamento', true), array('action' => 'delete', $payment['Payment']['id']), null, sprintf(__('Tem certeza que deseja apagar # %s?', true), $payment['Payment']['id'])); ?> </li>
 		<li><?php echo $html->link(__('Listar Pagamentos', true), array('action' => 'index')); ?> </li>

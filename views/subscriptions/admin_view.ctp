@@ -38,6 +38,7 @@
 		<th><?php __('Informação'); ?></th>
 		<th><?php __('Confirmado?'); ?></th>
 		<th><?php __('Criado em'); ?></th>
+		<th><?php __('Ações'); ?></th>
 	</tr>
 	<tr<?php echo $class;?>>
 		<td><?php echo $this->Formatacao->data($subscription['Payment']['date']);?></td>
@@ -45,6 +46,14 @@
 		<td><?php echo $subscription['Payment']['information'];?></td>
 		<td><?php $subscription['Payment']['confirmed'] ? __('Sim') : __('Não');?></td>
 		<td><?php echo $this->Formatacao->data($subscription['Payment']['created']);?></td>
+		<td>
+			<?php
+			if(!$subscription['Event']['free'] && !$subscription['Payment']['confirmed'])
+				echo $html->link(__('Confirmar pagamento', TRUE), array('controller' => 'payments', 'action' => 'confirm', $subscription['Payment']['id']), null, sprintf(__('Deseja realmente confirmar o pagamento da inscrição # %s?', true), $subscription['Payment']['id']));
+					
+			echo $this->Html->link(__('Ver', TRUE), array('controller' => 'payments', 'action' => 'view', $subscription['Payment']['id']));
+			?>
+		</td>
 	</tr>
 	</table>
 </div>

@@ -1,7 +1,9 @@
 <div class="actions">
 	<ul>
 		<li><?php echo $html->link(__('Alterar Evento', true), array('action' => 'edit', $event['Event']['id'])); ?> </li>
+		<li><?php echo $html->link(__('Enviar convites aos usuários', true), array('controller' => 'events', 'action' => 'sendInvitation', $event['Event']['id'])); ?> </li>
 		<li><?php echo $html->link(__('Ver inscrições', true), array('controller' => 'subscriptions', 'action' => 'index', $event['Event']['id'])); ?> </li>
+		<li><?php echo $html->link(__('Enviar aviso aos inscritos', true), array('controller' => 'events', 'action' => 'sendAdvertise', $event['Event']['id'])); ?> </li>
 		<li><?php echo $html->link(__('Remover Evento', true), array('action' => 'delete', $event['Event']['id']), null, sprintf(__('Deseja realmente excluir o evento "%s"?', true), $event['Event']['title'])); ?> </li>
 		<li><?php echo $html->link(__('Listar Eventos', true), array('action' => 'index')); ?> </li>
 		<li><?php echo $html->link(__('Novo Evento', true), array('action' => 'add')); ?> </li>
