@@ -1,0 +1,6 @@
+# Untracked files:
+.buidpath
+.settings
+.project
+config/bootstrap.local.php
+config/database.php
