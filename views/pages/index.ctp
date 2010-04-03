@@ -2,7 +2,7 @@
 if(!isset($activeUser)):
 ?>
 <ul id="menu">
-    <li><a href="/login" class="button">Logar</a></li>
+    <li><?= $html -> link('Entrar', '/users/login') ?></li>
     <li><a href="/account_create" class="button">Inscrever-se</a></li>
 </ul>
 <?php
