@@ -4,10 +4,13 @@
  *
  * @since 04/03/2010 13:47:50
  */
+
+ App::import('Core', array('Security'), false);
+
 class AddAdminUser extends AppMigration {
 
   var $uses = array('User');
-  
+
 /**
  * Up Method
  *
@@ -16,17 +19,17 @@ class AddAdminUser extends AppMigration {
  */
 	function up() {
     $user['User'] = array('username' => 'admin',
-                                  'password' => sha1('admin'),
-                                  'email' => 'admin@example.com',
-                                  'name' => 'Admin',
-                                  'nickname' => 'admin',
-                                  'birthday' => '1970-04-07',
-                                  'active' => 1,
-                                  'cpf' => '000.000.000-00',
-                                  'address' => 'R. do Admin',
-                                  'city' => '',
-                                  'state' => '',
-                                  'phone' => '',
+                          'password' => Security::hash('admin', null, true),
+                          'email' => 'admin@example.com',
+                          'name' => 'Admin',
+                          'nickname' => 'admin',
+                          'birthday' => '1970-04-07',
+                          'active' => 1,
+                          'cpf' => '000.000.000-00',
+                          'address' => 'R. do Admin',
+                          'city' => '',
+                          'state' => '',
+                          'phone' => '',
       );
     
     if (!$this -> User -> save($user)) {
