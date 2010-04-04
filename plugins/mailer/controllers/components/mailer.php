@@ -7,8 +7,9 @@ class MailerComponent extends Object
 	
 	protected $message = null;
 	
-	protected $defaultOptions = array(
+	protected $options = array(
 		'transport' => 'php', //valid options are: php, sendmail and smtp
+		'batch' => true, // if use batch send mode or not
 		'contentType' => 'html', //valid options are: html and text
 		'viewPath' => null, // path for body theme
 		'smtp' => array(
@@ -26,6 +27,8 @@ class MailerComponent extends Object
 	{
 		// saving the controller reference for later use
 		$this->controller =& $controller;
+		
+		$this->options = Set::combine($this->options, $settings);
 	}
 
 	//called after Controller::beforeFilter()
@@ -91,8 +94,10 @@ class MailerComponent extends Object
 			return FALSE;
 		}
 		
-		$this->transport->send($this->message);
-		
+		if($this->options['batch'])
+			return $this->transport->batchSend($this->message);
+		else
+			return $this->transport->send($this->message);
 	}
 	
 	/**************** End utils funcions ****************/
