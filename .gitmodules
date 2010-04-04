@@ -1,0 +1,3 @@
+[submodule "plugins/migration"]
+	path = plugins/migration
+	url = git://github.com/jrbasso/migrations.git
