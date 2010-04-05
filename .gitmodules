@@ -1,3 +1,9 @@
 [submodule "plugins/migration"]
 	path = plugins/migration
 	url = git://github.com/jrbasso/migrations.git
+[submodule "plugins/tiny_mce"]
+	path = plugins/tiny_mce
+	url = git://github.com/CakeDC/TinyMCE.git
+[submodule "plugins/localized"]
+	path = plugins/localized
+	url = git://github.com/cakephp/localized.git
