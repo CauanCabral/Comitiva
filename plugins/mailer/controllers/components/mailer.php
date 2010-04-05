@@ -11,7 +11,8 @@ class MailerComponent extends Object
 		'transport' => 'php', //valid options are: php, sendmail and smtp
 		'batch' => true, // if use batch send mode or not
 		'contentType' => 'html', //valid options are: html and text
-		'viewPath' => null, // path for body theme
+		'template' => null, // path for body theme
+		'layout' => null,
 		'smtp' => array(
 			'port' => 25,
 			'host' => 'localhost'
@@ -29,6 +30,12 @@ class MailerComponent extends Object
 		$this->controller =& $controller;
 		
 		$this->options = Set::combine($this->options, $settings);
+		
+		if($this->options['layout'])
+			$this->layout = $this->options['layout'];
+			
+		if($this->options['template'])
+			$this->template = $this->options['template'];
 	}
 
 	//called after Controller::beforeFilter()
@@ -104,27 +111,6 @@ class MailerComponent extends Object
 	
 	
 	/****************** Begin setters *******************/
-	
-	public function setMessageHeader($value)
-	{
-		if($this->message === null)
-		{
-			trigger_error(__('Não é possível setar uma propriedade antes de criar uma mensagem', TRUE), E_USER_ERROR);
-			
-			return FALSE;
-		}
-	}
-	
-	public function setMessageType($value)
-	{
-		if($this->message === null)
-		{
-			trigger_error(__('Não é possível setar uma propriedade antes de criar uma mensagem', TRUE), E_USER_ERROR);
-			
-			return FALSE;
-		}
-	}
-	
 	public function setMessageSubject($value)
 	{
 		if($this->message === null)
@@ -133,6 +119,8 @@ class MailerComponent extends Object
 			
 			return FALSE;
 		}
+		
+		$this->message->setSubject($value);
 	}
 	
 	public function setMessageBody($value)
@@ -143,6 +131,8 @@ class MailerComponent extends Object
 			
 			return FALSE;
 		}
+		
+		$this->message->setBody($this->__render($value));
 	}
 	
 	public function setMessagePart($value)
@@ -153,6 +143,8 @@ class MailerComponent extends Object
 			
 			return FALSE;
 		}
+		
+		$this->message->setPart($value);
 	}
 	
 	/******************* End setters *********************/
@@ -268,6 +260,60 @@ class MailerComponent extends Object
 		}
 		
 		return TRUE;
+	}
+	
+	/**
+	 * Render the contents using the current layout and template.
+	 * Based on EmailComponent, part of CakePHP Framework
+	 * 
+	 * @copyright EmailComponent: CakePHP Foundation
+	 * @link http://cakephp.org
+	 * @subpackage cake.libs.controllers.components.email
+	 * @license MIT
+	 * 
+	 * @param string $content Content to render
+	 * @return array Email ready to be sent
+	 * @access private
+	 */
+	private function __render($content)
+	{
+		$body = '';
+		
+		$viewClass = $this->Controller->view;
+
+		if ($viewClass != 'View')
+		{
+			list($plugin, $viewClass) = pluginSplit($viewClass);
+			$viewClass = $viewClass . 'View';
+			App::import('View', $this->Controller->view);
+		}
+
+		$View = new $viewClass($this->Controller, false);
+		$View->layout = $this->layout;
+		
+		if (is_array($content))
+		{
+			$content = implode("\n", $content) . "\n";
+		}
+				
+		if ($this->options['contentType'] === 'html') 
+		{
+			$body = $View->element('email' . DS . 'html' . DS . $this->template, array('content' => $content), true);
+			
+			$View->layoutPath = 'email' . DS . 'html';
+			
+			$body = str_replace(array("\r\n", "\r"), "\n", $View->renderLayout($body));
+		}
+		else if ($this->options['contentType'] === 'text')
+		{
+			$body = $View->element('email' . DS . 'text' . DS . $this->template, array('content' => $content), true);
+			
+			$View->layoutPath = 'email' . DS . 'text';
+
+			$body = str_replace(array("\r\n", "\r"), "\n", $View->renderLayout($content));
+		}
+		
+		return $body;
 	}
 }
 ?>
