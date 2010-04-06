@@ -293,7 +293,7 @@ class MailerComponent extends Object
 			App::import('View', $this->controller->view);
 		}
 
-		$View = new $viewClass($this->controller, false);
+		$View = new $viewClass($this->controller, true);
 		$View->layout = $this->layout;
 		
 		if (is_array($content))
