@@ -32,10 +32,15 @@ class MessagesController extends AppController
 				'body' => 'Texto podre'
 			);
 			
-			pr($this->Mailer->sendMessage($op));
-			
-			$this->Session->setFlash(__('Convite enviado', TRUE));
-			$this->redirect(array('action' => 'index'));
+			if($this->Mailer->sendMessage($op))
+			{
+				$this->Session->setFlash(__('Convite enviado', TRUE));
+				$this->redirect(array('action' => 'index'));
+			}
+			else
+			{
+				$this->Session->setFlash(__('Falha no envio', TRUE));
+			}
 		}
 		
 		// carrega e seta a lista de eventos cadastrado para usuário selecionar

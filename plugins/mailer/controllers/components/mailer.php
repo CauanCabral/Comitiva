@@ -98,11 +98,13 @@ class MailerComponent extends Object
 		
 		if(!$this->__configureTransport())
 		{
+			trigger_error(__('Falha na configuração do transporte', TRUE), E_USER_WARNING);
 			return FALSE;
 		}
 		
 		if(!$this->__setMessageOptions($options))
 		{
+			trigger_error(__('Falha na definição da mensagem', TRUE), E_USER_WARNING);
 			return FALSE;
 		}
 		
@@ -126,6 +128,8 @@ class MailerComponent extends Object
 		}
 		
 		$this->message->setSubject($value);
+		
+		return TRUE;
 	}
 	
 	public function setMessageBody($value)
@@ -138,6 +142,8 @@ class MailerComponent extends Object
 		}
 		
 		$this->message->setBody($this->__render($value));
+		
+		return TRUE;
 	}
 	
 	public function setMessagePart($value)
@@ -150,6 +156,8 @@ class MailerComponent extends Object
 		}
 		
 		$this->message->setPart($value);
+		
+		return TRUE;
 	}
 	
 	/******************* End setters *********************/
@@ -177,7 +185,9 @@ class MailerComponent extends Object
 	 * @return bool
 	 */
 	private function __setMessageOptions($options = array())
-	{	
+	{
+		$status = TRUE;
+		
 		if(!$this->__initMessage())
 		{	
 			trigger_error(__('Não é possível setar uma propriedade antes de criar uma mensagem', TRUE), E_USER_ERROR);
@@ -212,22 +222,24 @@ class MailerComponent extends Object
 		// define carbon-copy mails
 		if(isset($options['cc']))
 		{
-			$this->message->setCc($options['cc']);
+			$status = ($status && $this->message->setCc($options['cc']));
 		}
 		
 		// define blind carbon-copy mails
 		if(isset($options['bcc']))
 		{
-			$this->message->setBcc($options['bcc']);
+			$status = ($status && $this->message->setBcc($options['bcc']));
 		}
 		
 		// define message content
 		if(isset($options['body']))
 		{
-			$this->setMessageBody($options['body']);
+			var_dump($status);
+			$status = ($status && $this->setMessageBody($options['body']));
+			var_dump($status);
 		}
 		
-		return $out;
+		return $status;
 	}
 	
 	/**
@@ -260,7 +272,7 @@ class MailerComponent extends Object
 		}
 		else
 		{
-			trigger_error(__('Camada de transporte inválido', TRUE), E_USER_ERROR);
+			trigger_error(__('Camada de transporte inválida', TRUE), E_USER_ERROR);
 			return FALSE;
 		}
 		
