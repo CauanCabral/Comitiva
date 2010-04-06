@@ -27,7 +27,7 @@
  * will inherit them.
  *
  * @package       cake
- * @subpackage    cake.app
+ * @subpackage    cake.comitiva
  */
 class AppController extends Controller
 {
@@ -164,8 +164,16 @@ class AppController extends Controller
 		else 
 		{
 			$menu = array(
-				__('Eventos', TRUE) => '/participant/events/',
-				__('Minha conta', TRUE) => '/participant/users/profile/',
+				__('Eventos', TRUE) => array(
+					'controller' => 'events',
+					'action' => 'index',
+					'participant' => true
+				),
+				__('Minha conta', TRUE) => array(
+					'controller' => 'users',
+					'action' => 'profile',
+					'participant' => true
+				),
 				__('Sair', TRUE) => '/logout',
 			);
 		}

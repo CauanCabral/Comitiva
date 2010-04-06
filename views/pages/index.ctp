@@ -2,7 +2,7 @@
 if(!isset($activeUser)):
 ?>
 <ul id="menu">
-    <li><?= $html -> link('Entrar', '/users/login') ?></li>
+    <li><?php echo $this->Html->link('Entrar', '/login') ?></li>
     <li><a href="/account_create" class="button">Inscrever-se</a></li>
 </ul>
 <?php

@@ -26,6 +26,14 @@ class MessagesController extends AppController
 		{
 			$this->loadModel('Subscription');
 			
+			$op = array(
+				'from' => 'cauan@radig.com.br',
+				'to' => 'cauanc@gmail.com',
+				'body' => 'Texto podre'
+			);
+			
+			pr($this->Mailer->sendMessage($op));
+			
 			$this->Session->setFlash(__('Convite enviado', TRUE));
 			$this->redirect(array('action' => 'index'));
 		}

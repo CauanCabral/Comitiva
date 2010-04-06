@@ -1,5 +1,8 @@
 <?php
-App::import('Vendor', 'swift_required', array('file' => 'swiftmailer' . DS . 'lib' . DS . 'swift_required.php'));
+/**
+ * @FIXME utilizar a classe App para importar a lib externa
+ */
+require_once('plugins' . DS . 'mailer' . DS . 'vendors' . DS . 'swiftmailer' . DS . 'lib' . DS . 'swift_required.php');
 
 class MailerComponent extends Object
 {
@@ -11,8 +14,8 @@ class MailerComponent extends Object
 		'transport' => 'php', //valid options are: php, sendmail and smtp
 		'batch' => true, // if use batch send mode or not
 		'contentType' => 'html', //valid options are: html and text
-		'template' => null, // path for body theme
-		'layout' => null,
+		'template' => 'default', // path for body theme
+		'layout' => 'default',
 		'smtp' => array(
 			'port' => 25,
 			'host' => 'localhost'
@@ -29,7 +32,7 @@ class MailerComponent extends Object
 		// saving the controller reference for later use
 		$this->controller =& $controller;
 		
-		$this->options = Set::combine($this->options, $settings);
+		$this->options = Set::merge($this->options, $settings);
 		
 		if($this->options['layout'])
 			$this->layout = $this->options['layout'];
@@ -157,7 +160,7 @@ class MailerComponent extends Object
 		{
 			$this->message = Swift_Message::newInstance();
 			
-			return ($this->message == null);
+			return ($this->message != null);
 		}
 		
 		return TRUE;
@@ -279,16 +282,16 @@ class MailerComponent extends Object
 	{
 		$body = '';
 		
-		$viewClass = $this->Controller->view;
+		$viewClass = $this->controller->view;
 
 		if ($viewClass != 'View')
 		{
 			list($plugin, $viewClass) = pluginSplit($viewClass);
 			$viewClass = $viewClass . 'View';
-			App::import('View', $this->Controller->view);
+			App::import('View', $this->controller->view);
 		}
 
-		$View = new $viewClass($this->Controller, false);
+		$View = new $viewClass($this->controller, false);
 		$View->layout = $this->layout;
 		
 		if (is_array($content))
