@@ -6,6 +6,8 @@ require_once('plugins' . DS . 'mailer' . DS . 'vendors' . DS . 'swiftmailer' . D
 
 class MailerComponent extends Object
 {
+	protected $controller = null;
+	
 	protected $transport = null;
 	
 	protected $message = null;
@@ -27,10 +29,10 @@ class MailerComponent extends Object
 	);
 	
 	//called before Controller::beforeFilter()
-	function initialize(&$controller, $settings = array())
+	function initialize($controller, $settings = array())
 	{
 		// saving the controller reference for later use
-		$this->controller =& $controller;
+		$this->controller = $controller;
 		
 		$this->options = Set::merge($this->options, $settings);
 		
@@ -283,7 +285,7 @@ class MailerComponent extends Object
 		$body = '';
 		
 		$viewClass = $this->controller->view;
-
+		
 		if ($viewClass != 'View')
 		{
 			list($plugin, $viewClass) = pluginSplit($viewClass);
@@ -301,17 +303,17 @@ class MailerComponent extends Object
 				
 		if ($this->options['contentType'] === 'html') 
 		{
-			$body = $View->element('email' . DS . 'html' . DS . $this->template, array('content' => $content), true);
-			
 			$View->layoutPath = 'email' . DS . 'html';
+			
+			$body = $View->element('email' . DS . 'html' . DS . $this->template, array('content' => $content), true);
 			
 			$body = str_replace(array("\r\n", "\r"), "\n", $View->renderLayout($body));
 		}
 		else if ($this->options['contentType'] === 'text')
 		{
-			$body = $View->element('email' . DS . 'text' . DS . $this->template, array('content' => $content), true);
-			
 			$View->layoutPath = 'email' . DS . 'text';
+			
+			$body = $View->element('email' . DS . 'text' . DS . $this->template, array('content' => $content), true);
 
 			$body = str_replace(array("\r\n", "\r"), "\n", $View->renderLayout($content));
 		}
