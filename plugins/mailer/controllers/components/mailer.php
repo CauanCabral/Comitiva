@@ -12,6 +12,8 @@ class MailerComponent extends Object
 	
 	protected $message = null;
 	
+	public $failures = array();
+	
 	protected $options = array(
 		'transport' => 'php', //valid options are: php, sendmail and smtp
 		'batch' => true, // if use batch send mode or not
@@ -108,10 +110,13 @@ class MailerComponent extends Object
 			return FALSE;
 		}
 		
+		// retrieve failures mail
+		$failures = array();
+		
 		if($this->options['batch'])
-			return $this->sender->batchSend($this->message);
+			return $this->sender->batchSend($this->message, $this->failures);
 		else
-			return $this->sender->send($this->message);
+			return $this->sender->send($this->message, $this->failures);
 	}
 	
 	/**************** End utils funcions ****************/
