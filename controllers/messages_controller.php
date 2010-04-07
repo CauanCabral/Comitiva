@@ -19,6 +19,8 @@ class MessagesController extends AppController
 		return false;
 	}
 	
+	public function admin_index() {}
+	
 	public function admin_sendInvitation()
 	{
 		// caso a mensagem tenha sido fornecida
@@ -29,7 +31,8 @@ class MessagesController extends AppController
 			$op = array(
 				'from' => 'cauan@radig.com.br',
 				'to' => 'cauanc@gmail.com',
-				'body' => 'Texto podre'
+				'subject' => $this->data['Message']['subject'],
+				'body' => $this->data['Message']['message']
 			);
 			
 			if($this->Mailer->sendMessage($op))

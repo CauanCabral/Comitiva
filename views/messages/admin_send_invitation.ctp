@@ -3,10 +3,10 @@
 ?>
 <div class="actions">
 	<ul>
-		<li><?php echo $this->Html->link(__('Listar Eventos', true), array('action' => 'index'));?></li>
+		<li><?php echo $this->Html->link(__('Tipos de mensagens', true), array('action' => 'index'));?></li>
 	</ul>
 </div>
-<div class="events form">
+<div class="messages form">
 <?php echo $this->Form->create('Message', array('action' => 'sendInvitation'));?>
 	<fieldset>
  		<legend><?php __('Convidar usuários');?></legend>
