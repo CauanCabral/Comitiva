@@ -8,7 +8,7 @@ class MailerComponent extends Object
 {
 	protected $controller = null;
 	
-	protected $transport = null;
+	protected $sender = null;
 	
 	protected $message = null;
 	
@@ -109,9 +109,9 @@ class MailerComponent extends Object
 		}
 		
 		if($this->options['batch'])
-			return $this->transport->batchSend($this->message);
+			return $this->sender->batchSend($this->message);
 		else
-			return $this->transport->send($this->message);
+			return $this->sender->send($this->message);
 	}
 	
 	/**************** End utils funcions ****************/
@@ -234,9 +234,7 @@ class MailerComponent extends Object
 		// define message content
 		if(isset($options['body']))
 		{
-			var_dump($status);
 			$status = ($status && $this->setMessageBody($options['body']));
-			var_dump($status);
 		}
 		
 		return $status;
@@ -252,29 +250,32 @@ class MailerComponent extends Object
 	{
 		if($this->options['transport'] == 'smtp')
 		{
-			$this->transport =
+			$transport =
 				Swift_SmtpTransport::newInstance($this->options['smtp']['host'], $this->options['smtp']['port']);
 				
 			if(isset($this->options['smtp']['username']))
-				$this->transport->setUsername($this->options['smtp']['username']);
+				$transport->setUsername($this->options['smtp']['username']);
 				
 			if(isset($this->options['smtp']['password']))
-				$this->transport->setPassword($this->options['smtp']['password']);
+				$transport->setPassword($this->options['smtp']['password']);
 		}
 		else if($this->options['transport'] == 'sendmail')
 		{
-			$this->transport =
+			$transport =
 				Swift_SendmailTransport::newInstance($this->options['sendmail']['path'] . $this->options['sendmail']['params']);
 		}
 		else if($this->options['transport'] == 'php')
 		{
-			$this->transport = Swift_MailTransport::newInstance();
+			$transport = Swift_MailTransport::newInstance();
 		}
 		else
 		{
 			trigger_error(__('Camada de transporte inválida', TRUE), E_USER_ERROR);
 			return FALSE;
 		}
+		
+		// Define a sender based on transport
+		$this->sender = new Swift_Mailer($transport);
 		
 		return TRUE;
 	}
