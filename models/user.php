@@ -5,6 +5,10 @@ class User extends AppModel
 {
 	public $name = 'User';
 	
+	public $virtualFields = array(
+		'fullName' => "CONCAT(User.name, ' ', User.nickname)"
+	);
+	
 	public $displayField = 'name';
 	
 	public $validate = array(

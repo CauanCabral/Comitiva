@@ -28,6 +28,44 @@ class MessagesController extends AppController
 		{
 			$this->loadModel('Subscription');
 			
+			$notIn = $this->Subscription->find(
+				'all',
+				array(
+					'fields' => array('Subscription.user_id'),
+					'conditions' => array(
+						'Subscription.event_id' => $this->data['Message']['event_id']
+					),
+					'recursive' => -1
+				)
+			);
+			
+			if(!empty($notIn))
+			{
+				$notIn = explode(',', $notIn);
+				$condition = "User.id NOT IN({$notIn})";
+			}
+			else
+			{
+				$condition = null;
+			}
+			
+			$this->loadModel('User');
+			
+			$receivers = $this->User->find(
+				'all',
+				array(
+					'fields' => array(
+						'User.fullName',
+						'User.email'
+					),
+					'conditions' => array(
+						$condition,
+						'User.active' => 1
+					),
+					'recursive' => -1
+				)
+			);
+			
 			$op = array(
 				'from' => 'cauan@radig.com.br',
 				'to' => 'cauanc@gmail.com',
