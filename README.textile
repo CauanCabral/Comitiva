@@ -23,6 +23,7 @@ h2. Colaboradores:
 
 
 h2. Licença
+
   O Comitiva é Software Livre e gratuito, distribuido sob a licença "MIT":http://www.opensource.org/licenses/mit-license.php
   
   Isso significa que você pode baixar o código do Comitiva e utiliza-lo da forma que bem entender, porém deve manter o crédito
