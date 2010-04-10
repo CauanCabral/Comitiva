@@ -22,7 +22,8 @@ class MailerComponent extends Object
 		'layout' => 'default',
 		'smtp' => array(
 			'port' => 25,
-			'host' => 'localhost'
+			'host' => 'localhost',
+			'encryption' => false // valid options are: false, 'tls' and 'ssl'
 		),
 		'sendmail' => array(
 			'path' => '/usr/sbin/sendmail',
@@ -109,9 +110,6 @@ class MailerComponent extends Object
 			trigger_error(__('Falha na definição da mensagem', TRUE), E_USER_WARNING);
 			return FALSE;
 		}
-		
-		// retrieve failures mail
-		$failures = array();
 		
 		if($this->options['batch'])
 			return $this->sender->batchSend($this->message, $this->failures);
@@ -263,6 +261,9 @@ class MailerComponent extends Object
 				
 			if(isset($this->options['smtp']['password']))
 				$transport->setPassword($this->options['smtp']['password']);
+				
+			if($this->options['smtp']['encryption'])
+				$transport->setEncryption($this->options['smtp']['encryption']);
 		}
 		else if($this->options['transport'] == 'sendmail')
 		{

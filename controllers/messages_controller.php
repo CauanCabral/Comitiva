@@ -27,28 +27,26 @@ class MessagesController extends AppController
 		if(!empty($this->data))
 		{
 			$op = array(
-				'from' => 'admin@phpms.org',
-				'to' => $this->getUserMailAddress($this->data['Message']['event_id']),
+				'from' => Configure::read('Message.from'),
+				'to' => $this->__getUserMailAddress($this->data['Message']['event_id']),
 				'subject' => $this->data['Message']['subject'],
 				'body' => $this->data['Message']['text']
 			);
 			
-			if($this->Mailer->sendMessage($op))
+			switch($this->sendMessage($op))
 			{
-				if(empty($this->Mailer->failures))
+				case 0:
 					$this->Session->setFlash(__('Convite enviado', TRUE));
-				else
-				{
+					$this->redirect(array('action' => 'index'));
+					break;
+				case 1:
 					$this->Session->setFlash(__('Convite não pode ser enviado a todos os destinatários', TRUE));
-					pr($this->Mailer->failures);
-				}
-				$this->redirect(array('action' => 'index'));
+					$this->redirect(array('action' => 'index'));
+					break;
+				case -1:
+					$this->Session->setFlash(__('Falha no envio', TRUE));
+					break;
 			}
-			else
-			{
-				$this->Session->setFlash(__('Falha no envio', TRUE));
-			}
-			
 		}
 		
 		// carrega e seta a lista de eventos cadastrado para usuário selecionar
@@ -59,14 +57,36 @@ class MessagesController extends AppController
 	/**
 	 * Envia uma mensagem, utilizando os dados setados no atributo da classe MessagesController::data
 	 * 
-	 * @return unknown_type
+	 * @return int $status - 0 em caso de sucesso, 1 caso haja erro no envio para alguém e -1 caso não seja possível enviar nenhuma mensagem
 	 */
-	protected function sendMessage()
+	protected function sendMessage($options = array())
+	{
+		if($this->Mailer->sendMessage($options))
+		{
+			if(empty($this->Mailer->failures))
+				return 0;
+			else
+			{
+				$this->__saveFailedMailer($this->Mailer->failures);
+				return 1;
+			}
+		}
+		else
+			return -1;
+	}
+	
+	/**
+	 * Este método deverá tratar os destinatários que não puderam receber a mensagem
+	 * 
+	 * @param array $mails
+	 * @return void
+	 */
+	protected function __saveFailedMailer($mails = array())
 	{
 		
 	}
 	
-	private function getUserMailAddress($event_id, $subscribeds = false)
+	private function __getUserMailAddress($event_id, $subscribeds = false)
 	{
 		$condition = null;
 		
