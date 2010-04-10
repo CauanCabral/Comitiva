@@ -9,7 +9,7 @@ class User extends AppModel
 		'fullName' => "CONCAT(User.name, ' ', User.nickname)"
 	);
 	
-	public $displayField = 'name';
+	public $displayField = 'fullName';
 	
 	public $validate = array(
 		'username' => array(

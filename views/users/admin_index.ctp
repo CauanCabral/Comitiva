@@ -34,7 +34,7 @@ foreach ($users as $user):
 			<?php echo $user['User']['id']; ?>
 		</td>
 		<td>
-			<?php echo $user['User']['name']; ?>
+			<?php echo $user['User']['fullName']; ?>
 		</td>
 		<td>
 			<?php echo $user['User']['username']; ?>

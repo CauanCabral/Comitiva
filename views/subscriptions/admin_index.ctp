@@ -15,7 +15,7 @@ echo $paginator->counter(array(
 <table cellpadding="0" cellspacing="0">
 <tr>
 	<th><?php echo $paginator->sort(__('ID',  TRUE), 'Subscription.id');?></th>
-	<th><?php echo $paginator->sort(__('Usuário', TRUE), 'User.name');?></th>
+	<th><?php echo $paginator->sort(__('Usuário', TRUE), 'User.fullName');?></th>
 	<th><?php echo $paginator->sort(__('Evento', TRUE), 'Event.title');?></th>
 	<th><?php echo $paginator->sort(__('Data da inscrição', TRUE), 'Subscription.created');?></th>
 	<th><?php __('Pagamento');?></th>
@@ -35,7 +35,7 @@ foreach ($subscriptions as $subscription):
 			<?php echo $subscription['Subscription']['id']; ?>
 		</td>
 		<td>
-			<?php echo $html->link($subscription['User']['name'], array('controller' => 'users', 'action' => 'view', $subscription['User']['id'])); ?>
+			<?php echo $html->link($subscription['User']['fullName'], array('controller' => 'users', 'action' => 'view', $subscription['User']['id'])); ?>
 		</td>
 		<td>
 			<?php echo $html->link($subscription['Event']['title'], array('controller' => 'events', 'action' => 'view', $subscription['Event']['id'])); ?>
