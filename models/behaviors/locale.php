@@ -2,10 +2,10 @@
 /* 
  * $Id$
  *
- * @author Cauan Cabral - cauan@radig.com.br
+ * @author $radig$
  *
- * @copyright Cauan Cabral
- * @license MIT License
+ * @copyright $copyright$
+ * @license $license$
  *
  * @package Radig
  * @subpackage L10n
@@ -20,71 +20,64 @@ class LocaleBehavior extends ModelBehavior
 	
 	public $model;
 	
-	private $cakeAutomagicFields = array('created', 'updated');
+	private $cakeAutomagicFields = array('created', 'updated', 'modified');
 	
-	private $langs = array(
-		'finalLang' => 'en_US',
-		'initLang' => 'en_US'
-		);
+	private $systemLang;
 
 	function setup(&$Model, $config)
 	{
 		$this->model = $Model;
 		$this->settings = $config;
 		
-		$lang = explode('-', Configure::read('Config.language'));
-		
-		if(isset($lang[1]))
-		{
-			$lang[1] = strtoupper($lang[1]);
-		}
-		
-		$lang = implode('_', $lang);
-		
-		//verifica se é um locale "válido" pro PHP (5 caracteres)
-		if(isset($lang[4]))
-		{
-			$this->langs['initLang'] = $lang;
-		}
-		else
-		{
-			$this->langs['initLang'] = Configure::read('Language.default_php');
-		}
+		$this->systemLang = Configure::read('Language.default');
 	}
 
 	public function beforeValidate()
 	{
-		$success = TRUE;
-		
+		$this->localizeData();
+	}
+	
+	public function beforeSave()
+	{
+		$this->localizeData();
+	}
+	
+	public function localizeData()
+	{
 		// verifica se há dados setados no modelo
 		if(isset($this->model->data) && !empty($this->model->data))
-		{
+		{	
 			// varre os dados setados
-			foreach($this->model->data[$this->model->name] as $field => &$value)
+			foreach($this->model->data[$this->model->name] as $field => $value)
 			{
-				// caso o campo esteja vazio e não tenha um array como valor, e ainda não seja um campo automagico do cake
-				if(!empty($value) && !is_array($value) && !in_array($field, $this->cakeAutomagicFields))
-				{
+				// caso o campo esteja vazio e não tenha um array como valor
+				if(!empty($value) && !is_array($value) && !in_array($value, $this->cakeAutomagicFields))
+				{ 	
 					switch($this->model->_schema[$field]['type'])
 					{
 						case 'date':
-							$success = $this->__dateConvert($value);
+							$this->__dateConvert($this->model->data[$this->model->name][$field]);
 							break;
 						case 'decimal':
 						case 'float':
 						case 'double':
-							$success = $this->__stringToFloat($value);
+							$this->__stringToFloat($this->model->data[$this->model->name][$field]);
 							break;
 					}
 				}
-				
-				// caso alguma conversão não seja bem sucedida, aborta o tratamento e retorna false
-				if(!$success)
-				{
-					return FALSE;
-				}
 			}
 		}
+	}
+
+	/**
+	 * Converte uma string para um decimal localizado
+	 * 
+	 * @param string $value
+	 * @return bool
+	 */
+	private function __decimalConvert(&$value)
+	{
+		//TODO implementar um método específico para conversão de decimais, sem depender de extensão
 	}
 
 	/**
@@ -94,15 +87,23 @@ class LocaleBehavior extends ModelBehavior
 	 * @return bool
 	 */
 	private function __dateConvert(&$value)
-	{		
-		$df = new IntlDateFormatter($this->langs['finalLang'],  IntlDateFormatter::SHORT, IntlDateFormatter::NONE);
+	{
+		if($this->systemLang === 'pt-br')
+		{
+			if(preg_match('/\d{1,2}\/\d{1,2}\/\d{2,4}/', $value))
+				$value = implode('-', array_reverse(explode('/', $value)));
+			else if(preg_match('/\d{1,2}\-\d{1,2}\-\d{2,4}/', $value))
+				$value = implode('-', array_reverse(explode('-', $value))); 
+		}
 		
-		if($df === FALSE)
+		$dt = new DateTime($value);
+		
+		if($dt === FALSE)
 		{
 			return FALSE;
 		}
 		
-		$value = $df->format($value);
+		$value = $dt->format(DateTime::ISO8601);
 		
 		return ($value !== FALSE);
 	}
@@ -121,7 +122,7 @@ class LocaleBehavior extends ModelBehavior
 	private function __stringToFloat(&$value)
 	{
 		if(is_string($value))
-		{
+		{	
 			// find decimal digits
 			if(preg_match('/([\.|,])([0-9]*)$/', $value, $d))
 			{
