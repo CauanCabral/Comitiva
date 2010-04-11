@@ -19,21 +19,38 @@ class MessagesController extends AppController
 		return false;
 	}
 	
-	public function admin_index() {}
+	public function admin_index()
+	{
+		$this->redirect(array('action' => 'sendMessage'));
+	}
 	
-	public function admin_sendInvitation()
+	public function admin_sendMessage()
 	{
 		// caso a mensagem tenha sido fornecida
 		if(!empty($this->data))
 		{
 			$op = array(
 				'from' => Configure::read('Message.from'),
-				'to' => $this->__getUserMailAddress($this->data['Message']['event_id']),
-				'subject' => $this->data['Message']['subject'],
+				'subject' => '[Comitiva] ' . $this->data['Message']['subject'],
 				'body' => $this->data['Message']['text']
 			);
 			
-			switch($this->sendMessage($op))
+			// monta o campo de destinatário dependendo do tipo de mensagem
+			switch($this->data['Message']['type'])
+			{
+				case 0:
+					$op['to'] = $this->__getUserMailAddress();
+					break;
+				case 1:
+					$op['to'] = $this->__getUserMailAddress($this->data['Message']['event_id'], true);
+					break;
+				case 2:
+					$op['to'] = $this->__getUserMailAddress($this->data['Message']['event_id']);
+					break;
+			}
+			
+			// trata o retorno do envio
+			switch($this->__sendMessage($op))
 			{
 				case 0:
 					$this->Session->setFlash(__('Convite enviado', TRUE));
@@ -51,7 +68,26 @@ class MessagesController extends AppController
 		
 		// carrega e seta a lista de eventos cadastrado para usuário selecionar
 		$this->loadModel('Event');
-		$this->set('events', $this->Event->find('list'));
+		$this->set('events', $this->Event->find(
+			'list',
+			array(
+				'conditions' => array(
+					'OR' => array(
+						'Event.parent_id ' => 0,
+						'Event.parent_id IS NULL'
+						)
+					)
+				)
+			)
+		);
+		
+		// define os tipos de mensagens suportados
+		$types = array(
+			0 => __('Todos os cadastrados', TRUE),
+			1 => __('Usuários inscritos no evento', TRUE),
+			2 => __('Usuários não inscritos', TRUE)
+		);
+		$this->set('types', $types);
 	}
 	
 	/**
@@ -59,7 +95,7 @@ class MessagesController extends AppController
 	 * 
 	 * @return int $status - 0 em caso de sucesso, 1 caso haja erro no envio para alguém e -1 caso não seja possível enviar nenhuma mensagem
 	 */
-	protected function sendMessage($options = array())
+	protected function __sendMessage($options = array())
 	{
 		if($this->Mailer->sendMessage($options))
 		{
@@ -83,14 +119,15 @@ class MessagesController extends AppController
 	 */
 	protected function __saveFailedMailer($mails = array())
 	{
-		
+		//TODO
 	}
 	
-	private function __getUserMailAddress($event_id, $subscribeds = false)
+	private function __getUserMailAddress($event_id = NULL, $subscribeds = FALSE)
 	{
-		$condition = null;
+		$conditions = array('User.active' => 1);
 		
-		if(!$subscribeds)
+		// seleciona usuários que não estão inscritos em um determinado evento
+		if($event_id !== NULL && !$subscribeds)
 		{
 			$this->loadModel('Subscription');
 			
@@ -116,7 +153,37 @@ class MessagesController extends AppController
 				
 				$userIds = substr($userIds, 0, -1);
 				
-				$condition = "User.id NOT IN({$userIds})";
+				$conditions[] = "User.id NOT IN({$userIds})";
+			}
+		}
+		// seleciona usuários que estão inscritos em um determinado evento
+		else if($event_id !== NULL && $subscribeds)
+		{
+			$this->loadModel('Subscription');
+			
+			$in = $this->Subscription->find(
+				'all',
+				array(
+					'fields' => array('Subscription.user_id'),
+					'conditions' => array(
+						'Subscription.event_id' => $this->data['Message']['event_id']
+					),
+					'recursive' => -1
+				)
+			);
+		
+			if(!empty($in))
+			{
+				$userIds = '';
+				
+				foreach($in as $user)
+				{
+					$userIds .= $user['Subscription']['user_id'] . ',';
+				}
+				
+				$userIds = substr($userIds, 0, -1);
+				
+				$conditions[] = "User.id IN({$userIds})";
 			}
 		}
 		
@@ -129,10 +196,7 @@ class MessagesController extends AppController
 					'User.fullName',
 					'User.email'
 				),
-				'conditions' => array(
-					$condition,
-					'User.active' => 1
-				),
+				'conditions' => $conditions,
 				'recursive' => -1
 			)
 		);
