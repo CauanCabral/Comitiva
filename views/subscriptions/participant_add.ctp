@@ -7,17 +7,21 @@
 <div class="subscriptions form">
 <?php
 	echo $this->Form->create('Subscription', array('action' => 'add'));
-	echo $this->Form->input('Subscription.event_id', array('type' => 'hidden', 'value' => $event['Event']['id']));
+	echo $this->Form->input('Subscription.confirm', array('type' => 'hidden', 'value' => sha1($event['Event']['id'])));
 ?>
 <?php ?>
 	<fieldset>
  		<legend><?php __('Confirme sua Inscrição');?></legend>
-		<h1><?php __('Nome do Evento') ?></h1>
+		<h2><?php __('Nome do Evento') ?></h2>
 		<?php
 			echo '<h3>'.$event['Event']['title'].'</h3>'; 
+		
+			if(!empty($event['ParentEvent']['title'])):
 		?>
+		<br />
 		<h2><?php __('Macro Evento') ?></h2>
 		<h3><?php echo $event['ParentEvent']['title']; ?> </h3>
+		<?php endif; ?>
 		
 		<?php if (!empty($event['EventDate'])):?>
 		<br />
@@ -76,5 +80,5 @@
 		</div>
 		<?php endif; ?>
 	</fieldset>
-<?php echo $form->end('Confirmar');?>
+<?php echo $form->end(__('Confirmar', TRUE));?>
 </div>

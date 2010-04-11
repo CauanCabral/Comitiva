@@ -189,8 +189,23 @@ class SubscriptionsController extends AppController
 	{
 		if (!empty($this->data))
 		{
+			if($this->data['Subscription']['confirm'] != sha1($event_id))
+			{
+				$this->Session->setFlash(__('A inscrição não pôde ser feita. Verifique se o evento ainda está disponível.', true));
+				$this->redirect(array('action' => 'index'));
+			}
+			
+			// verifica se o evento é mesmo válido
+			if(!empty($this->Subscription->Event->read(null,$event_id)))
+			{
+				//caso não seja saí da inscrição
+				$this->Session->setFlash(__('A inscrição não pôde ser feita. Evento inválido.', true));
+				$this->redirect(array('action' => 'index'));
+			}
+			
 			$this->Subscription->create();
 			
+			$this->data['Subscription']['event_id'] = $event_id;
 			$this->data['Subscription']['user_id'] = User::get('id');
 			
 			if ($this->Subscription->save($this->data))
