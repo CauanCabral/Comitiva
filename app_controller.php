@@ -135,7 +135,7 @@ class AppController extends Controller
 	 */
 	private function __buildMenu()
 	{
-		if(User::get('username') == 'admin')
+		if(User::get('type') == 'admin')
 		{
 			$menu = array(
 				__('Eventos', TRUE) => array(
