@@ -17,7 +17,7 @@
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Inscrito em '); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $subscription['Subscription']['created']; ?>
+			<?php echo $this->Formatacao->data($subscription['Subscription']['created']); ?>
 			&nbsp;
 		</dd>
 	</dl>

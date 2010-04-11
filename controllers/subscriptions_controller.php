@@ -196,7 +196,7 @@ class SubscriptionsController extends AppController
 			}
 			
 			// verifica se o evento é mesmo válido
-			if(!empty($this->Subscription->Event->read(null,$event_id)))
+			if($this->Subscription->Event->read(null,$event_id) == NULL)
 			{
 				//caso não seja saí da inscrição
 				$this->Session->setFlash(__('A inscrição não pôde ser feita. Evento inválido.', true));

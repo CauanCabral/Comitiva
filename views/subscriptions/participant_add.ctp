@@ -6,7 +6,7 @@
 </div>
 <div class="subscriptions form">
 <?php
-	echo $this->Form->create('Subscription', array('action' => 'add'));
+	echo $this->Form->create('Subscription', array('action' => 'add' . '/' . $event['Event']['id']));
 	echo $this->Form->input('Subscription.confirm', array('type' => 'hidden', 'value' => sha1($event['Event']['id'])));
 ?>
 <?php ?>
