@@ -32,7 +32,7 @@ foreach ($payments as $payment):
 ?>
 	<tr<?php echo $class;?>>
 		<td>
-			<?php echo $html->link($payment['Subscription']['User']['name'], array('controller' => 'subscriptions', 'action' => 'view', $payment['Subscription']['id'])); ?>
+			<?php echo $html->link($payment['Subscription']['User']['fullName'], array('controller' => 'subscriptions', 'action' => 'view', $payment['Subscription']['id'])); ?>
 		</td>
 		<td>
 			<?php echo $this->Formatacao->data($payment['Payment']['date']); ?>

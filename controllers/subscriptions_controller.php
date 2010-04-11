@@ -179,6 +179,12 @@ class SubscriptionsController extends AppController
 		);
 	}
 
+	/**
+	 * Participante se inscreve em um evento
+	 * 
+	 * @param int $event_id
+	 * @return void
+	 */
 	public function participant_add($event_id = null)
 	{
 		if (!empty($this->data))
