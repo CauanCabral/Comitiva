@@ -36,19 +36,34 @@ class MessagesController extends AppController
 			);
 			
 			// monta o campo de destinatário dependendo do tipo de mensagem
-			switch($this->data['Message']['type'])
+			switch(($this->data['Message']['to'] + $this->data['Message']['toFilter']))
 			{
+				// enviar para todos os usuários
 				case 0:
 					$op['to'] = $this->__getUserMailAddress();
 					break;
-				case 1:
-					$op['to'] = $this->__getUserMailAddress($this->data['Message']['event_id'], true);
-					break;
-				case 2:
+				case 10:
 					$op['to'] = $this->__getUserMailAddress($this->data['Message']['event_id']);
 					break;
+				case 11:
+					$op['to'] = $this->__getUserMailAddress($this->data['Message']['event_id'], 1);
+					break;
+				case 12:
+					$op['to'] = $this->__getUserMailAddress($this->data['Message']['event_id'], 2);
+					break;
+				case 13:
+					$op['to'] = $this->__getUserMailAddress($this->data['Message']['event_id'], 3);
+					break;
+				case 20:
+					$op['to'] = $this->__getUserMailAddress($this->data['Message']['event_id'], 4);
+					break;
+				default:
+					$this->Session->setFlash(__('Opção inválida, selecione outro filtro', TRUE));
+					return;
 			}
 			
+			pr($op);
+			/*
 			// trata o retorno do envio
 			switch($this->__sendMessage($op))
 			{
@@ -64,6 +79,7 @@ class MessagesController extends AppController
 					$this->Session->setFlash(__('Falha no envio', TRUE));
 					break;
 			}
+			*/
 		}
 		
 		// carrega e seta a lista de eventos cadastrado para usuário selecionar
@@ -83,11 +99,18 @@ class MessagesController extends AppController
 		
 		// define os tipos de mensagens suportados
 		$types = array(
-			0 => __('Todos os cadastrados', TRUE),
-			1 => __('Usuários inscritos no evento', TRUE),
-			2 => __('Usuários não inscritos', TRUE)
+			0 => __('Todos os usuários', TRUE),
+			10 => __('Inscritos no evento', TRUE),
+			20 => __('Não inscritos no evento', TRUE)
 		);
-		$this->set('types', $types);
+		
+		$filters = array(
+			1 => __('Realizaram Check-in', TRUE),
+			2 => __('Não compareceram', TRUE),
+			3 => __('Não confirmaram pagamento', TRUE)
+		);
+		
+		$this->set(compact('types', 'filters'));
 	}
 	
 	/**
@@ -122,85 +145,118 @@ class MessagesController extends AppController
 		//TODO
 	}
 	
-	private function __getUserMailAddress($event_id = NULL, $subscribeds = FALSE)
+	/**
+	 * Método que busca e retorna um array com endereço de email dos usuários sob um determinado
+	 * critério
+	 * 
+	 * $option aceita os seguintes valores
+	 *  NULL: valor padrão, depende do valor de $event_id
+	 *  1	: seleciona usuários que fizeram check-in no evento
+	 *  2	: seleciona usuários que não fizeram check-in
+	 *  3	: seleciona usuários que não confirmaram pagamento
+	 *  4	: seleciona usuários que não estão inscritos no evento
+	 * 
+	 * @param $event_id
+	 * @param $option
+	 * @return array emails
+	 */
+	private function __getUserMailAddress($event_id = NULL, $option = NULL)
 	{
+		$this->loadModel('User');
+		
+		// condição inicial
 		$conditions = array('User.active' => 1);
 		
 		// seleciona usuários que não estão inscritos em um determinado evento
-		if($event_id !== NULL && !$subscribeds)
+		if($event_id !== NULL)
 		{
-			$this->loadModel('Subscription');
+			if($option != 4)
+			{
+				// usuários inscritos no evento
+				$conditions[] = array('Subscription.event_id' => $event_id);
+				
+				switch($option)
+				{
+					// todos os usuários que fizeram check-in
+					case 1:
+						$conditions[] = array('Subscription.checked' => TRUE);
+						break;
+					// usuários que faltaram o evento
+					case 2:
+						$conditions[] = array('Subscription.checked' => FALSE);
+						break;
+					// usuários que não confirmaram o pagamento
+					case 3:
+						$conditions[] = array('Payments.confirmed' => FALSE);
+						break;
+				}
+				
+				$receivers = $this->User->Subscription->find(
+					'all',
+					array(
+						'fields' => array(
+							'User.email'
+						),
+						'conditions' => $conditions,
+						'recursive' => 2
+					)
+				);
+				
+			}
+			// usuários não inscritos no evento
+			else
+			{	
+				// busca os usuários inscritos no evento
+				$notIn = $this->User->Subscription->find(
+					'all',
+					array(
+						'fields' => array('Subscription.user_id'),
+						'conditions' => array(
+							'Subscription.event_id' => $event_id
+						),
+						'recursive' => -1
+					)
+				);
 			
-			$notIn = $this->Subscription->find(
+				if(!empty($notIn))
+				{
+					$userIds = '';
+					
+					foreach($notIn as $user)
+					{
+						$userIds .= $user['Subscription']['user_id'] . ',';
+					}
+					$userIds = substr($userIds, 0, -1);
+					
+					// adiciona regra para remover usuários inscritos
+					$conditions[] = "User.id NOT IN({$userIds})";
+				}
+				
+				$receivers = $this->User->find(
+					'all',
+					array(
+						'fields' => array(
+							'User.email'
+						),
+						'conditions' => $conditions,
+						'recursive' => -1
+					)
+				);
+			}
+		}
+		// seleciona todos os usuários
+		else
+		{
+			$receivers = $this->User->find(
 				'all',
 				array(
-					'fields' => array('Subscription.user_id'),
-					'conditions' => array(
-						'Subscription.event_id' => $this->data['Message']['event_id']
-					),
+					'conditions' => $conditions,
 					'recursive' => -1
 				)
 			);
-		
-			if(!empty($notIn))
-			{
-				$userIds = '';
-				
-				foreach($notIn as $user)
-				{
-					$userIds .= $user['Subscription']['user_id'] . ',';
-				}
-				
-				$userIds = substr($userIds, 0, -1);
-				
-				$conditions[] = "User.id NOT IN({$userIds})";
-			}
 		}
-		// seleciona usuários que estão inscritos em um determinado evento
-		else if($event_id !== NULL && $subscribeds)
-		{
-			$this->loadModel('Subscription');
-			
-			$in = $this->Subscription->find(
-				'all',
-				array(
-					'fields' => array('Subscription.user_id'),
-					'conditions' => array(
-						'Subscription.event_id' => $this->data['Message']['event_id']
-					),
-					'recursive' => -1
-				)
-			);
-		
-			if(!empty($in))
-			{
-				$userIds = '';
 				
-				foreach($in as $user)
-				{
-					$userIds .= $user['Subscription']['user_id'] . ',';
-				}
-				
-				$userIds = substr($userIds, 0, -1);
-				
-				$conditions[] = "User.id IN({$userIds})";
-			}
-		}
-		
-		$this->loadModel('User');
-		
-		$receivers = $this->User->find(
-			'all',
-			array(
-				'fields' => array(
-					'User.fullName',
-					'User.email'
-				),
-				'conditions' => $conditions,
-				'recursive' => -1
-			)
-		);
-		
+		// formata a saída
 		$out = array();
 		
 		foreach($receivers as $receiver)
@@ -208,6 +264,7 @@ class MessagesController extends AppController
 			$out[] = $receiver['User']['email'];
 		}
 		
+		// retorna um array de emails
 		return $out;
 	}
 }
