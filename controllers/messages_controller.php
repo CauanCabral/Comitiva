@@ -62,8 +62,6 @@ class MessagesController extends AppController
 					return;
 			}
 			
-			pr($op);
-			/*
 			// trata o retorno do envio
 			switch($this->__sendMessage($op))
 			{
@@ -79,7 +77,7 @@ class MessagesController extends AppController
 					$this->Session->setFlash(__('Falha no envio', TRUE));
 					break;
 			}
-			*/
+			
 		}
 		
 		// carrega e seta a lista de eventos cadastrado para usuário selecionar
