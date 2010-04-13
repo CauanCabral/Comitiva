@@ -10,11 +10,11 @@
 <div class="subscriptions form">
 <?php echo $form->create('Subscription');?>
 	<fieldset>
- 		<legend><?php __('Nova Inscrição',1);?></legend>
+ 		<legend><?php __('Nova Inscrição');?></legend>
 	<?php
-		echo $form->input('user_id',__('Usuário'));
-		echo $form->input('event_id');
+		echo $this->Form->input('user_id', array('label' => __('Usuário', TRUE)));
+		echo $this->Form->input('event_id', array('label' => __('Evento', TRUE)));
 	?>
 	</fieldset>
-<?php echo $form->end('Enviar');?>
+<?php echo $form->end(__('Adicionar', TRUE));?>
 </div>

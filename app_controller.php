@@ -41,7 +41,8 @@ class AppController extends Controller
 	
 	public $uses = array(); // ATENÇÃO! não carregue modelos no  AppController. Em último caso utilize Controller::loadModel
 	
-	public $activeUser;
+	public $paginate = array('limit' => 50);
+	
 	/************************
 	 * Aditional atributes
 	 ***********************/
@@ -53,7 +54,12 @@ class AppController extends Controller
 	 */
 	public $userLogged = false;
 	
-	
+	/**
+	 * Reference for current user
+	 * 
+	 * @var User
+	 */
+	public $activeUser;
 	/*************************
 	 * Cake Callbacks
 	 ************************/

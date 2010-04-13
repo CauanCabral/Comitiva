@@ -9,7 +9,6 @@
 	echo $this->Form->create('Subscription', array('action' => 'add' . '/' . $event['Event']['id']));
 	echo $this->Form->input('Subscription.confirm', array('type' => 'hidden', 'value' => sha1($event['Event']['id'])));
 ?>
-<?php ?>
 	<fieldset>
  		<legend><?php __('Confirme sua Inscrição');?></legend>
 		<h2><?php __('Nome do Evento') ?></h2>

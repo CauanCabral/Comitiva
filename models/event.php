@@ -79,5 +79,20 @@ class Event extends AppModel
 		$this->rollback();
 		return FALSE;
 	}
+	
+	/**
+	 * Método auxiliar para recuperar lista com eventos (sub-eventos não são listados)
+	 * 
+	 * @param array $conditions
+	 * @return array - lista de usuários (equivalente a User::find('list'))
+	 */
+	public function getList($conditions = array())
+	{
+		$defaultCondition = array('OR' => array('Event.parent_id IS NULL', 'Event.parent_id' => 0));
+		
+		$conditions = array_merge($defaultCondition, $conditions);
+		
+		return $this->find('list', array('conditions' => $conditions));
+	}
 }
 ?>

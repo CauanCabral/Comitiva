@@ -202,54 +202,50 @@ class PaymentsController extends AppController
 
 	public function participant_add($subscription_id = null)
 	{
+		if($subscription_id == null && isset($this->data['Subscription']['id']))
+		{
+			$subscription_id = $this->data['Subscription']['id'];
+		}
+		
+		$subscription = $this->Payment->Subscription->find('first', array('conditions' => array('Subscription.id' => $subscription_id)));
+		
+		if ($subscription_id == null)
+		{
+			$this->Session->setFlash(__('Inscrição Inválida', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		// verify if subscription is the logged user
+		else if($subscription['Subscription']['user_id'] != User::get('id'))
+		{
+			$this->Session->setFlash(__('Você não possui autorização para realizar esta ação!', true));
+		}
 		// verify if event is free (no need payments)
-		$subscription = $this->Payment->Subscription->read(null, $subscription_id);
-		if($subscription['Event']['free'])
+		else if($subscription['Event']['free'])
 		{
 			$this->Session->setFlash(__('Este evento é gratuito!', true));
-			$this->__goBack();
 		}
-		
-		// verify if payment already has been saved
-		$payment = $this->Payment->find(
-			'first',
-			array(
-				'conditions' => array(
-					'subscription_id' => $subscription_id,
-					'Subscription.user_id' => User::get('id')
-				)
-			)
-		);
-		
-		if(!empty($payment))
+		// verify if payment already exist
+		else if(!empty($subscription['Payment']['id']))
 		{
 			$this->Session->setFlash(__('Este Pagamento Já Foi Informado!', true));
-			
-			$this->__goBack();
-		}
+		} 
 		
 		// verify if form has submited
 		if (!empty($this->data))
 		{
 			$this->Payment->create();
-			$this->data['Payment']['subscription_id'] = $this->data['Subscription']['id'];
+			$this->data['Payment']['subscription_id'] = $subscription_id;
 			
 			if ($this->Payment->save($this->data))
 			{
 				$this->Session->setFlash(__('Pagamento Informado!', true));
+				$this->redirect(array('action' => 'index'));
 			}
 			else
 			{
 				$this->Session->setFlash(__('O pagamento não pôde ser registrado. Tente novamente.', true));
+				$this->__goBack();
 			}
-			
-			$this->__goBack();
-		}
-		// else verify if not setted id
-		else if (!isset($subscription_id))
-		{
-			$this->Session->setFlash(__('Pagamento Inválido', true));
-			$this->redirect(array('action' => 'index'));
 		}
 			
 		$this->set(compact('subscription'));

@@ -15,7 +15,6 @@ echo $paginator->counter(array(
 <table cellpadding="0" cellspacing="0">
 <tr>
 	<th><?php echo $paginator->sort(__('Título', TRUE), 'Event.title');?></th>
-	<th><?php echo $paginator->sort(__('Macro Evento', TRUE), 'Event.parent_id');?></th>
 	<th><?php echo $paginator->sort(__('Gratuito?', TRUE), 'Event.free');?></th>
 	<th><?php echo __('Inscritos',1);?></th>
 	<th class="actions"><?php __('Ações');?></th>
@@ -31,12 +30,6 @@ foreach ($events as $event):
 	<tr<?php echo $class;?>>
 		<td>
 			<?php echo $event['Event']['title']; ?>
-		</td>
-		<td>
-			<?php
-			if(isset($event['ParentEvent']['title'])) 
-				echo $this->Html->link($event['ParentEvent']['title'], array('controller' => 'events', 'action' => 'view', $event['ParentEvent']['id']));
-			?>
 		</td>
 		<td>
 			<?php $event['Event']['free'] == TRUE ? __('Sim') : __('Não'); ?>

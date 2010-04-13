@@ -65,8 +65,8 @@ class SubscriptionsController extends AppController
 			}
 		}
 		
-		$users = $this->Subscription->User->find('list');
-		$events = $this->Subscription->Event->find('list');
+		$users = $this->Subscription->User->getList();
+		$events = $this->Subscription->Event->getList();
 		$this->set(compact('users', 'events'));
 	}
 
@@ -163,7 +163,7 @@ class SubscriptionsController extends AppController
 		if (!$id)
 		{
 			$this->Session->setFlash(__('Inscrição inválida', true));
-			$this->redirect(array('action' => 'index'));
+			$this->__goBack();
 		}
 		
 		$this->set('subscription', $this->Subscription->find(
@@ -226,7 +226,7 @@ class SubscriptionsController extends AppController
 			if(!empty($subscription))
 			{
 				$this->Session->setFlash(__('Sua inscrição neste evento já foi efetuada!', true));
-				$this->redirect(array('action' => 'index'));
+				$this->__goBack();
 			}
 			
 			$event = $this->Subscription->Event->read(null,$event_id);
@@ -234,49 +234,31 @@ class SubscriptionsController extends AppController
 		}
 	}
 
-	public function participant_edit($id = null)
-	{
-		if (!$id && empty($this->data))
-		{
-			$this->Session->setFlash(__('Inscrição inválida', true));
-			$this->redirect(array('action' => 'index'));
-		}
-		
-		if (!empty($this->data))
-		{
-			if ($this->Subscription->save($this->data))
-			{
-				$this->Session->setFlash(__('Inscrição Salva!', true));
-				$this->redirect(array('action' => 'index'));
-			}
-			else
-			{
-				$this->Session->setFlash(__('A inscrição não pôde ser salva. Tente novamente.', true));
-			}
-		}
-		
-		if (empty($this->data))
-		{
-			$this->data = $this->Subscription->read(null, $id);
-		}
-		
-		$users = $this->Subscription->User->find('list');
-		$events = $this->Subscription->Event->find('list');
-		$this->set(compact('users', 'events'));
-	}
-
 	public function participant_delete($id = null)
 	{
 		if (!$id)
 		{
-			$this->Session->setFlash(__('Id de inscrição inválido!', true));
+			$this->Session->setFlash(__('Inscrição inválido!', true));
+			$this->__goBack();
 		}
+		
+		$subscription = $this->Subscription->find('first', array('recursive' => -1, 'conditions' => array('event_id' => $id, 'user_id' => User::get('id'))));
+		
+		// verifica se a inscrição está registrada para o usuário logado
+		if(!empty($subscription))
+		{
+			// caso não esteja somente seta a mensagem de erro
+			$this->Session->setFlash(__('Inscrição inválida.', true));
+		}
+		// caso contrário tenta excluir a inscrição
 		else if ($this->Subscription->delete($id))
 		{
+			// se for excluída, define mensagem de sucesso
 			$this->Session->setFlash(__('Inscriçao apagada!', true));
 		}
 		else
 		{
+			// caso contrário define mensagem de falha
 			$this->Session->setFlash(__('Inscrição não foi apagada', true));
 		}
 		

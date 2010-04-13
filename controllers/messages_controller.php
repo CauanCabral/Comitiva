@@ -82,18 +82,7 @@ class MessagesController extends AppController
 		
 		// carrega e seta a lista de eventos cadastrado para usuário selecionar
 		$this->loadModel('Event');
-		$this->set('events', $this->Event->find(
-			'list',
-			array(
-				'conditions' => array(
-					'OR' => array(
-						'Event.parent_id ' => 0,
-						'Event.parent_id IS NULL'
-						)
-					)
-				)
-			)
-		);
+		$this->set('events', $this->Event->getList());
 		
 		// define os tipos de mensagens suportados
 		$types = array(

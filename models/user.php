@@ -70,6 +70,21 @@ class User extends AppModel
 	);
 	
 	/**
+	 * Método auxiliar para recuperar lista com usuários ativos
+	 * 
+	 * @param array $conditions
+	 * @return array - lista de usuários (equivalente a User::find('list'))
+	 */
+	public function getList($conditions = array())
+	{
+		$defaultCondition = array('User.active' => TRUE);
+		
+		$conditions = array_merge($defaultCondition, $conditions);
+		
+		return $this->find('list', array('conditions' => $conditions));
+	}
+	
+	/**
 	 * **************************************************
 	 * Begin of copyrighted content to Matt Curry
 	 * **************************************************
