@@ -209,5 +209,16 @@ class AppController extends Controller
 		
 		$this->autoRender = $autoRender;
 	}
+	
+	/**
+	 * Try redirect to origin action
+	 * 
+	 * @return void
+	 */
+	protected function __goBack()
+	{
+		// tenta redirecionar de volta para tela anterior, caso não consiga manda par action index
+		$this->redirect($this->referer(array('action'=>'index'), TRUE));
+	}
 }
 ?>

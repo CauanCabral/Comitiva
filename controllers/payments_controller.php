@@ -35,7 +35,7 @@ class PaymentsController extends AppController
 		if (!$id)
 		{
 			$this->Session->setFlash(__('Pagamento inválido', true));
-			$this->redirect(array('action' => 'index'));
+			$this->goBack();
 		}
 		
 		$this->set('payment', $this->Payment->read(null, $id));
@@ -72,7 +72,7 @@ class PaymentsController extends AppController
 		if (!$id && empty($this->data))
 		{
 			$this->Session->setFlash(__('Pagamento inválido', true));
-			$this->redirect(array('action' => 'index'));
+			$this->goBack();
 		}
 		
 		if (!empty($this->data))
@@ -104,17 +104,17 @@ class PaymentsController extends AppController
 		if (!$id)
 		{
 			$this->Session->setFlash(__('Id de pagamento inválido', true));
-			$this->redirect(array('action'=>'index'));
 		}
-		
-		if ($this->Payment->delete($id))
+		else if ($this->Payment->delete($id))
 		{
 			$this->Session->setFlash(__('Pagamento apagado!', true));
-			$this->redirect(array('action'=>'index'));
+		}
+		else
+		{
+			$this->Session->setFlash(__('Pagamento não foi apagado.', true));
 		}
 		
-		$this->Session->setFlash(__('Pagamento não foi apagado.', true));
-		$this->redirect(array('action' => 'index'));
+		$this->__goBack();
 	}
 	
 	public function admin_confirm($id = null)
@@ -122,7 +122,7 @@ class PaymentsController extends AppController
 		if ($id == null)
 		{
 			$this->Session->setFlash(__('Id de inscrição inválido', true));
-			$this->redirect(array('action'=>'index'));
+			$this->__goBack();
 		}
 		
 		// verify if this payment is already confirmed
@@ -132,7 +132,7 @@ class PaymentsController extends AppController
 		{
 			$this->Session->setFlash(__('Pagamento já havia sido confirmado', true));
 			
-			$this->redirect(array('action'=>'index'));
+			$this->__goBack();
 		}
 		
 		$success = $this->Payment->save(
@@ -160,7 +160,7 @@ class PaymentsController extends AppController
 			$this->Session->setFlash(__('Não foi possível confirmar o pagamento', true));
 		}
 		
-		$this->redirect(array('action'=>'index'));
+		$this->__goBack();
 	}
 	
 	/*
@@ -184,7 +184,8 @@ class PaymentsController extends AppController
 		if (!$id)
 		{
 			$this->Session->setFlash(__('Pagamento inválido', true));
-			$this->redirect(array('action' => 'index'));
+			
+			$this->__goBack();
 		}
 		
 		$this->set('payment', $this->Payment->find(
@@ -206,7 +207,7 @@ class PaymentsController extends AppController
 		if($subscription['Event']['free'])
 		{
 			$this->Session->setFlash(__('Este evento é gratuito!', true));
-			$this->redirect(array('action' => 'index'));
+			$this->__goBack();
 		}
 		
 		// verify if payment already has been saved
@@ -219,10 +220,12 @@ class PaymentsController extends AppController
 				)
 			)
 		);
+		
 		if(!empty($payment))
 		{
 			$this->Session->setFlash(__('Este Pagamento Já Foi Informado!', true));
-			$this->redirect(array('action' => 'index'));
+			
+			$this->__goBack();
 		}
 		
 		// verify if form has submited
@@ -230,25 +233,25 @@ class PaymentsController extends AppController
 		{
 			$this->Payment->create();
 			$this->data['Payment']['subscription_id'] = $this->data['Subscription']['id'];
+			
 			if ($this->Payment->save($this->data))
 			{
 				$this->Session->setFlash(__('Pagamento Informado!', true));
-				$this->redirect(array('action' => 'index'));
 			}
 			else
 			{
 				$this->Session->setFlash(__('O pagamento não pôde ser registrado. Tente novamente.', true));
-				$this->redirect(array('action' => 'index'));
 			}
+			
+			$this->__goBack();
 		}
-		
 		// else verify if not setted id
-		if(!isset($subscription_id))
+		else if (!isset($subscription_id))
 		{
 			$this->Session->setFlash(__('Pagamento Inválido', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		
+			
 		$this->set(compact('subscription'));
 	}
 	

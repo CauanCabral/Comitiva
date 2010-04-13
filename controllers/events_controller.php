@@ -118,16 +118,17 @@ class EventsController extends AppController
 		if (!$id) 
 		{
 			$this->Session->setFlash(__('Id de evento inválido.', true));
-			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->Event->delete($id))
 		{
 			$this->Session->setFlash(__('Evento apagado!', true));
-			$this->redirect(array('action'=>'index'));
+		}
+		else
+		{
+			$this->Session->setFlash(__('Evento não foi apagado!', true));
 		}
 		
-		$this->Session->setFlash(__('Evento não foi apagado!', true));
-		$this->redirect(array('action' => 'index'));
+		$this->__goBack();
 	}
 	
 	/*
@@ -213,6 +214,11 @@ class EventsController extends AppController
 		}
 	}
 	
+	/**
+	 * TODO implementar remoção de data
+	 * 
+	 * @return unknown_type
+	 */
 	public function admin_event_date_delete()
 	{
 		if($this->RequestHandler->isAjax())
@@ -262,6 +268,19 @@ class EventsController extends AppController
 			}
 			
 			$this->render('event_price_add');
+		}
+	}
+	
+	/**
+	 * TODO implementar remoção de preço
+	 * 
+	 * @return unknown_type
+	 */
+	public function admin_event_price_delete()
+	{
+		if($this->RequestHandler->isAjax())
+		{
+			
 		}
 	}
 	

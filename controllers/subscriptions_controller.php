@@ -3,7 +3,6 @@ App::import('Sanitize');
 
 class SubscriptionsController extends AppController
 {
-
 	public $name = 'Subscriptions';
 	public $uses = array('Subscription');
 	
@@ -15,7 +14,7 @@ class SubscriptionsController extends AppController
 		{
 			return true;
 		}
-		
+			
 		return false;
 	}
 	
@@ -43,7 +42,7 @@ class SubscriptionsController extends AppController
 		if (!$id)
 		{
 			$this->Session->setFlash(__('Inscrição inválida.', true));
-			$this->redirect(array('action' => 'index'));
+			$this->__goBack();
 		}
 		
 		$this->set('subscription', $this->Subscription->read(null, $id));
@@ -76,7 +75,7 @@ class SubscriptionsController extends AppController
 		if (!$id && empty($this->data))
 		{
 			$this->Session->setFlash(__('Inscrição inválida', true));
-			$this->redirect(array('action' => 'index'));
+			$this->__goBack();
 		}
 		
 		if (!empty($this->data))
@@ -107,17 +106,17 @@ class SubscriptionsController extends AppController
 		if (!$id)
 		{
 			$this->Session->setFlash(__('Inscrição inválido!', true));
-			$this->redirect(array('action'=>'index'));
 		}
-		
-		if ($this->Subscription->delete($id))
+		else if ($this->Subscription->delete($id))
 		{
 			$this->Session->setFlash(__('Inscrição apagada!', true));
-			$this->redirect(array('action'=>'index'));
+		}
+		else
+		{
+			$this->Session->setFlash(__('Inscrição não foi apagada', true));
 		}
 		
-		$this->Session->setFlash(__('Inscrição não foi apagada', true));
-		$this->redirect(array('action' => 'index'));
+		$this->__goBack();
 	}
 	
 	public function admin_checkin($id = null)
@@ -125,7 +124,7 @@ class SubscriptionsController extends AppController
 		if(!$id)
 		{
 			$this->Session->setFlash(__('Inscrição inválido!', true));
-			$this->redirect(array('action'=>'index'));
+			$this->__goBack();
 		}
 		
 		$subscription = $this->Subscription->read(null, $id);
@@ -133,7 +132,7 @@ class SubscriptionsController extends AppController
 		if(!$subscription)
 		{
 			$this->Session->setFlash(__('Inscrição inválido!', true));
-			$this->redirect(array('action'=>'index'));
+			$this->__goBack();
 		}
 		
 		$this->Subscription->create($subscription);
@@ -141,13 +140,13 @@ class SubscriptionsController extends AppController
 		if($this->Subscription->saveField('checked', 1))
 		{
 			$this->Session->setFlash(__('Check-in realizado com sucesso!', true));
-			$this->redirect(array('action'=>'index'));
 		}
 		else
 		{
 			$this->Session->setFlash(__('Falha no check-in.', true));
-			$this->redirect(array('action'=>'index'));
 		}
+		
+		$this->__goBack();
 	}
 	
 	/*
@@ -271,17 +270,17 @@ class SubscriptionsController extends AppController
 		if (!$id)
 		{
 			$this->Session->setFlash(__('Id de inscrição inválido!', true));
-			$this->redirect(array('action'=>'index'));
 		}
-		
-		if ($this->Subscription->delete($id))
+		else if ($this->Subscription->delete($id))
 		{
 			$this->Session->setFlash(__('Inscriçao apagada!', true));
-			$this->redirect(array('action'=>'index'));
+		}
+		else
+		{
+			$this->Session->setFlash(__('Inscrição não foi apagada', true));
 		}
 		
-		$this->Session->setFlash(__('Inscrição não foi apagada', true));
-		$this->redirect(array('action' => 'index'));
+		$this->__goBack();
 	}
 }
 ?>
