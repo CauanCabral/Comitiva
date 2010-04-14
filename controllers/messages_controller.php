@@ -62,20 +62,24 @@ class MessagesController extends AppController
 					return;
 			}
 			
-			// trata o retorno do envio
-			switch($this->__sendMessage($op))
+			// verifica se há destinatário
+			if(!empty($op['to']))
 			{
-				case 0:
-					$this->Session->setFlash(__('Convite enviado', TRUE));
-					$this->redirect(array('action' => 'index'));
-					break;
-				case 1:
-					$this->Session->setFlash(__('Convite não pode ser enviado a todos os destinatários', TRUE));
-					$this->redirect(array('action' => 'index'));
-					break;
-				case -1:
-					$this->Session->setFlash(__('Falha no envio', TRUE));
-					break;
+				// trata o retorno do envio
+				switch($this->__sendMessage($op))
+				{
+					case 0:
+						$this->Session->setFlash(__('Mensagem enviada', TRUE));
+						$this->redirect(array('action' => 'index'));
+						break;
+					case 1:
+						$this->Session->setFlash(__('A mensagem não pode ser enviada a todos os destinatários', TRUE));
+						$this->redirect(array('action' => 'index'));
+						break;
+					case -1:
+						$this->Session->setFlash(__('Falha no envio', TRUE));
+						break;
+				}
 			}
 			
 		}
@@ -107,6 +111,9 @@ class MessagesController extends AppController
 	 */
 	protected function __sendMessage($options = array())
 	{
+		if(empty($options))
+			return -1;
+		
 		if($this->Mailer->sendMessage($options))
 		{
 			if(empty($this->Mailer->failures))
