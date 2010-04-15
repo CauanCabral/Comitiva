@@ -3,6 +3,10 @@ class EventDate extends AppModel
 {
 	public $name = 'EventDate';
 	
+	public $actsAs = array(
+		'Locale'
+	);
+	
 	public $validate = array(
 		'date' => array(
 			'date' => array('rule' => array('notEmpty')),

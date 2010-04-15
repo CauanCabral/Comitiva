@@ -5,7 +5,7 @@ class Payment extends AppModel
 	
 	public $displayField = 'date';
 	
-	public $actAs = array(
+	public $actsAs = array(
 		'Locale'
 	);
 	

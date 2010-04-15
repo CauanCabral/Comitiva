@@ -3,7 +3,7 @@ class EventPrice extends AppModel
 {
 	public $name = 'EventPrice';
 	
-	public $actAs = array(
+	public $actsAs = array(
 		'Locale'
 	);
 	

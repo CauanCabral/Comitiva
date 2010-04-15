@@ -1,48 +1,47 @@
 <?php
-/* 
- * $Id$
+/** 
+ * @author Cauan Cabral - cauan@radig.com.br
  *
- * @author $radig$
- *
- * @copyright $copyright$
- * @license $license$
+ * @copyright 2009-2010, Radig - Soluções em TI, www.radig.com.br
+ * @license MIT
  *
  * @package Radig
  * @subpackage L10n
- * @version $Rev$
  * 
  * Este behavior requer PHP versão >= 5.2.4
  */
 
 class LocaleBehavior extends ModelBehavior
 {
-	public $name = 'Locale';
-	
-	public $model;
+	protected $model;
 	
 	private $cakeAutomagicFields = array('created', 'updated', 'modified');
 	
 	private $systemLang;
 
-	function setup(&$Model, $config)
+	public function setup(&$model, $config = array())
 	{
-		$this->model = $Model;
+		$this->model = $model;
 		$this->settings = $config;
 		
 		$this->systemLang = Configure::read('Language.default');
 	}
 
-	public function beforeValidate()
-	{
-		$this->localizeData();
+	public function beforeValidate(&$model)
+	{	
+		parent::beforeValidate($model);
+		
+		return $this->localizeData();
 	}
 	
-	public function beforeSave()
+	public function beforeSave(&$model)
 	{
-		$this->localizeData();
+		parent::beforeSave($model);
+		
+		return $this->localizeData();
 	}
 	
-	public function localizeData()
+	protected function localizeData()
 	{
 		// verifica se há dados setados no modelo
 		if(isset($this->model->data) && !empty($this->model->data))
@@ -51,8 +50,8 @@ class LocaleBehavior extends ModelBehavior
 			foreach($this->model->data[$this->model->name] as $field => $value)
 			{
 				// caso o campo esteja vazio e não tenha um array como valor
-				if(!empty($value) && !is_array($value) && !in_array($value, $this->cakeAutomagicFields))
-				{ 	
+				if(!empty($value) && !is_array($value) && !in_array($field, $this->cakeAutomagicFields))
+				{
 					switch($this->model->_schema[$field]['type'])
 					{
 						case 'date':
@@ -88,6 +87,7 @@ class LocaleBehavior extends ModelBehavior
 	 */
 	private function __dateConvert(&$value)
 	{
+		
 		if($this->systemLang === 'pt-br')
 		{
 			if(preg_match('/\d{1,2}\/\d{1,2}\/\d{2,4}/', $value))
@@ -103,7 +103,7 @@ class LocaleBehavior extends ModelBehavior
 			return FALSE;
 		}
 		
-		$value = $dt->format(DateTime::ISO8601);
+		$value = $dt->format('Y-m-d H:i:s');
 		
 		return ($value !== FALSE);
 	}

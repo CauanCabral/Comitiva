@@ -11,6 +11,10 @@ class User extends AppModel
 	
 	public $displayField = 'fullName';
 	
+	public $actsAs = array(
+		'Locale'
+	);
+	
 	public $validate = array(
 		'username' => array(
 			'notempty' => array('rule' => array('notempty'),
@@ -34,6 +38,12 @@ class User extends AppModel
 			'notempty' => array(
 				'rule' => array('notempty'),
 				'message' => 'Por favor, preencha o nome'
+			)
+		),
+		'nickname' => array(
+			'notempty' => array(
+				'rule' => array('notempty'),
+				'message' => 'Por favor, preencha o sobrenome'
 			)
 		),
 		'birthday' => array(

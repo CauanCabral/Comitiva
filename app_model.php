@@ -30,6 +30,6 @@
  * @subpackage    cake.app
  */
 class AppModel extends Model {
-	public $actAs = array('Containable');
+	public $actsAs = array('Containable');
 }
 ?>

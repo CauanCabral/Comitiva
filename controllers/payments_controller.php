@@ -202,7 +202,7 @@ class PaymentsController extends AppController
 
 	public function participant_add($subscription_id = null)
 	{
-		if($subscription_id == null && isset($this->data['Subscription']['id']))
+		if(isset($this->data['Subscription']['id']))
 		{
 			$subscription_id = $this->data['Subscription']['id'];
 		}
@@ -237,14 +237,14 @@ class PaymentsController extends AppController
 			$this->data['Payment']['subscription_id'] = $subscription_id;
 			
 			if ($this->Payment->save($this->data))
-			{
+			{  
 				$this->Session->setFlash(__('Pagamento Informado!', true));
 				$this->redirect(array('action' => 'index'));
 			}
 			else
 			{
 				$this->Session->setFlash(__('O pagamento não pôde ser registrado. Tente novamente.', true));
-				$this->__goBack();
+				//$this->__goBack();
 			}
 		}
 			
