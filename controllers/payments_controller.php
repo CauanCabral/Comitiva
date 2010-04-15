@@ -218,16 +218,19 @@ class PaymentsController extends AppController
 		else if($subscription['Subscription']['user_id'] != User::get('id'))
 		{
 			$this->Session->setFlash(__('Você não possui autorização para realizar esta ação!', true));
+			$this->redirect(array('action' => 'index'));
 		}
 		// verify if event is free (no need payments)
 		else if($subscription['Event']['free'])
 		{
 			$this->Session->setFlash(__('Este evento é gratuito!', true));
+			$this->__goBack();
 		}
 		// verify if payment already exist
 		else if(!empty($subscription['Payment']['id']))
 		{
 			$this->Session->setFlash(__('Este Pagamento Já Foi Informado!', true));
+			$this->__goBack();
 		} 
 		
 		// verify if form has submited
@@ -244,7 +247,6 @@ class PaymentsController extends AppController
 			else
 			{
 				$this->Session->setFlash(__('O pagamento não pôde ser registrado. Tente novamente.', true));
-				//$this->__goBack();
 			}
 		}
 			
