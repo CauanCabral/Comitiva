@@ -323,7 +323,6 @@ class UsersController extends AppController
 			else
 			{
 				$this->Session->setFlash(__('Erro ao Atualizar Dados',1));
-				$this->redirect('profile');
 			}
 		}
 		

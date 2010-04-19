@@ -103,7 +103,7 @@ class LocaleBehavior extends ModelBehavior
 			return FALSE;
 		}
 		
-		$value = $dt->format('Y-m-d H:i:s');
+		$value = $dt->format('Y-m-d');
 		
 		return ($value !== FALSE);
 	}
