@@ -48,10 +48,13 @@ class User extends AppModel
 		),
 		'birthday' => array(
 			'notempty' => array(
-                                'rule' => array('notempty'),
-                                'message' => 'Informação obrigatória para geração de certificado'
-                        ),
-			'date' => array('rule' => array('date'))
+				'rule' => array('notempty'),
+				'message' => 'Informação obrigatória para geração de certificado'
+			),
+			 'valid' => array(
+			 	'rule' => array('date'),
+				'message' => 'Data inválida'
+			) 
 		),
 		'cpf' => array(
 			'cpf' => array(

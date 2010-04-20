@@ -11,11 +11,15 @@
  * Este behavior requer PHP versão >= 5.2.4
  */
 
+App::import('CORE', 'ConnectionManager');
+
 class LocaleBehavior extends ModelBehavior
 {
 	protected $model;
 	
 	private $cakeAutomagicFields = array('created', 'updated', 'modified');
+	
+	private $typesFormat;
 	
 	private $systemLang;
 
@@ -25,6 +29,14 @@ class LocaleBehavior extends ModelBehavior
 		$this->settings = $config;
 		
 		$this->systemLang = Configure::read('Language.default');
+		
+		$db =& ConnectionManager::getDataSource($this->model->useDbConfig);
+		
+		foreach($db->columns as $type => $info)
+		{
+			if(isset($info['format']))
+				$this->typesFormat[$type] = $info['format'];
+		}
 	}
 
 	public function beforeValidate(&$model)
@@ -43,9 +55,11 @@ class LocaleBehavior extends ModelBehavior
 	
 	protected function localizeData()
 	{
+		$status = TRUE;
+		
 		// verifica se há dados setados no modelo
 		if(isset($this->model->data) && !empty($this->model->data))
-		{	
+		{
 			// varre os dados setados
 			foreach($this->model->data[$this->model->name] as $field => $value)
 			{
@@ -55,17 +69,22 @@ class LocaleBehavior extends ModelBehavior
 					switch($this->model->_schema[$field]['type'])
 					{
 						case 'date':
-							$this->__dateConvert($this->model->data[$this->model->name][$field]);
+						case 'datetime':
+						case 'time':
+						case 'timestamp':
+							$status = ($status && $this->__dateConvert($this->model->data[$this->model->name][$field], $this->model->_schema[$field]['type']));
 							break;
 						case 'decimal':
 						case 'float':
 						case 'double':
-							$this->__stringToFloat($this->model->data[$this->model->name][$field]);
+							$status = ($status && $this->__stringToFloat($this->model->data[$this->model->name][$field]));
 							break;
 					}
 				}
 			}
 		}
+		
+		return $status;
 	}
 
 	/**
@@ -83,17 +102,27 @@ class LocaleBehavior extends ModelBehavior
 	 * Converte uma data localizada para padrão de banco de dados (americano)
 	 * 
 	 * @param string $value
+	 * @param string $type -> a valid schema date type, like: 'date', 'datetime', 'timestamp' or 'time'
 	 * @return bool
 	 */
-	private function __dateConvert(&$value)
+	private function __dateConvert(&$value, $type = 'date')
 	{
-		
 		if($this->systemLang === 'pt-br')
 		{
-			if(preg_match('/\d{1,2}\/\d{1,2}\/\d{2,4}/', $value))
-				$value = implode('-', array_reverse(explode('/', $value)));
-			else if(preg_match('/\d{1,2}\-\d{1,2}\-\d{2,4}/', $value))
-				$value = implode('-', array_reverse(explode('-', $value))); 
+			/*
+			 * @FIXME remover redundância de busca de padrão
+			 */
+			if( preg_match('/^\d{1,2}\/\d{1,2}\/\d{2,4}/', $value) )
+			{
+				$value = preg_replace('/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})/', '$3-$2-$1', $value);
+			}
+			else if( preg_match('/^\d{1,2}\-\d{1,2}\-\d{2,4}/', $value) )
+			{
+				$value = preg_replace('/^(\d{1,2})\-(\d{1,2})\-(\d{2,4})/', "$3-$2-$1", $value);
+			}
+			
+			if( $value == null )
+				return FALSE;
 		}
 		
 		$dt = new DateTime($value);
@@ -103,7 +132,7 @@ class LocaleBehavior extends ModelBehavior
 			return FALSE;
 		}
 		
-		$value = $dt->format('Y-m-d H:i:s');
+		$value = $dt->format($this->typesFormat[$type]);
 		
 		return ($value !== FALSE);
 	}

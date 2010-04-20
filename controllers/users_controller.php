@@ -267,8 +267,15 @@ class UsersController extends AppController
 		{
 			if ($this->User->save($this->data))
 			{
+				// se o admin está editando sua própria conta
+				if($this->data['User']['id'] == User::get('id'))
+				{
+					// recarrega suas informações
+					$this->__reloadUserInfo();
+				}
+				
 				$this->Session->setFlash(__('Usuário salvo', true));
-				$this->redirect(array('action' => 'index'));
+				$this->__goBack();
 			}
 			else
 			{
@@ -317,23 +324,40 @@ class UsersController extends AppController
 			
 			if($this->User->save($this->data))
 			{
+				$this->__reloadUserInfo();
 				$this->Session->setFlash(__('Dados Atualizados!',1));
-				$this->redirect('profile');
+				$this->__goBack();
 			}
 			else
 			{
 				$this->Session->setFlash(__('Erro ao Atualizar Dados',1));
-				$this->redirect('profile');
 			}
 		}
 		
 		// read and set the User data based on value of logged user
-		$this->data = User::get('User');
+		$this->data = $this->User->read(null, User::get('id'));
 	}
 	
 	/***************************
 	 * Auxiliar methods
 	 **************************/
+	
+	/**
+	 * Recupera informações atualizadas do usuário logado e salva na seção
+	 * os novos valores
+	 * 
+	 * @return void
+	 */
+	protected function __reloadUserInfo()
+	{
+		$user = $this->User->read(null, User::get('id'));
+		
+		//remove chaves desnecessárias para a sessão
+		unset($user['User']['password'], $user['User']['token'], $user['User']['account_validation_token']);
+		
+		// escreve trecho pertinente da sessão
+		$this->Session->write('Auth.User', $user['User']);
+	}
 	
 	/**
 	 * Envia um email para o endereço associado ao usuário
