@@ -51,10 +51,10 @@ class User extends AppModel
 				'rule' => array('notempty'),
 				'message' => 'Informação obrigatória para geração de certificado'
 			),
-			 'valid' => array(
-			 	'rule' => array('date'),
+			'valid' => array(
+				'rule' => array('date'),
 				'message' => 'Data inválida'
-			) 
+			)
 		),
 		'cpf' => array(
 			'cpf' => array(
@@ -62,16 +62,16 @@ class User extends AppModel
 				'message' => 'Verifique o número digitado'
 			),
 			'notempty' => array(
-                                'rule' => array('notempty'),
-                                'message' => 'Informação obrigatória para geração de certificado'
-                        )
+				'rule' => array('notempty'),
+				'message' => 'Informação obrigatória para geração de certificado'
+			)
 		),
 		'address' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
 				'message' => 'Por favor, preencha o endereço'
-				)
 			)
+		)
 	);
 
 	public $hasMany = array(
