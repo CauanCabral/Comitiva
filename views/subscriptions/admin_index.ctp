@@ -1,6 +1,7 @@
 <div class="actions">
 	<ul>
 		<li><?php echo $html->link(__('Nova Inscrição', true), array('action' => 'add')); ?></li>
+		<li><?php echo $html->link(__('Gerar lista de inscritos', true), array('action' => 'getCsv', $event_id)); ?></li>
 		<li><?php echo $html->link(__('Listar Eventos', true), array('controller' => 'events', 'action' => 'index')); ?> </li>
 	</ul>
 </div>

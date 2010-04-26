@@ -6,7 +6,7 @@ class SubscriptionsController extends AppController
 	public $name = 'Subscriptions';
 	public $uses = array('Subscription');
 	
-	public $helpers = array('Formatacao');
+	public $helpers = array('Formatacao', 'Csv');
 	
 	public function isAuthorized()
 	{
@@ -34,6 +34,7 @@ class SubscriptionsController extends AppController
 			);
 		}
 		
+		$this->set(compact('event_id'));
 		$this->set('subscriptions', $this->paginate());
 	}
 
@@ -147,6 +148,36 @@ class SubscriptionsController extends AppController
 		}
 		
 		$this->__goBack();
+	}
+	
+	public function admin_getCsv($event_id)
+	{
+		$this->layout = 'ajax';
+		
+		$fields = array('Nome', 'Sobrenome', 'Email', 'Data de Nascimento', 'CPF', 'Endereço', 'Cidade', 'Estado', 'Telefone');
+		$users = $this->Subscription->find(
+			'all',
+			array(
+				'conditions' => array(
+					'Subscription.event_id' => $event_id,
+					'Subscription.checked' => TRUE
+					),
+				'fields' => array(
+						'User.name',
+						'User.nickname',
+						'User.email',
+						'User.birthday',
+						'User.cpf',
+						'User.address',
+						'User.city',
+						'User.state',
+						'User.phone'
+					),
+				'recursive' => 0
+				)
+			);
+		
+		$this->set(compact('users', 'fields'));
 	}
 	
 	/*
