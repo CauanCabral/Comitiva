@@ -6,13 +6,8 @@ class InstallerController extends AppController
 	public $uses = array();
 
 	public function isAuthorized()
-	{		
-		if($this->userLogged === TRUE && $this->params['prefix'] == User::get('type'))
-		{
-			return true;
-		}
-		
-		return false;
+	{
+		return true;
 	}
 
 	public function admin_configure()
@@ -42,7 +37,7 @@ class InstallerController extends AppController
 		if(is_string($options) || isset($options['useSchema']))
 		{
 			$version = new MigrationVersion();
-			$versions = $version->getMapping('rcms');
+			$versions = $version->getMapping('comitiva');
 			
 			if(!isset($options['targetVersion']))
 			{
