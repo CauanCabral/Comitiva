@@ -1,6 +1,6 @@
 <?php 
 /* SVN FILE: $Id$ */
-/* Comitiva schema generated on: 2010-05-21 13:05:38 : 1274463698*/
+/* Comitiva schema generated on: 2010-05-23 12:05:11 : 1274631551*/
 class ComitivaSchema extends CakeSchema {
 	var $name = 'Comitiva';
 
@@ -39,6 +39,26 @@ class ComitivaSchema extends CakeSchema {
 		'parent_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
 		'free' => array('type' => 'boolean', 'null' => false, 'default' => '1'),
 		'subscription_count' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
+	);
+	var $message_recipients = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+		'message_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'user_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'sended_to' => array('type' => 'string', 'null' => false, 'default' => NULL),
+		'success' => array('type' => 'boolean', 'null' => false, 'default' => '1'),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
+	);
+	var $messages = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+		'subject' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 100),
+		'text' => array('type' => 'text', 'null' => false, 'default' => NULL),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
