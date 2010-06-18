@@ -108,9 +108,9 @@ class AppController extends Controller
 		}
 
 		$this->Auth->autoRedirect = false;
-		$this->Auth->loginAction = '/login';
+		$this->Auth->loginAction = array('controller' => 'users', 'action' => 'login', 'admin' => false, 'participant' => false);
 		$this->Auth->logoutRedirect = '/';
-		$this->Auth->loginRedirect = '/pages/logged'; //array('controller' => 'users', 'action' => 'profile');
+		$this->Auth->loginRedirect = array('controller' => 'pages', 'action' => 'logged', 'admin' => false, 'participant' => false);
 
 		// What to say when the login was incorrect.
 		$this->Auth->loginError = __('Falha no login. Por favor, verifique se o usuário e senha digitado estão corretos.', TRUE);
@@ -120,7 +120,7 @@ class AppController extends Controller
 		// tmp var to load logged user information
 		$this->activeUser = $this->Auth->user();
 		
-		if($this->activeUser !== null)
+		if($this->activeUser != null)
 		{
 			// set control flag
 			$this->userLogged = true;
@@ -131,6 +131,11 @@ class AppController extends Controller
 			
 			// Define user information in view class
 			$this->set('activeUser', $this->activeUser);
+		}
+		else
+		{
+			// if not authenticated, alter display layout
+			$this->layout = 'login';
 		}
 	}
 	
@@ -201,6 +206,7 @@ class AppController extends Controller
 	{
 		if($this->name == 'CakeError')
 		{
+			//@TODO create the error layout
 			//$this->layout = 'error';
 		}
 	}

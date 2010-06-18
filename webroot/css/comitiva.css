@@ -75,18 +75,18 @@ ul, li {
 }
 
 #header{
-	padding: 10px 20px;
+	background: #003d4c url('../img/cake.icon.png') no-repeat left;
+	padding: 20px 20px;
+	
 }
 #header h1 {
-	line-height:20px;
-	background: #003d4c url('../img/cake.icon.png') no-repeat left;
+	background: transparent;
 	color: #fff;
-	padding: 0px 30px;
+	font-weight: bold;
 }
 #header h1 a {
 	color: #fff;
-	background: #003d4c;
-	font-weight: normal;
+	background: transparent;
 	text-decoration: none;
 }
 #header h1 a:hover {
@@ -342,22 +342,87 @@ form .submit input[type=submit]:hover {
 	background-image: -moz-linear-gradient(top, #85e573, #4ca83d);
 }
 
+/* Login Form */
+form {
+	clear: both;
+	margin-right: 20px;
+	padding: 0;
+	width: 95%;
+}
+form.login {
+	margin: 0 auto;
+	padding:16px 16px 40px 16px;
+	font-weight:normal;
+	-moz-border-radius:11px;
+	-khtml-border-radius:11px;
+	-webkit-border-radius:11px;
+	border-radius:5px;
+	background:	#fff;
+	border:1px solid #e5e5e5;
+	-moz-box-shadow:rgba(200,200,200,1) 0 4px 18px;
+	-webkit-box-shadow:rgba(200,200,200,1) 0 4px 18px;
+	-khtml-box-shadow:rgba(200,200,200,1) 0 4px 18px;
+	box-shadow:rgba(200,200,200,1) 0 4px 18px;
+	width: 350px;
+}
+form.login fieldset {
+	width: auto;
+	-moz-border-radius:3px;
+	-khtml-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+}
 /** Notices and Errors **/
+#errorMessage {
+	clear: both;
+	display: block;
+	
+	margin: 0 0 20px 0;
+	padding: 10px 10px 10px 36px;
+	
+	color: #fff;
+	font-weight: bold;
+	border-style: solid;
+	border-width: 0.1em;
+	
+	background-position:10px 10px;
+}
+
+#flashMessage {
+	clear: both;
+	display: block;
+	
+	margin: 0 0 20px 0;
+	padding: 10px 10px 10px 36px;
+	
+	color: #6F6F5A;
+	font-weight: bold;
+	border-style: solid;
+	border-width: 0.1em;
+	
+	background-position:10px 10px;
+}
+
+#authMessage {
+	clear: both;
+	display: block;
+	
+	margin: 0 0 20px 0;
+	padding: 10px 10px 10px 36px;
+	
+	color: #6F6F5A;
+	font-weight: bold;
+	border-style: solid;
+	border-width: 0.1em;
+	
+	background: #FEFFBF url("../img/icons/error.png") no-repeat scroll 0 0;
+	background-position: 10px 10px;
+	border-color: #DDDF00;
+}
+
 div.message {
-	clear: both;
-	color: #fff;
-	font-size: 140%;
-	font-weight: bold;
-	margin: 0 0 1em 0;
-	background: #c73e14;
-	padding: 5px;
 }
-div.error-message {
-	clear: both;
-	color: #fff;
-	font-weight: bold;
-	background: #c73e14;
-}
+
 p.error {
 	background-color: #e32;
 	color: #fff;
@@ -372,19 +437,26 @@ p.error em {
 	font-weight: normal;
 	line-height: 140%;
 }
-.notice {
-	background: #ffcc00;
-	color: #000;
-	display: block;
-	font-family: Courier, monospace;
-	font-size: 120%;
-	line-height: 140%;
-	padding: 0.8em;
-	margin: 1em 0;
+
+.success
+{
+	background: #D5FFCE url("../img/icons/accept.png") no-repeat scroll 0 0;
+	border-color: #29DF64; 
+	color:#4C6F51;
 }
-.success {
-	background: green;
-	color: #fff;
+
+.attention
+{
+	background: #FEFFBF url("../img/icons/error.png") no-repeat scroll 0 0;
+	border-color: #DDDF00;
+	color:#6F6F5A;
+}
+
+.error-message
+{
+	background: #FFC4BF url("../img/icons/exclamation.png") no-repeat scroll 0 0;
+	border-color: #CF564D;
+	color:#6F4845;
 }
 
 /**  Actions  **/

@@ -5,3 +5,8 @@
 *.bak
 config/bootstrap.local.php
 config/database.php
+tmp/cache/models/
+tmp/cache/persistent/
+tmp/cache/views/
+tmp/sessions/
+tmp/tests/

@@ -1,13 +1,15 @@
-<h2>Login</h2>
-<div class="login" >
+<?php echo $this->Form->create('User', array('url' => array('controller' => 'users', 'action' => 'login'), 'class' => 'login'));?>
+<fieldset>
+	<legend><?php __('Login'); ?></legend>
 	<?php
-	echo $form->create('User',	array('url' => array('controller' => 'users', 'action' =>'login')));
-	echo $form->input('User.username', array('label' => __('Usuário', TRUE)));
-	echo $form->input('User.password', array('label' => __('Senha', TRUE)));
-	echo $form->end(__('Entrar', TRUE));
+	echo $this->Form->input('User.username', array('label' => __('Usuário', TRUE)));
+	echo $this->Form->input('User.password', array('label' => __('Senha', TRUE)));
+	echo $this->Form->submit(__('Entrar', TRUE));
 	?>
-	<br />
-	<?php echo $this->Html->link(__('Esqueceu sua senha?', TRUE), '/recover'); ?>
-	<br />
-	<?php echo $this->Html->link(__('Crie uma conta aqui.', TRUE), '/account_create'); ?>
-</div>
+</fieldset>
+
+<?php echo $this->Html->link(__('Esqueceu sua senha?', true), array('controller' => 'users', 'action' => 'recover')); ?>
+<br />
+<?php echo $this->Html->link(__('Criar uma conta gratuitamente', TRUE), array('controller' => 'users', 'action' => 'account_create')); ?>
+
+<?php echo $form->end();?>

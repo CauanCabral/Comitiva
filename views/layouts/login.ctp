@@ -27,7 +27,6 @@
 	</title>
 	<?php
 		echo $this->Html->meta('icon');
-
 		
 		echo $this->Html->css('comitiva');
 		echo $this->Html->css('menu');
@@ -49,9 +48,9 @@
 </head>
 <body>
 	<div id="container">
-		<!--div id="header">
-			<h1><?php echo $this->Html->link(__('Comitiva: Sistema de controle de eventos do PHPMS', true), 'http://phpms.org'); ?></h1>
-		</div-->
+		<div id="header">
+			<h1><?php echo $this->Html->link(__('Comitiva: Sistema de controle de eventos', true), 'http://phpms.org', array('title' => __('Copyright© Grupo de Usuários PHP de Mato Grosso do Sul - PHPMS', true))); ?></h1>
+		</div>
 		
 		<?php if(isset($menuItems) && !empty($menuItems)): ?>
 		<ul id="menu">
@@ -60,12 +59,21 @@
 		<?php endif; ?>
 		
 		<div id="content">
-
-			<?php echo $this->Session->flash(); ?>
+			<?php
+			if( $this->Session->check('Message.auth') )
+			{
+				echo $this->Session->flash('auth');
+			}
+			else
+			{
+				echo $this->Session->flash();
+			}
+			?>
 
 			<?php echo $content_for_layout; ?>
 
 		</div>
+		
 		<div id="footer">
 			<?php echo $this->Html->link(
 					$this->Html->image('cake.power.gif', array('alt'=> __('CakePHP: the rapid development php framework', true), 'border' => '0')),

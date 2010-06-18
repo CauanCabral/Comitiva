@@ -4,6 +4,13 @@ App::import('model', 'ConnectionManager');
 class InstallerController extends AppController
 {
 	public $uses = array();
+	
+	public function beforeFilter()
+	{	
+		parent::beforeFilter();
+		
+		$this->Auth->allow('admin_configure');
+	}
 
 	public function isAuthorized()
 	{
@@ -89,7 +96,16 @@ class InstallerController extends AppController
 
 		$this->loadModel('User');
 		$this->User->create();
-		$this->User->save($user, false); // save without validate
+		$status = $this->User->save($user, false); // save without validate
+		
+		if($status)
+		{
+			$this->Session->setFlash('Configuração básica salva.');
+		}
+		else
+		{
+			$this->Session->setFlash('Configuração básica não pode ser salva.');
+		}
 	}
 
 	/**
