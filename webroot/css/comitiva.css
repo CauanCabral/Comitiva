@@ -103,10 +103,15 @@ ul, li {
 }
 #footer {
 	clear: both;
+	background-color:#003d4c;
+	color: #fff;
 	padding: 6px 10px;
-	text-align: right;
+	text-align: center;
+	font-size: 0.6em;
 }
-
+#footer a, #footer a:visited, #footer a:hover {
+	color: #fff;
+}
 /** containers **/
 div.form,
 div.index,
