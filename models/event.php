@@ -7,13 +7,22 @@ class Event extends AppModel
 	
 	public $validate = array(
 		'title' => array(
-			'notempty' => array('rule' => array('notempty'))
+			'notempty' => array(
+				'rule' => array('notempty'),
+				'message' => 'Obrigatório'
+			)
 		),
 		'alias' => array(
-			'notempty' => array('rule' => array('notempty'))
+			'notempty' => array(
+				'rule' => array('notempty'),
+				'message' => 'Obrigatório'
+			)
 		),
 		'description' => array(
-			'notempty' => array('rule' => array('notempty'))
+			'notempty' => array(
+				'rule' => array('notempty'),
+				'message' => 'Obrigatório'
+			)
 		),
 	);
 

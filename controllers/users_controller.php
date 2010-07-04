@@ -36,7 +36,7 @@ class UsersController extends AppController
 				// if not, force loggout and display help message to user active account
 				$this->userLogged = false;
 				
-				$this->Session->setFlash(__('Você precisa ativar sua conta. Verifique seu email por favor.', TRUE), null, array('class' => 'attention'));
+				$this->Session->setFlash(__('Você precisa ativar sua conta. Verifique seu email por favor.', TRUE), 'default', array('class' => 'attention'));
 				
 				$this->redirect($this->Auth->logout());
 			}
@@ -49,7 +49,7 @@ class UsersController extends AppController
 			// update 'last_access' field
 			$this->User->saveField('last_access', $now->format("Y-m-d H:i:s"));
 			
-			$this->Session->setFlash(__('Você está autenticado', 1), null, array('class' => 'success'));
+			$this->Session->setFlash(__('Você está autenticado', 1), 'default', array('class' => 'success'));
 
 			// redirect
 			$this->redirect($this->Auth->redirect());
@@ -58,7 +58,7 @@ class UsersController extends AppController
 	
 	public function logout()
 	{
-		$this->Session->setFlash(__('Você saiu do sistema', 1), null, array('class' => 'success'));
+		$this->Session->setFlash(__('Você saiu do sistema', 1), 'default', array('class' => 'success'));
 
 		$this->redirect($this->Auth->logout());
 	}
@@ -102,7 +102,7 @@ class UsersController extends AppController
 			
 			if(empty($userToAlter))
 			{
-				$this->Session->setFlash(__('Token fornecido inválido. Verique o endereço acessado, por favor.', TRUE), null, 'attention');
+				$this->Session->setFlash(__('Token fornecido inválido. Verique o endereço acessado, por favor.', TRUE), 'default', 'attention');
 				$this->redirect('/');
 			}
 			
@@ -119,18 +119,18 @@ class UsersController extends AppController
 				
 				if($this->User->save($toSave, array('validate' => false)))
 				{
-					$this->Session->setFlash(__('Senha atualizada. Agora você já pode fazer seu login com a nova senha.', TRUE), null, 'success');
+					$this->Session->setFlash(__('Senha atualizada. Agora você já pode fazer seu login com a nova senha.', TRUE), 'default', 'success');
 					$this->redirect(array('action' => 'login'));
 				}
 				else
 				{
-					$this->Session->setFlash(__('Falha ao atualizar senha. Tente novamente.', TRUE), null, array('class' => 'attention'));
+					$this->Session->setFlash(__('Falha ao atualizar senha. Tente novamente.', TRUE), 'default', array('class' => 'attention'));
 				}
 			}
 		}
 		else
 		{
-			$this->Session->setFlash(__('O endereço acessado não é válido.', TRUE), null, array('class' => 'attention'));
+			$this->Session->setFlash(__('O endereço acessado não é válido.', TRUE), 'default', array('class' => 'attention'));
 			$this->redirect('/');
 		}
 	}
@@ -158,7 +158,7 @@ class UsersController extends AppController
 				if(isset($this->data['User']['password_confirm']))
 					unset($this->data['User']['password_confirm']);
 				
-				$this->Session->setFlash(__('Não foi possível criar a conta. Verifique os dados inseridos.', true), null, array('class' => 'attention'));
+				$this->Session->setFlash(__('Não foi possível criar a conta. Verifique os dados inseridos.', true), 'default', array('class' => 'attention'));
 			}
 		}
 	}
@@ -174,24 +174,24 @@ class UsersController extends AppController
 			));
 			if($userData['User']['active'])
 			{
-				$this->Session->setFlash(__('Seu cadastro já foi verificado',1), null, array('class' => 'attention'));
+				$this->Session->setFlash(__('Seu cadastro já foi verificado',1), 'default', array('class' => 'attention'));
 				$this->redirect('/');
 			}
 			if($userData['User']['account_validation_token'] == $hash)
 			{
 				$userData['User']['active'] = true;
 				$this->User->save($userData);
-				$this->Session->setFlash(__('Cadastro Verificado com Sucesso!',1), null, array('class' => 'success'));
+				$this->Session->setFlash(__('Cadastro Verificado com Sucesso!',1), 'default', array('class' => 'success'));
 				$this->redirect('/');
 			}
 			else
 			{
-				$this->Session->setFlash(__('Código de verificação inválido!',1), null, array('class' => 'attention'));
+				$this->Session->setFlash(__('Código de verificação inválido!',1), 'default', array('class' => 'attention'));
 				$this->redirect('/');
 			}
 		}
 		
-		$this->Session->setFlash(__('Corrija o nome de usuário e/ou código de verificação!',1), null, array('class' => 'attention'));
+		$this->Session->setFlash(__('Corrija o nome de usuário e/ou código de verificação!',1), 'default', array('class' => 'attention'));
 		$this->redirect('/');
 	}
 	/*******************
@@ -214,7 +214,7 @@ class UsersController extends AppController
 	{
 		if (!$id)
 		{
-			$this->Session->setFlash(__('Usuário inválido', true), null, array('class' => 'attention'));
+			$this->Session->setFlash(__('Usuário inválido', true), 'default', array('class' => 'attention'));
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->set('user', $this->User->find(
@@ -240,12 +240,12 @@ class UsersController extends AppController
 			
 			if ($this->__validPassword() && $this->User->save($this->data))
 			{
-				$this->Session->setFlash(__('Usuário adicionado', true), null, array('class' => 'success'));
+				$this->Session->setFlash(__('Usuário adicionado', true), 'default', array('class' => 'success'));
 				$this->redirect(array('action' => 'index'));
 			}
 			else
 			{
-				$this->Session->setFlash(__('Usuário não pode ser salvo. Tente novamente, por favor.', true), null, array('class' => 'attention'));
+				$this->Session->setFlash(__('Usuário não pode ser salvo. Tente novamente, por favor.', true), 'default', array('class' => 'attention'));
 			}
 		}
 	}
@@ -254,7 +254,7 @@ class UsersController extends AppController
 	{
 		if (!$id && empty($this->data))
 		{
-			$this->Session->setFlash(__('Usuário inválido', true), null, array('class' => 'attention'));
+			$this->Session->setFlash(__('Usuário inválido', true), 'default', array('class' => 'attention'));
 			$this->redirect(array('action' => 'index'));
 		}
 		
@@ -269,12 +269,12 @@ class UsersController extends AppController
 					$this->__reloadUserInfo();
 				}
 				
-				$this->Session->setFlash(__('Usuário salvo', true), null, array('class' => 'success'));
+				$this->Session->setFlash(__('Usuário salvo', true), 'default', array('class' => 'success'));
 				$this->__goBack();
 			}
 			else
 			{
-				$this->Session->setFlash(__('Não foi possível salvar a alteração. Tente novamente, por favor.', true), null, array('class' => 'attention'));
+				$this->Session->setFlash(__('Não foi possível salvar a alteração. Tente novamente, por favor.', true), 'default', array('class' => 'attention'));
 			}
 		}
 		
@@ -286,15 +286,15 @@ class UsersController extends AppController
 
 	public function admin_delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Usuário inválido', true), null, array('class' => 'attention'));
+			$this->Session->setFlash(__('Usuário inválido', true), 'default', array('class' => 'attention'));
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->User->delete($id)) {
-			$this->Session->setFlash(__('Usuário removido', true), null, array('class' => 'success'));
+			$this->Session->setFlash(__('Usuário removido', true), 'default', array('class' => 'success'));
 			$this->redirect(array('action'=>'index'));
 		}
 		
-		$this->Session->setFlash(__('Usuário não pode ser removido', true), null, array('class' => 'attention'));
+		$this->Session->setFlash(__('Usuário não pode ser removido', true), 'default', array('class' => 'attention'));
 		$this->redirect(array('action' => 'index'));
 	}
 	
@@ -320,12 +320,12 @@ class UsersController extends AppController
 			if($this->User->save($this->data))
 			{
 				$this->__reloadUserInfo();
-				$this->Session->setFlash(__('Dados Atualizados!',1), null, array('class' => 'success'));
+				$this->Session->setFlash(__('Dados Atualizados!',1), 'default', array('class' => 'success'));
 				$this->__goBack();
 			}
 			else
 			{
-				$this->Session->setFlash(__('Erro ao Atualizar Dados',1), null, array('class' => 'attention'));
+				$this->Session->setFlash(__('Erro ao Atualizar Dados',1), 'default', array('class' => 'attention'));
 			}
 		}
 		
@@ -398,17 +398,17 @@ class UsersController extends AppController
 
 			if($this->Email->send())
 			{
-				$this->Session->setFlash(__('Instruções para redefinir a senha foram enviadas para seu email cadastrado', true), null, array('class' => 'success'));
+				$this->Session->setFlash(__('Instruções para redefinir a senha foram enviadas para seu email cadastrado', true), 'default', array('class' => 'success'));
 				return true;
 			}
 			else
 			{
-				$this->Session->setFlash(sprintf(__('Não foi possível enviar as informações de recuperação de senha para seu email. Entre em contato através do email %s para obter ajuda', true), Configure::read('Message.from')), null, array('class' => 'attention'));
+				$this->Session->setFlash(sprintf(__('Não foi possível enviar as informações de recuperação de senha para seu email. Entre em contato através do email %s para obter ajuda', true), Configure::read('Message.from')), 'default', array('class' => 'attention'));
 			}
 		}
 		else
 		{
-			$this->Session->setFlash(sprintf(__('Não foi possível iniciar processo para rercuperação da senha. Entre em contato através do email %s para obter ajuda',true), Configure::read('Message.from')), null, array('class' => 'attention'));
+			$this->Session->setFlash(sprintf(__('Não foi possível iniciar processo para rercuperação da senha. Entre em contato através do email %s para obter ajuda',true), Configure::read('Message.from')), 'default', array('class' => 'attention'));
 		}
 
 		return false;
@@ -457,12 +457,12 @@ class UsersController extends AppController
 	
 			if($this->Email->send())
 			{
-				$this->Session->setFlash(__('Foi enviado um email para confirmação da sua conta', true), null, array('class' => 'attention'));
+				$this->Session->setFlash(__('Foi enviado um email para confirmação da sua conta', true), 'default', array('class' => 'attention'));
 				return true;
 			}
 			else
 			{
-				$this->Session->setFlash(sprintf(__('Não foi possível enviar o email de confirmação da conta para seu endereço. Entre em contato através do email %s para obter ajuda', true), Configure::read('Message.from')), null, array('class' => 'attention'));
+				$this->Session->setFlash(sprintf(__('Não foi possível enviar o email de confirmação da conta para seu endereço. Entre em contato através do email %s para obter ajuda', true), Configure::read('Message.from')), 'default', array('class' => 'attention'));
 			}
 		}
 		

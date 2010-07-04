@@ -11,5 +11,4 @@
 <?php echo $this->Html->link(__('Esqueceu sua senha?', true), array('controller' => 'users', 'action' => 'recover')); ?>
 <br />
 <?php echo $this->Html->link(__('Criar uma conta gratuitamente', TRUE), array('controller' => 'users', 'action' => 'account_create')); ?>
-
 <?php echo $form->end();?>

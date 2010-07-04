@@ -21,7 +21,7 @@
 		echo $form->input('birthday', array('label' => __('Data de nascimento', TRUE)));
 		echo $form->input('username', array('label' => __('Nome de usuário', TRUE)));
 		echo $form->input('password', array('label' => __('Senha', TRUE)));
-		echo $form->input('password_confirm', array('label' => __('Re-digite a senha', TRUE)));
+		echo $form->input('password_confirm', array('label' => __('Re-digite a senha', TRUE), 'type' => 'password'));
 		echo $form->input('email', array('label' => __('Email', TRUE)));
 		echo $form->input('cpf', array('label' => __('CPF', 1)));
 		echo $form->input('address', array('label' => __('Endereço', 1)));

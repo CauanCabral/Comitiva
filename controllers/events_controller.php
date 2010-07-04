@@ -44,7 +44,7 @@ class EventsController extends AppController
 	{
 		if (!$id)
 		{
-			$this->Session->setFlash(__('Evento inválido', true));
+			$this->Session->setFlash(__('Evento inválido', true), 'default', array('class' => 'attention'));
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->set('event', $this->Event->read(null, $id));
@@ -63,12 +63,12 @@ class EventsController extends AppController
 				
 			if ($this->Event->add($this->data))
 			{
-				$this->Session->setFlash(__('Novo evento salvo!', true));
+				$this->Session->setFlash(__('Novo evento salvo!', true), 'default', array('class' => 'success'));
 				$this->redirect(array('action' => 'index'));
 			}
 			else
 			{	
-				$this->Session->setFlash(__('Novo evento não pode ser salvo. Tente novamente.', true));
+				$this->Session->setFlash(__('Novo evento não pode ser salvo. Tente novamente.', true), 'default', array('class' => 'attention'));
 			}
 		}
 		
@@ -80,7 +80,7 @@ class EventsController extends AppController
 	{
 		if (!$id && empty($this->data))
 		{
-			$this->Session->setFlash(__('Evento inválido', true));
+			$this->Session->setFlash(__('Evento inválido', true), 'default', array('class' => 'attention'));
 			$this->redirect(array('action' => 'index'));
 		}
 		
@@ -95,12 +95,12 @@ class EventsController extends AppController
 			
 			if ($this->Event->add($this->data))
 			{
-				$this->Session->setFlash(__('Evento atualizado!', true));
+				$this->Session->setFlash(__('Evento atualizado!', true), 'default', array('class' => 'success'));
 				$this->redirect(array('action' => 'index'));
 			}
 			else
 			{
-				$this->Session->setFlash(__('O evento não pode ser salvo. Tente novamente.', true));
+				$this->Session->setFlash(__('O evento não pode ser salvo. Tente novamente.', true), 'default', array('class' => 'attention'));
 			}
 		}
 		
@@ -117,15 +117,15 @@ class EventsController extends AppController
 	{
 		if (!$id) 
 		{
-			$this->Session->setFlash(__('Id de evento inválido.', true));
+			$this->Session->setFlash(__('Id de evento inválido.', true), 'default', array('class' => 'attention'));
 		}
 		if ($this->Event->delete($id))
 		{
-			$this->Session->setFlash(__('Evento apagado!', true));
+			$this->Session->setFlash(__('Evento apagado!', true), 'default', array('class' => 'success'));
 		}
 		else
 		{
-			$this->Session->setFlash(__('Evento não foi apagado!', true));
+			$this->Session->setFlash(__('Evento não foi apagado!', true), 'default', array('class' => 'attention'));
 		}
 		
 		$this->__goBack();
@@ -155,7 +155,7 @@ class EventsController extends AppController
 	{
 		if (!$id) 
 		{
-			$this->Session->setFlash(__('Evento inválido', true));
+			$this->Session->setFlash(__('Evento inválido', true), 'default', array('class' => 'attention'));
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->set('event', $this->Event->read(null, $id));

@@ -110,7 +110,7 @@ class AppController extends Controller
 		$this->Auth->autoRedirect = false;
 		$this->Auth->loginAction = array('controller' => 'users', 'action' => 'login', 'admin' => false, 'participant' => false);
 		$this->Auth->logoutRedirect = '/';
-		$this->Auth->loginRedirect = array('controller' => 'pages', 'action' => 'logged', 'admin' => false, 'participant' => false);
+		$this->Auth->loginRedirect = '/estatica/logged';
 
 		// What to say when the login was incorrect.
 		$this->Auth->loginError = __('Falha no login. Por favor, verifique se o usuário e senha digitado estão corretos.', TRUE);
@@ -131,6 +131,11 @@ class AppController extends Controller
 			
 			// Define user information in view class
 			$this->set('activeUser', $this->activeUser);
+			
+			if($this->here == '/')
+			{
+				$this->redirect('/estatica/logged');
+			}
 		}
 		else
 		{
