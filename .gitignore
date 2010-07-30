@@ -4,3 +4,4 @@
 .project
 config/bootstrap.local.php
 config/database.php
+tmp
