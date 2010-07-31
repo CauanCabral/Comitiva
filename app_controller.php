@@ -174,6 +174,11 @@ class AppController extends Controller
 					'action' => 'index',
 					'admin' => true
 				),
+				__('Propostas', TRUE) => array(
+					'controller' => 'proposals',
+					'action' => 'index',
+					'admin' => true
+				),
 				__('Minha conta',TRUE) => array(
 					'controller' => 'users',
 					'action' => 'profile',
