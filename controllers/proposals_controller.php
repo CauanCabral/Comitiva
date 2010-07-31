@@ -15,7 +15,7 @@ class ProposalsController extends AppController {
 	}
   
 	function index() {
-		$this->Proposal->recursive = 0;
+    $this->paginate['contain'] = array('User', 'Event');
 		$this->set('proposals', $this->paginate());
 	}
 
@@ -146,6 +146,9 @@ class ProposalsController extends AppController {
 	}
 
   function setView() {
+    $events = $this->Proposal->Event->find('list', array('conditions' => array('Event.open_for_proposals' => 1)));
+
+    $this->set(compact('events'));
 
   }
 }
