@@ -17,6 +17,7 @@ echo $paginator->counter(array(
 	<th><?php echo $paginator->sort(__('Título', TRUE), 'Event.title');?></th>
 	<th><?php echo $paginator->sort(__('Macro Evento', TRUE), 'Event.parent_id');?></th>
 	<th><?php echo $paginator->sort(__('Gratuito?', TRUE), 'Event.free');?></th>
+  <th><?php echo $paginator->sort(__('Submissão de Propostas liberada?', TRUE), 'Event.open_for_proposals');?></th>
 	<th><?php echo __('Inscritos',1);?></th>
 	<th class="actions"><?php __('Ações');?></th>
 </tr>
@@ -40,6 +41,9 @@ foreach ($events as $event):
 		</td>
 		<td>
 			<?php $event['Event']['free'] == TRUE ? __('Sim') : __('Não'); ?>
+		</td>
+     <td>
+			<?php echo $event['Event']['open_for_proposals'] ? __('Sim') : __('Não'); ?>
 		</td>
 		<td>
 			<?php echo $this->Html->link($event['Event']['subscription_count'], array('controller' => 'subscriptions', 'action' => 'index', $event['Event']['id'])); ?>
