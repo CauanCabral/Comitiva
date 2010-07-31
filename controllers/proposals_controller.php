@@ -29,7 +29,14 @@ class ProposalsController extends AppController {
 
 	function add() {
 		if (!empty($this->data)) {
+      if (empty($this -> activeUser['User']['id'])) {
+        $this->Session->setFlash(__('Erro: o identificador do usuário não pôde ser encontrado. Por gentileza, notifique o administrado.', true));
+				$this->redirect(array('action' => 'index'));
+      }
+
+      $this -> data['Proposal']['user_id'] = $this -> activeUser['User']['id'];
 			$this->Proposal->create();
+      
 			if ($this->Proposal->save($this->data)) {
 				$this->Session->setFlash(__('The proposal has been saved', true));
 				$this->redirect(array('action' => 'index'));
