@@ -6,32 +6,32 @@
 			<?php echo $proposal['Proposal']['id']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('User'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Autor'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $this->Html->link($proposal['User']['name'], array('controller' => 'users', 'action' => 'view', $proposal['User']['id'])); ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Event'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Evento'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $this->Html->link($proposal['Event']['title'], array('controller' => 'events', 'action' => 'view', $proposal['Event']['id'])); ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Mini Curriculum'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Mini-Currículo'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $proposal['Proposal']['mini_curriculum']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Area'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Palavras-chave'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $proposal['Proposal']['area']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Abstract'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Resumo'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $proposal['Proposal']['abstract']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Detailed'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Descrição Detalhada'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $proposal['Proposal']['detailed']; ?>
 			&nbsp;
