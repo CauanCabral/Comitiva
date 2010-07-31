@@ -1834,3 +1834,8 @@ msgstr "Excluir %s"
 msgid "Related %s"
 msgstr "Relacionado %s"
 
+msgid "Created"
+msgstr "Criado em"
+
+msgid "Modified"
+msgstr "Modificado em"
