@@ -34,7 +34,7 @@
  * In production mode, flash messages redirect after a time interval.
  * In development mode, you need to click the flash message to continue.
  */
-	Configure::write('debug', 0);
+	Configure::write('debug', 3);
 
 /**
  * CakePHP Log Level:
@@ -211,6 +211,7 @@
  */
 	Configure::write('Security.cipherSeed', '326163376438396365623339313639');
 
+  date_default_timezone_set('America/Campo_Grande');
 /**
  * Compress CSS output by removing comments, whitespace, repeating tags, etc.
  * This requires a/var/cache directory to be writable by the web server for caching.
