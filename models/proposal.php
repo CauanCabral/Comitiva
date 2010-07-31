@@ -7,8 +7,18 @@ class Proposal extends AppModel {
 			'numeric' => array(
 				'rule' => array('numeric'),
 				'message' => 'Não foi possível encontrar o seu identificador de usuário.',
-				//'allowEmpty' => false,
-				//'required' => false,
+				'allowEmpty' => false,
+				'required' => true,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+    'event_id' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				'message' => 'Você precisa selecionar um evento',
+				'allowEmpty' => false,
+				'required' => true,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
