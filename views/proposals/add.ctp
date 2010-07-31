@@ -4,6 +4,7 @@
  		<legend><?php __('Adicionar Proposta de Apresentação'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
+    echo $this->Form->input('user_id', array('type' => 'hidden'));
 		echo $this->Form->input('event_id', array('empty' => __('-- Selecione o Evento --', true), 'label' => 'Evento'));
 		echo $this->Form->input('mini_curriculum', array('label' => __('Seu mini-currículo', TRUE), 'rows' => 7));
 		echo $this->Form->input('area', array('label' => __('Palavras-chave', true)));
