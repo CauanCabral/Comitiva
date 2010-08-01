@@ -1,5 +1,5 @@
 <div class="proposals view">
-<h2><?php  __('Proposal');?></h2>
+<h2><?php  __('Proposta');?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
@@ -49,15 +49,11 @@
 	</dl>
 </div>
 <div class="actions">
-	<h3><?php __('Actions'); ?></h3>
+	<h3><?php __('Ações'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('Edit Proposal', true), array('action' => 'edit', $proposal['Proposal']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('Delete Proposal', true), array('action' => 'delete', $proposal['Proposal']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $proposal['Proposal']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Proposals', true), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Proposal', true), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User', true), array('controller' => 'users', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Events', true), array('controller' => 'events', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Event', true), array('controller' => 'events', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Editar Proposta', true), array('action' => 'edit', $proposal['Proposal']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Remover Proposta', true), array('action' => 'delete', $proposal['Proposal']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $proposal['Proposal']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Listar Propostas', true), array('action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Nova Proposta', true), array('action' => 'add')); ?> </li>
 	</ul>
 </div>

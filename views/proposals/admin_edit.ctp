@@ -12,17 +12,12 @@
 		echo $this->Form->input('detailed');
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit', true));?>
+<?php echo $this->Form->end(__('Enviar', true));?>
 </div>
 <div class="actions">
-	<h3><?php __('Actions'); ?></h3>
+	<h3><?php __('Ações'); ?></h3>
 	<ul>
-
-		<li><?php echo $this->Html->link(__('Delete', true), array('action' => 'delete', $this->Form->value('Proposal.id')), null, sprintf(__('Are you sure you want to delete # %s?', true), $this->Form->value('Proposal.id'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Proposals', true), array('action' => 'index'));?></li>
-		<li><?php echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User', true), array('controller' => 'users', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Events', true), array('controller' => 'events', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Event', true), array('controller' => 'events', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Remover', true), array('action' => 'delete', $this->Form->value('Proposal.id')), null, sprintf(__('	Você realmente deseja excluir  # %s?', true), $this->Form->value('Proposal.id'))); ?></li>
+		<li><?php echo $this->Html->link(__('Listar Propostas', true), array('action' => 'index'));?></li>
 	</ul>
 </div>

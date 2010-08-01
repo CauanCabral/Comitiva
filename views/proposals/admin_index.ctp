@@ -1,11 +1,11 @@
 <div class="proposals index">
-	<h2><?php __('Proposals');?></h2>
+	<h2><?php __('Propostas');?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
       <th><?php __('Proponente');?></th>
       <th><?php __('Evento');?></th>
       <th><?php __('Recebida em');?></th>
-			<th class="actions"><?php __('Actions');?></th>
+			<th class="actions"><?php __('Ações');?></th>
 	</tr>
 	<?php
 	$i = 0;
@@ -50,6 +50,6 @@
 <div class="actions">
 	<h3><?php __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('New Proposal', true), array('action' => 'add', 'admin' => false)); ?></li>
+		<li><?php echo $this->Html->link(__('Nova Proposta', true), array('action' => 'add')); ?></li>
 	</ul>
 </div>
