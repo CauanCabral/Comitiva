@@ -187,7 +187,7 @@ class AppController extends Controller
 				__('Sair', TRUE) => '/logout',
 			);
 		}
-		else 
+		else  if(User::get('type') == 'participant')
 		{
 			$menu = array(
 				__('Eventos', TRUE) => array(
@@ -199,6 +199,27 @@ class AppController extends Controller
 					'controller' => 'users',
 					'action' => 'profile',
 					'participant' => true
+				),
+				__('Sair', TRUE) => '/logout',
+			);
+		}
+		else
+		{
+			$menu = array(
+				__('Eventos', TRUE) => array(
+					'controller' => 'events',
+					'action' => 'index',
+					'speaker' => true
+				),
+				__('Minha conta', TRUE) => array(
+					'controller' => 'users',
+					'action' => 'profile',
+					'speaker' => true
+				),
+				__('Propostas', TRUE) => array(
+					'controller' => 'proposals',
+					'action' => 'index',
+					'speaker' => true
 				),
 				__('Sair', TRUE) => '/logout',
 			);
