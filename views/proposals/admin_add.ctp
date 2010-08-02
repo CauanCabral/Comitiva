@@ -6,7 +6,6 @@
 	<fieldset>
  		<legend><?php __('Adicionar Proposta'); ?></legend>
 	<?php
-		echo $this->Form->input('id');
 		echo $this->Form->input('user_id');
 		echo $this->Form->input('event_id');
 		echo $this->Form->input('mini_curriculum', array('rows' => 8));

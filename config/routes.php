@@ -48,4 +48,9 @@ Router::connect('/admin', array('controller' => 'users', 'action' => 'profile', 
  * Participants route
  */
 Router::connect('/participant', array('controller' => 'users', 'action' => 'profile', 'prefix' => 'participant'));
+
+/**
+ * Speakers route
+ */
+Router::connect('/speaker', array('controller' => 'users', 'action' => 'profile', 'prefix' => 'speaker'));
 ?>
