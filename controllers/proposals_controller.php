@@ -3,7 +3,7 @@ class ProposalsController extends AppController {
 
 	public $name = 'Proposals';
 	public $uses = array('Proposal');
-  
+  	public $components = array('mailer.Mailer');
 	public $helpers = array('TinyMce.TinyMce');
 
 	public function isAuthorized()
@@ -56,7 +56,7 @@ class ProposalsController extends AppController {
 		
 	}
 
-	function speaker_add()
+	function speaker_add($event_id = null)
 	{
 		if (!empty($this->data)) 
 		{
@@ -76,13 +76,20 @@ class ProposalsController extends AppController {
 			}
 			else
 			{
-				$this->Session->setFlash(__('Proposta não pode ser submetida. Verifique os dados ou entre em contato com os organizadores do evento', true), 'default', array('class' => 'error'));
+				$this->Session->setFlash(__('Proposta não pode ser submetida. Verifique os dados ou entre em contato com os organizadores do evento', true), 'default', array('class' => 'attention'));
 			}
 		}
 		$users = $this->Proposal->User->find('list');
- 	 	$events = $this->Proposal->Event->find('list');
-		$this->set(compact('users', 'events'));
-		$this->setView();
+ 	 	$events = $this->Proposal->Event->find('list', array('conditions' => array('Event.open_for_proposals' => 1)));
+
+ 	 	if(isset($event_id) && !array_key_exists($event_id, $events))
+ 	 	{
+ 	 		$this->Session->setFlash(__('O evento selecionado não está aberto a propostas. Selecione outro evento',true), 'default', array("class" => 'attention'));
+ 	 		$event_id = 0; 
+ 	 	}
+ 	 	
+ 	 	$event_id = (isset($event_id) ? $event_id : 0);
+		$this->set(compact('users', 'events', 'event_id'));
 	}
 
 	function speaker_edit($id = null) 
@@ -270,6 +277,15 @@ class ProposalsController extends AppController {
   		if($this->Proposal->save($this->data, false))
   		{
   			$this->Session->setFlash(__('Avaliação registrada',true), 'default', array('class' => 'success'));
+  			$msg = array(
+  				'to' => 'agripinoduarte@gmail.com',
+  				'from' => 'admin@comitiva.com.br',
+  				'body' => 'aceito'
+  			);
+  			
+  			if(!$this->Mailer->sendMessage($msg))
+  				echo 'ERRO AO ENVIAR EMAIL';
+  				
   			$this->redirect('index');
   		}
   		else

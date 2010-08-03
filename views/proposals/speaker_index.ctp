@@ -20,7 +20,7 @@
 	?>
 	<tr<?php echo $class;?>>
     <td>
-      <?php echo $proposal['User']['name']; ?>
+      <?php echo $html->link($proposal['User']['name'], array('controller' => 'users', 'action' => 'view', $proposal['User']['id'])); ?>
     </td>
     <td>
       <?php echo $proposal['Event']['title']; ?>

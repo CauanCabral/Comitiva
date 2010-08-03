@@ -7,7 +7,16 @@
 <?php echo $form->create('User');?>
 	<fieldset>
  		<legend><?php __('Criar uma conta');?></legend>
+ 		<p><?php __('Selecione seu tipo de participação no evento (Participante ou Palestrante')?>
 	<?php
+		echo $form->input('type', array(
+			'label' => __('Tipo', TRUE),
+			'options' => array(
+				'participant' => __('Participante',TRUE),
+				'speaker' => __('Palestrante', TRUE)
+				)
+			)
+		);
 		echo $form->input('name', array(
 			'label' => __('Nome', TRUE),
 			'error' => array(

@@ -323,7 +323,8 @@ class UsersController extends AppController
 			{
 				$this->__reloadUserInfo();
 				$this->Session->setFlash(__('Dados Atualizados!',1), 'default', array('class' => 'success'));
-				$this->__goBack();
+				//_goBack leva a redirecionamento infinito. por que?
+				$this->redirect('/');
 			}
 			else
 			{

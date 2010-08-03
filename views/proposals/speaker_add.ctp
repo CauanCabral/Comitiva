@@ -1,12 +1,14 @@
 <div class="proposals form">
-<?php echo $this->Form->create('Proposal');?>
+<?php echo $this->Form->create('Proposal'); ?>
 	<fieldset>
  		<legend><?php __('Adicionar Proposta de Apresentação'); ?></legend>
 	<?php
+		//echo $this->Form->input('event_id',array('type' => 'hidden', 'value' => $event_id));
 		echo $this->Form->input('event_id',
 			array(
-				'options' => array_merge(array(__('-- Selecione o Evento --', true)), $events), 
-				'label' => 'Evento'
+				'options' => $events, 
+				'label' => 'Evento',
+				'selected' => $event_id
 		));
 		echo $this->Form->input('mini_curriculum', array('label' => __('Seu mini-currículo', TRUE), 'rows' => 7));
 		echo $this->Form->input('area', array('label' => __('Palavras-chave', true)));
