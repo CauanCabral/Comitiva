@@ -212,8 +212,7 @@ class AppController extends Controller
 					'controller' => 'users',
 					'action' => 'profile',
 					'participant' => true
-				),
-				__('Sair', TRUE) => '/logout',
+				)
 			);
 			
 			if(in_array('speaker', $groups))
@@ -224,6 +223,14 @@ class AppController extends Controller
 						'speaker' => true
 				);
 			}
+			
+			$mennu[__('Sair', TRUE)] = array(
+				'controller' => 'users',	
+				'action' => 'logout',
+				'admin' => false,
+				'participant' => false,
+				'speaker' => false
+			);
 		}
 		
 		$this->set('menuItems', $menu);
