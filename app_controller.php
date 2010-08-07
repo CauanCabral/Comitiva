@@ -93,9 +93,7 @@ class AppController extends Controller
 	
 	public function isAuthorized()
 	{
-		$groups = json_decode(User::get('groups'), true);
-		
-		if($this->userLogged === TRUE && in_array($this->params['prefix'], $groups) )
+		if($this->userLogged === TRUE && $this->__checkGroup($this->params['prefix']) )
 		{
 			return true;
 		}
@@ -162,9 +160,9 @@ class AppController extends Controller
 	 */
 	private function __buildMenu()
 	{
-		$groups = json_decode(User::get('groups'), true);
+		//$groups = json_decode(User::get('groups'), true);
 		
-		if(in_array('admin', $groups))
+		if($this->__checkGroup('admin'))
 		{
 			$menu = array(
 				__('Eventos', TRUE) => array(
@@ -200,7 +198,7 @@ class AppController extends Controller
 				__('Sair', TRUE) => '/logout',
 			);
 		}
-		else if(in_array('participant', $groups))
+		else if($this->__checkGroup('participant'))
 		{
 			$menu = array(
 				__('Eventos', TRUE) => array(
@@ -235,6 +233,21 @@ class AppController extends Controller
 		
 		$this->set('menuItems', $menu);
 	}
+	
+	protected function __checkGroup($group)
+	{
+		$groups = json_decode(User::get('groups'), true);
+		
+		foreach($groups as $g)
+		{
+			$tmp = str_replace('"', '', $g);
+			
+			if($tmp === $group)
+				return true;
+		}
+		
+		return false;
+	} 
 	
 	/**
 	 * Override Error Handling of CakePHP to use a proper layout file
