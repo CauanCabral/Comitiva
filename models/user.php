@@ -12,7 +12,7 @@ class User extends AppModel
 	public $displayField = 'fullName';
 	
 	public $actsAs = array(
-		'Locale'
+		'Locale.Locale'
 	);
 	
 	public $validate = array(

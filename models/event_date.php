@@ -4,7 +4,7 @@ class EventDate extends AppModel
 	public $name = 'EventDate';
 	
 	public $actsAs = array(
-		'Locale'
+		'Locale.Locale'
 	);
 	
 	public $validate = array(

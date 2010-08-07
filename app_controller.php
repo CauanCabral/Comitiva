@@ -91,6 +91,17 @@ class AppController extends Controller
 		$this->__setErrorLayout();
 	}
 	
+	public function isAuthorized()
+	{
+		$groups = json_decode(User::get('groups'), true);
+		
+		if($this->userLogged === TRUE && in_array($this->params['prefix'], $groups) )
+		{
+			return true;
+		}
+		
+		return false;
+	}
 	
 	/***************************
 	 * Auxiliar methods
@@ -151,7 +162,9 @@ class AppController extends Controller
 	 */
 	private function __buildMenu()
 	{
-		if(User::get('type') == 'admin')
+		$groups = json_decode(User::get('groups'), true);
+		
+		if(in_array('admin', $groups))
 		{
 			$menu = array(
 				__('Eventos', TRUE) => array(
@@ -187,7 +200,7 @@ class AppController extends Controller
 				__('Sair', TRUE) => '/logout',
 			);
 		}
-		else  if(User::get('type') == 'participant')
+		else if(in_array('participant', $groups))
 		{
 			$menu = array(
 				__('Eventos', TRUE) => array(
@@ -202,27 +215,15 @@ class AppController extends Controller
 				),
 				__('Sair', TRUE) => '/logout',
 			);
-		}
-		else
-		{
-			$menu = array(
-				__('Eventos', TRUE) => array(
-					'controller' => 'events',
-					'action' => 'index',
-					'speaker' => true
-				),
-				__('Minha conta', TRUE) => array(
-					'controller' => 'users',
-					'action' => 'profile',
-					'speaker' => true
-				),
-				__('Propostas', TRUE) => array(
-					'controller' => 'proposals',
-					'action' => 'index',
-					'speaker' => true
-				),
-				__('Sair', TRUE) => '/logout',
-			);
+			
+			if(in_array('speaker', $groups))
+			{
+				$menu[__('Propostas', TRUE)] = array(
+						'controller' => 'proposals',
+						'action' => 'index',
+						'speaker' => true
+				);
+			}
 		}
 		
 		$this->set('menuItems', $menu);

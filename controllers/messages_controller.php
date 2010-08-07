@@ -8,16 +8,6 @@ class MessagesController extends AppController
 	public $components = array('Mailer.Mailer');
 	
 	public $helpers = array('TinyMce.TinyMce');
-
-	public function isAuthorized()
-	{
-		if($this->userLogged == TRUE && $this->params['prefix'] == User::get('type'))
-		{
-			return true;
-		}
-		
-		return false;
-	}
 	
 	public function admin_index()
 	{

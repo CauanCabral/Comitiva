@@ -4,7 +4,7 @@ class EventPrice extends AppModel
 	public $name = 'EventPrice';
 	
 	public $actsAs = array(
-		'Locale'
+		'Locale.Locale'
 	);
 	
 	public $validate = array(

@@ -10,16 +10,6 @@ class PaymentsController extends AppController
 	
 	public $helpers = array('Formatacao');
 	
-	public function isAuthorized()
-	{
-		if($this->userLogged === TRUE && $this->params['prefix'] == User::get('type'))
-		{
-			return true;
-		}
-		
-		return false;
-	}
-	
 	/*
 	 * Ações para rota administrativa
 	 */

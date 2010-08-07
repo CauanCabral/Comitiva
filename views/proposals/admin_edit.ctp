@@ -4,12 +4,12 @@
  		<legend><?php __('Admin Edit Proposal'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
-		echo $this->Form->input('user_id');
-		echo $this->Form->input('event_id');
-		echo $this->Form->input('mini_curriculum');
-		echo $this->Form->input('area');
-		echo $this->Form->input('abstract');
-		echo $this->Form->input('detailed');
+		echo $this->Form->input('user_id', array('label' =>__('Palestrante', 1)));
+		echo $this->Form->input('event_id', array('label' => __('Evento Alvo',1)));
+		echo $this->Form->input('mini_curriculum',array('label' => __('Mini Currículo',1), 'rows' => 8));
+		echo $this->Form->input('area',array('label' => __('Área',1)));
+		echo $this->Form->input('abstract',array('label' => __('Resumo',1), 'rows' => 8));
+		echo $this->Form->input('detailed',array('label' => __('Detalhes',1), 'rows' => 15));
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Enviar', true));?>

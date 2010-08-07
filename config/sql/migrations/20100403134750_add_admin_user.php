@@ -9,7 +9,7 @@
 
 class AddAdminUser extends AppMigration {
 
-  var $uses = array('User');
+	var $uses = array('User');
 
 /**
  * Up Method
@@ -18,23 +18,23 @@ class AddAdminUser extends AppMigration {
  * @access public
  */
 	function up() {
-    $user['User'] = array('username' => 'admin',
-                          'password' => Security::hash('admin', null, true),
-                          'email' => 'admin@example.com',
-                          'name' => 'Admin',
-                          'nickname' => 'admin',
-                          'birthday' => '1970-04-07',
-                          'active' => 1,
-                          'cpf' => '000.000.000-00',
-                          'address' => 'R. do Admin',
-                          'city' => '',
-                          'state' => '',
-                          'phone' => '',
-      );
-    
-    if (!$this -> User -> save($user)) {
-      var_dump($this -> User -> validationErrors);
-    }
+		$user['User'] = array('username' => 'admin',
+								'password' => Security::hash('admin', null, true),
+								'email' => 'admin@example.com',
+								'name' => 'Admin',
+								'nickname' => 'admin',
+								'birthday' => '1970-04-07',
+								'active' => 1,
+								'cpf' => '000.000.000-00',
+								'address' => 'R. do Admin',
+								'city' => '',
+								'state' => '',
+								'phone' => ''
+		);
+		
+		if(!$this -> User -> save($user)) {
+			var_dump($this -> User -> validationErrors);
+		}
 	}
 
 /**
@@ -44,8 +44,8 @@ class AddAdminUser extends AppMigration {
  * @access public
  */
 	function down() {
-    $u = $this -> User -> findByUsername('admin');
-    $this -> User -> delete($u['User']['id']);
+		$u = $this -> User -> findByUsername('admin');
+		$this -> User -> delete($u['User']['id']);
 	}
 }
 

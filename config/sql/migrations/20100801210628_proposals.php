@@ -25,11 +25,9 @@ class Proposals extends AppMigration {
  * @access public
  */
 	function down() {
-	function up() {
 		$this->removeColumn('proposals', 'approved');
 		$this->removeColumn('proposals', 'rating');
 		$this->removeColumn('proposals', 'avaliator');
-	}
 	}
 }
 

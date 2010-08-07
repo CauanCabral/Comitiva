@@ -8,16 +8,6 @@ class SubscriptionsController extends AppController
 	
 	public $helpers = array('Formatacao', 'Csv');
 	
-	public function isAuthorized()
-	{
-		if($this->userLogged === TRUE && $this->params['prefix'] == User::get('type'))
-		{
-			return true;
-		}
-			
-		return false;
-	}
-	
 	/*
 	 * Ações para rota administrativa
 	 */

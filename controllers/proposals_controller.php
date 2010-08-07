@@ -5,16 +5,6 @@ class ProposalsController extends AppController {
 	public $uses = array('Proposal');
   	public $components = array('Mailer.Mailer');
 	public $helpers = array('TinyMce.TinyMce');
-
-	public function isAuthorized()
-	{
-		if($this->userLogged === TRUE && $this->params['prefix'] == User::get('type'))
-		{
-			return true;
-		}
-
-		return false;
-	}
   
 	/********
 	 * Ações do usuário Palestrante

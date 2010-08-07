@@ -94,7 +94,7 @@
  *	`admin_index()` and `/admin/controller/index`
  *	`manager_index()` and `/manager/controller/index`
  */
-	Configure::write('Routing.prefixes', array('admin', 'participant'));
+	Configure::write('Routing.prefixes', array('admin', 'participant', 'speaker'));
 
 /**
  * Turn off all caching application-wide.
