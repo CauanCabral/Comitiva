@@ -205,15 +205,10 @@ class AppController extends Controller
 					'controller' => 'events',
 					'action' => 'index',
 					'participant' => true
-				),
-				__('Minha conta', TRUE) => array(
-					'controller' => 'users',
-					'action' => 'profile',
-					'participant' => true
 				)
 			);
 			
-			if(in_array('speaker', $groups))
+			if($this->__checkGroup('speaker'))
 			{
 				$menu[__('Propostas', TRUE)] = array(
 						'controller' => 'proposals',
@@ -221,8 +216,22 @@ class AppController extends Controller
 						'speaker' => true
 				);
 			}
+			else
+			{
+				$menu[__('Propostas', TRUE)] = array(
+						'controller' => 'proposals',
+						'action' => 'add',
+						'participant' => true
+				);
+			}
 			
-			$mennu[__('Sair', TRUE)] = array(
+			$menu[__('Minha conta', TRUE)] = array(
+				'controller' => 'users',
+				'action' => 'profile',
+				'participant' => true
+			);
+			
+			$menu[__('Sair', TRUE)] = array(
 				'controller' => 'users',	
 				'action' => 'logout',
 				'admin' => false,

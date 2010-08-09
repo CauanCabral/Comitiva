@@ -130,8 +130,7 @@ class UsersController extends AppController
 		if (!empty($this->data))
 		{
 			// garante que não haja criação forçada de usuário admin
-			if($this->data['User']['type'] == 'admin')
-				$this->data['User']['type'] = 'participant';
+			$this->data['User']['type'] = 'participant';
 				
 			$this->User->create($this->data);
 			
@@ -326,41 +325,6 @@ class UsersController extends AppController
 		$this->data = $this->User->read(null, User::get('id'));
 	}
 	
-	
-	/***************************
-	 * Speakers actions
-	 ***************************/
-	
-	public function speaker_profile()
-	{	
-		$this->set('user', User::get('User'));
-		$this->render('profile');
-	}
-	
-	public function speaker_edit()
-	{
-		if(!empty($this->data))
-		{
-			// force field id to use User logged id
-			$this->data['User']['id'] = User::get('id');
-			// force field username to use User logged username
-			$this->data['User']['username'] = User::get('username');
-			
-			if($this->User->save($this->data))
-			{
-				$this->__reloadUserInfo();
-				$this->Session->setFlash(__('Dados Atualizados!',1), 'default', array('class' => 'success'));
-				$this->__goBack();
-			}
-			else
-			{
-				$this->Session->setFlash(__('Erro ao Atualizar Dados',1), 'default', array('class' => 'attention'));
-			}
-		}
-		
-		// read and set the User data based on value of logged user
-		$this->data = $this->User->read(null, User::get('id'));
-	}
 	/***************************
 	 * Auxiliar methods
 	 **************************/

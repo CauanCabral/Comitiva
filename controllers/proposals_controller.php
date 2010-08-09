@@ -9,10 +9,10 @@ class ProposalsController extends AppController {
 	/********
 	 * Ações do usuário Palestrante
 	 */
-	function speaker_index()
+	function participant_index()
 	{
 		$this->paginate['contain'] = array('User', 'Event');
-		$proposals = $this->paginate('Proposal', array('user_id' => $this->activeUser['User']['id']));
+		$proposals = $this->paginate('Proposal', array('user_id' => User::get('id')));
 
 		if(isset($proposals) && !empty($proposals))
 		{
@@ -20,7 +20,7 @@ class ProposalsController extends AppController {
 		}
 	}
 
-	function speaker_view($id = null)
+	function participant_view($id = null)
 	{
 		if (!$id) 
 		{
@@ -30,7 +30,7 @@ class ProposalsController extends AppController {
 
 		$proposal =  $this->Proposal->find('first',array(
 			'conditions' => array(
-				'Proposal.user_id' => $this->activeUser['User']['id'],
+				'Proposal.user_id' => User::get('id'),
 				'Proposal.id' => $id 
 			),		
 		));
@@ -41,27 +41,26 @@ class ProposalsController extends AppController {
 		}
 		else
 		{
-			$this->redirect(array('action' => 'index'));
+			$this->Session->setFlash(__('Proposta Inválida', true), 'default', array('class' => 'error'));
+			$this->__goBack();
 		}
-		
 	}
 
-	function speaker_add($event_id = null)
+	function participant_add($event_id = null)
 	{
 		if (!empty($this->data)) 
 		{
-			if (empty($this -> activeUser['User']['id']))
+			if (empty($this->activeUser['User']['id']))
 			{
 				$this->Session->setFlash(__('Erro: o identificador do usuário não pôde ser encontrado. Por gentileza, notifique o administrador.', true));
 				$this->redirect(array('action' => 'index'));
 			}
 
-			$this->data['Proposal']['user_id'] = $this -> activeUser['User']['id'];
-			$this->Proposal->create();
-      
+			$this->data['Proposal']['user_id'] = User::get('id');
+			
 			if ($this->Proposal->save($this->data))
 			{
-				$this->Session->setFlash(__('Proposta Salva!', true), 'default', array('class' => 'success'));
+				$this->Session->setFlash(__('Proposta Submetida!', true), 'default', array('class' => 'success'));
 				$this->redirect(array('action' => 'index'));
 			}
 			else
@@ -69,6 +68,7 @@ class ProposalsController extends AppController {
 				$this->Session->setFlash(__('Proposta não pode ser submetida. Verifique os dados ou entre em contato com os organizadores do evento', true), 'default', array('class' => 'attention'));
 			}
 		}
+		
 		$users = $this->Proposal->User->find('list');
  	 	$events = $this->Proposal->Event->find('list', array('conditions' => array('Event.open_for_proposals' => 1)));
 
@@ -82,7 +82,7 @@ class ProposalsController extends AppController {
 		$this->set(compact('users', 'events', 'event_id'));
 	}
 
-	function speaker_edit($id = null) 
+	function participant_edit($id = null) 
 	{
 		if (!$id && empty($this->data))
 		{
@@ -97,7 +97,7 @@ class ProposalsController extends AppController {
 			if ($this->Proposal->save($this->data))
 			{
 				$this->Session->setFlash(__('Alterações salvas', true), 'default', array('class' => 'success'));
-				$this->redirect(array('action' => 'index'));
+				$this->__goBack();
 			}
 			else
 			{
@@ -111,10 +111,10 @@ class ProposalsController extends AppController {
 		}
 		
 		$this->set(compact('users'));
-    	$this -> setView($id);
+    	$this->setView($id);
 	}
 
-	public function speaker_delete($id = null)
+	public function participant_delete($id = null)
 	{
 		if (!$id)
 		{
@@ -237,6 +237,23 @@ class ProposalsController extends AppController {
 
 			if($this->Proposal->save($data, false))
 			{
+				// se o usuário ainda não pertencer ao grupo de palestrantes, faz a alteração
+				if(!$this->__checkGroup('speaker'))
+				{
+					$this->loadModel('User');
+					$user = $this->User->read(null, User::get('id'));
+					
+					$groups = json_decode($user['User']['groups'], true);
+					$groups[] = 'speaker';
+					
+					$user['User']['groups'] = json_encode($groups);
+					
+					if(!$this->User->save($user))
+					{
+						$this->Session->setFlash(__('Não foi possível atualizar o grupo do usuário.', true), 'default', array('class' => 'attention'));
+					}
+				}
+				
 				$appr = ($approve ? 'Aprovada' : 'Rejeitada');
 				$greetings =  ($approve ? 'Parabéns, ': 'Olá, ');
 				$message = ($approve ?'

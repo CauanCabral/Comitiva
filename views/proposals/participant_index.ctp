@@ -31,7 +31,7 @@
 		<td class="actions">
 			<?php echo $this->Html->link(__('Visualizar', true), array('action' => 'view', $proposal['Proposal']['id'])); ?>
 			<?php echo $this->Html->link(__('Editar', true), array('action' => 'edit', $proposal['Proposal']['id'])); ?>
-			<?php echo $this->Html->link(__('Apagar', true), array('action' => 'delete', $proposal['Proposal']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $proposal['Proposal']['id'])); ?>
+			<?php echo $this->Html->link(__('Apagar', true), array('action' => 'delete', $proposal['Proposal']['id']), null, sprintf(__('Tem certeza que deseja excluir # %s?', true), $proposal['Proposal']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach;  ?>
