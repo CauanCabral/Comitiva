@@ -244,7 +244,6 @@ class ProposalsController extends AppController {
 			$data['Proposal']['approved'] = $approve;
 			
 			$proposal = $this->Proposal->find('all', array('conditions' => array('Proposal.id' => $id)));
-
 			if($this->Proposal->save($data, false))
 			{
 				$appr = ($approve ? 'Aprovada' : 'Rejeitada');
@@ -307,9 +306,10 @@ class ProposalsController extends AppController {
   		$proposal = $this->Proposal->read(null,$this->data['Proposal']['id']);
   		
   		$this->data['Proposal']['avaliator'] = $this->activeUser['User']['name'];
+  		
   		if($this->Proposal->save($this->data, false))
   		{
-  			$this->Session->setFlash(__('Avaliação registrada. Um e-mail foi enviado ao proponente.',true), 'default', array('class' => 'success'));
+  			$this->Session->setFlash(__('Avaliação registrada. ',true), 'default', array('class' => 'success'));
   			$msg = array(
   				'to' =>  $proposal['User']['email'],
   				'from' => 'admin@comitiva.com.br',
@@ -343,7 +343,7 @@ class ProposalsController extends AppController {
   	if(isset($id))
   		$this->set('id', $id);
   	else
-  		$this->Session->setFlash(__('Avaliação registrada',true), 'default', array('class' => 'error'));
+  		$this->Session->setFlash(__('Proposta invalida',true), 'default', array('class' => 'attention'));
   		
   }
 	
