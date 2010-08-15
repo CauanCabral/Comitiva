@@ -1,6 +1,8 @@
 <?php
 App::import('Lib', 'Localized.BrValidation');
 
+App::import('Core', 'Security', false);
+
 class User extends AppModel
 {
 	public $name = 'User';
@@ -17,10 +19,18 @@ class User extends AppModel
 	
 	public $validate = array(
 		'username' => array(
-			'notempty' => array('rule' => array('notempty'),
-                                'message' => 'Por favor, preencha o username'),
-			'unique' => array('rule' => array('isUnique')),
-			'alphanumeric' => array('rule' => array('alphanumeric'))
+			'notempty' => array(
+				'rule' => array('notempty'),
+				'message' => 'Por favor, preencha o nome de usuário'
+				),
+			'unique' => array(
+				'rule' => array('isUnique'),
+				'message' => 'O nome de usuário deve ser único'
+				),
+			'alphanumeric' => array(
+				'rule' => array('alphanumeric'),
+				'message' => 'São permitido apenas letras e números'
+				)
 		),
 		'email' => array(
 			'email' => array(
@@ -66,10 +76,10 @@ class User extends AppModel
 				'message' => 'Informação obrigatória para geração de certificado'
 			)
 		),
-		'address' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
-				'message' => 'Por favor, preencha o endereço'
+		'password' => array(
+			'password' => array(
+				'rule' => array('passwordIsValid'),
+				'message' => 'Campo obrigatório. São aceitos letras e números. No mínimo 4 caracteres'
 			)
 		)
 	);
@@ -81,6 +91,62 @@ class User extends AppModel
 			'dependent' => false
 		)
 	);
+	
+	/**
+	 * Método para validar a senha do usuário
+	 * 
+	 * Critérios:
+	 *  - aceita quaisquer caracteres (especiais inclusive)
+	 *  - pelo menos 4 caracteres
+	 *  - campo de confirmação (password_confirm) deve estar preenchido e ter o mesmo valor
+	 *  
+	 * @param $check array
+	 * @return bool $isValid
+	 */
+	public function passwordIsValid($check = null)
+	{
+		$passwd = $check['password'];
+		
+		if(empty($passwd))
+		{
+			// campo não pode estar vazio
+			return false;
+		}
+		
+		if(!empty($this->data[$this->name]['password_confirm']))
+		{
+			$confirm = $this->data[$this->name]['password_confirm'];
+			
+			unset($this->data[$this->name]['password_confirm']);
+		}
+		// faltou campo de confirmação
+		else
+		{
+			$this->validationErrors['password_confirm'] = 'Campo obrigatório.';
+			
+			return false;
+		}
+		
+		// valida o tamanho da senha, pela sua confirmação
+		if(strlen($confirm) < 4)
+		{
+			$this->validationErrors['password_confirm'] = 'A senha deve ter pelo menos 4 caracteres';
+			
+			return false;
+		}
+		
+		$hash = Security::hash($confirm, null, true);
+		
+		// valida se o hash da senha é o mesmo da confirmação
+		if($passwd != $hash)
+		{
+			$this->validationErrors['password_confirm'] = 'Campo não bate com a senha';
+			
+			return false;
+		}
+		
+		return true;
+	}
 	
 	/**
 	 * Método auxiliar para recuperar lista com usuários ativos

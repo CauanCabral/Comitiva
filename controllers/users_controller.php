@@ -129,12 +129,10 @@ class UsersController extends AppController
 	{
 		if (!empty($this->data))
 		{
-			// garante que não haja criação forçada de usuário admin
-			$this->data['User']['type'] = 'participant';
-				
-			$this->User->create($this->data);
+			// define grupo inicial do usuário
+			$this->data['User']['groups'] = json_encode(array('participant'));
 			
-			if ($this->__validPassword() && $this->User->save())
+			if($this->User->save($this->data))
 			{
 				if($this->__sendAccountConfirmMail($this->User->read()))
 				{
@@ -170,8 +168,12 @@ class UsersController extends AppController
 			}
 			if($userData['User']['account_validation_token'] == $hash)
 			{
+				$userData['User']['account_validation_token'] = null;
+				$userData['User']['account_validation_expires_at'] = null;
 				$userData['User']['active'] = true;
+				
 				$this->User->save($userData);
+				
 				$this->Session->setFlash(__('Cadastro Verificado com Sucesso!',1), 'default', array('class' => 'success'));
 				$this->redirect('/');
 			}
@@ -224,18 +226,35 @@ class UsersController extends AppController
 	{
 		if (!empty($this->data))
 		{
-			$this->User->create();
-			
 			// default, all admin added user has confirmed
 			$this->data['User']['active'] = TRUE;
 			
-			if ($this->__validPassword() && $this->User->save($this->data))
+			// default group (all user are in participant group
+			$groups = array('participant'); 
+			
+			if(is_array($this->data['User']['groups']) && !empty($this->data['User']['groups']))
+			{
+				$groups = array_merge($groups, $this->data['User']['groups']);
+				$groups = json_encode($this->data['User']['groups']);
+			}
+			
+			$this->data['User']['groups'] = $groups;
+			
+			if ($this->User->save($this->data))
 			{
 				$this->Session->setFlash(__('Usuário adicionado', true), 'default', array('class' => 'success'));
 				$this->redirect(array('action' => 'index'));
 			}
 			else
 			{
+				if(isset($this->data['User']['password']))
+					unset($this->data['User']['password']);
+				
+				if(isset($this->data['User']['password_confirm']))
+					unset($this->data['User']['password_confirm']);
+					
+				$this->data['User']['groups'] = json_decode($groups);
+					
 				$this->Session->setFlash(__('Usuário não pode ser salvo. Tente novamente, por favor.', true), 'default', array('class' => 'attention'));
 			}
 		}
@@ -251,6 +270,8 @@ class UsersController extends AppController
 		
 		if (!empty($this->data))
 		{
+			$this->data['User']['groups'] = json_encode($this->data['User']['groups']);
+			
 			if ($this->User->save($this->data))
 			{
 				// se o admin está editando sua própria conta
@@ -272,6 +293,7 @@ class UsersController extends AppController
 		if (empty($this->data))
 		{
 			$this->data = $this->User->read(null, $id);
+			$this->data['User']['groups'] = json_decode($this->data['User']['groups']);
 		}
 	}
 
@@ -459,16 +481,6 @@ class UsersController extends AppController
 		}
 		
 		return false;
-	}
-	
-	/**
-	 * Usa os dados vindos de formulário para confirmar se a senha e a confirmação de senha batem
-	 * 
-	 * @return boolean
-	 */
-	private function __validPassword()
-	{
-		return ($this->data['User']['password'] == $this->Auth->password($this->data['User']['password_confirm']));
 	}
 }
 ?>

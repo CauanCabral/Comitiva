@@ -20,6 +20,7 @@ class AddAdminUser extends AppMigration {
 	function up() {
 		$user['User'] = array('username' => 'admin',
 								'password' => Security::hash('admin', null, true),
+								'type' => 'admin',
 								'email' => 'admin@example.com',
 								'name' => 'Admin',
 								'nickname' => 'admin',

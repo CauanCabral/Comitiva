@@ -34,7 +34,7 @@ class AlterUsers extends AppMigration {
 		$this->out(__('Atualizando registros...', true), false);
 		foreach($users as $user)
 		{
-			$user['User']['groups'] = json_encode(array($user['User']['groups']));
+			$user['User']['groups'] = json_encode(array(str_replace('"', '', $user['User']['groups'])));
 			
 			if(!$model->save($user))
 			{

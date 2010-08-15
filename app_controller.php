@@ -239,6 +239,10 @@ class AppController extends Controller
 				'speaker' => false
 			);
 		}
+		else
+		{
+			$menu = array();
+		}
 		
 		$this->set('menuItems', $menu);
 	}

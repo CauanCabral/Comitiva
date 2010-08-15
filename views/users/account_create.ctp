@@ -7,16 +7,7 @@
 <?php echo $form->create('User');?>
 	<fieldset>
  		<legend><?php __('Criar uma conta');?></legend>
- 		<p><?php __('Selecione seu tipo de participação no evento (Participante ou Palestrante')?>
 	<?php
-		echo $form->input('type', array(
-			'label' => __('Tipo', TRUE),
-			'options' => array(
-				'participant' => __('Participante',TRUE),
-				'speaker' => __('Palestrante', TRUE)
-				)
-			)
-		);
 		echo $form->input('name', array(
 			'label' => __('Nome', TRUE),
 			'error' => array(
@@ -29,7 +20,7 @@
 			'type' => 'date',
 			'dateFormat' => 'DMY',
 			'minYear' => date('Y')-100,
-			'maxYear' => date('Y')
+			'maxYear' => date('Y')-10
 		));
 		echo $form->input('email', array('label' => __('Email', TRUE),
 			'error' => array(
@@ -46,10 +37,11 @@
 				'alphanumeric' => __('Forneça uma combinação de números e letras',1)
 			)
 		));
-		echo $form->input('password', array('label' => __('Senha', TRUE)));
-		echo $form->input('password_confirm', array(
-		'label' => __('Re-digite a senha', TRUE),
-		'type' => 'password'
+		echo $form->input('User.password', array('label' => __('Senha', TRUE)));
+		echo $form->input('User.password_confirm', array(
+			'label' => __('Confirme a senha', TRUE),
+			'type' => 'password',
+			'div' => array('class' => 'required')
 		));
 		echo $form->input('cpf', array('label' => __('CPF', 1)));
 		echo $form->input('address', array('label' => __('Endereço', 1)));

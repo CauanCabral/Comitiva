@@ -4,42 +4,32 @@
  		<legend><?php __('Editar Dados');?></legend>
  		<p><?php __('Se desejar você pode alterar abaixo seu tipo de participação')?>
 	<?php
-		echo $form->input('type', array(
-			'label' => __('Tipo', TRUE),
-			'options' => array(
-				0 => '--Selecione--',
-				'participant' => __('Participante',TRUE),
-				'speaker' => __('Palestrante', TRUE)
-				),
-			'selected' => $this->data['User']['type']
-			)
-		);
-		echo $form->input('username', array(
+		echo $form->input('User.username', array(
 			'label' => __('Nome de Usuário',1),
 			'disabled' => true
 		));
-		echo $form->input('email');
+		echo $form->input('User.email');
 		echo $form->input('User.name',array(
 			'label' => __('Nome',1)
 		));
-		echo $form->input('nickname',array(
+		echo $form->input('User.nickname',array(
 			'label' => __('Sobrenome',1)
 		));
-		echo $form->input('birthday',array(
+		echo $form->input('User.birthday',array(
 			'label' => __('Nascimento',1),
 			'type' => 'date',
 			'minYear' => date('Y')-100,
 			'maxYear' => date('Y'),
 			'dateFormat' => 'DMY'
 		));
-		echo $form->input('cpf', array('label' => __('CPF', 1)));
-		echo $form->input('address', array('label' => __('Endereço', 1)));
-		echo $form->input('city', array('label' => __('Cidade',1)));
-		echo $form->input('state', array('label' => __('Estado', 1)));
-		echo $form->input('phone', array('label' => 'Telefone',1));
+		echo $form->input('User.cpf', array('label' => __('CPF', 1)));
+		echo $form->input('User.address', array('label' => __('Endereço', 1)));
+		echo $form->input('User.city', array('label' => __('Cidade',1)));
+		echo $form->input('User.state', array('label' => __('Estado', 1)));
+		echo $form->input('User.phone', array('label' => 'Telefone',1));
 	?>
 	</fieldset>
-<?php echo $form->end('Salvar');?>
+<?php echo $form->end(__('Salvar', 1));?>
 </div>
 <div class="actions">
 	<ul>

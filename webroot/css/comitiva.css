@@ -459,7 +459,8 @@ p.error em {
 
 .error-message
 {
-	background: #FFC4BF url("../img/icons/exclamation.png") no-repeat scroll 0 0;
+	padding: 7px 7px 7px 20px;
+	background: #FFC4BF url("../img/icons/exclamation.png") no-repeat left center;
 	border-color: #CF564D;
 	color:#6F4845;
 }

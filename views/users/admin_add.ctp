@@ -10,18 +10,27 @@
 	<?php
 		echo $form->input('name', array('label' => __('Nome', TRUE)));
 		echo $form->input('nickname', array('label' => __('Sobrenome', TRUE)));
-		echo $form->input('type', array(
-			'label' => __('Tipo', TRUE),
+		echo $form->input('groups', array(
+			'label' => __('Grupos', TRUE),
 			'options' => array(
 				'participant' => __('Participante',TRUE),
+				'speaker' => __('Palestrante', TRUE),
 				'admin' => __('Administrador', TRUE)
-				)
+				),
+			'multiple' => TRUE
 			)
 		);
-		echo $form->input('birthday', array('label' => __('Data de nascimento', TRUE)));
+		echo $form->input('birthday', array(
+			'label' => __('Data de nascimento', TRUE),
+			'type' => 'date',
+			'dateFormat' => 'DMY',
+			'minYear' => date('Y')-100,
+			'maxYear' => date('Y')-10
+			)
+		);
 		echo $form->input('username', array('label' => __('Nome de usuário', TRUE)));
 		echo $form->input('password', array('label' => __('Senha', TRUE)));
-		echo $form->input('password_confirm', array('label' => __('Re-digite a senha', TRUE), 'type' => 'password'));
+		echo $form->input('password_confirm', array('label' => __('Confirme a senha', TRUE), 'type' => 'password', 'div' => array('class' => 'required')));
 		echo $form->input('email', array('label' => __('Email', TRUE)));
 		echo $form->input('cpf', array('label' => __('CPF', 1)));
 		echo $form->input('address', array('label' => __('Endereço', 1)));
