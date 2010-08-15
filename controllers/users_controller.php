@@ -261,7 +261,7 @@ class UsersController extends AppController
 				if(isset($this->data['User']['password_confirm']))
 					unset($this->data['User']['password_confirm']);
 					
-				$this->data['User']['groups'] = json_decode($groups);
+				$this->data['User']['groups'] = json_decode($groups, true);
 					
 				$this->Session->setFlash(__('Usuário não pode ser salvo. Tente novamente, por favor.', true), 'default', array('class' => 'attention'));
 			}
@@ -294,6 +294,8 @@ class UsersController extends AppController
 			}
 			else
 			{
+				$this->data['User']['groups'] = json_decode($this->data['User']['groups'], true);
+				
 				$this->Session->setFlash(__('Não foi possível salvar a alteração. Tente novamente, por favor.', true), 'default', array('class' => 'attention'));
 			}
 		}
