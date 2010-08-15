@@ -103,5 +103,30 @@ class Event extends AppModel
 		
 		return $this->find('list', array('conditions' => $conditions));
 	}
+	
+	/**
+	 * Retorna a situação de um evento em relação a inscrição de novos participantes
+	 * 
+	 * @param int $id
+	 * @return bool $open
+	 */
+	public function openToSubscription($id)
+	{
+		$event_dates = $this->EventDate->find('all', array(
+			'conditions' => array('event_id' => $id),
+			'contain' => array()
+		));
+		
+		$today = date('Y-m-d');
+		$end = (date('Y') - 100) . date('-m-d'); // instancia as variáveis com o ano de 100 anos atrás
+		
+		foreach($event_dates as $eventDate)
+		{
+			if($eventDate['EventDate']['date'] > $end)
+				$end = $event['EventDate']['date'];
+		}
+		
+		return ($today < $end);
+	}
 }
 ?>
