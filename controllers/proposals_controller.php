@@ -4,7 +4,7 @@ class ProposalsController extends AppController {
 	public $name = 'Proposals';
 	public $uses = array('Proposal');
   	public $components = array('Mailer.Mailer');
-	public $helpers = array('TinyMce.TinyMce');
+	public $helpers = array('TinyMce.TinyMce', 'Locale.Locale');
   
 	/********
 	 * Ações do usuário Palestrante
@@ -206,6 +206,8 @@ class ProposalsController extends AppController {
 		
 		$users = $this->Proposal->User->find('list');
 		$this->set(compact('users'));
+		
+		$this->setView();
 	}
 
 	function admin_delete($id = null)
@@ -233,55 +235,60 @@ class ProposalsController extends AppController {
 			$data['Proposal']['id'] = $id;
 			$data['Proposal']['approved'] = $approve;
 			
-			$proposal = $this->Proposal->find('all', array('conditions' => array('Proposal.id' => $id)));
 			if($this->Proposal->save($data, false))
 			{
+				$proposal = $this->Proposal->find('first', array(
+					'conditions' => array('Proposal.id' => $id),
+					'contain' => array('User', 'Event')
+				));
+				
+				$groups = json_decode($proposal['User']['groups'], true);
+				
 				// se o usuário ainda não pertencer ao grupo de palestrantes, faz a alteração
-				if(!$this->__checkGroup('speaker'))
+				if(!$this->__checkGroup('speaker', $groups))
 				{
-					$this->loadModel('User');
-					$user = $this->User->read(null, User::get('id'));
-					
-					$groups = json_decode($user['User']['groups'], true);
 					$groups[] = 'speaker';
 					
+					$user['User']['id'] = $proposal['User']['id'];
 					$user['User']['groups'] = json_encode($groups);
 					
-					if(!$this->User->save($user))
+					if(!$this->Proposal->User->save($user))
 					{
 						$this->Session->setFlash(__('Não foi possível atualizar o grupo do usuário.', true), 'default', array('class' => 'attention'));
 					}
 				}
 				
 				$appr = ($approve ? 'Aprovada' : 'Rejeitada');
+				
 				$greetings =  ($approve ? 'Parabéns, ': 'Olá, ');
-				$message = ($approve ?'
-					 <p>Sua proposta de apresentação no evento '.$proposal[0]['Event']['title'] . ' foi aprovada pela comissão organizadora do evento. Entre em contato com a comissão organizadora o mais rápido para acertar os detalhes.<br/><br/>'
-  					: 
-
-					'<p>Sua proposta de apresentação no evento '.$proposal[0]['Event']['title'] . '  não foi aprovada. Agradecemos profundamente o seu interesse e esperamos sua proposta em eventos futuros. Caso haja alguma dúvida entre em contato com a equipe organizadora.<br/><br/>'
-  				);
-				$sign = '<p> Atenciosamente </p>
-  						<b> Equipe Organizadora</p>';
+				
+				if($approve)
+				{
+					$message = '<p>Sua proposta de apresentação no evento '.$proposal['Event']['title'] . ' foi aprovada pela comissão organizadora do evento. Entre em contato com a comissão organizadora o mais rápido para acertar os detalhes.<br/><br/>';
+				}
+				else
+				{
+					$message = '<p>Sua proposta de apresentação no evento '.$proposal['Event']['title'] . '  não foi aprovada. Agradecemos profundamente o seu interesse e esperamos sua proposta em eventos futuros. Caso haja alguma dúvida entre em contato com a equipe organizadora.<br/><br/>';
+				}
+				
+				$sign = '<p> Atenciosamente </p><p> Equipe Organizadora</p>';
 				
 				$this->Session->setFlash(__("Proposta $appr", true), 'default', array('class' => 'success'));
 			
   				$msg = array(
-  				'to' =>  $proposal[0]['User']['email'],
-  				'from' => 'admin@comitiva.com.br',
-  				'subject' => '[Comitiva] Sua proposta foi aprovada' ,
-
-  				'body' => 
-  					$greetings . $proposal[0]['User']['name'] . '<br/><br/>' . 
+	  				'to' =>  $proposal['User']['email'],
+	  				'from' => 'admin@comitiva.com.br',
+	  				'subject' => '[Comitiva] Sua proposta foi aprovada' ,
+	  				'body' => 
+  						$greetings . $proposal['User']['name'] . '<br/><br/>' .  
   						$message . '<br/><br/>'.
-  						
   						$sign
-  					);
+  				);
   			
-	  			if(!$this->Mailer->sendMessage($msg))
-	  				$this->Session->setFlash(__('Não foi possivel enviar e-mail. Verifique as configurações do servidor',true), 'default', array('class' => 'attention'));
-	  			else 
-  				$this->Session->setFlash(__('Um e-mail foi enviado para o proponente',true), 'default', array('class' => 'success'));
+				if(!$this->Mailer->sendMessage($msg))
+					$this->Session->setFlash(__('Não foi possivel enviar e-mail. Verifique as configurações do servidor',true), 'default', array('class' => 'attention'));
+				else 
+					$this->Session->setFlash(__('Um e-mail foi enviado para o proponente',true), 'default', array('class' => 'success'));
   				
 				$this->redirect(array('action'=>'view', $id));
 			}
@@ -301,58 +308,34 @@ class ProposalsController extends AppController {
 	function setView()
 	{
 		$events = $this->Proposal->Event->find('list', array('conditions' => array('Event.open_for_proposals' => 1)));
-	    $this->set(compact('events'));
+		$this->set(compact('events'));
+	}
 	
-	  }
-  
-  
-  function admin_rating($id = null)
-  {
-  	if(!empty($this->data))
-  	{
-  		$proposal = $this->Proposal->read(null,$this->data['Proposal']['id']);
+	function admin_rating($id = null)
+	{
+		if(!empty($this->data))
+		{
+			$proposal = $this->Proposal->read(null,$this->data['Proposal']['id']);
   		
-  		$this->data['Proposal']['avaliator'] = $this->activeUser['User']['name'];
+			$this->data['Proposal']['avaliator'] = $this->activeUser['User']['name'];
   		
-  		if($this->Proposal->save($this->data, false))
-  		{
-  			$this->Session->setFlash(__('Avaliação registrada. ',true), 'default', array('class' => 'success'));
-  			$msg = array(
-  				'to' =>  $proposal['User']['email'],
-  				'from' => 'admin@comitiva.com.br',
-  				'subject' => '[Comitiva] Sua proposta foi avaliada' ,
-  				'body' => 
-  				'Olá, '.$proposal['User'].' !<br />
-  					
-  					<p>Sua proposta de apresentação no evento '.$proposal['Event']['title'] . '
-  					foi avaliada pela comissão organizadora do evento, porém aguarda a aprovação. Aguarde, se aprovada você receberá
-  					um e-mail automaticamente. Agradecemos o interesse. <br/><br/>
-  					
-  					<p>Atenciosamente.</p>
-  					<b>Equipe Organizadora</b>
-  				'
-  			);
-  			
-  			
-  			if(!$this->Mailer->sendMessage($msg))
-  				$this->Session->setFlash(__('Não foi possivel enviar e-mail. Verifique as configurações do servidor',true), 'default', array('class' => 'attention'));
-  			else 
-  				$this->Session->setFlash(__('Um e-mail foi enviado para o proponente',true), 'default', array('class' => 'success'));
-  				
-  			$this->redirect('index');
-  		}
-  		else
-  		{
-  			$this->Session->setFlash(__('Avaliação não pode ser registrada',true), 'default', array('class' => 'error'));
-			$this->redirect('index');
-  		}
-  	}
-  	if(isset($id))
-  		$this->set('id', $id);
-  	else
-  		$this->Session->setFlash(__('Proposta invalida',true), 'default', array('class' => 'attention'));
-  		
-  }
-	
+			if($this->Proposal->save($this->data, false))
+			{
+				$this->Session->setFlash(__('Avaliação registrada. A proposta ainda aguarda aprovação.',true), 'default', array('class' => 'success'));
+				
+				$this->redirect('index');
+			}
+			else
+			{
+				$this->Session->setFlash(__('Avaliação não pode ser registrada',true), 'default', array('class' => 'error'));
+				$this->redirect('index');
+			}
+		}
+		
+		if(isset($id))
+			$this->set('id', $id);
+		else
+			$this->Session->setFlash(__('Proposta invalida',true), 'default', array('class' => 'attention'));
+	}
 }
 ?>

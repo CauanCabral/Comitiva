@@ -57,15 +57,6 @@
 						echo __('Essa proposta ainda não foi avaliada. ',1).$html->link(__('Avaliar',1), array('action' => 'rating', $proposal['Proposal']['id']));
 					break;
 				}
-				
-				if($proposal['Proposal']['approved'])
-				{
-					echo '  ',$html->link(__('Rejeitar',1), array('action' => 'approve', $proposal['Proposal']['id'], 0), null, sprintf(__('Deseja rejeitar a proposta?', true)));
-				}
-				else
-				{
-					echo '  ',$html->link(__('Aprovar',1), array('action' => 'approve', $proposal['Proposal']['id'], 1), null, sprintf(__('Deseja aprovar a proposta?', true)));
-				}
 			?>
 			&nbsp;
 		</dd>
@@ -76,12 +67,12 @@
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Criado em'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $proposal['Proposal']['created']; ?>
+			<?php echo $this->Locale->dateTime($proposal['Proposal']['created']); ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Modificado em'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $proposal['Proposal']['modified']; ?>
+			<?php echo $this->Locale->dateTime($proposal['Proposal']['modified']); ?>
 			&nbsp;
 		</dd>
 	</dl>

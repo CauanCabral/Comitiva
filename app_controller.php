@@ -247,9 +247,25 @@ class AppController extends Controller
 		$this->set('menuItems', $menu);
 	}
 	
-	protected function __checkGroup($group)
+	/**
+	 * Método auxiliar para verificar se um determinado usuário
+	 * pertence a um determinado grupo.
+	 * 
+	 * @param string $group
+	 * @param array $user_groups optional
+	 * 
+	 * @return bool TRUE caso pertença, FALSE caso contrário
+	 */
+	protected function __checkGroup($group, $user_groups = null)
 	{
-		$groups = json_decode(User::get('groups'), true);
+		if($user_groups == null)
+		{
+			$groups = json_decode(User::get('groups'), true);
+		}
+		else
+		{
+			$groups = $user_groups;
+		}
 		
 		foreach($groups as $g)
 		{

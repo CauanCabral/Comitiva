@@ -23,9 +23,9 @@ class LocaleHelper extends AppHelper
 	
 	public function __construct( $locale = null )
 	{
-		if($locale === null)
+		if($locale == null)
 		{
-			$this->currentLocale = substr(Configure::read('Config.lang'), 0, 2);
+			$this->currentLocale = substr(Configure::read('Config.language'), 0, 2);
 		}
 		else
 		{

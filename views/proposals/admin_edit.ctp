@@ -1,7 +1,10 @@
+<?php
+	echo $this->element('editor'); 
+?>
 <div class="proposals form">
 <?php echo $this->Form->create('Proposal');?>
 	<fieldset>
- 		<legend><?php __('Admin Edit Proposal'); ?></legend>
+ 		<legend><?php __('Alterar Proposta'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('user_id', array('label' =>__('Palestrante', 1)));

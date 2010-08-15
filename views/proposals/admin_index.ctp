@@ -11,11 +11,11 @@
 	
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-      <th><?php __('Proponente');?></th>
-      <th><?php __('Evento');?></th>
-      <th><?php __('Avaliação');?></th>
-      <th><?php __('Aprovada?');?></th>
-      <th><?php __('Recebida em');?></th>
+		<th><?php __('Proponente');?></th>
+		<th><?php __('Evento');?></th>
+		<th><?php __('Avaliação');?></th>
+		<th><?php __('Aprovada?');?></th>
+		<th><?php __('Recebida em');?></th>
 		<th class="actions"><?php __('Ações');?></th>
 	</tr>
 	<?php
@@ -27,14 +27,14 @@
 		}
 	?>
 	<tr<?php echo $class;?>>
-    <td>
-      <?php echo $html->link($proposal['User']['name'], array('controller' => 'users', 'action' => 'view', $proposal['User']['id'])); ?>
-    </td>
-    <td>
-      <?php echo $proposal['Event']['title']; ?>
-    </td>
-     <td>
-      <?php 
+	<td>
+		<?php echo $html->link($proposal['User']['name'], array('controller' => 'users', 'action' => 'view', $proposal['User']['id'])); ?>
+	</td>
+	<td>
+		<?php echo $proposal['Event']['title']; ?>
+	</td>
+	<td>
+		<?php 
 		switch($proposal['Proposal']['rating'])
 		{
 			case 1:
@@ -53,29 +53,32 @@
 				echo '<p style="color:#04B404;font-weight:bold">',__('Excelente',1);
 			break;
 			default:
-				echo __('Essa proposta ainda não foi avaliada. ',1).$html->link(__('Avaliar',1), array('action' => 'rating', $proposal['Proposal']['id']));
+				echo __('Sem avaliação',1);
 			break;
 		}
-      ?>
+    ?>
     </td>
     <td>
-      <?php echo $proposal['Proposal']['approved'] ? __('Sim',1) : __('Não',1); ?>
+    	<?php echo $proposal['Proposal']['approved'] ? __('Sim',1) : __('Não',1); ?>
     </td>
-		<td class="actions">
-		<?php  
-		if($proposal['Proposal']['approved'])
-		{
-			echo '  ',$html->link(__('Rejeitar',1), array('action' => 'approve', $proposal['Proposal']['id'], 0), null, sprintf(__('Rejeitar a proposta?', true)));
-		}
-		else
-		{
-			echo '  ',$html->link(__('Aprovar',1), array('action' => 'approve', $proposal['Proposal']['id'], 1), null, sprintf(__('Aprovar a proposta?', true)));
-		}
-		?>
-			<?php echo $this->Html->link(__('Visualizar', true), array('action' => 'view', $proposal['Proposal']['id'])); ?>
-			<?php echo $this->Html->link(__('Editar', true), array('action' => 'edit', $proposal['Proposal']['id'])); ?>
-			<?php echo $this->Html->link(__('Apagar', true), array('action' => 'delete', $proposal['Proposal']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $proposal['Proposal']['id'])); ?>
-		</td>
+    <td>
+    	<?php echo $this->Locale->dateTime($proposal['Proposal']['created']); ?>
+    </td>
+	<td class="actions">
+	<?php  
+	if($proposal['Proposal']['approved'])
+	{
+		echo '  ',$html->link(__('Rejeitar',1), array('action' => 'approve', $proposal['Proposal']['id'], 0), null, sprintf(__('Rejeitar a proposta?', true)));
+	}
+	else
+	{
+		echo '  ',$html->link(__('Aprovar',1), array('action' => 'approve', $proposal['Proposal']['id'], 1), null, sprintf(__('Aprovar a proposta?', true)));
+	}
+	?>
+		<?php echo $this->Html->link(__('Visualizar', true), array('action' => 'view', $proposal['Proposal']['id'])); ?>
+		<?php echo $this->Html->link(__('Editar', true), array('action' => 'edit', $proposal['Proposal']['id'])); ?>
+		<?php echo $this->Html->link(__('Apagar', true), array('action' => 'delete', $proposal['Proposal']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $proposal['Proposal']['id'])); ?>
+	</td>
 	</tr>
 <?php endforeach; ?>
 	</table>
@@ -94,7 +97,7 @@
 	</div>
 </div>
 <div class="actions">
-	<h3><?php __('Actions'); ?></h3>
+	<h3><?php __('Ações'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('Nova Proposta', true), array('action' => 'add')); ?></li>
 	</ul>
