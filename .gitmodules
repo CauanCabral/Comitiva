@@ -12,4 +12,4 @@
 	url = git://github.com/CauanCabral/Mailer.git
 [submodule "plugins/locale"]
 	path = plugins/locale
-	url = git://github.com/CauanCabral/CakePHP-Locale-Behavior.git
+	url = git://github.com/CauanCabral/locale.git

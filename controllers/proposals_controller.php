@@ -305,12 +305,6 @@ class ProposalsController extends AppController {
 		}
 	}
 	
-	function setView()
-	{
-		$events = $this->Proposal->Event->find('list', array('conditions' => array('Event.open_for_proposals' => 1)));
-		$this->set(compact('events'));
-	}
-	
 	function admin_rating($id = null)
 	{
 		if(!empty($this->data))
@@ -336,6 +330,12 @@ class ProposalsController extends AppController {
 			$this->set('id', $id);
 		else
 			$this->Session->setFlash(__('Proposta invalida',true), 'default', array('class' => 'attention'));
+	}
+	
+	function setView()
+	{
+		$events = $this->Proposal->Event->find('list', array('conditions' => array('Event.open_for_proposals' => 1)));
+		$this->set(compact('events'));
 	}
 }
 ?>
