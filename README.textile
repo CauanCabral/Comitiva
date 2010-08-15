@@ -9,6 +9,7 @@ h1. Documentação
 Contamos com a colaboração de todos. O projeto é voluntário e nem sempre temos tempo para documentar. Algumas fontes de documentação:
 
 * "Como utilizar controle de permissão no sistema":http://cauancabral.net/2010/08/01/comitiva-como-utilizar-controle-de-permissao-no-sistema
+* "Como utilizar controle de permissão no sistema – quase tudo mudou":http://cauancabral.net/2010/08/09/comitiva-como-utilizar-controle-de-permissao-no-sistema-quase-tudo-mudou
 
 
 h1. Sobre o Projeto
