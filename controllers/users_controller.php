@@ -67,10 +67,18 @@ class UsersController extends AppController
 				)
 			);
 
-			if(is_array($userData) && !empty($userData))
+			if(!empty($userData))
 			{
 				$this->__sendLinkToMail($userData);
 			}
+			else
+			{
+				$this->Session->setFlash(__('Endereço de email não cadastrado', 1), 'default', array('class' => 'attention'));
+			}
+		}
+		else
+		{
+			$this->Session->setFlash(__('Você deve informar seu endereço de email cadastrado', 1), 'default', array('class' => 'attention'));
 		}
 	}
 	
