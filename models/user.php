@@ -107,6 +107,12 @@ class User extends AppModel
 	{
 		$passwd = $check['password'];
 		
+		// caso seja uma atualização do registro (onde a senha não pode ser alterada)
+		if(isset($this->data[$this->name]['id']))
+		{
+			return true;
+		}
+		
 		if(empty($passwd))
 		{
 			// campo não pode estar vazio
@@ -128,8 +134,9 @@ class User extends AppModel
 		}
 		
 		// valida o tamanho da senha, pela sua confirmação
-		if(strlen($confirm) < 4)
+		if(mb_strlen($confirm) < 4)
 		{
+			pr(mb_strlen($confirm));
 			$this->validationErrors['password_confirm'] = 'A senha deve ter pelo menos 4 caracteres';
 			
 			return false;

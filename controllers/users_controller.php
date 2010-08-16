@@ -392,7 +392,7 @@ class UsersController extends AppController
 		$d = new DateTime();
 		$d->modify('+1 day');
 		
-		$token_expires = $d->format(DateTime::ISO8601);  
+		$token_expires = $d->format('Y-m-d H:i:s');  
 
 		$success = $this->User->save(
 			array(
@@ -457,7 +457,7 @@ class UsersController extends AppController
 				'User' => array(
 					'id' => $userData['User']['id'],
 					'account_validation_token' => $token,
-					'account_validation_expires_at' => $d->format(DateTime::ISO8601)
+					'account_validation_expires_at' => $d->format('Y-m-d H:i:s')
 				)
 			)
 		);
@@ -488,6 +488,11 @@ class UsersController extends AppController
 			{
 				$this->Session->setFlash(sprintf(__('Não foi possível enviar o email de confirmação da conta para seu endereço. Entre em contato através do email %s para obter ajuda', true), Configure::read('Message.from')), 'default', array('class' => 'attention'));
 			}
+		}
+		else
+		{
+			$this->User->delete($userData['User']['id']);
+			$this->Session->setFlash(sprintf(__('Não foi possível enviar o email de confirmação da conta para seu endereço. Entre em contato através do email %s para obter ajuda', true), Configure::read('Message.from')), 'default', array('class' => 'attention'));
 		}
 		
 		return false;
