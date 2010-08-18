@@ -136,7 +136,6 @@ class User extends AppModel
 		// valida o tamanho da senha, pela sua confirmação
 		if(mb_strlen($confirm) < 4)
 		{
-			pr(mb_strlen($confirm));
 			$this->validationErrors['password_confirm'] = 'A senha deve ter pelo menos 4 caracteres';
 			
 			return false;
