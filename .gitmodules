@@ -9,7 +9,7 @@
 	url = git://github.com/cakephp/localized.git
 [submodule "plugins/mailer"]
 	path = plugins/mailer
-	url = git://github.com/CauanCabral/Mailer.git
+	url = git://github.com/radig/mailer.git
 [submodule "plugins/locale"]
 	path = plugins/locale
-	url = git://github.com/CauanCabral/locale.git
+	url = git://github.com/radig/locale.git
