@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `subscriptions` (
 -- Estrutura da tabela `users`
 --
 
-DDROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL auto_increment,
   `username` varchar(30) NOT NULL,
