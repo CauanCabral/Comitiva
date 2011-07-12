@@ -155,7 +155,7 @@ class EventsController extends AppController
 	 * Ações assíncronaas (admin)
 	 */
 	
-	public function admin_event_date_add()
+	public function admin_eventDateAdd()
 	{
 		$this->viewPath = '/elements/forms';
 		
@@ -209,7 +209,7 @@ class EventsController extends AppController
 	 * 
 	 * @return unknown_type
 	 */
-	public function admin_event_date_delete()
+	public function admin_eventDateDelete()
 	{
 		if($this->RequestHandler->isAjax())
 		{
@@ -217,7 +217,7 @@ class EventsController extends AppController
 		}
 	}
 	
-	public function admin_event_price_add()
+	public function admin_eventPriceAdd()
 	{
 		$this->viewPath = '/elements/forms';
 		
@@ -266,7 +266,7 @@ class EventsController extends AppController
 	 * 
 	 * @return unknown_type
 	 */
-	public function admin_event_price_delete()
+	public function admin_eventPriceDelete()
 	{
 		if($this->RequestHandler->isAjax())
 		{

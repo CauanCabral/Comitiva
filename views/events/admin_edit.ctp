@@ -32,7 +32,7 @@
 			
 			foreach($this->data['EventPrice'] as $i => $eventPrice)
 			{
-				echo $this->requestAction("/admin/events/event_price_add/index:{$i}/id:{$eventPrice['id']}");
+				echo $this->requestAction("/admin/events/eventPriceAdd/index:{$i}/id:{$eventPrice['id']}");
 				$counter++;
 			}
 			
@@ -55,7 +55,7 @@
 			
 			foreach($this->data['EventDate'] as $i => $eventDate)
 			{	
-				echo $this->requestAction("/admin/events/event_date_add/index:{$i}/id:{$eventDate['id']}");
+				echo $this->requestAction("/admin/events/eventDateAdd/index:{$i}/id:{$eventDate['id']}");
 				$counter++;
 			}
 			
@@ -81,7 +81,7 @@ $handlers = <<<SCRIPT
 	 	counter = parseInt($('#priceCounter').val());
 	 	
 	 	$.ajax({
-	 		url: '/admin/events/event_price_add/',
+	 		url: '../eventPriceAdd/',
 	 		data: 'lastPriceIndex=' + counter,
 	 		success: function(data, eventStatus) {
 	 			$('#EventFree').attr('checked', false);
@@ -99,7 +99,7 @@ $handlers = <<<SCRIPT
 	 	counter = parseInt($('#dateCounter').val());
 	 	
 	 	$.ajax({
-	 		url: '/admin/events/event_date_add/',
+	 		url: '../eventDateAdd/',
 	 		data: 'lastDateIndex=' + counter,
 	 		success: function(data, eventStatus) {
 	 			$('#datesEvent').append(data);
