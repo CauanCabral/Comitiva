@@ -1,15 +1,12 @@
-[submodule "plugins/migration"]
-	path = plugins/migration
+[submodule "Plugin/Migrations"]
+	path = Plugin/Migrations
 	url = git://github.com/jrbasso/migrations.git
-[submodule "plugins/tiny_mce"]
-	path = plugins/tiny_mce
-	url = git://github.com/CakeDC/TinyMCE.git
-[submodule "plugins/localized"]
-	path = plugins/localized
-	url = git://github.com/cakephp/localized.git
-[submodule "plugins/mailer"]
-	path = plugins/mailer
-	url = git://github.com/radig/mailer.git
-[submodule "plugins/locale"]
-	path = plugins/locale
+[submodule "Plugin/Locale"]
+	path = Plugin/Locale
 	url = git://github.com/radig/locale.git
+[submodule "Plugin/TinyMCE"]
+	path = Plugin/TinyMCE
+	url = git://github.com/CakeDC/TinyMCE.git
+[submodule "Plugin/Localized"]
+	path = Plugin/Localized
+	url = git://github.com/cakephp/localized.git
