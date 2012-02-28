@@ -3,8 +3,8 @@
 .settings
 .project
 *.bak
-config/bootstrap.local.php
-config/database.php
+Config/bootstrap.local.php
+Config/database.php
 tmp/cache/models/*
 tmp/cache/persistent/*
 tmp/cache/views/*
