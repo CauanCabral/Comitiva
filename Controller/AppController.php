@@ -165,43 +165,43 @@ class AppController extends Controller
 		if($this->__checkGroup('admin'))
 		{
 			$menu = array(
-				__('Eventos', TRUE) => array(
+				__('Eventos') => array(
 					'controller' => 'events',
 					'action' => 'index',
 					'admin' => true
 				),
-				__('Pagamentos', TRUE) => array(
+				__('Pagamentos') => array(
 					'controller' => 'payments',
 					'action' => 'index',
 					'admin' => true
 				),
-				__('Usuários', TRUE) => array(
+				__('Usuários') => array(
 					'controller' => 'users',
 					'action' => 'index',
 					'admin' => true
 				),
-				__('Mensagens', TRUE) => array(
+				__('Mensagens') => array(
 					'controller' => 'messages',
 					'action' => 'index',
 					'admin' => true
 				),
-				__('Propostas', TRUE) => array(
+				__('Propostas') => array(
 					'controller' => 'proposals',
 					'action' => 'index',
 					'admin' => true
 				),
-				__('Minha conta',TRUE) => array(
+				__('Minha conta') => array(
 					'controller' => 'users',
 					'action' => 'profile',
 					'admin' => true
 				),
-				__('Sair', TRUE) => '/logout',
+				__('Sair') => '/logout',
 			);
 		}
 		else if($this->__checkGroup('participant'))
 		{
 			$menu = array(
-				__('Eventos', TRUE) => array(
+				__('Eventos') => array(
 					'controller' => 'events',
 					'action' => 'index',
 					'participant' => true
@@ -210,7 +210,7 @@ class AppController extends Controller
 			
 			if($this->__checkGroup('speaker'))
 			{
-				$menu[__('Propostas', TRUE)] = array(
+				$menu[__('Propostas')] = array(
 						'controller' => 'proposals',
 						'action' => 'index',
 						'speaker' => true
@@ -218,20 +218,20 @@ class AppController extends Controller
 			}
 			else
 			{
-				$menu[__('Propostas', TRUE)] = array(
+				$menu[__('Propostas')] = array(
 						'controller' => 'proposals',
 						'action' => 'add',
 						'participant' => true
 				);
 			}
 			
-			$menu[__('Minha conta', TRUE)] = array(
+			$menu[__('Minha conta')] = array(
 				'controller' => 'users',
 				'action' => 'profile',
 				'participant' => true
 			);
 			
-			$menu[__('Sair', TRUE)] = array(
+			$menu[__('Sair')] = array(
 				'controller' => 'users',	
 				'action' => 'logout',
 				'admin' => false,
@@ -314,4 +314,3 @@ class AppController extends Controller
 		$this->redirect($this->referer(array('action'=>'index'), TRUE));
 	}
 }
-?>

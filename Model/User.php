@@ -1,7 +1,7 @@
 <?php
-App::import('Lib', 'Localized.BrValidation');
+App::uses('BrValidation', 'Localized.Lib');
 
-App::import('Core', 'Security', false);
+App::uses('Security', 'Utility');
 
 class User extends AppModel
 {
