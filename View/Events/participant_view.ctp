@@ -40,28 +40,22 @@
 		   Basta clicar no botão abaixo e seguir os passos pedidos. Após realizar o pagamento, vá até<br />
 		   a página de suas inscrições e confirme o pagamento informando o email utilizado.
 		</p>
-		<form method='post' action='https://www.moip.com.br/PagamentoSimples.do' class="moip">
-			<input type='hidden' name='id_carteira' value='cauan'/>
-			<input type='hidden' name='valor' value='2000'/>
-			<input type='hidden' name='nome' value='Inscrição no 3º Workshop PHPMS'/>
-			<input type='hidden' name='descricao' value='Valor válido para pagamentos realizados até 24/03/2010.'/>
-			<input type='image' name='submit' src='https://www.moip.com.br/imgs/buttons/bt_pagar_c01_e01.png' alt='Pagar' border='0' />
-		</form>
+		INCLUIR AQUI BOTÃO
 		<br />
 		<p>
 			Se preferir, você ainda pode fazer uma transferência, DOC ou depósito para a conta:
 		</p>
 		<dl>
 			<dt>Banco</dt>
-			<dd>Bradesco</dd>
+			<dd>ALGUM BANCO</dd>
 			<dt class="altrow">Agência</dt>
-			<dd class="altrow">3585-0</dd>
+			<dd class="altrow">0000-0</dd>
 			<dt>Conta Poupança</dt>
-			<dd>1000103-0</dd>
+			<dd>1000000-0</dd>
 			<dt class="altrow">Titular</dt>
-			<dd class="altrow">Cauan Gama Cabral</dd>
+			<dd class="altrow">NOME DO TITULAR</dd>
 			<dt>CPF do Titular</dt>
-			<dd>019.155.051-51</dd>
+			<dd>xxx.xxx.xxx-xx</dd>
 		</dl>
 		<br />
 		<p>
@@ -92,7 +86,7 @@
 			?>
 			<tr<?php echo $class;?>>
 				<td><?php echo $eventDate['desc'];?></td>
-				<td><?php echo $this->Formatacao->dataHora($eventDate['date']);?></td>
+				<td><?php echo $this->Locale->dateTime($eventDate['date']);?></td>
 			</tr>
 		<?php endforeach; ?>
 		</table>
@@ -119,8 +113,8 @@
 			?>
 			<tr<?php echo $class;?>>
 				<td><?php echo $eventPrice['observation'];?></td>
-				<td><?php echo $this->Formatacao->moeda($eventPrice['price']);?></td>
-				<td><?php echo __('entre'), ' ', $this->Formatacao->data($eventPrice['start_date']), ' ', __('e', TRUE), ' ',$this->Formatacao->data($eventPrice['final_date']);?></td>
+				<td><?php echo $this->Locale->currency($eventPrice['price']);?></td>
+				<td><?php echo __('entre'), ' ', $this->Locale->date($eventPrice['start_date']), ' ', __('e', TRUE), ' ',$this->Locale->date($eventPrice['final_date']);?></td>
 			</tr>
 		<?php endforeach; ?>
 		</table>

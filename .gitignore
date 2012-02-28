@@ -3,6 +3,7 @@
 .settings
 .project
 *.bak
+nbproject
 Config/bootstrap.local.php
 Config/database.php
 tmp/cache/models/*

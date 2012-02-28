@@ -29,13 +29,13 @@ foreach ($payments as $payment):
 ?>
 	<tr<?php echo $class;?>>
 		<td>
-			<?php echo $this->Formatacao->data($payment['Payment']['date']); ?>
+			<?php echo $this->Locale->date($payment['Payment']['date']); ?>
 		</td>
 		<td>
 			<?php echo  $payment['Subscription']['Event']['title'] ?>
 		</td>
 		<td>
-			<?php echo $this->Formatacao->moeda($payment['Payment']['amount']); ?>
+			<?php echo $this->Locale->currency($payment['Payment']['amount']); ?>
 		</td>
 		<td>
 			<?php echo ($payment['Payment']['confirmed']?__('Sim',1):__('Não',1)); ?>

@@ -42,7 +42,7 @@ foreach ($subscriptions as $subscription):
 			<?php echo $this->Html->link($subscription['Event']['title'], array('controller' => 'events', 'action' => 'view', $subscription['Event']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $this->Formatacao->data($subscription['Subscription']['created']); ?>
+			<?php echo $this->Locale->date($subscription['Subscription']['created']); ?>
 		</td>
 		<td>
 			<?php

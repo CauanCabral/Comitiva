@@ -3,9 +3,7 @@ class UsersController extends AppController
 {
 	public $name = 'Users';
 	
-	public $components = array('Email');
-	
-	public $helpers = array('Locale', 'Formatacao');
+	public $helpers = array('Locale.Locale');
 	
 	public $uses = array('User');
 	

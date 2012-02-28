@@ -35,11 +35,11 @@ class AppController extends Controller
 	 * Cake Controller atributes
 	 ****************************/
 	
-	public $components = array('Auth', 'RequestHandler', 'Session');
+	public $components = array('Auth', 'Session');
 	
 	public $helpers = array('Html', 'Form', 'Js', 'Session');
 	
-	public $uses = array(); // ATENÇÃO! não carregue modelos no  AppController. Em último caso utilize Controller::loadModel
+	public $uses = array();
 	
 	public $paginate = array('limit' => 50);
 	

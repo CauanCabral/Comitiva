@@ -6,7 +6,7 @@ class SubscriptionsController extends AppController
 	public $name = 'Subscriptions';
 	public $uses = array('Subscription');
 	
-	public $helpers = array('Formatacao', 'Csv');
+	public $helpers = array('Csv');
 	
 	/*
 	 * Ações para rota administrativa

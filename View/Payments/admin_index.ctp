@@ -35,13 +35,13 @@ foreach ($payments as $payment):
 			<?php echo $this->Html->link($payment['Subscription']['User']['fullName'], array('controller' => 'subscriptions', 'action' => 'view', $payment['Subscription']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $this->Formatacao->data($payment['Payment']['date']); ?>
+			<?php echo $this->Locale->date($payment['Payment']['date']); ?>
 		</td>
 		<td>
 			<?php echo  $this->Html->link($payment['Subscription']['Event']['title'], array('controller' => 'events', 'action' => 'view', $payment['Subscription']['Event']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $this->Formatacao->moeda($payment['Payment']['amount']); ?>
+			<?php echo $this->Locale->currency($payment['Payment']['amount']); ?>
 		</td>
 		<td>
 			<?php echo ($payment['Payment']['confirmed'] ? __('Sim',1) : __('Não',1)); ?>

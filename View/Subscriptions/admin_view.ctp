@@ -23,7 +23,7 @@
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Criado'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $this->Formatacao->data($subscription['Subscription']['created']); ?>
+			<?php echo $this->Locale->date($subscription['Subscription']['created']); ?>
 			&nbsp;
 		</dd>
 	</dl>
@@ -41,11 +41,11 @@
 		<th><?php echo __('Ações'); ?></th>
 	</tr>
 	<tr<?php echo $class;?>>
-		<td><?php echo $this->Formatacao->data($subscription['Payment']['date']);?></td>
-		<td><?php echo $this->Formatacao->moeda($subscription['Payment']['amount']);?></td>
+		<td><?php echo $this->Locale->date($subscription['Payment']['date']);?></td>
+		<td><?php echo $this->Locale->currency($subscription['Payment']['amount']);?></td>
 		<td><?php echo $subscription['Payment']['information'];?></td>
 		<td><?php $subscription['Payment']['confirmed'] ? __('Sim') : __('Não');?></td>
-		<td><?php echo $this->Formatacao->data($subscription['Payment']['created']);?></td>
+		<td><?php echo $this->Locale->date($subscription['Payment']['created']);?></td>
 		<td class="actions">
 			<?php
 			if(!$subscription['Event']['free'] && !$subscription['Payment']['confirmed'])

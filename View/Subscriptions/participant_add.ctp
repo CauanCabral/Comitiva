@@ -42,7 +42,7 @@
 				?>
 				<tr<?php echo $class;?>>
 					<td><?php echo $eventDate['desc'];?></td>
-					<td><?php echo $this->Formatacao->dataHora($eventDate['date']);?></td>
+					<td><?php echo $this->Locale->dateTime($eventDate['date']);?></td>
 				</tr>
 			<?php endforeach; ?>
 			</table>
@@ -70,9 +70,9 @@
 				?>
 				<tr<?php echo $class;?>>
 					<td><?php echo $eventPrice['observation'];?></td>
-					<td><?php echo $this->Formatacao->moeda($eventPrice['price']);?></td>
-					<td><?php echo $this->Formatacao->dataHora($eventPrice['start_date']);?></td>
-					<td><?php echo $this->Formatacao->dataHora($eventPrice['final_date']);?></td>
+					<td><?php echo $this->Locale->currency($eventPrice['price']);?></td>
+					<td><?php echo $this->Locale->dateTime($eventPrice['start_date']);?></td>
+					<td><?php echo $this->Locale->dateTime($eventPrice['final_date']);?></td>
 				</tr>
 			<?php endforeach; ?>
 			</table>

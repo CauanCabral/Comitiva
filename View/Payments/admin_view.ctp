@@ -23,12 +23,12 @@
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Data'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $this->Formatacao->data($payment['Payment']['date']); ?>
+			<?php echo $this->Locale->date($payment['Payment']['date']); ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Valor'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $this->Formatacao->moeda($payment['Payment']['amount']); ?>
+			<?php echo $this->Locale->currency($payment['Payment']['amount']); ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Informações'); ?></dt>
@@ -43,12 +43,12 @@
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Criado em '); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $this->Formatacao->data($payment['Payment']['created']); ?>
+			<?php echo $this->Locale->date($payment['Payment']['created']); ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Modificado em '); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $this->Formatacao->data($payment['Payment']['modified']); ?>
+			<?php echo $this->Locale->date($payment['Payment']['modified']); ?>
 			&nbsp;
 		</dd>
 	</dl>
