@@ -1,6 +1,6 @@
 h1. Comitiva - Gerência de Eventos
 
-  *Comitiva* é um sistema para gerência de eventos desenvolvido sob o framework "CakePHP":http://cakephp.org em sua versão 1.3, compatível com
+  *Comitiva* é um sistema para gerência de eventos desenvolvido sob o framework "CakePHP":http://cakephp.org em sua versão 2.0, compatível com
   PHP >= 5.2 e MySQL >=5.0 ( é possível utilizar outros SGDB com pouca ou nenhuma alteração de código ). 
 
 
