@@ -30,8 +30,12 @@ setlocale(LC_ALL, 'pt_BR.utf-8', 'pt_BR', 'pt-br', 'pt', 'pt_BR.iso-8859-1', 'po
 /* Definição de variável de localização para uso no sistema */
 Configure::write('Config.language', 'pt_br');
 
+Configure::write('Language.default', 'pt-br');
+
 /* Definição do email utilizado para enviar mensagens */
 Configure::write('Message.from', 'admin@phpms.org');
+
+CakePlugin::loadAll();
 
 /*
  * Include local bootstrap, only for settings specify enviroment (local machine of developer or production)
