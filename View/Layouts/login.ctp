@@ -60,11 +60,17 @@
 		
 		<div id="content">
 			<?php
-			if( $this->Session->check('Message.auth') )
+			if ($this->Session->check('Message.auth'))
 			{
 				echo $this->Session->flash('auth');
 			}
-			else
+
+			if ($this->Session->check('Message.error'))
+			{
+				echo $this->Session->flash('error');
+			}
+
+			if ($this->Session->check('Message.flash'))
 			{
 				echo $this->Session->flash();
 			}
