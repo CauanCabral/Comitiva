@@ -42,15 +42,15 @@ Router::connect('/reset_password/*', array('controller' => 'users', 'action' => 
 /**
  * Administrators route
  */
-Router::connect('/admin', array('controller' => 'users', 'action' => 'profile', 'prefix' => 'admin'));  
+Router::connect('/admin', array('controller' => 'users', 'action' => 'profile', 'admin' => true));
 
 /**
  * Participants route
  */
-Router::connect('/participant', array('controller' => 'users', 'action' => 'profile', 'prefix' => 'participant'));
+Router::connect('/participant', array('controller' => 'users', 'action' => 'profile', 'participant' => true));
 
 /**
  * Speakers route
  */
-Router::connect('/speaker', array('controller' => 'users', 'action' => 'profile', 'prefix' => 'speaker'));
+Router::connect('/speaker', array('controller' => 'users', 'action' => 'profile', 'speaker' => true));
 ?>

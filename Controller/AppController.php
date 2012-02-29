@@ -11,9 +11,9 @@
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
- * @copyright     Copyright 2010, Grupo de Desenvolvedores PHP de Mato Grosso do Sul - PHPMS ( http://phpms.org )
+ * @copyright     Copyright 2010-2012, Grupo de Desenvolvedores PHP de Mato Grosso do Sul - PHPMS ( http://phpms.org )
  * @link          http://comitiva.phpms.org Comitiva Project
  * @package       cake
  * @subpackage    cake.comitiva
@@ -46,13 +46,6 @@ class AppController extends Controller
 	/************************
 	 * Aditional atributes
 	 ***********************/
-	
-	/**
-	 * TRUE if user has logged
-	 * 
-	 * @var boolean
-	 */
-	public $userLogged = false;
 	
 	/**
 	 * Reference for current user
@@ -108,6 +101,8 @@ class AppController extends Controller
 	private function __setupAuth()
 	{
 		//Configure AuthComponent
+		$this->Auth->authenticate = array('Form');
+		
 		$this->Auth->authorize = 'controller';
 
 		if( !isset($this->params['prefix']) || !( in_array($this->params['prefix'], Configure::read('Routing.prefixes')) ) )
@@ -122,20 +117,17 @@ class AppController extends Controller
 		$this->Auth->loginRedirect = '/estatica/logged';
 
 		// What to say when the login was incorrect.
-		$this->Auth->loginError = __('Falha no login. Por favor, verifique se o usuário e senha digitado estão corretos.', TRUE);
+		$this->Auth->loginError = __('Falha no login. Por favor, verifique se o usuário e senha digitado estão corretos.');
 		// What to say when unauthorized access has detected
-		$this->Auth->authError = __('Desculpe, você precisa estar autenticado para acessar esta página.', TRUE);
+		$this->Auth->authError = __('Desculpe, você precisa estar autenticado para acessar esta página.');
 		
 		// tmp var to load logged user information
 		$this->activeUser = $this->Auth->user();
 		
 		if($this->activeUser != null)
 		{
-			// set control flag
-			$this->userLogged = true;
-			
 			// Define a static access to user information
-			App::import('Model', 'User');
+			App::uses('User', 'Model');
 			User::store($this->activeUser);
 			
 			// Define user information in view class

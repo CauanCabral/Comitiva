@@ -1,4 +1,6 @@
 <?php
+App::uses('CakeEmail', 'Network/Email');
+
 class UsersController extends AppController
 {
 	public $name = 'Users';
@@ -21,10 +23,7 @@ class UsersController extends AppController
 			// verify if logged user has active account
 			if(User::get('active') == 0)
 			{
-				// if not, force loggout and display help message to user active account
-				$this->userLogged = false;
-				
-				$this->Session->setFlash(__('Você precisa ativar sua conta. Verifique seu email por favor.', TRUE), 'default', array('class' => 'attention'));
+				$this->Session->setFlash(__('Você precisa ativar sua conta. Verifique seu email por favor.'), 'default', array('class' => 'attention'));
 				
 				$this->redirect($this->Auth->logout());
 			}
@@ -37,7 +36,7 @@ class UsersController extends AppController
 			// update 'last_access' field
 			$this->User->saveField('last_access', $now->format("Y-m-d H:i:s"));
 			
-			$this->Session->setFlash(__('Você está autenticado', 1), 'default', array('class' => 'success'));
+			$this->Session->setFlash(__('Você está autenticado'), 'default', array('class' => 'success'));
 
 			// redirect
 			$this->redirect($this->Auth->redirect());
@@ -46,7 +45,7 @@ class UsersController extends AppController
 	
 	public function logout()
 	{
-		$this->Session->setFlash(__('Você saiu do sistema', 1), 'default', array('class' => 'success'));
+		$this->Session->setFlash(__('Você saiu do sistema'), 'default', array('class' => 'success'));
 
 		$this->redirect($this->Auth->logout());
 	}
@@ -71,12 +70,12 @@ class UsersController extends AppController
 			}
 			else
 			{
-				$this->Session->setFlash(__('Endereço de email não cadastrado', 1), 'default', array('class' => 'attention'));
+				$this->Session->setFlash(__('Endereço de email não cadastrado'), 'default', array('class' => 'attention'));
 			}
 		}
 		else
 		{
-			$this->Session->setFlash(__('Você deve informar seu endereço de email cadastrado', 1), 'default', array('class' => 'attention'));
+			$this->Session->setFlash(__('Você deve informar seu endereço de email cadastrado'), 'default', array('class' => 'attention'));
 		}
 	}
 	
@@ -98,7 +97,7 @@ class UsersController extends AppController
 			
 			if(empty($userToAlter))
 			{
-				$this->Session->setFlash(__('Token fornecido inválido. Verique o endereço acessado, por favor.', TRUE), 'default', 'attention');
+				$this->Session->setFlash(__('Token fornecido inválido. Verique o endereço acessado, por favor.'), 'default', 'attention');
 				$this->redirect('/');
 			}
 			
@@ -115,18 +114,18 @@ class UsersController extends AppController
 				
 				if($this->User->save($toSave, array('validate' => false)))
 				{
-					$this->Session->setFlash(__('Senha atualizada. Agora você já pode fazer seu login com a nova senha.', TRUE), 'default', 'success');
+					$this->Session->setFlash(__('Senha atualizada. Agora você já pode fazer seu login com a nova senha.'), 'default', 'success');
 					$this->redirect(array('action' => 'login'));
 				}
 				else
 				{
-					$this->Session->setFlash(__('Falha ao atualizar senha. Tente novamente.', TRUE), 'default', array('class' => 'attention'));
+					$this->Session->setFlash(__('Falha ao atualizar senha. Tente novamente.'), 'default', array('class' => 'attention'));
 				}
 			}
 		}
 		else
 		{
-			$this->Session->setFlash(__('O endereço acessado não é válido.', TRUE), 'default', array('class' => 'attention'));
+			$this->Session->setFlash(__('O endereço acessado não é válido.'), 'default', array('class' => 'attention'));
 			$this->redirect('/');
 		}
 	}
@@ -169,7 +168,7 @@ class UsersController extends AppController
 			));
 			if($userData['User']['active'])
 			{
-				$this->Session->setFlash(__('Seu cadastro já foi verificado',1), 'default', array('class' => 'attention'));
+				$this->Session->setFlash(__('Seu cadastro já foi verificado'), 'default', array('class' => 'attention'));
 				$this->redirect('/');
 			}
 			if($userData['User']['account_validation_token'] == $hash)
@@ -180,17 +179,17 @@ class UsersController extends AppController
 				
 				$this->User->save($userData);
 				
-				$this->Session->setFlash(__('Cadastro Verificado com Sucesso!',1), 'default', array('class' => 'success'));
+				$this->Session->setFlash(__('Cadastro Verificado com Sucesso!'), 'default', array('class' => 'success'));
 				$this->redirect('/');
 			}
 			else
 			{
-				$this->Session->setFlash(__('Código de verificação inválido!',1), 'default', array('class' => 'attention'));
+				$this->Session->setFlash(__('Código de verificação inválido!'), 'default', array('class' => 'attention'));
 				$this->redirect('/');
 			}
 		}
 		
-		$this->Session->setFlash(__('Corrija o nome de usuário e/ou código de verificação!',1), 'default', array('class' => 'attention'));
+		$this->Session->setFlash(__('Corrija o nome de usuário e/ou código de verificação!'), 'default', array('class' => 'attention'));
 		$this->redirect('/');
 	}
 	/*******************
@@ -233,7 +232,7 @@ class UsersController extends AppController
 		if (!empty($this->request->data))
 		{
 			// default, all admin added user has confirmed
-			$this->request->data['User']['active'] = TRUE;
+			$this->request->data['User']['active'] = true;
 			
 			// default group (all user are in participant group
 			$groups = array('participant'); 
@@ -341,13 +340,13 @@ class UsersController extends AppController
 			if($this->User->save($this->request->data))
 			{
 				$this->__reloadUserInfo();
-				$this->Session->setFlash(__('Dados Atualizados!',1), 'default', array('class' => 'success'));
+				$this->Session->setFlash(__('Dados Atualizados!'), 'default', array('class' => 'success'));
 				//_goBack leva a redirecionamento infinito. por que?
 				$this->redirect('/');
 			}
 			else
 			{
-				$this->Session->setFlash(__('Erro ao Atualizar Dados',1), 'default', array('class' => 'attention'));
+				$this->Session->setFlash(__('Erro ao Atualizar Dados'), 'default', array('class' => 'attention'));
 			}
 		}
 		
@@ -406,19 +405,17 @@ class UsersController extends AppController
 
 		if($success)
 		{
-			$this->Email->reset();
-
+			$email = new CakeEmail();
+			
 			/* Setup parameters of EmailComponent */
-			$this->Email->to = $userData['User']['email'];
-			$this->Email->subject = '[PHPMS - Inscrições] Pedido para recuperar senha';
-			$this->Email->replyTo = Cofigure::read('Message.from');
-			$this->Email->from = 'PHPMS <' . Cofigure::read('Message.from') . '>';
-			$this->Email->template = 'reset_password';
-			$this->Email->charset = 'utf-8';
+			$email->to($userData['User']['email'])
+					->subject('[PHPMS - Inscrições] Pedido para recuperar senha')
+					->replyTo(Cofigure::read('Message.from'))
+					->from('PHPMS <' . Cofigure::read('Message.from') . '>')
+					->template('reset_password')
+					->emailFormat('html');
 
-			$this->Email->sendAs = 'html';
-
-			if($this->Email->send())
+			if($email->send())
 			{
 				$this->Session->setFlash(__('Instruções para redefinir a senha foram enviadas para seu email cadastrado'), 'default', array('class' => 'success'));
 				return true;
@@ -465,19 +462,17 @@ class UsersController extends AppController
 		
 		if($success)
 		{
-			$this->Email->reset();
-		
+			$email = new CakeEmail();
+			
 			/* Setup parameters of EmailComponent */
-			$this->Email->to = $userData['User']['email'];
-			$this->Email->subject = '[PHPMS - Inscrições] Confirmação de conta';
-			$this->Email->replyTo = Configure::read('Message.from');
-			$this->Email->from = 'PHPMS <' . Configure::read('Message.from') . '>';
-			$this->Email->template = 'account_confirm';
-			$this->Email->charset = 'utf-8';
+			$email->to($userData['User']['email'])
+					->subject('[PHPMS - Inscrições] Confirmação de conta')
+					->replyTo(Cofigure::read('Message.from'))
+					->from('PHPMS <' . Cofigure::read('Message.from') . '>')
+					->template('account_confirm')
+					->emailFormat('html');
 	
-			$this->Email->sendAs = 'html';
-	
-			if($this->Email->send())
+			if($email->send())
 			{
 				$this->Session->setFlash(__('Foi enviado um email para confirmação da sua conta'), 'default', array('class' => 'attention'));
 				return true;
@@ -496,4 +491,3 @@ class UsersController extends AppController
 		return false;
 	}
 }
-?>
