@@ -7,39 +7,39 @@ class UsersController extends AppController
 	
 	public $helpers = array('Locale.Locale');
 	
-	public $uses = array('User');
-	
 	/***********************
-	 * Public actions 
+	 * Public actions
 	 ***********************/
 
 	public function login()
 	{
-		if($this->Auth->user())
-		{	
-			// load user model and save data user to direct access
-			$this->User->store($this->Auth->user());
-			
-			// verify if logged user has active account
-			if(User::get('active') == 0)
+		if ($this->request->is('post'))
+		{
+			if ($this->Auth->login())
 			{
-				$this->Session->setFlash(__('Você precisa ativar sua conta. Verifique seu email por favor.'), 'default', array('class' => 'attention'));
+				// verifica se usuário logado está ativo
+				if($this->activeUser['User']['active'] !== true)
+				{
+					$this->Session->setFlash(__('Você precisa ativar sua conta. Verifique seu email por favor.'), 'default', array('class' => 'attention'));
+					
+					$this->redirect($this->Auth->logout());
+				}
 				
-				$this->redirect($this->Auth->logout());
-			}
-			
-			$now = new DateTime();
-			
-			// init model user to update field
-			$this->User->create(User::get('User'));
-			
-			// update 'last_access' field
-			$this->User->saveField('last_access', $now->format("Y-m-d H:i:s"));
-			
-			$this->Session->setFlash(__('Você está autenticado'), 'default', array('class' => 'success'));
+				$now = new DateTime();
 
-			// redirect
-			$this->redirect($this->Auth->redirect());
+				$this->User->id = $this->activeUser['User']['id'];
+				
+				// update 'last_access' field
+				$this->User->saveField('last_access', $now->format("Y-m-d H:i:s"));
+				
+				$this->Session->setFlash(__('Você está autenticado'), 'default', array('class' => 'success'));
+
+				return $this->redirect($this->Auth->redirect());
+			}
+			else
+			{
+				$this->Session->setFlash(__('Usuário ou senha incorreto'), 'default', array('class' => 'attention'));
+			}
 		}
 	}
 	

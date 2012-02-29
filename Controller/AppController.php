@@ -35,11 +35,19 @@ class AppController extends Controller
 	 * Cake Controller atributes
 	 ****************************/
 	
-	public $components = array('Auth', 'Session');
+	public $components = array(
+		'Auth',
+		'Session',
+		'DebugKit.Toolbar'
+		);
 	
-	public $helpers = array('Html', 'Form', 'Js', 'Session');
-	
-	public $uses = array();
+	public $helpers = array(
+		'Session',
+		'Html',
+		'Form',
+		'Js',
+		'Locale.Locale'
+		);
 	
 	public $paginate = array('limit' => 50);
 	

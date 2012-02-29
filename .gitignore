@@ -2,10 +2,12 @@
 .buildpath
 .settings
 .project
+*.sublime-*
 *.bak
 nbproject
 Config/bootstrap.local.php
 Config/database.php
+tmp/cache/*
 tmp/cache/models/*
 tmp/cache/persistent/*
 tmp/cache/views/*
