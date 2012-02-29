@@ -73,8 +73,6 @@
 	<?php
 		// include js generated code
 		echo $this->Js->writeBuffer();
-	
-		echo $this->element('sql_dump');
 	?>
 </body>
 </html>

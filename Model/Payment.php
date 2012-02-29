@@ -29,4 +29,3 @@ class Payment extends AppModel
 		)
 	);
 }
-?>

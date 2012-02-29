@@ -26,4 +26,3 @@ class EventPrice extends AppModel
 		)
 	);
 }
-?>

@@ -129,4 +129,3 @@ class Event extends AppModel
 		return ($today < $end);
 	}
 }
-?>

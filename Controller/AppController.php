@@ -134,10 +134,6 @@ class AppController extends Controller
 		
 		if($this->activeUser != null)
 		{
-			// Define a static access to user information
-			App::uses('User', 'Model');
-			User::store($this->activeUser);
-			
 			// Define user information in view class
 			$this->set('activeUser', $this->activeUser);
 			

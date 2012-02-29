@@ -61,6 +61,4 @@ class Subscription extends AppModel
 		
 		return $unlisteds;
 	}
-
 }
-?>

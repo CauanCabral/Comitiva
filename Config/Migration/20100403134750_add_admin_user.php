@@ -7,17 +7,23 @@
 
  App::uses('Security', 'Utility');
 
-class AddAdminUser extends AppMigrations {
+class AddAdminUser extends CakeMigration
+{
 
-	var $uses = array('User');
+	public $migration = array(
+			'up' => array(
+				),
+			'down' => array(
+				)
+		);
 
-/**
- * Up Method
- *
- * @return void
- * @access public
- */
-	function up() {
+	public function after($direction)
+	{
+		if($direction !== 'up')
+		{
+			return true;
+		}
+
 		$user['User'] = array('username' => 'admin',
 			'password' => Security::hash('admin', null, true),
 			'type' => 'admin',
@@ -32,22 +38,14 @@ class AddAdminUser extends AppMigrations {
 			'state' => '',
 			'phone' => ''
 		);
-		
-		if(!$this -> User -> save($user)) {
-			var_dump($this -> User -> validationErrors);
-		}
-	}
 
-/**
- * Down Method
- *
- * @return void
- * @access public
- */
-	function down() {
-		$u = $this -> User -> findByUsername('admin');
-		$this -> User -> delete($u['User']['id']);
+		$User = $this->generateModel('User');
+
+		if(!$User->save($user))
+		{
+			pr($User->validationErrors);
+		}
+
+		return true;
 	}
 }
-
-?>

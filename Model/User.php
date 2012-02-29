@@ -1,6 +1,5 @@
 <?php
 App::uses('BrValidation', 'Localized.Lib');
-
 App::uses('Security', 'Utility');
 
 class User extends AppModel
