@@ -9,19 +9,23 @@ class AlterUsers extends CakeMigration
 	public $migration = array(
 			'up' => array(
 					'alter_field' => array(
-							'type' => array(
-								'name' => 'groups',
-								'length' => 255,
-								'default' => '["participant"]'
+							'users' => array(
+								'type' => array(
+									'name' => 'groups',
+									'length' => 255,
+									'default' => '["participant"]'
+								)
 							)
 						)
 				),
 			'down' => array(
 					'alter_field' => array(
-							'groups' => array(
-								'name' => 'type',
-								'length' => 30,
-								'default' => 'participant'
+							'users' => array(
+								'groups' => array(
+									'name' => 'type',
+									'length' => 30,
+									'default' => 'participant'
+								)
 							)
 						)
 				)
@@ -35,7 +39,7 @@ class AlterUsers extends CakeMigration
 			
 			$users = $model->find('all');
 			
-			$this->out(__('Atualizando registros...'), false);
+			//$this->out(__('Atualizando registros...'), false);
 			foreach($users as $user)
 			{
 				$type = json_decode($user['User']['groups'], true);
@@ -43,10 +47,10 @@ class AlterUsers extends CakeMigration
 				
 				if(!$model->save($user))
 				{
-					$this->out('Falha ao desatualizar campo type do modelo usuário', true);
+					//$this->out('Falha ao desatualizar campo type do modelo usuário', true);
 				}
 			}
-			$this->out(__('ok'), true);
+			//$this->out(__('ok'));
 		}
 
 		return true;
@@ -61,18 +65,18 @@ class AlterUsers extends CakeMigration
 			
 			$users = $model->find('all');
 			
-			$this->out(__('Atualizando registros...'), false);
+			//$this->out(__('Atualizando registros...'), false);
 			foreach($users as $user)
 			{
 				$user['User']['groups'] = json_encode(array(str_replace('"', '', $user['User']['groups'])));
 				
 				if(!$model->save($user))
 				{
-					$this->out('Falha ao desatualizar campo type do modelo usuário', true);
+					//$this->out('Falha ao desatualizar campo type do modelo usuário', true);
 				}
 			}
 
-			$this->out(__('ok'), true);
+			//$this->out(__('ok'));
 		}
 
 		return true;

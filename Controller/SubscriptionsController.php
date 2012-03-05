@@ -216,7 +216,7 @@ class SubscriptionsController extends AppController
 			}
 			
 			// verifica se o evento é mesmo válido
-			if($this->Subscription->Event->read(null, $event_id) == NULL || !$this->Subscription->Event->openToSubscription($event_id))
+			if($this->Subscription->Event->read(null, $event_id) === false || !$this->Subscription->Event->openToSubscription($event_id))
 			{
 				//caso não seja saí da inscrição
 				$this->Session->setFlash(__('A inscrição não pôde ser realizada. O evento não existe ou as inscrições foram encerradas.'), 'default', array('class' => 'attention'));

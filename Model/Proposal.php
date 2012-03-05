@@ -11,7 +11,7 @@ class Proposal extends AppModel {
 				'required' => true,
 			),
 		),
-    'event_id' => array(
+    	'event_id' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
 				'message' => 'Você precisa selecionar um evento',
@@ -47,7 +47,7 @@ class Proposal extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
-    'Event' => array(
+    	'Event' => array(
 			'className' => 'Event',
 			'foreignKey' => 'event_id',
 			'conditions' => '',

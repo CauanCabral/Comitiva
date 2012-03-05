@@ -94,7 +94,7 @@ class AppController extends Controller
 	
 	public function isAuthorized()
 	{
-		if($this->userLogged === TRUE && $this->__checkGroup($this->params['prefix']) )
+		if($this->userLogged === TRUE && $this->__checkGroup($this->request->params['prefix']) )
 		{
 			return true;
 		}
@@ -113,7 +113,7 @@ class AppController extends Controller
 		
 		$this->Auth->authorize = 'controller';
 
-		if( !isset($this->params['prefix']) || !( in_array($this->params['prefix'], Configure::read('Routing.prefixes')) ) )
+		if( !isset($this->request->params['prefix']) || !( in_array($this->request->params['prefix'], Configure::read('Routing.prefixes')) ) )
 		{
 			// all non-prefixed actions are allowed
 			$this->Auth->allow('*');
@@ -137,7 +137,7 @@ class AppController extends Controller
 			// Define user information in view class
 			$this->set('activeUser', $this->activeUser);
 			
-			if($this->here == '/')
+			if($this->request->here == '/')
 			{
 				$this->redirect('/estatica/logged');
 			}

@@ -6,7 +6,7 @@
  *
  */
 
-class CsvHelper extends AppHelper {
+class CsvHelper extends Helper {
 	public $delimiter = ',';
 	public $enclosure = '"';
 	public $filename = 'comitiva.csv';
