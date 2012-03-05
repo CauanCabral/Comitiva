@@ -13,12 +13,18 @@ class UsersController extends AppController
 
 	public function login()
 	{
+		if(!empty($this->activeUser))
+		{
+			$this->Session->setFlash(__('Você está autenticado'), 'default', array('class' => 'success'));
+			$this->redirect($this->Auth->redirect());
+		}
+
 		if ($this->request->is('post'))
 		{
 			if ($this->Auth->login())
 			{
 				// verifica se usuário logado está ativo
-				if($this->activeUser['User']['active'] !== true)
+				if($this->activeUser['User']['active'] != true)
 				{
 					$this->Session->setFlash(__('Você precisa ativar sua conta. Verifique seu email por favor.'), 'default', array('class' => 'attention'));
 					
@@ -34,7 +40,7 @@ class UsersController extends AppController
 				
 				$this->Session->setFlash(__('Você está autenticado'), 'default', array('class' => 'success'));
 
-				return $this->redirect($this->Auth->redirect());
+				$this->redirect($this->Auth->redirect());
 			}
 			else
 			{

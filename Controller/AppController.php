@@ -108,7 +108,6 @@ class AppController extends Controller
 	
 	private function __setupAuth()
 	{
-		//Configure AuthComponent
 		$this->Auth->authenticate = array('Form');
 		
 		$this->Auth->authorize = 'controller';
