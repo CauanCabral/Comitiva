@@ -61,7 +61,22 @@
 		
 		<div id="content">
 
-			<?php echo $this->Session->flash(); ?>
+			<?php
+			if ($this->Session->check('Message.auth'))
+			{
+				echo $this->Session->flash('auth');
+			}
+
+			if ($this->Session->check('Message.error'))
+			{
+				echo $this->Session->flash('error');
+			}
+
+			if ($this->Session->check('Message.flash'))
+			{
+				echo $this->Session->flash();
+			}
+			?>
 
 			<?php echo $content_for_layout; ?>
 
@@ -71,7 +86,6 @@
 		</div>
 	</div>
 	<?php
-		// include js generated code
 		echo $this->Js->writeBuffer();
 	?>
 </body>

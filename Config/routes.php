@@ -29,7 +29,6 @@ Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'inde
 Router::connect('/estatica/*', array('controller' => 'pages', 'action' => 'display'));
 
 /**
- * Alias for non-prefixed actions (hack for bug route in cake 1.3-dev)
  */
 Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
 Router::connect('/logout', array('controller' => 'users', 'action' => 'logout'));
@@ -53,4 +52,5 @@ Router::connect('/participant', array('controller' => 'users', 'action' => 'prof
  * Speakers route
  */
 Router::connect('/speaker', array('controller' => 'users', 'action' => 'profile', 'speaker' => true));
-?>
+
+require CAKE . 'Config' . DS . 'routes.php';

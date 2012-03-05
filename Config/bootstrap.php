@@ -44,4 +44,3 @@ if(file_exists(APP . 'Config' . DS . 'bootstrap.local.php'))
 {
 	include(APP . 'Config' . DS . 'bootstrap.local.php');
 }
-?>

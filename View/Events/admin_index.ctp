@@ -8,16 +8,16 @@
 <p>
 <?php
 echo $this->Paginator->counter(array(
-'format' => __('Página %page% de %pages%, exibindo %current% entradas de %count% total, iniciando no registro %start% e terminando em %end%', TRUE)
+'format' => __('Página %page% de %pages%, exibindo %current% entradas de %count% total, iniciando no registro %start% e terminando em %end%')
 ));
 ?>
 </p>
 <table cellpadding="0" cellspacing="0">
 <tr>
-	<th><?php echo $this->Paginator->sort(__('Título', TRUE), 'Event.title');?></th>
-	<th><?php echo $this->Paginator->sort(__('Gratuito?', TRUE), 'Event.free');?></th>
-  <th><?php echo $this->Paginator->sort(__('Submissão de Propostas liberada?', TRUE), 'Event.open_for_proposals');?></th>
-	<th><?php echo __('Inscritos',1);?></th>
+	<th><?php echo $this->Paginator->sort('Event.title', __('Título'));?></th>
+	<th><?php echo $this->Paginator->sort('Event.free', __('Gratuito?'));?></th>
+  <th><?php echo $this->Paginator->sort('Event.open_for_proposals', __('Submissão de Propostas liberada?'));?></th>
+	<th><?php echo __('Inscritos',true);?></th>
 	<th class="actions"><?php echo __('Ações');?></th>
 </tr>
 <?php
@@ -33,7 +33,7 @@ foreach ($events as $event):
 			<?php echo $event['Event']['title']; ?>
 		</td>
 		<td>
-			<?php $event['Event']['free'] == TRUE ? __('Sim') : __('Não'); ?>
+			<?php $event['Event']['free'] == true ? __('Sim') : __('Não'); ?>
 		</td>
      <td>
 			<?php echo $event['Event']['open_for_proposals'] ? __('Sim') : __('Não'); ?>

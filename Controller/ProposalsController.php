@@ -22,7 +22,7 @@ class ProposalsController extends AppController {
 
 	function participant_view($id = null)
 	{
-		if (!$id) 
+		if (!$id)
 		{
 			$this->Session->setFlash(__('Proposta Inexistente'), 'default', array('class' => 'error'));
 			$this->redirect(array('action' => 'index'));
@@ -31,8 +31,8 @@ class ProposalsController extends AppController {
 		$proposal =  $this->Proposal->find('first',array(
 			'conditions' => array(
 				'Proposal.user_id' => User::get('id'),
-				'Proposal.id' => $id 
-			),		
+				'Proposal.id' => $id
+			),
 		));
 		
 		if(!empty($proposal))
@@ -48,9 +48,9 @@ class ProposalsController extends AppController {
 
 	function participant_add($event_id = null)
 	{
-		if (!empty($this->request->data)) 
+		if (!empty($this->request->data))
 		{
-			if (empty($this->activeUser['User']['id']))
+			if (empty($this->activeUser['id']))
 			{
 				$this->Session->setFlash(__('Erro: o identificador do usuário não pôde ser encontrado. Por gentileza, notifique o administrador.'));
 				$this->redirect(array('action' => 'index'));
@@ -75,14 +75,14 @@ class ProposalsController extends AppController {
  	 	if(isset($event_id) && !array_key_exists($event_id, $events))
  	 	{
  	 		$this->Session->setFlash(__('O evento selecionado não está aberto a propostas. Selecione outro evento'), 'default', array("class" => 'attention'));
- 	 		$event_id = 0; 
+ 	 		$event_id = 0;
  	 	}
  	 	
  	 	$event_id = (isset($event_id) ? $event_id : 0);
 		$this->set(compact('users', 'events', 'event_id'));
 	}
 
-	function participant_edit($id = null) 
+	function participant_edit($id = null)
 	{
 		if (!$id && empty($this->request->data))
 		{
@@ -144,7 +144,7 @@ class ProposalsController extends AppController {
 		if(isset($approved))
 			$this->set('proposals', $this->paginate(array('approved' => $approved)));
 		else
-			$this->set('proposals', $this->paginate()); 
+			$this->set('proposals', $this->paginate());
 	}
 	
 	public function admin_view($id = null)
@@ -279,8 +279,8 @@ class ProposalsController extends AppController {
 	  				'to' =>  $proposal['User']['email'],
 	  				'from' => 'admin@comitiva.com.br',
 	  				'subject' => '[Comitiva] Sua proposta foi aprovada' ,
-	  				'body' => 
-  						$greetings . $proposal['User']['name'] . '<br/><br/>' .  
+	  				'body' =>
+  						$greetings . $proposal['User']['name'] . '<br/><br/>' .
   						$message . '<br/><br/>'.
   						$sign
   				);
@@ -301,7 +301,7 @@ class ProposalsController extends AppController {
 		else
 		{
 			$this->Session->setFlash(__("Proposta não pode ser alterada "), 'default', array('class' => 'error'));
-			$this->redirect(array('action'=>'index'));	
+			$this->redirect(array('action'=>'index'));
 		}
 	}
 	
@@ -311,7 +311,7 @@ class ProposalsController extends AppController {
 		{
 			$proposal = $this->Proposal->read(null,$this->request->data['Proposal']['id']);
   		
-			$this->request->data['Proposal']['avaliator'] = $this->activeUser['User']['name'];
+			$this->request->data['Proposal']['avaliator'] = $this->activeUser['name'];
   		
 			if($this->Proposal->save($this->request->data, false))
 			{
@@ -338,4 +338,3 @@ class ProposalsController extends AppController {
 		$this->set(compact('events'));
 	}
 }
-?>

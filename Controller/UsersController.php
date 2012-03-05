@@ -23,8 +23,10 @@ class UsersController extends AppController
 		{
 			if ($this->Auth->login())
 			{
+				$this->activeUser = $this->Auth->user();
+
 				// verifica se usuário logado está ativo
-				if($this->activeUser['User']['active'] != true)
+				if(empty($this->activeUser['active']))
 				{
 					$this->Session->setFlash(__('Você precisa ativar sua conta. Verifique seu email por favor.'), 'default', array('class' => 'attention'));
 					
@@ -33,7 +35,7 @@ class UsersController extends AppController
 				
 				$now = new DateTime();
 
-				$this->User->id = $this->activeUser['User']['id'];
+				$this->User->id = $this->activeUser['id'];
 				
 				// update 'last_access' field
 				$this->User->saveField('last_access', $now->format("Y-m-d H:i:s"));

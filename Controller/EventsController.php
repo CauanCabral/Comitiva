@@ -1,5 +1,5 @@
 <?php
-App::import('CORE', 'Sanitize');
+App::uses('Sanitize', 'Utility');
 
 class EventsController extends AppController
 {
@@ -8,7 +8,7 @@ class EventsController extends AppController
 	
 	public $uses = array('Event');
 	
-	public $helpers = array('Formatacao', 'TinyMce.TinyMce');
+	public $helpers = array('TinyMCE.TinyMCE');
 	
 	/*
 	 *  Ações para rota administrativa
@@ -143,7 +143,7 @@ class EventsController extends AppController
 
 	public function participant_view($id = null)
 	{
-		if (!$id) 
+		if (!$id)
 		{
 			$this->Session->setFlash(__('Evento inválido'), 'default', array('class' => 'attention'));
 			$this->redirect(array('action' => 'index'));

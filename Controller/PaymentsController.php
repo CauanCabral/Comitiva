@@ -8,8 +8,6 @@ class PaymentsController extends AppController
 	
 	public $components = array('Email');
 	
-	public $helpers = array('Formatacao');
-	
 	/*
 	 * Ações para rota administrativa
 	 */

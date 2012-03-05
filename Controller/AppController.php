@@ -94,7 +94,7 @@ class AppController extends Controller
 	
 	public function isAuthorized()
 	{
-		if($this->userLogged === TRUE && $this->__checkGroup($this->request->params['prefix']) )
+		if( !empty($this->activeUser) && $this->__checkGroup($this->request->params['prefix']) )
 		{
 			return true;
 		}
@@ -110,7 +110,7 @@ class AppController extends Controller
 	{
 		$this->Auth->authenticate = array('Form');
 		
-		$this->Auth->authorize = 'controller';
+		$this->Auth->authorize = array('Controller');
 
 		if( !isset($this->request->params['prefix']) || !( in_array($this->request->params['prefix'], Configure::read('Routing.prefixes')) ) )
 		{
@@ -123,12 +123,9 @@ class AppController extends Controller
 		$this->Auth->logoutRedirect = '/';
 		$this->Auth->loginRedirect = '/estatica/logged';
 
-		// What to say when the login was incorrect.
 		$this->Auth->loginError = __('Falha no login. Por favor, verifique se o usuário e senha digitado estão corretos.');
-		// What to say when unauthorized access has detected
 		$this->Auth->authError = __('Desculpe, você precisa estar autenticado para acessar esta página.');
 		
-		// tmp var to load logged user information
 		$this->activeUser = $this->Auth->user();
 		
 		if($this->activeUser != null)
@@ -255,7 +252,7 @@ class AppController extends Controller
 	{
 		if($user_groups == null)
 		{
-			$groups = json_decode(User::get('groups'), true);
+			$groups = json_decode($this->activeUser['groups'], true);
 		}
 		else
 		{
