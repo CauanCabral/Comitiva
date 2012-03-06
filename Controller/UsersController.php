@@ -205,8 +205,7 @@ class UsersController extends AppController
 	 ******************/
 	
 	public function admin_profile()
-	{	
-		$this->set('user', User::get('User'));
+	{
 		$this->render('profile');
 	}
 	

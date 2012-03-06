@@ -74,7 +74,7 @@ class AppController extends Controller
 	{
 		$this->__setupAuth();
 		
-		if($this->userLogged === true)
+		if(!empty($this->activeUser))
 		{
 			$this->__buildMenu();
 		}
@@ -152,8 +152,6 @@ class AppController extends Controller
 	 */
 	private function __buildMenu()
 	{
-		//$groups = json_decode(User::get('groups'), true);
-		
 		if($this->__checkGroup('admin'))
 		{
 			$menu = array(
@@ -258,7 +256,7 @@ class AppController extends Controller
 		{
 			$groups = $user_groups;
 		}
-		
+
 		foreach($groups as $g)
 		{
 			$tmp = str_replace('"', '', $g);
