@@ -28,19 +28,15 @@
 	<?php
 		echo $this->Html->meta('icon');
 
-		
+
 		echo $this->Html->css('comitiva');
 		echo $this->Html->css('menu');
-		
+
 		echo $this->Html->css('jquery/ui');
 
-		echo $this->Html->script('jquery/jquery.min');
-		
-		// jquery-ui related
-		echo $this->Html->script('jquery/ui/jquery.ui.core.min');
-		echo $this->Html->script('jquery/ui/jquery.ui.widget.min');
-		echo $this->Html->script('jquery/ui/jquery.ui.button.min');
-		
+		echo $this->Html->script('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js');
+		echo $this->Html->script('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js');
+
 		// others
 		echo $this->Html->script('menu');
 
@@ -52,13 +48,13 @@
 		<div id="header">
 			<h1><?php echo $this->Html->link(__('Comitiva: Sistema de controle de eventos do PHPMS'), 'http://phpms.org'); ?></h1>
 		</div>
-		
+
 		<?php if(isset($menuItems) && !empty($menuItems)): ?>
 		<ul id="menu">
 			<?php echo $this->element('menu', $menuItems); ?>
 		</ul>
 		<?php endif; ?>
-		
+
 		<div id="content">
 
 			<?php

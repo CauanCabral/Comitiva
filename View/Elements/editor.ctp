@@ -1,5 +1,5 @@
 <?php
-$this->TinyMce->editor( array(
+$this->TinyMCE->editor(array(
 		'mode' => 'textareas',
 		'language' => 'pt',
 		'theme' => 'advanced',
@@ -9,4 +9,3 @@ $this->TinyMce->editor( array(
 		'skin_variant' => 'silver'
 	)
 );
-?>
