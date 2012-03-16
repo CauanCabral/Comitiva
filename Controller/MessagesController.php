@@ -5,8 +5,6 @@ class MessagesController extends AppController
 {
 	public $uses = array('Message');
 	
-	public $components = array('Mailer.Mailer');
-	
 	public $helpers = array('TinyMce.TinyMce');
 	
 	public function admin_index()
@@ -48,7 +46,7 @@ class MessagesController extends AppController
 					$op['to'] = $this->__getUserMailAddress($this->request->data['Message']['event_id'], 4);
 					break;
 				default:
-					$this->Session->setFlash(__('Opção inválida, selecione outro filtro', TRUE));
+					$this->Session->setFlash(__('Opção inválida, selecione outro filtro'));
 					return;
 			}
 			
@@ -59,15 +57,15 @@ class MessagesController extends AppController
 				switch($this->__sendMessage($op))
 				{
 					case 0:
-						$this->Session->setFlash(__('Mensagem enviada', TRUE));
+						$this->Session->setFlash(__('Mensagem enviada'));
 						$this->redirect(array('action' => 'index'));
 						break;
 					case 1:
-						$this->Session->setFlash(__('A mensagem não pode ser enviada a todos os destinatários', TRUE));
+						$this->Session->setFlash(__('A mensagem não pode ser enviada a todos os destinatários'));
 						$this->redirect(array('action' => 'index'));
 						break;
 					case -1:
-						$this->Session->setFlash(__('Falha no envio', TRUE));
+						$this->Session->setFlash(__('Falha no envio'));
 						break;
 				}
 			}
@@ -80,15 +78,15 @@ class MessagesController extends AppController
 		
 		// define os tipos de mensagens suportados
 		$types = array(
-			0 => __('Todos os usuários', TRUE),
-			10 => __('Inscritos no evento', TRUE),
-			20 => __('Não inscritos no evento', TRUE)
+			0 => __('Todos os usuários'),
+			10 => __('Inscritos no evento'),
+			20 => __('Não inscritos no evento')
 		);
 		
 		$filters = array(
-			1 => __('Realizaram Check-in', TRUE),
-			2 => __('Não compareceram', TRUE),
-			3 => __('Não confirmaram pagamento', TRUE)
+			1 => __('Realizaram Check-in'),
+			2 => __('Não compareceram'),
+			3 => __('Não confirmaram pagamento')
 		);
 		
 		$this->set(compact('types', 'filters'));

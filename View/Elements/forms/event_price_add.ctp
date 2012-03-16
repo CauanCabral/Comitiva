@@ -5,23 +5,23 @@
 	}
 	echo '<div class="eventPrice">';
 		echo $this->Form->input("EventPrice.{$i}.price", array(
-			'label' => __('Valor', TRUE)
+			'label' => __('Valor')
 			)
 		);
 		echo $this->Form->input("EventPrice.{$i}.start_date", array(
-			'label' => __('Data inicial', TRUE),
+			'label' => __('Data inicial'),
 			'minYear' => date('Y'),
 			'maxYear' => date('Y') + 5
 			)
 		);
 		echo $this->Form->input("EventPrice.{$i}.final_date", array(
-			'label' => __('Data final', TRUE),
+			'label' => __('Data final'),
 			'minYear' => date('Y'),
 			'maxYear' => date('Y') + 5
 			)
 		);
 		echo $this->Form->input("EventPrice.{$i}.observation", array(
-			'label' => __('Observação', TRUE)
+			'label' => __('Observação')
 			)
 		);
 		

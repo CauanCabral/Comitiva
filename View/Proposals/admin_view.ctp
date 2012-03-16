@@ -39,22 +39,22 @@
 				switch($proposal['Proposal']['rating'])
 				{
 					case 1:
-						echo '<p style="color:#DF0101;font-weight:bold">', __('Péssimo',1),'</p>';
+						echo '<p style="color:#DF0101;font-weight:bold">', __('Péssimo'),'</p>';
 					break;
 					case 2:
-						echo '<p style="color:#FE9A2E;font-weight:bold">',__('Ruim',1);
+						echo '<p style="color:#FE9A2E;font-weight:bold">',__('Ruim');
 					break;
 					case 3:
-						echo '<p style="color:#AEB404;font-weight:bold">',__('Bom',1);
+						echo '<p style="color:#AEB404;font-weight:bold">',__('Bom');
 					break;
 					case 4:
-						echo '<p style="color:#045FB4;font-weight:bold">',__('Ótimo',1);
+						echo '<p style="color:#045FB4;font-weight:bold">',__('Ótimo');
 					break;
 					case 5:
-						echo '<p style="color:#04B404;font-weight:bold">',__('Excelente',1);
+						echo '<p style="color:#04B404;font-weight:bold">',__('Excelente');
 					break;
 					default:
-						echo __('Essa proposta ainda não foi avaliada. ',1).$this->Html->link(__('Avaliar',1), array('action' => 'rating', $proposal['Proposal']['id']));
+						echo __('Essa proposta ainda não foi avaliada. ').$this->Html->link(__('Avaliar'), array('action' => 'rating', $proposal['Proposal']['id']));
 					break;
 				}
 			?>
@@ -62,7 +62,7 @@
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Aprovado'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $proposal['Proposal']['approved'] ? __('Sim',1) : __('Não',1); ?>
+			<?php echo $proposal['Proposal']['approved'] ? __('Sim') : __('Não'); ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Criado em'); ?></dt>

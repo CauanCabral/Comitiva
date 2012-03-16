@@ -12,9 +12,9 @@
 	<fieldset>
  		<legend><?php echo __('Nova Inscrição');?></legend>
 	<?php
-		echo $this->Form->input('user_id', array('label' => __('Usuário', TRUE)));
-		echo $this->Form->input('event_id', array('label' => __('Evento', TRUE)));
+		echo $this->Form->input('user_id', array('label' => __('Usuário')));
+		echo $this->Form->input('event_id', array('label' => __('Evento')));
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Adicionar', TRUE));?>
+<?php echo $this->Form->end(__('Adicionar'));?>
 </div>

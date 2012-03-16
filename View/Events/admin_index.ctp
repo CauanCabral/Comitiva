@@ -17,7 +17,7 @@ echo $this->Paginator->counter(array(
 	<th><?php echo $this->Paginator->sort('Event.title', __('Título'));?></th>
 	<th><?php echo $this->Paginator->sort('Event.free', __('Gratuito?'));?></th>
   <th><?php echo $this->Paginator->sort('Event.open_for_proposals', __('Submissão de Propostas liberada?'));?></th>
-	<th><?php echo __('Inscritos',true);?></th>
+	<th><?php echo __('Inscritos');?></th>
 	<th class="actions"><?php echo __('Ações');?></th>
 </tr>
 <?php

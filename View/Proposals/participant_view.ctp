@@ -33,22 +33,22 @@
 				switch($proposal['Proposal']['rating'])
 				{
 					case 1:
-						echo __('Péssimo',1);
+						echo __('Péssimo');
 					break;
 					case 2:
-						echo __('Ruim',1);
+						echo __('Ruim');
 					break;
 					case 3:
-						echo __('Bom',1);
+						echo __('Bom');
 					break;
 					case 4:
-						echo __('Ótimo',1);
+						echo __('Ótimo');
 					break;
 					case 5:
-						echo __('Excelente',1);
+						echo __('Excelente');
 					break;
 					default:
-						echo __('Essa proposta ainda não foi avaliada. ',1).$this->Html->link(__('Avaliar',1), array('action' => 'rating', $proposal['Proposal']['id']));
+						echo __('Essa proposta ainda não foi avaliada. ').$this->Html->link(__('Avaliar',1), array('action' => 'rating', $proposal['Proposal']['id']));
 					break;
 				}
 			?>

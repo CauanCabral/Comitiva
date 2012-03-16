@@ -12,15 +12,15 @@
  		<legend><?php echo __('Novo Evento');?></legend>
 	<?php
     echo $this->Form->input('Event.open_for_proposals', array('type' => 'checkbox', 'label' => __('Aberto para Submissão de Propostas')));
-		echo $this->Form->input('Event.title', array('label' => __('Titulo',true)));
-		echo $this->Form->input('Event.description', array('label' => __('Descrição',true), 'rows' => 15));
-		echo $this->Form->input('Event.parent_id', array('label' => __('Macro Evento', true), 'options' => array_merge(array('Selecione um evento'),$events)));
-		echo $this->Form->input('Event.free', array('label' => __('Gratuito?',true)));
+		echo $this->Form->input('Event.title', array('label' => __('Titulo')));
+		echo $this->Form->input('Event.description', array('label' => __('Descrição'), 'rows' => 15));
+		echo $this->Form->input('Event.parent_id', array('label' => __('Macro Evento'), 'options' => array_merge(array('Selecione um evento'),$events)));
+		echo $this->Form->input('Event.free', array('label' => __('Gratuito?')));
 
 		/******
 		 * EventPrice hasMany add
 		 */
-		echo $this->Html->link(__('Adicionar preço', true), array('action' => 'eventPriceAdd', 'prefix' => 'admin'), array('id' => 'addEventPrice'));
+		echo $this->Html->link(__('Adicionar preço'), array('action' => 'eventPriceAdd', 'prefix' => 'admin'), array('id' => 'addEventPrice'));
 		echo $this->Form->input('EventPrice.counter', array('type' => 'hidden', 'value' => 0, 'id' => 'priceCounter'));
 		echo '<fieldset id="pricesEvent"></fieldset>';
 
@@ -41,7 +41,7 @@
 		/******
 		 * EventDate hasMany add
 		 */
-		echo $this->Html->link(__('Adicionar data', true), array('action' => 'eventPriceAdd', 'prefix' => 'admin'), array('id' => 'addEventDate'));
+		echo $this->Html->link(__('Adicionar data'), array('action' => 'eventPriceAdd', 'prefix' => 'admin'), array('id' => 'addEventDate'));
 		echo $this->Form->input('EventDate.counter', array('type' => 'hidden', 'value' => 0, 'id' => 'dateCounter'));
 		echo '<fieldset id="datesEvent"></fieldset>';
 
@@ -109,5 +109,5 @@ SCRIPT;
 		echo $this->Html->scriptBlock($handlers, array('secure' => true));
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Salvar', true));?>
+<?php echo $this->Form->end(__('Salvar'));?>
 </div>

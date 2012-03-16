@@ -287,7 +287,7 @@ class UsersController extends AppController
 			if ($this->User->save($this->request->data))
 			{
 				// se o admin está editando sua própria conta
-				if($this->request->data['User']['id'] == User::get('id'))
+				if($this->request->data['User']['id'] == $this->activeUser['id'])
 				{
 					// recarrega suas informações
 					$this->__reloadUserInfo();
@@ -331,7 +331,7 @@ class UsersController extends AppController
 	
 	public function participant_profile()
 	{	
-		$this->set('user', User::get('User'));
+		$this->set('user', $this->activeUser['id']);
 		$this->render('profile');
 	}
 	
@@ -340,9 +340,9 @@ class UsersController extends AppController
 		if(!empty($this->request->data))
 		{
 			// force field id to use User logged id
-			$this->request->data['User']['id'] = User::get('id');
+			$this->request->data['User']['id'] = $this->activeUser['id'];
 			// force field username to use User logged username
-			$this->request->data['User']['username'] = User::get('username');
+			$this->request->data['User']['username'] = $this->activeUser['username'];
 			
 			if($this->User->save($this->request->data))
 			{
@@ -358,7 +358,7 @@ class UsersController extends AppController
 		}
 		
 		// read and set the User data based on value of logged user
-		$this->request->data = $this->User->read(null, User::get('id'));
+		$this->request->data = $this->User->read(null, $this->activeUser['id']);
 	}
 	
 	/***************************
@@ -373,7 +373,7 @@ class UsersController extends AppController
 	 */
 	protected function __reloadUserInfo()
 	{
-		$user = $this->User->read(null, User::get('id'));
+		$user = $this->User->read(null, $this->activeUser['id']);
 		
 		//remove chaves desnecessárias para a sessão
 		unset($user['User']['password'], $user['User']['token'], $user['User']['account_validation_token']);
@@ -417,8 +417,8 @@ class UsersController extends AppController
 			/* Setup parameters of EmailComponent */
 			$email->to($userData['User']['email'])
 					->subject('[PHPMS - Inscrições] Pedido para recuperar senha')
-					->replyTo(Cofigure::read('Message.from'))
-					->from('PHPMS <' . Cofigure::read('Message.from') . '>')
+					->replyTo(Configure::read('Message.from'))
+					->from('PHPMS <' . Configure::read('Message.from') . '>')
 					->template('reset_password')
 					->emailFormat('html');
 
@@ -474,8 +474,8 @@ class UsersController extends AppController
 			/* Setup parameters of EmailComponent */
 			$email->to($userData['User']['email'])
 					->subject('[PHPMS - Inscrições] Confirmação de conta')
-					->replyTo(Cofigure::read('Message.from'))
-					->from('PHPMS <' . Cofigure::read('Message.from') . '>')
+					->replyTo(Configure::read('Message.from'))
+					->from('PHPMS <' . Configure::read('Message.from') . '>')
 					->template('account_confirm')
 					->emailFormat('html');
 	

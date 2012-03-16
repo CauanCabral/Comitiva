@@ -19,9 +19,9 @@
 		para que possamos confirmar o pagamento e a inscrição.</h4>
 	<?php
 		echo $this->Form->input('Subscription.id', array('type' => 'hidden', 'value' => $subscription['Subscription']['id']));
-		echo $this->Form->input('Payment.amount', array('label' => __('Valor',1)));
+		echo $this->Form->input('Payment.amount', array('label' => __('Valor')));
 		echo $this->Form->input('Payment.date', array('type' => 'date', 'label' => 'Data', 'dateFormat' => 'DMY', 'minYear' => '2010', 'maxYear' => '2010'));
-		echo $this->Form->input('Payment.information', array('label' => __('Informações',1), 'type' => 'textarea'));
+		echo $this->Form->input('Payment.information', array('label' => __('Informações'), 'type' => 'textarea'));
 	?>
 	</fieldset>
 <?php echo $this->Form->end('Confirmar');?>

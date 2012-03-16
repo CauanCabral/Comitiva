@@ -1,6 +1,7 @@
 <?php
 App::uses('BrValidation', 'Localized.Lib');
 App::uses('Security', 'Utility');
+App::uses('AuthComponent', 'Controller/Component');
 
 class User extends AppModel
 {
@@ -90,6 +91,15 @@ class User extends AppModel
 			'dependent' => false
 		)
 	);
+
+	public function beforeSave($options = array())
+	{
+		if(isset($this->data['User']['password']) && !empty($this->data['User']['password']))
+		{
+			$this->data['User']['password'] = AuthComponent::password($this->data['User']['password']);
+		}
+		return true;
+    }
 	
 	/**
 	 * Método para validar a senha do usuário
@@ -132,18 +142,16 @@ class User extends AppModel
 			return false;
 		}
 		
-		// valida o tamanho da senha, pela sua confirmação
-		if(mb_strlen($confirm) < 4)
+		// valida o tamanho da senha
+		if(mb_strlen($passwd) < 4)
 		{
 			$this->validationErrors['password_confirm'] = 'A senha deve ter pelo menos 4 caracteres';
 			
 			return false;
 		}
-		
-		$hash = Security::hash($confirm, null, true);
-		
-		// valida se o hash da senha é o mesmo da confirmação
-		if($passwd != $hash)
+
+		// valida se as senhas não batem
+		if($passwd != $confirm)
 		{
 			$this->validationErrors['password_confirm'] = 'Campo não bate com a senha';
 			

@@ -12,13 +12,13 @@
 		<h3>Evento: <?php echo $subscription['Event']['title']; ?></h3>
 	<?php
 		echo $this->Form->input('Payment.subscription_id', array('type' => 'hidden', 'value' => $subscription['Subscription']['id']));
-		echo $this->Form->input('Payment.amount', array('label' => __('Valor',1)));
+		echo $this->Form->input('Payment.amount', array('label' => __('Valor')));
 		echo $this->Form->input('Payment.date', array('type' => 'date', 'label' => 'Data', 'dateFormat' => 'DMY', 'minYear' => '2010', 'maxYear' => '2010'));
-		echo $this->Form->input('Payment.information', array('label' => __('Informações',1), 'type' => 'textarea'));
+		echo $this->Form->input('Payment.information', array('label' => __('Informações'), 'type' => 'textarea'));
 		echo $this->Form->input('Payment.confirmed', array(
-			'label' => __('Confirmado? ',1), 'options' => array(
-				0 => __('Não', TRUE),
-				1 => __('Sim', TRUE)
+			'label' => __('Confirmado? '), 'options' => array(
+				0 => __('Não'),
+				1 => __('Sim')
 				)
 			)
 		);

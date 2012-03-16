@@ -49,9 +49,9 @@
 		<td class="actions">
 			<?php
 			if(!$subscription['Event']['free'] && !$subscription['Payment']['confirmed'])
-				echo $this->Html->link(__('Confirmar pagamento', TRUE), array('controller' => 'payments', 'action' => 'confirm', $subscription['Payment']['id']), null, sprintf(__('Deseja realmente confirmar o pagamento da inscrição # %s?'), $subscription['Payment']['id']));
+				echo $this->Html->link(__('Confirmar pagamento'), array('controller' => 'payments', 'action' => 'confirm', $subscription['Payment']['id']), null, sprintf(__('Deseja realmente confirmar o pagamento da inscrição # %s?'), $subscription['Payment']['id']));
 					
-			echo $this->Html->link(__('Ver', TRUE), array('controller' => 'payments', 'action' => 'view', $subscription['Payment']['id']));
+			echo $this->Html->link(__('Ver'), array('controller' => 'payments', 'action' => 'view', $subscription['Payment']['id']));
 			?>
 		</td>
 	</tr>

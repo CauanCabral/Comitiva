@@ -10,7 +10,7 @@
 <?php
 	echo $this->Form->create('User', array('action' => "/reset_password/{$secureHash}"));
 	echo $this->Form->input('User.id', array('type' => 'hidden', 'value' => $user_id));
-	echo $this->Form->input('User.new_pass', array('label' => __('Nova senha', TRUE), 'type' => 'password'));
-	echo $this->Form->end(__('Salvar', TRUE));
+	echo $this->Form->input('User.new_pass', array('label' => __('Nova senha'), 'type' => 'password'));
+	echo $this->Form->end(__('Salvar'));
 ?>
 </div>

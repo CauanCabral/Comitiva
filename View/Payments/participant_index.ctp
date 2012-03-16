@@ -14,10 +14,10 @@ echo $this->Paginator->counter(array(
 ?></p>
 <table cellpadding="0" cellspacing="0">
 <tr>
-	<th><?php echo $this->Paginator->sort(__('Data', TRUE), 'Payment.date');?></th>
+	<th><?php echo $this->Paginator->sort('Payment.date', __('Data'));?></th>
 	<th><?php echo __('Evento');?></th>
-	<th><?php echo $this->Paginator->sort(__('Valor', TRUE), 'Payment.amount');?></th>
-	<th><?php echo $this->Paginator->sort(__('Confirmado?', TRUE), 'Payment.confirmed');?></th>
+	<th><?php echo $this->Paginator->sort('Payment.amount', __('Valor'));?></th>
+	<th><?php echo $this->Paginator->sort('Payment.confirmed', __('Confirmado?'));?></th>
 </tr>
 <?php
 $i = 0;
@@ -38,7 +38,7 @@ foreach ($payments as $payment):
 			<?php echo $this->Locale->currency($payment['Payment']['amount']); ?>
 		</td>
 		<td>
-			<?php echo ($payment['Payment']['confirmed']?__('Sim',1):__('Não',1)); ?>
+			<?php echo ($payment['Payment']['confirmed']?__('Sim'):__('Não')); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

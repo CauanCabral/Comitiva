@@ -38,28 +38,28 @@
 		switch($proposal['Proposal']['rating'])
 		{
 			case 1:
-				echo '<p style="color:#DF0101;font-weight:bold">', __('Péssimo',1),'</p>';
+				echo '<p style="color:#DF0101;font-weight:bold">', __('Péssimo'),'</p>';
 			break;
 			case 2:
-				echo '<p style="color:#FE9A2E;font-weight:bold">',__('Ruim',1);
+				echo '<p style="color:#FE9A2E;font-weight:bold">',__('Ruim');
 			break;
 			case 3:
-				echo '<p style="color:#AEB404;font-weight:bold">',__('Bom',1);
+				echo '<p style="color:#AEB404;font-weight:bold">',__('Bom');
 			break;
 			case 4:
-				echo '<p style="color:#045FB4;font-weight:bold">',__('Ótimo',1);
+				echo '<p style="color:#045FB4;font-weight:bold">',__('Ótimo');
 			break;
 			case 5:
-				echo '<p style="color:#04B404;font-weight:bold">',__('Excelente',1);
+				echo '<p style="color:#04B404;font-weight:bold">',__('Excelente');
 			break;
 			default:
-				echo __('Sem avaliação',1);
+				echo __('Sem avaliação');
 			break;
 		}
     ?>
     </td>
     <td>
-    	<?php echo $proposal['Proposal']['approved'] ? __('Sim',1) : __('Não',1); ?>
+    	<?php echo $proposal['Proposal']['approved'] ? __('Sim') : __('Não'); ?>
     </td>
     <td>
     	<?php echo $this->Locale->dateTime($proposal['Proposal']['created']); ?>
@@ -68,11 +68,11 @@
 	<?php  
 	if($proposal['Proposal']['approved'])
 	{
-		echo '  ',$this->Html->link(__('Rejeitar',1), array('action' => 'approve', $proposal['Proposal']['id'], 0), null, sprintf(__('Rejeitar a proposta?')));
+		echo '  ',$this->Html->link(__('Rejeitar'), array('action' => 'approve', $proposal['Proposal']['id'], 0), null, sprintf(__('Rejeitar a proposta?')));
 	}
 	else
 	{
-		echo '  ',$this->Html->link(__('Aprovar',1), array('action' => 'approve', $proposal['Proposal']['id'], 1), null, sprintf(__('Aprovar a proposta?')));
+		echo '  ',$this->Html->link(__('Aprovar'), array('action' => 'approve', $proposal['Proposal']['id'], 1), null, sprintf(__('Aprovar a proposta?')));
 	}
 	?>
 		<?php echo $this->Html->link(__('Visualizar'), array('action' => 'view', $proposal['Proposal']['id'])); ?>

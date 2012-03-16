@@ -15,9 +15,9 @@ echo $this->Paginator->counter(array(
 <table cellpadding="0" cellspacing="0">
 <tr>
 	<th><?php echo $this->Paginator->sort('id');?></th>
-	<th><?php echo __('Nome do Evento',1);?></th>
-	<th><?php echo __('Gratuito?',1);?></th>
-	<th><?php echo __('Inscritos',1);?></th>
+	<th><?php echo __('Nome do Evento');?></th>
+	<th><?php echo __('Gratuito?');?></th>
+	<th><?php echo __('Inscritos');?></th>
 	<th class="actions"><?php echo __('Ações');?></th>
 </tr>
 <?php

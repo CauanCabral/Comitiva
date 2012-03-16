@@ -11,33 +11,33 @@
 	<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('User.active', array(
-			'label' => __('Ativo', 1),
+			'label' => __('Ativo'),
 			'type' => 'checkbox',
 		));
-		echo $this->Form->input('name', array('label' => __('Nome', TRUE)));
-		echo $this->Form->input('nickname', array('label' => __('Sobrenome', TRUE)));
+		echo $this->Form->input('name', array('label' => __('Nome')));
+		echo $this->Form->input('nickname', array('label' => __('Sobrenome')));
 		echo $this->Form->input('User.groups', array(
-			'label' => __('Grupos', TRUE),
+			'label' => __('Grupos'),
 			'options' => array(
-				'participant' => __('Participante',TRUE),
-				'speaker' => __('Palestrante', TRUE),
-				'admin' => __('Administrador', TRUE)
+				'participant' => __('Participante'),
+				'speaker' => __('Palestrante'),
+				'admin' => __('Administrador')
 			),
 			'multiple' => TRUE
 		));
 		echo $this->Form->input('birthday', array(
-			'label' => __('Data de nascimento', TRUE),
+			'label' => __('Data de nascimento'),
 			'type' => 'date',
 			'minYear' => date('Y')-100,
 			'maxYear' => date('Y')
 		));
-		echo $this->Form->input('email', array('label' => __('Email', TRUE)));
-		echo $this->Form->input('cpf', array('label' => __('CPF', 1)));
-		echo $this->Form->input('address', array('label' => __('Endereço', 1)));
-		echo $this->Form->input('city', array('label' => __('Cidade',1)));
-		echo $this->Form->input('state', array('label' => __('Estado', 1)));
-		echo $this->Form->input('phone', array('label' => __('Telefone',1)));
+		echo $this->Form->input('email', array('label' => __('Email')));
+		echo $this->Form->input('cpf', array('label' => __('CPF')));
+		echo $this->Form->input('address', array('label' => __('Endereço')));
+		echo $this->Form->input('city', array('label' => __('Cidade')));
+		echo $this->Form->input('state', array('label' => __('Estado')));
+		echo $this->Form->input('phone', array('label' => __('Telefone')));
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Salvar', TRUE));?>
+<?php echo $this->Form->end(__('Salvar'));?>
 </div>

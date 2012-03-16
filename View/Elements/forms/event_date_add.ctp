@@ -5,14 +5,14 @@
 	}
 	echo '<div class="eventDate">';
 		echo $this->Form->input("EventDate.{$i}.date", array(
-			'label' => __('Data', TRUE),
+			'label' => __('Data'),
 			'type' => 'datetime',
 			'minYear' => date('Y'),
 			'maxYear' => date('Y') + 5
 			)
 		);
 		echo $this->Form->input("EventDate.{$i}.desc", array(
-			'label' => __('Desc', TRUE)
+			'label' => __('Desc')
 			)
 		);
 		

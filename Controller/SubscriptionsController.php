@@ -176,7 +176,7 @@ class SubscriptionsController extends AppController
 	public function participant_index()
 	{
 		$this->Subscription->recursive = 0;
-		$this->set('subscriptions', $this->paginate(array('user_id' => User::get('id'))));
+		$this->set('subscriptions', $this->paginate(array('user_id' => $this->activeUser['id'])));
 	}
 
 	public function participant_view($id = null)
@@ -192,7 +192,7 @@ class SubscriptionsController extends AppController
 			array(
 				'conditions' => array(
 					'Subscription.id' => $id,
-					'Subscription.user_id' => User::get('id')
+					'Subscription.user_id' => $this->activeUser['id']
 					)
 				)
 			)
@@ -226,7 +226,7 @@ class SubscriptionsController extends AppController
 			$this->Subscription->create();
 			
 			$this->request->data['Subscription']['event_id'] = $event_id;
-			$this->request->data['Subscription']['user_id'] = User::get('id');
+			$this->request->data['Subscription']['user_id'] = $this->activeUser['id'];
 			
 			if ($this->Subscription->save($this->request->data))
 			{
@@ -242,7 +242,7 @@ class SubscriptionsController extends AppController
 		
 		if($event_id != null)
 		{
-			$subscription = $this->Subscription->find('first', array('recursive' => -1, 'conditions' => array('event_id' => $event_id, 'user_id' => User::get('id'))));
+			$subscription = $this->Subscription->find('first', array('recursive' => -1, 'conditions' => array('event_id' => $event_id, 'user_id' => $this->activeUser['id'])));
 			
 			if(!empty($subscription))
 			{
@@ -263,7 +263,7 @@ class SubscriptionsController extends AppController
 			$this->__goBack();
 		}
 		
-		$subscription = $this->Subscription->find('first', array('recursive' => -1, 'conditions' => array('event_id' => $id, 'user_id' => User::get('id'))));
+		$subscription = $this->Subscription->find('first', array('recursive' => -1, 'conditions' => array('event_id' => $id, 'user_id' => $this->activeUser['id'])));
 		
 		// verifica se a inscrição está registrada para o usuário logado
 		if(!empty($subscription))

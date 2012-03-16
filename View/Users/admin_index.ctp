@@ -8,17 +8,17 @@
 <p>
 <?php
 echo $this->Paginator->counter(array(
-'format' => __('Página %page% de %pages%, exibindo %current% entradas de %count% total, iniciando no registro %start% e terminando em %end%', TRUE)
+'format' => __('Página %page% de %pages%, exibindo %current% entradas de %count% total, iniciando no registro %start% e terminando em %end%')
 ));
 ?></p>
 <table cellpadding="0" cellspacing="0">
 <tr>
 	<th><?php echo $this->Paginator->sort('id');?></th>
-	<th><?php echo $this->Paginator->sort(__('Nome', TRUE), 'name');?></th>
-	<th><?php echo $this->Paginator->sort(__('Nome de usuário', TRUE), 'username');?></th>
-	<th><?php echo $this->Paginator->sort(__('Email', TRUE), 'email');?></th>
-	<th><?php echo $this->Paginator->sort(__('Último acesso', TRUE), 'last_access');?></th>
-	<th><?php echo $this->Paginator->sort(__('Data de registro', TRUE), 'created');?></th>
+	<th><?php echo $this->Paginator->sort('name', __('Nome'));?></th>
+	<th><?php echo $this->Paginator->sort('username', __('Nome de usuário'));?></th>
+	<th><?php echo $this->Paginator->sort('email', __('Email'));?></th>
+	<th><?php echo $this->Paginator->sort('last_access', __('Último acesso'));?></th>
+	<th><?php echo $this->Paginator->sort('created', __('Data de registro'));?></th>
 	<th class="actions"><?php echo __('Ações');?></th>
 </tr>
 <?php

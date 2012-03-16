@@ -3,8 +3,10 @@ class ProposalsController extends AppController {
 
 	public $name = 'Proposals';
 	public $uses = array('Proposal');
-  	public $components = array('Mailer.Mailer');
-	public $helpers = array('TinyMce.TinyMce', 'Locale.Locale');
+	public $helpers = array(
+		'TinyMCE.TinyMCE',
+		'Locale.Locale'
+	);
   
 	/********
 	 * Ações do usuário Palestrante
@@ -12,7 +14,7 @@ class ProposalsController extends AppController {
 	function participant_index()
 	{
 		$this->paginate['contain'] = array('User', 'Event');
-		$proposals = $this->paginate('Proposal', array('user_id' => User::get('id')));
+		$proposals = $this->paginate('Proposal', array('user_id' => $this->activeUser['id']));
 
 		if(isset($proposals) && !empty($proposals))
 		{
@@ -30,7 +32,7 @@ class ProposalsController extends AppController {
 
 		$proposal =  $this->Proposal->find('first',array(
 			'conditions' => array(
-				'Proposal.user_id' => User::get('id'),
+				'Proposal.user_id' => $this->activeUser['id'],
 				'Proposal.id' => $id
 			),
 		));
@@ -56,7 +58,7 @@ class ProposalsController extends AppController {
 				$this->redirect(array('action' => 'index'));
 			}
 
-			$this->request->data['Proposal']['user_id'] = User::get('id');
+			$this->request->data['Proposal']['user_id'] = $this->activeUser['id'];
 			
 			if ($this->Proposal->save($this->request->data))
 			{
@@ -92,7 +94,7 @@ class ProposalsController extends AppController {
 		
 		if (!empty($this->request->data))
 		{
-			$this->request->data['Proposal']['user_id'] = User::get('id');
+			$this->request->data['Proposal']['user_id'] = $this->activeUser['id'];
 			
 			if ($this->Proposal->save($this->request->data))
 			{

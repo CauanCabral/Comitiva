@@ -26,7 +26,7 @@
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Confirmado'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo ($payment['Payment']['confirmed']?__('Sim',1):__('Não')); ?>
+			<?php echo ($payment['Payment']['confirmed']?__('Sim'):__('Não')); ?>
 			&nbsp;
 		</dd>
 	

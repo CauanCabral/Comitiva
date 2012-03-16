@@ -15,12 +15,12 @@ echo $this->Paginator->counter(array(
 ?></p>
 <table cellpadding="0" cellspacing="0">
 <tr>
-	<th><?php echo $this->Paginator->sort(__('ID',  TRUE), 'Subscription.id');?></th>
-	<th><?php echo $this->Paginator->sort(__('Usuário', TRUE), 'User.fullName');?></th>
-	<th><?php echo $this->Paginator->sort(__('Evento', TRUE), 'Event.title');?></th>
-	<th><?php echo $this->Paginator->sort(__('Data da inscrição', TRUE), 'Subscription.created');?></th>
+	<th><?php echo $this->Paginator->sort('Subscription.id', __('ID'));?></th>
+	<th><?php echo $this->Paginator->sort('User.fullName', __('Usuário'));?></th>
+	<th><?php echo $this->Paginator->sort('Event.title', __('Evento'));?></th>
+	<th><?php echo $this->Paginator->sort('Subscription.created', __('Data da inscrição'));?></th>
 	<th><?php echo __('Pagamento');?></th>
-	<th><?php echo $this->Paginator->sort(__('Check-in', TRUE), 'Subscription.checked');?></th>
+	<th><?php echo $this->Paginator->sort('Subscription.checked', __('Check-in'));?></th>
 	<th class="actions"><?php echo __('Ações');?></th>
 </tr>
 <?php
@@ -60,13 +60,13 @@ foreach ($subscriptions as $subscription):
 		<td class="actions">
 			<?php
 				if(!$subscription['Event']['free'] && !isset($subscription['Payment']['id']))
-					echo $this->Html->link(__('Informar pagamento', TRUE), array('controller' => 'payments', 'action' => 'add', $subscription['Subscription']['id']));
+					echo $this->Html->link(__('Informar pagamento'), array('controller' => 'payments', 'action' => 'add', $subscription['Subscription']['id']));
 					
 				if(!$subscription['Event']['free'] && isset($subscription['Payment']['id']) && !$subscription['Payment']['confirmed'])
-					echo $this->Html->link(__('Confirmar pagamento', TRUE), array('controller' => 'payments', 'action' => 'confirm', $subscription['Payment']['id']), null, sprintf(__('Deseja realmente confirmar o pagamento da inscrição # %s?'), $subscription['Subscription']['id']));
+					echo $this->Html->link(__('Confirmar pagamento'), array('controller' => 'payments', 'action' => 'confirm', $subscription['Payment']['id']), null, sprintf(__('Deseja realmente confirmar o pagamento da inscrição # %s?'), $subscription['Subscription']['id']));
 				
 				if(($subscription['Event']['free'] || $subscription['Payment']['confirmed']) && !$subscription['Subscription']['checked'])
-					echo $this->Html->link(__('Check-in', TRUE), array('controller' => 'subscriptions', 'action' => 'checkin', $subscription['Subscription']['id']));
+					echo $this->Html->link(__('Check-in'), array('controller' => 'subscriptions', 'action' => 'checkin', $subscription['Subscription']['id']));
 			?>
 			<?php echo $this->Html->link(__('Ver'), array('action' => 'view', $subscription['Subscription']['id'])); ?>
 			<?php echo $this->Html->link(__('Alterar'), array('action' => 'edit', $subscription['Subscription']['id'])); ?>

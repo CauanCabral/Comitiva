@@ -1,6 +1,6 @@
 <div class="actions">
 	<ul>
-		<li><?php echo $this->Html->link(__('Confirmar pagamento', TRUE), array('controller' => 'payments', 'action' => 'confirm', $payment['Payment']['id']), null, sprintf(__('Deseja realmente confirmar o pagamento da inscrição # %s?'), $payment['Payment']['id'])); ?></li>
+		<li><?php echo $this->Html->link(__('Confirmar pagamento'), array('controller' => 'payments', 'action' => 'confirm', $payment['Payment']['id']), null, sprintf(__('Deseja realmente confirmar o pagamento da inscrição # %s?'), $payment['Payment']['id'])); ?></li>
 		<li><?php echo $this->Html->link(__('Editar Pagamento'), array('action' => 'edit', $payment['Payment']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('Apagar Pagamento'), array('action' => 'delete', $payment['Payment']['id']), null, sprintf(__('Tem certeza que deseja apagar # %s?'), $payment['Payment']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('Listar Pagamentos'), array('action' => 'index')); ?> </li>
@@ -9,7 +9,7 @@
 	</ul>
 </div>
 <div class="payments view">
-<h2><?php echo __('Pagamento',1);?></h2>
+<h2><?php echo __('Pagamento');?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Id'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>

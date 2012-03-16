@@ -47,7 +47,7 @@ class PaymentsController extends AppController
 		
 		if($id == null)
 		{
-			$this->Session->setFlash(__('Inscrição inválida', TRUE));
+			$this->Session->setFlash(__('Inscrição inválida'));
 			$this->redirect(array('action' => 'index'));
 		}
 		
@@ -160,7 +160,7 @@ class PaymentsController extends AppController
 		
 		$this->paginate = array(
 			'conditions' => array(
-				'Subscription.user_id' => User::get('id')
+				'Subscription.user_id' => $this->activeUser['id']
 			)
 		);
 		
@@ -181,7 +181,7 @@ class PaymentsController extends AppController
 			array(
 				'conditions' => array(
 					'Payment.id' => $id,
-					'Subscription.user_id' => User::get('id')
+					'Subscription.user_id' => $this->activeUser['id']
 					)
 				)
 			)
@@ -203,7 +203,7 @@ class PaymentsController extends AppController
 			$this->redirect(array('action' => 'index'));
 		}
 		// verify if subscription is the logged user
-		else if($subscription['Subscription']['user_id'] != User::get('id'))
+		else if($subscription['Subscription']['user_id'] != $this->activeUser['id'])
 		{
 			$this->Session->setFlash(__('Você não possui autorização para realizar esta ação!'));
 			$this->redirect(array('action' => 'index'));

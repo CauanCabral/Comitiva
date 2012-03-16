@@ -88,7 +88,7 @@
 			<tr<?php echo $class;?>>
 				<td><?php echo $eventPrice['observation'];?></td>
 				<td><?php echo $this->Locale->currency($eventPrice['price']);?></td>
-				<td><?php echo __('entre'), ' ', $this->Locale->date($eventPrice['start_date']), ' ', __('e', TRUE), ' ',$this->Locale->date($eventPrice['final_date']);?></td>
+				<td><?php echo __('entre'), ' ', $this->Locale->date($eventPrice['start_date']), ' ', __('e'), ' ',$this->Locale->date($eventPrice['final_date']);?></td>
 			</tr>
 		<?php endforeach; ?>
 		</table>
