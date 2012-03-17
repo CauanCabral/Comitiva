@@ -277,6 +277,11 @@ class AppController extends Controller
 		$this->autoRender = $autoRender;
 	}
 
+	protected function __setFlash($message, $type = 'success')
+	{
+		$this->Session->setFlash(__($message), 'default', array('class' => $type));
+	}
+
 	/**
 	 * Redireciona para última ação vista
 	 *
