@@ -13,20 +13,20 @@
  		<legend><?php echo __('Confirme sua Inscrição');?></legend>
 		<h2><?php echo __('Nome do Evento') ?></h2>
 		<?php
-			echo '<h3>'.$event['Event']['title'].'</h3>'; 
-		
+			echo '<h3>'.$event['Event']['title'].'</h3>';
+
 			if(!empty($event['ParentEvent']['title'])):
 		?>
 		<br />
 		<h2><?php echo __('Macro Evento') ?></h2>
 		<h3><?php echo $event['ParentEvent']['title']; ?> </h3>
 		<?php endif; ?>
-		
+
 		<?php if (!empty($event['EventDate'])):?>
 		<br />
 		<div class="related">
 			<h3><?php echo __('Datas');?></h3>
-			
+
 			<table cellpadding = "0" cellspacing = "0">
 			<tr>
 				<th><?php echo __('Legenda'); ?></th>
@@ -48,7 +48,7 @@
 			</table>
 		</div>
 		<?php endif; ?>
-		
+
 		<?php if (!empty($event['EventPrice'])):?>
 		<br />
 		<div class="related">
@@ -79,5 +79,5 @@
 		</div>
 		<?php endif; ?>
 	</fieldset>
-<?php echo $this->Form->end(__('Confirmar', TRUE));?>
+<?php echo $this->Form->end(__('Confirmar'));?>
 </div>

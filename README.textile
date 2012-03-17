@@ -28,6 +28,7 @@ h2. Colaboradores:
 "*Felipe V. Rigo*":http://www.felipevr.eti.br
 "*Bruno Porkaria*":http://porkaria.com.br
 "*José Ricardo da Silva*":http://josericardo.eti.br (root@josericardo.eti.br)
+"*Alisson Oshiro*":https://github.com/oshiroam
 
 
 h2. Licença

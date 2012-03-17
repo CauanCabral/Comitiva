@@ -6,17 +6,17 @@ App::uses('AuthComponent', 'Controller/Component');
 class User extends AppModel
 {
 	public $name = 'User';
-	
+
 	public $virtualFields = array(
 		'fullName' => "CONCAT(User.name, ' ', User.nickname)"
 	);
-	
+
 	public $displayField = 'fullName';
-	
+
 	public $actsAs = array(
 		'Locale.Locale'
 	);
-	
+
 	public $validate = array(
 		'username' => array(
 			'notempty' => array(
@@ -100,53 +100,53 @@ class User extends AppModel
 		}
 		return true;
     }
-	
+
 	/**
 	 * Método para validar a senha do usuário
-	 * 
+	 *
 	 * Critérios:
 	 *  - aceita quaisquer caracteres (especiais inclusive)
 	 *  - pelo menos 4 caracteres
 	 *  - campo de confirmação (password_confirm) deve estar preenchido e ter o mesmo valor
-	 *  
+	 *
 	 * @param $check array
 	 * @return bool $isValid
 	 */
 	public function passwordIsValid($check = null)
 	{
 		$passwd = $check['password'];
-		
+
 		// caso seja uma atualização do registro (onde a senha não pode ser alterada)
 		if(isset($this->data[$this->name]['id']))
 		{
 			return true;
 		}
-		
+
 		if(empty($passwd))
 		{
 			// campo não pode estar vazio
 			return false;
 		}
-		
+
 		if(!empty($this->data[$this->name]['password_confirm']))
 		{
 			$confirm = $this->data[$this->name]['password_confirm'];
-			
+
 			unset($this->data[$this->name]['password_confirm']);
 		}
 		// faltou campo de confirmação
 		else
 		{
 			$this->validationErrors['password_confirm'] = 'Campo obrigatório.';
-			
+
 			return false;
 		}
-		
+
 		// valida o tamanho da senha
 		if(mb_strlen($passwd) < 4)
 		{
 			$this->validationErrors['password_confirm'] = 'A senha deve ter pelo menos 4 caracteres';
-			
+
 			return false;
 		}
 
@@ -154,25 +154,25 @@ class User extends AppModel
 		if($passwd != $confirm)
 		{
 			$this->validationErrors['password_confirm'] = 'Campo não bate com a senha';
-			
+
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	/**
 	 * Método auxiliar para recuperar lista com usuários ativos
-	 * 
+	 *
 	 * @param array $conditions
 	 * @return array - lista de usuários (equivalente a User::find('list'))
 	 */
 	public function getList($conditions = array())
 	{
-		$defaultCondition = array('User.active' => TRUE);
-		
+		$defaultCondition = array('User.active' => true);
+
 		$conditions = array_merge($defaultCondition, $conditions);
-		
+
 		return $this->find('list', array('conditions' => $conditions));
 	}
 }

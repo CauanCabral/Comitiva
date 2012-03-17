@@ -31,9 +31,9 @@
  */
 class AppController extends Controller
 {
-	/****************************
-	 * Cake Controller atributes
-	 ****************************/
+	/***********************************
+	 * Propriedades do Controller
+	 **********************************/
 
 	public $components = array(
 		'Auth',
@@ -52,7 +52,7 @@ class AppController extends Controller
 	public $paginate = array('limit' => 50);
 
 	/************************
-	 * Aditional atributes
+	 * Atributos adicionais
 	 ***********************/
 
 	/**
@@ -60,13 +60,13 @@ class AppController extends Controller
 	 *
 	 * @var User
 	 */
-	public $activeUser;
+	public $activeUser = null;
+
 	/*************************
 	 * Cake Callbacks
 	 ************************/
 
 	/**
-	 * Callback default
 	 *
 	 * @return void
 	 */
@@ -83,7 +83,6 @@ class AppController extends Controller
 	}
 
 	/**
-	 * Callback default
 	 *
 	 * @return void
 	 */
@@ -103,7 +102,7 @@ class AppController extends Controller
 	}
 
 	/***************************
-	 * Auxiliar methods
+	 * Métodos auxiliares
 	 **************************/
 
 	private function __setupAuth()
@@ -114,7 +113,6 @@ class AppController extends Controller
 
 		if( !isset($this->request->params['prefix']) || !( in_array($this->request->params['prefix'], Configure::read('Routing.prefixes')) ) )
 		{
-			// all non-prefixed actions are allowed
 			$this->Auth->allow('*');
 		}
 
@@ -140,7 +138,6 @@ class AppController extends Controller
 		}
 		else
 		{
-			// if not authenticated, alter display layout
 			$this->layout = 'login';
 		}
 	}
@@ -244,7 +241,7 @@ class AppController extends Controller
 	 * @param string $group
 	 * @param array $user_groups optional
 	 *
-	 * @return bool TRUE caso pertença, FALSE caso contrário
+	 * @return bool true caso pertença, false caso contrário
 	 */
 	protected function __checkGroup($group, $user_groups = null)
 	{
@@ -269,25 +266,10 @@ class AppController extends Controller
 	}
 
 	/**
-	 * Override Error Handling of CakePHP to use a proper layout file
-	 *
-	 * @return void
-	 */
-	private function __setErrorLayout()
-	{
-		if($this->name == 'CakeError')
-		{
-			//@TODO create the error layout
-			//$this->layout = 'error';
-		}
-	}
-
-	/**
-	 * This method prepare default a ajax response
+	 * Preparação para resposta Ajax
 	 */
 	protected function __prepareAjax($autoRender = false)
 	{
-		Configure::write('Cache.disable', true);
 		Configure::write('debug', 0);
 
 		$this->layout = 'ajax';
@@ -296,13 +278,22 @@ class AppController extends Controller
 	}
 
 	/**
-	 * Try redirect to origin action
+	 * Redireciona para última ação vista
 	 *
 	 * @return void
 	 */
 	protected function __goBack()
 	{
-		// tenta redirecionar de volta para tela anterior, caso não consiga manda par action index
-		$this->redirect($this->referer(array('action'=>'index'), TRUE));
+		// caso a página anterior seja diferente da página atual
+		if($this->referer() != $this->request->here)
+		{
+			// tenta redirecionar de volta para tela anterior, caso não consiga manda par action index
+			$this->redirect($this->referer(array('action'=>'index'), true));
+		}
+		else
+		{
+			// redireciona para a index do controller atual para evitar erro de redirecionamento
+			$this->redirect(array('action' => 'index'));
+		}
 	}
 }

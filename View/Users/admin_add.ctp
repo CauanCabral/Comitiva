@@ -39,5 +39,5 @@
 		echo $this->Form->input('phone', array('label' => 'Telefone'));
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Enviar', TRUE));?>
+<?php echo $this->Form->end(__('Enviar'));?>
 </div>
