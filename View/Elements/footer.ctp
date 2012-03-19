@@ -9,4 +9,3 @@ echo $this->Html->link(
 	'http://www.cakephp.org/',
 	array('target' => '_blank', 'escape' => false)
 );
-?>

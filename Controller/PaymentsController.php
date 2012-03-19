@@ -3,18 +3,18 @@ class PaymentsController extends AppController
 {
 
 	public $name = 'Payments';
-	
+
 	public $uses = array('Payment');
-	
+
 	public $components = array('Email');
-	
+
 	/*
 	 * Ações para rota administrativa
 	 */
 	public function admin_index()
 	{
 		$this->Payment->recursive = 2;
-		
+
 		$this->set('payments', $this->paginate());
 	}
 
@@ -22,10 +22,10 @@ class PaymentsController extends AppController
 	{
 		if (!$id)
 		{
-			$this->Session->setFlash(__('Pagamento inválido'));
+			$this->__setFlash('Pagamento inválido', 'error');
 			$this->goBack();
 		}
-		
+
 		$this->set('payment', $this->Payment->read(null, $id));
 	}
 
@@ -36,21 +36,19 @@ class PaymentsController extends AppController
 			$this->Payment->create();
 			if ($this->Payment->save($this->request->data))
 			{
-				$this->Session->setFlash(__('Novo pagamento efetuado!'));
+				$this->__setFlash('Novo pagamento efetuado!', 'sucess');
 				$this->redirect(array('action' => 'index'));
 			}
-			else
-			{
-				$this->Session->setFlash(__('O pagamento não pôde ser salvo. Tente novamente.'));
-			}
+
+			$this->__setFlash('O pagamento não pôde ser salvo. Tente novamente.', 'attention');
 		}
-		
+
 		if($id == null)
 		{
-			$this->Session->setFlash(__('Inscrição inválida'));
+			$this->__setFlash('Inscrição inválida', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
-		
+
 		$subscription = $this->Payment->Subscription->read(null, $id);
 		$this->set(compact('subscription'));
 	}
@@ -59,30 +57,28 @@ class PaymentsController extends AppController
 	{
 		if (!$id && empty($this->request->data))
 		{
-			$this->Session->setFlash(__('Pagamento inválido'));
+			$this->__setFlash('Pagamento inválido', 'error');
 			$this->goBack();
 		}
-		
+
 		if (!empty($this->request->data))
 		{
 			if ($this->Payment->save($this->request->data))
 			{
-				$this->Session->setFlash(__('Pagamento atualizado!'));
+				$this->__setFlash('Pagamento atualizado!', 'success');
 				$this->redirect(array('action' => 'index'));
 			}
-			else
-			{
-				$this->Session->setFlash(__('O pagamento não pôde ser atualizado. Tente novamente.'));
-			}
+			
+			$this->__setFlash('O pagamento não pôde ser atualizado. Tente novamente.', 'attention');
 		}
-		
+
 		if (empty($this->request->data))
 		{
 			$this->request->data = $this->Payment->Subscription->find('first', array('conditions' => array('Payment.id' => $id), 'recursive' => 2));
 		}
-		
+
 		$this->set('subscription', $this->request->data);
-		
+
 		$subscriptions = $this->Payment->Subscription->find('list');
 		$this->set(compact('subscriptions'));
 	}
@@ -91,38 +87,36 @@ class PaymentsController extends AppController
 	{
 		if (!$id)
 		{
-			$this->Session->setFlash(__('Id de pagamento inválido'));
+			$this->__setFlash('Id de pagamento inválido', 'error');
 		}
 		else if ($this->Payment->delete($id))
 		{
-			$this->Session->setFlash(__('Pagamento apagado!'));
+			$this->__setFlash('Pagamento apagado!', 'success');
 		}
 		else
 		{
-			$this->Session->setFlash(__('Pagamento não foi apagado.'));
+			$this->__setFlash('Pagamento não foi apagado.', 'error');
 		}
-		
+
 		$this->__goBack();
 	}
-	
+
 	public function admin_confirm($id = null)
 	{
 		if ($id == null)
 		{
-			$this->Session->setFlash(__('Id de inscrição inválido'));
+			$this->__setFlash('Id de inscrição inválido', 'error');
 			$this->__goBack();
 		}
-		
-		// verify if this payment is already confirmed
+
 		$verify = $this->Payment->read(null, $id);
-		
+
 		if(is_array($verify) && $verify['Payment']['confirmed'] == 1)
 		{
-			$this->Session->setFlash(__('Pagamento já havia sido confirmado'));
-			
+			$this->__setFlash('Pagamento já havia sido confirmado', 'attention');
 			$this->__goBack();
 		}
-		
+
 		$success = $this->Payment->save(
 			array(
 				'Payment' => array(
@@ -131,39 +125,39 @@ class PaymentsController extends AppController
 				)
 			)
 		);
-		
+
 		if($success)
 		{
 			if($this->__sendConfirmationMail($id))
 			{
-				$this->Session->setFlash(__('Pagamento confirmado'));
+				$this->__setFlash('Pagamento confirmado', 'success');
 			}
 			else
 			{
-				$this->Session->setFlash(__('Pagamento confirmado, mas aviso não pode ser enviado por email'));
+				$this->__setFlash('Pagamento confirmado, mas aviso não pode ser enviado por email', 'attention');
 			}
 		}
 		else
 		{
-			$this->Session->setFlash(__('Não foi possível confirmar o pagamento'));
+			$this->__setFlash(_'Não foi possível confirmar o pagamento', 'error');
 		}
-		
+
 		$this->__goBack();
 	}
-	
+
 	/*
 	 * Ações para rota de participante
 	 */
 	public function participant_index()
 	{
 		$this->Payment->recursive = 2;
-		
+
 		$this->paginate = array(
 			'conditions' => array(
 				'Subscription.user_id' => $this->activeUser['id']
 			)
 		);
-		
+
 		$this->set('payments', $this->paginate());
 	}
 
@@ -171,11 +165,10 @@ class PaymentsController extends AppController
 	{
 		if (!$id)
 		{
-			$this->Session->setFlash(__('Pagamento inválido'));
-			
+			$this->__setFlash('Pagamento inválido', 'error');
 			$this->__goBack();
 		}
-		
+
 		$this->set('payment', $this->Payment->find(
 			'first',
 			array(
@@ -194,57 +187,54 @@ class PaymentsController extends AppController
 		{
 			$subscription_id = $this->request->data['Subscription']['id'];
 		}
-		
+
 		$subscription = $this->Payment->Subscription->find('first', array('conditions' => array('Subscription.id' => $subscription_id)));
-		
+
 		if ($subscription_id == null)
 		{
-			$this->Session->setFlash(__('Inscrição Inválida'));
+			$this->__setFlash('Inscrição Inválida', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
-		// verify if subscription is the logged user
-		else if($subscription['Subscription']['user_id'] != $this->activeUser['id'])
-		{
-			$this->Session->setFlash(__('Você não possui autorização para realizar esta ação!'));
-			$this->redirect(array('action' => 'index'));
-		}
-		// verify if event is free (no need payments)
-		else if($subscription['Event']['free'])
-		{
-			$this->Session->setFlash(__('Este evento é gratuito!'));
-			$this->__goBack();
-		}
-		// verify if payment already exist
-		else if(!empty($subscription['Payment']['id']))
-		{
-			$this->Session->setFlash(__('Este Pagamento Já Foi Informado!'));
-			$this->__goBack();
-		} 
 		
-		// verify if form has submited
+		if($subscription['Subscription']['user_id'] != $this->activeUser['id'])
+		{
+			$this->__setFlash('Você não possui autorização para realizar esta ação!', 'attention');
+			$this->redirect(array('action' => 'index'));
+		}
+		
+		if($subscription['Event']['free'])
+		{
+			$this->__setFlash('Este evento é gratuito!', 'success');
+			$this->__goBack();
+		}
+		
+		if(!empty($subscription['Payment']['id']))
+		{
+			$this->__setFlash('Este pagamento já foi informado!', 'attention');
+			$this->__goBack();
+		}
+
 		if (!empty($this->request->data))
 		{
 			$this->Payment->create();
 			$this->request->data['Payment']['subscription_id'] = $subscription_id;
-			
+
 			if ($this->Payment->save($this->request->data))
-			{  
-				$this->Session->setFlash(__('Pagamento Informado!'));
+			{
+				$this->__setFlash('Pagamento Informado!', 'success');
 				$this->redirect(array('action' => 'index'));
 			}
-			else
-			{
-				$this->Session->setFlash(__('O pagamento não pôde ser registrado. Tente novamente.'));
-			}
+
+			$this->__setFlash('O pagamento não pôde ser registrado. Tente novamente.', 'attention');
 		}
-			
+
 		$this->set(compact('subscription'));
 	}
-	
+
 	/**
 	 * Envia um email para o endereço associado ao usuário
 	 * com informações para recuperação da senha
-	 * 
+	 *
 	 * @param array $userData
 	 * @return bool
 	 */
@@ -268,30 +258,18 @@ class PaymentsController extends AppController
 		if($paymentData)
 		{
 			$dt = new DateTime($paymentData['Payment']['created']);
-			
-			// convenience format
+
 			$payment = array(
 				'user' => $paymentData['User']['name'],
 				'email' => $paymentData['User']['email'],
 				'event' => $paymentData['Event']['title'],
 				'date' => $dt->format('d/m/Y')
 			);
-			
+
 			$this->set(compact('payment'));
-			
-			$this->Email->reset();
+			$sub = '[' . Configure::read('Comitiva.name') . ' - Inscrições] Confirmação de pagamento';
 
-			/* Setup parameters of EmailComponent */
-			$this->Email->to = $payment['email'];
-			$this->Email->subject = '[PHPMS - Inscrições] Confirmação de pagamento';
-			$this->Email->replyTo = 'admin.phpms@gmail.com';
-			$this->Email->from = 'PHPMS <admin.phpms@gmail.com>';
-			$this->Email->template = 'payment_confirm';
-			$this->Email->charset = 'utf-8';
-
-			$this->Email->sendAs = 'html';
-
-			if($this->Email->send())
+			if($this->__sendMailNotification($payment['email'], $sub, 'payment_confirm'))
 			{
 				return true;
 			}
@@ -300,4 +278,3 @@ class PaymentsController extends AppController
 		return false;
 	}
 }
-?>

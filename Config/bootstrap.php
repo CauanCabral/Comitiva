@@ -14,6 +14,8 @@ Configure::write('Message.replyTo', 'admin@phpms.org');
 //
 Configure::write('Comitiva.name', 'PHPMS');
 
+Configure::write('Comitiva.fullName', 'PHPMS - Grupo de Desenvolvedores PHP de Mato Grosso do Sul.');
+
 CakePlugin::loadAll();
 
 /*

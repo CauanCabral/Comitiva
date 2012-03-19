@@ -8,6 +8,14 @@
 <body>
 	<?php echo $content_for_layout;?>
 
+	<p>
+	Atenciosamente,
+
+	<?php echo Configure::read('Comitiva.fullName'); ?>
+	</p>
+
+	<br />--------------------------<br />
+
 	<p>Este email foi enviado pelo <a href="http://comitiva.phpms.org">Comitiva</a>, sistema de gerenciamento de eventos do <a href="http://www.phpms.org">PHPMS</a>.
 	<br />
 	Sistema construído usando <a href="http://cakephp.org">CakePHP Framework</a></p>

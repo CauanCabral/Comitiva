@@ -295,10 +295,26 @@ class AppController extends Controller
 			// tenta redirecionar de volta para tela anterior, caso não consiga manda par action index
 			$this->redirect($this->referer(array('action'=>'index'), true));
 		}
+
+		// redireciona para a index do controller atual para evitar erro de redirecionamento
+		$this->redirect(array('action' => 'index'));
+	}
+
+	protected function __sendMailNotification($to, $subject, $tmpl, $body = null)
+	{
+		$email = new CakeEmail();
+
+		$email->to($to)
+				->subject($subject)
+				->replyTo(Configure::read('Message.replyTo'))
+				->from(Configure::read('Message.from'))
+				->emailFormat('html');
+
+		if($body !== null)
+			$email->body($body);
 		else
-		{
-			// redireciona para a index do controller atual para evitar erro de redirecionamento
-			$this->redirect(array('action' => 'index'));
-		}
+			$email->template($tmpl);
+
+		return $email->send();
 	}
 }

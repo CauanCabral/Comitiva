@@ -17,7 +17,6 @@ class EventsController extends AppController
 	{
 		$this->Event->recursive = 0;
 
-		// list just root events
 		$this->paginate = array(
 			'conditions' => array(
 				'OR' => array(
@@ -34,9 +33,10 @@ class EventsController extends AppController
 	{
 		if (!$id)
 		{
-			$this->Session->setFlash(__('Evento inválido'), 'default', array('class' => 'attention'));
+			$this->__setFlash('Evento inválido', 'attention');
 			$this->redirect(array('action' => 'index'));
 		}
+
 		$this->set('event', $this->Event->read(null, $id));
 	}
 
@@ -53,13 +53,11 @@ class EventsController extends AppController
 
 			if ($this->Event->add($this->request->data))
 			{
-				$this->Session->setFlash(__('Novo evento salvo!'), 'default', array('class' => 'success'));
+				$this->__setFlash('Novo evento salvo!', 'success');
 				$this->redirect(array('action' => 'index'));
 			}
-			else
-			{
-				$this->Session->setFlash(__('Novo evento não pode ser salvo. Tente novamente.'), 'default', array('class' => 'attention'));
-			}
+
+			$this->__setFlash('Novo evento não pode ser salvo. Tente novamente.', 'attention');
 		}
 
 		$events = $this->Event->find('list');
@@ -70,7 +68,7 @@ class EventsController extends AppController
 	{
 		if (!$id && empty($this->request->data))
 		{
-			$this->Session->setFlash(__('Evento inválido'), 'default', array('class' => 'attention'));
+			$this->__setFlash('Evento inválido', 'attention');
 			$this->redirect(array('action' => 'index'));
 		}
 
@@ -85,13 +83,11 @@ class EventsController extends AppController
 
 			if ($this->Event->add($this->request->data))
 			{
-				$this->Session->setFlash(__('Evento atualizado!'), 'default', array('class' => 'success'));
+				$this->__setFlash('Evento atualizado!', 'success');
 				$this->redirect(array('action' => 'index'));
 			}
-			else
-			{
-				$this->Session->setFlash(__('O evento não pode ser salvo. Tente novamente.'), 'default', array('class' => 'attention'));
-			}
+
+			$this->__setFlash('O evento não pode ser salvo. Tente novamente.', 'attention');
 		}
 
 		if (empty($this->request->data))
@@ -107,15 +103,15 @@ class EventsController extends AppController
 	{
 		if (!$id)
 		{
-			$this->Session->setFlash(__('Id de evento inválido.'), 'default', array('class' => 'attention'));
+			$this->__setFlash('Id de evento inválido.', 'attention');
 		}
 		if ($this->Event->delete($id))
 		{
-			$this->Session->setFlash(__('Evento apagado!'), 'default', array('class' => 'success'));
+			$this->__setFlash('Evento apagado!', 'success');
 		}
 		else
 		{
-			$this->Session->setFlash(__('Evento não foi apagado!'), 'default', array('class' => 'attention'));
+			$this->__setFlash('Evento não foi apagado!', 'attention');
 		}
 
 		$this->__goBack();
@@ -128,7 +124,6 @@ class EventsController extends AppController
 	{
 		$this->Event->recursive = 0;
 
-		// list just root events
 		$this->paginate = array(
 			'conditions' => array(
 				'OR' => array(
@@ -145,9 +140,10 @@ class EventsController extends AppController
 	{
 		if (!$id)
 		{
-			$this->Session->setFlash(__('Evento inválido'), 'default', array('class' => 'attention'));
+			$this->__setFlash('Evento inválido', 'attention');
 			$this->redirect(array('action' => 'index'));
 		}
+
 		$this->set('event', $this->Event->read(null, $id));
 	}
 
@@ -205,7 +201,7 @@ class EventsController extends AppController
 	}
 
 	/**
-	 * TODO implementar remoção de data
+	 * @todo implementar remoção de data
 	 *
 	 * @return unknown_type
 	 */
@@ -273,6 +269,4 @@ class EventsController extends AppController
 
 		}
 	}
-
 }
-?>
