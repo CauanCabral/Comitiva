@@ -399,16 +399,9 @@ class UsersController extends AppController
 
 		if($success)
 		{
-			$email = new CakeEmail();
+			$sub = '[' . Configure::read('Comitiva.name') . ' - Inscrições] Pedido para recuperar senha';
 
-			$email->to($userData['User']['email'])
-					->subject('[' . Configure::read('Comitiva.name') . ' - Inscrições] Pedido para recuperar senha')
-					->replyTo(Configure::read('Message.from'))
-					->from(Configure::read('Message.from'))
-					->template('reset_password')
-					->emailFormat('html');
-
-			if($email->send())
+			if($email->__sendMailNotification($userData['User']['email'], $sub, 'reset_password'))
 			{
 				$this->__setFlash('Instruções para redefinir a senha foram enviadas para seu email cadastrado');
 				return;
@@ -447,16 +440,9 @@ class UsersController extends AppController
 
 		if($success)
 		{
-			$email = new CakeEmail();
+			$sub = '[' . Configure::read('Comitiva.name') . ' - Inscrições] Confirmação de conta';
 
-			$email->to($userData['User']['email'])
-					->subject('[' . Configure::read('Comitiva.name') . ' - Inscrições] Confirmação de conta')
-					->replyTo(Configure::read('Message.from'))
-					->from(Configure::read('Message.from'))
-					->template('account_confirm')
-					->emailFormat('html');
-
-			if($email->send())
+			if($email->__sendMailNotification($userData['User']['email'], $sub, 'account_confirm'))
 			{
 				$this->__setFlash('Foi enviado um email para confirmação da sua conta', 'attention');
 				return;

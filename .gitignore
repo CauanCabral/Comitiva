@@ -7,6 +7,7 @@
 nbproject
 Config/bootstrap.local.php
 Config/database.php
+Config/email.php
 tmp/cache/*
 tmp/cache/models/*
 tmp/cache/persistent/*

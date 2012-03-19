@@ -6,11 +6,5 @@ referente a inscrição no evento <?php echo $payment['event']; ?>.
 </p>
 
 <p>
-Agradecemos o interesse no evento e nos vemos lá. 
-</p>
-
-<p>
-Atenciosamente,
-
-PHPMS - Grupo de Desenvolvedores PHP de Mato Grosso do Sul
+Agradecemos o interesse no evento e nos vemos lá.
 </p>
