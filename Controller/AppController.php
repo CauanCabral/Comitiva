@@ -88,7 +88,7 @@ class AppController extends Controller
 	 */
 	public function beforeRender()
 	{
-		$this->__setErrorLayout();
+		// $this->__setErrorLayout();
 	}
 
 	public function isAuthorized()
