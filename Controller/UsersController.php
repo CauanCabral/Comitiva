@@ -445,7 +445,7 @@ class UsersController extends AppController
 			if($email->__sendMailNotification($userData['User']['email'], $sub, 'account_confirm'))
 			{
 				$this->__setFlash('Foi enviado um email para confirmação da sua conta', 'attention');
-				return;
+				return true;
 			}
 		}
 		else
@@ -453,6 +453,8 @@ class UsersController extends AppController
 			$this->User->delete($userData['User']['id']);
 		}
 
-		$this->__setFlash(sprintf(__('Não foi possível enviar o email de confirmação da conta para seu endereço. Entre em contato através do email %s para obter ajuda'), Configure::read('Message.replyTo'), 'attention');
+		$this->__setFlash(sprintf(__('Não foi possível enviar o email de confirmação da conta para seu endereço. Entre em contato através do email %s para obter ajuda'), Configure::read('Message.replyTo')), 'attention');
+
+		return false;
 	}
 }

@@ -123,7 +123,7 @@ class Event extends AppModel
 		foreach($event_dates as $eventDate)
 		{
 			if($eventDate['EventDate']['date'] > $end)
-				$end = $event['EventDate']['date'];
+				$end = $eventDate['EventDate']['date'];
 		}
 
 		return ($today < $end);

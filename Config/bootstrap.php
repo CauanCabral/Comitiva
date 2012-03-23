@@ -16,6 +16,11 @@ Configure::write('Comitiva.name', 'PHPMS');
 
 Configure::write('Comitiva.fullName', 'PHPMS - Grupo de Desenvolvedores PHP de Mato Grosso do Sul.');
 
+Configure::write('Comitiva.googleApiLibs', array(
+	'jquery' => '1.7',
+	'jqueryui' => '1.8'
+));
+
 CakePlugin::loadAll();
 
 /*

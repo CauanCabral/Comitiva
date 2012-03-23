@@ -13,3 +13,6 @@
 [submodule "Plugin/Migrations"]
 	path = Plugin/Migrations
 	url = git://github.com/CakeDC/migrations.git
+[submodule "Plugin/TwitterBootstrap"]
+	path = Plugin/TwitterBootstrap
+	url = git://github.com/radig/TwitterBootstrap.git
