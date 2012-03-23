@@ -40,6 +40,7 @@ td a				{ margin-right: 10px; }
 .datepicker td.today[disabled],
 .datepicker td.today:hover[disabled]	{ background-color: #FFFF77; }
 
+.fullWidth { width: 100%;}
 
 /** ERROR **/
 .error			{ margin: 0 auto; }

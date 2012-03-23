@@ -13,23 +13,17 @@
 
 		//========================= Scripts
 
-		// TWITTER
 		echo $this->Html->script('bootstrap.min');
-		// DATEPICKER
 		echo $this->Html->script('bootstrap-datepicker');
+		echo $this->Html->script('ui');
 
 		//========================= Estilos
 
-		// JQUERY
 		echo $this->Html->css('jquery/ui');
-		// TWITTER
 		echo $this->Html->css('bootstrap.min');
 		echo $this->Html->css('bootstrap-responsive.min');
-		// DATEPICKER
 		echo $this->Html->css('datepicker');
-
 		echo $this->Html->css('font-awesome');
-
 		echo $this->Html->css('comitiva');
 
 		// ======================== Meta, Css e Scripts via Cake
