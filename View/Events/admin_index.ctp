@@ -1,9 +1,7 @@
-<div class="actions">
-	<ul>
-		<li><?php echo $this->Html->link(__('Novo evento'), array('controller' => 'events', 'action' => 'add')); ?></li>
-	</ul>
-</div>
-<div class="events index">
+<ul class="nav nav-tabs nav-stacked span3">
+	<li><?php echo $this->Html->link(__('Novo evento'), array('controller' => 'events', 'action' => 'add')); ?></li>
+</ul>
+<div class="events index span10">
 <h2><?php echo __('Eventos');?></h2>
 <table class="table table-striped table-bordered table-condensed">
 <tr>
@@ -14,14 +12,9 @@
 	<th class="actions"><?php echo __('Ações');?></th>
 </tr>
 <?php
-$i = 0;
 foreach ($events as $event):
-	$class = null;
-	if ($i++ % 2 == 0) {
-		$class = ' class="altrow"';
-	}
 ?>
-	<tr<?php echo $class;?>>
+	<tr>
 		<td>
 			<?php echo $event['Event']['title']; ?>
 		</td>
@@ -35,10 +28,11 @@ foreach ($events as $event):
 			<?php echo $this->Html->link($event['Event']['subscription_count'], array('controller' => 'subscriptions', 'action' => 'index', $event['Event']['id'])); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('Visualizar'), array('action' => 'view', $event['Event']['id'])); ?>
-			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $event['Event']['id'])); ?>
-			<?php echo $this->Html->link(__('Ver inscrições'), array('controller' => 'subscriptions', 'action' => 'index', $event['Event']['id'])); ?>
-			<?php echo $this->Html->link(__('Apagar'), array('action' => 'delete', $event['Event']['id']), null, sprintf(__('Tem certeza que deseja apagar # %s?'), $event['Event']['id'])); ?>
+			<?php echo $this->Html->glyphLink(__('Visualizar'), array('action' => 'view', $event['Event']['id']), array('glyph' => 'glyph-file glyph-large')),
+				$this->Html->link(__('Editar'), array('action' => 'edit', $event['Event']['id'])),
+				$this->Html->link(__('Ver inscrições'), array('controller' => 'subscriptions', 'action' => 'index', $event['Event']['id'])),
+				$this->Html->link(__('Apagar'), array('action' => 'delete', $event['Event']['id']), null, sprintf(__('Tem certeza que deseja apagar # %s?'), $event['Event']['id']));
+			?>
 		</td>
 	</tr>
 <?php endforeach; ?>

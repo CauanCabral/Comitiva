@@ -279,6 +279,9 @@ class AppController extends Controller
 
 	protected function __setFlash($message, $type = 'success')
 	{
+		if(strpos($type, 'alert') === false)
+			$type = 'alert-' . $type;
+
 		$this->Session->setFlash(__($message), 'default', array('class' => $type));
 	}
 

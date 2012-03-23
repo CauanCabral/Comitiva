@@ -1,16 +1,14 @@
-<div class="actions">
-	<ul>
-		<li><?php echo $this->Html->link(__('Alterar Evento'), array('action' => 'edit', $event['Event']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('Enviar convites aos usuários'), array('controller' => 'events', 'action' => 'sendInvitation', $event['Event']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('Ver inscrições'), array('controller' => 'subscriptions', 'action' => 'index', $event['Event']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('Enviar aviso aos inscritos'), array('controller' => 'events', 'action' => 'sendAdvertise', $event['Event']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('Remover Evento'), array('action' => 'delete', $event['Event']['id']), null, sprintf(__('Deseja realmente excluir o evento "%s"?'), $event['Event']['title'])); ?> </li>
-		<li><?php echo $this->Html->link(__('Listar Eventos'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Novo Evento'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('Adicionar Sub-evento'), array('controller' => 'events', 'action' => 'add'));?> </li>
-	</ul>
-</div>
-<div class="events view">
+<ul class="nav nav-tabs nav-stacked span3">
+	<li><?php echo $this->Html->link(__('Alterar Evento'), array('action' => 'edit', $event['Event']['id'])); ?> </li>
+	<li><?php echo $this->Html->link(__('Enviar convites aos usuários'), array('controller' => 'events', 'action' => 'sendInvitation', $event['Event']['id'])); ?> </li>
+	<li><?php echo $this->Html->link(__('Ver inscrições'), array('controller' => 'subscriptions', 'action' => 'index', $event['Event']['id'])); ?> </li>
+	<li><?php echo $this->Html->link(__('Enviar aviso aos inscritos'), array('controller' => 'events', 'action' => 'sendAdvertise', $event['Event']['id'])); ?> </li>
+	<li><?php echo $this->Html->link(__('Remover Evento'), array('action' => 'delete', $event['Event']['id']), null, sprintf(__('Deseja realmente excluir o evento "%s"?'), $event['Event']['title'])); ?> </li>
+	<li><?php echo $this->Html->link(__('Listar Eventos'), array('action' => 'index')); ?> </li>
+	<li><?php echo $this->Html->link(__('Novo Evento'), array('action' => 'add')); ?> </li>
+	<li><?php echo $this->Html->link(__('Adicionar Sub-evento'), array('controller' => 'events', 'action' => 'add'));?> </li>
+</ul>
+<div class="events view span10">
 <h2><?php echo __('Evento');?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Nome'); ?></dt>
@@ -39,12 +37,12 @@
 			&nbsp;
 		</dd>
 	</dl>
-	
+
 	<?php if (!empty($event['EventDate'])):?>
 	<br />
 	<div class="related">
 		<h3><?php echo __('Datas');?></h3>
-		
+
 		<table cellpadding = "0" cellspacing = "0">
 		<tr>
 			<th><?php echo __('Legenda'); ?></th>
@@ -66,7 +64,7 @@
 		</table>
 	</div>
 	<?php endif; ?>
-	
+
 	<?php if (!empty($event['EventPrice'])):?>
 	<br />
 	<div class="related">
@@ -94,7 +92,7 @@
 		</table>
 	</div>
 	<?php endif; ?>
-	
+
 	<?php if (!empty($event['ChildEvent'])):?>
 	<br />
 	<div class="related">
