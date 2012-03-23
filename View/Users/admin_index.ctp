@@ -11,7 +11,7 @@ echo $this->Paginator->counter(array(
 'format' => __('Página %page% de %pages%, exibindo %current% entradas de %count% total, iniciando no registro %start% e terminando em %end%')
 ));
 ?></p>
-<table cellpadding="0" cellspacing="0">
+<table class="table table-striped table-bordered table-condensed">
 <tr>
 	<th><?php echo $this->Paginator->sort('id');?></th>
 	<th><?php echo $this->Paginator->sort('name', __('Nome'));?></th>
@@ -57,8 +57,5 @@ foreach ($users as $user):
 <?php endforeach; ?>
 </table>
 </div>
-<div class="paging">
-	<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'disabled'));?>
- | 	<?php echo $this->Paginator->numbers();?>
-	<?php echo $this->Paginator->next(__('próximo').' >>', array(), null, array('class' => 'disabled'));?>
-</div>
+<?php
+echo $this->element('paginate');

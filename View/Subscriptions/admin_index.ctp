@@ -7,13 +7,7 @@
 </div>
 <div class="subscriptions index">
 <h2><?php echo __('Inscrições');?></h2>
-<p>
-<?php
-echo $this->Paginator->counter(array(
-'format' => __('Página %page% de %pages%, mostrando %current% registros de %count% total, começando na entrada %start%, terminando em %end%')
-));
-?></p>
-<table cellpadding="0" cellspacing="0">
+<table class="table table-striped table-bordered table-condensed">
 <tr>
 	<th><?php echo $this->Paginator->sort('Subscription.id', __('ID'));?></th>
 	<th><?php echo $this->Paginator->sort('User.fullName', __('Usuário'));?></th>
@@ -61,10 +55,10 @@ foreach ($subscriptions as $subscription):
 			<?php
 				if(!$subscription['Event']['free'] && !isset($subscription['Payment']['id']))
 					echo $this->Html->link(__('Informar pagamento'), array('controller' => 'payments', 'action' => 'add', $subscription['Subscription']['id']));
-					
+
 				if(!$subscription['Event']['free'] && isset($subscription['Payment']['id']) && !$subscription['Payment']['confirmed'])
 					echo $this->Html->link(__('Confirmar pagamento'), array('controller' => 'payments', 'action' => 'confirm', $subscription['Payment']['id']), null, sprintf(__('Deseja realmente confirmar o pagamento da inscrição # %s?'), $subscription['Subscription']['id']));
-				
+
 				if(($subscription['Event']['free'] || $subscription['Payment']['confirmed']) && !$subscription['Subscription']['checked'])
 					echo $this->Html->link(__('Check-in'), array('controller' => 'subscriptions', 'action' => 'checkin', $subscription['Subscription']['id']));
 			?>
@@ -76,8 +70,5 @@ foreach ($subscriptions as $subscription):
 <?php endforeach; ?>
 </table>
 </div>
-<div class="paging">
-	<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'disabled'));?>
- | 	<?php echo $this->Paginator->numbers();?>
-	<?php echo $this->Paginator->next(__('próxima').' >>', array(), null, array('class' => 'disabled'));?>
-</div>
+<?php
+echo $this->element('paginate');

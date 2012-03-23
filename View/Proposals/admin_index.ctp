@@ -1,6 +1,12 @@
+<div class="actions">
+	<h3><?php echo __('Ações'); ?></h3>
+	<ul>
+		<li><?php echo $this->Html->link(__('Nova Proposta'), array('action' => 'add')); ?></li>
+	</ul>
+</div>
 <div class="proposals index">
 	<h2><?php echo __('Propostas');?></h2>
-	
+
 	<form action="/admin/proposals/index" name="filter" method="post" >
 		<select name="data[Proposal][approved]" onchange="this.form.submit()">
 			<option value="-1"> <?php echo __('Filtrar')?> </option>
@@ -8,8 +14,8 @@
 			<option value=1 ><?php echo __('Aprovados')?></option>
 		</select>
 	</form>
-	
-	<table cellpadding="0" cellspacing="0">
+
+	<table class="table table-striped table-bordered table-condensed">
 	<tr>
 		<th><?php echo __('Proponente');?></th>
 		<th><?php echo __('Evento');?></th>
@@ -34,7 +40,7 @@
 		<?php echo $proposal['Event']['title']; ?>
 	</td>
 	<td>
-		<?php 
+		<?php
 		switch($proposal['Proposal']['rating'])
 		{
 			case 1:
@@ -65,7 +71,7 @@
     	<?php echo $this->Locale->dateTime($proposal['Proposal']['created']); ?>
     </td>
 	<td class="actions">
-	<?php  
+	<?php
 	if($proposal['Proposal']['approved'])
 	{
 		echo '  ',$this->Html->link(__('Rejeitar'), array('action' => 'approve', $proposal['Proposal']['id'], 0), null, sprintf(__('Rejeitar a proposta?')));
@@ -82,23 +88,6 @@
 	</tr>
 <?php endforeach; ?>
 	</table>
-	<p>
-	<?php
-	echo $this->Paginator->counter(array(
-	'format' => __('Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%')
-	));
-	?>	</p>
-
-	<div class="paging">
-		<?php echo $this->Paginator->prev('<< ' . __('previous'), array(), null, array('class'=>'disabled'));?>
-	 | 	<?php echo $this->Paginator->numbers();?>
- |
-		<?php echo $this->Paginator->next(__('next') . ' >>', array(), null, array('class' => 'disabled'));?>
-	</div>
 </div>
-<div class="actions">
-	<h3><?php echo __('Ações'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Nova Proposta'), array('action' => 'add')); ?></li>
-	</ul>
-</div>
+<?php
+echo $this->element('paginate');

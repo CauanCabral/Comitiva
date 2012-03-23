@@ -3,7 +3,7 @@
 	<?php  if(!isset($proposals)) { ?>
 	<p><?php echo __('Clique em Nova Proposta para enviar uma nova proposta de apresentação. Após enviada ela será avaliada pelos organizadores do evento')?></p>
 	<?php } else {?>
-	<table cellpadding="0" cellspacing="0">
+	<table class="table table-striped table-bordered table-condensed">
 	<tr>
       <th><?php echo __('Proponente');?></th>
       <th><?php echo __('Evento');?></th>
@@ -42,6 +42,6 @@
 	<h3><?php echo __('Opções'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('Nova Proposta'), array('action' => 'add')); ?></li>
-	
+
 	</ul>
 </div>

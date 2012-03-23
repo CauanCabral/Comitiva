@@ -6,13 +6,7 @@
 </div>
 <div class="subscriptions index">
 <h2><?php echo __('Inscrições');?></h2>
-<p>
-<?php
-echo $this->Paginator->counter(array(
-'format' => __('Página %page% de %pages%, mostrando %current% registros de %count% total, começando na entrada %start%, terminando em %end%')
-));
-?></p>
-<table cellpadding="0" cellspacing="0">
+<table class="table table-striped table-bordered table-condensed">
 <tr>
 	<th><?php echo $this->Paginator->sort('id');?></th>
 	<th><?php echo $this->Paginator->sort('event_id', __('Evento'));?></th>
@@ -55,8 +49,5 @@ foreach ($subscriptions as $subscription):
 <?php endforeach; ?>
 </table>
 </div>
-<div class="paging">
-	<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'disabled'));?>
- | 	<?php echo $this->Paginator->numbers();?>
-	<?php echo $this->Paginator->next(__('próxima').' >>', array(), null, array('class' => 'disabled'));?>
-</div>
+<?php
+echo $this->element('paginate');

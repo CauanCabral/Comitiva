@@ -6,13 +6,7 @@
 </div>
 <div class="events index">
 <h2><?php echo __('Eventos');?></h2>
-<p>
-<?php
-echo $this->Paginator->counter(array(
-'format' => __('Página %page% de %pages%, mostrando %current% registros de um total de %count% , começando em %start%, terminando em %end%')
-));
-?></p>
-<table cellpadding="0" cellspacing="0">
+<table class="table table-striped table-bordered table-condensed">
 <tr>
 	<th><?php echo $this->Paginator->sort('id');?></th>
 	<th><?php echo __('Nome do Evento');?></th>
@@ -49,8 +43,5 @@ foreach ($events as $event):
 <?php endforeach; ?>
 </table>
 </div>
-<div class="paging">
-	<?php echo $this->Paginator->prev('<< '.__('Página Anterior'), array(), null, array('class'=>'disabled'));?>
- | 	<?php echo $this->Paginator->numbers();?>
-	<?php echo $this->Paginator->next(__('Próxima Página').' >>', array(), null, array('class' => 'disabled'));?>
-</div>
+<?php
+echo $this->element('paginate');

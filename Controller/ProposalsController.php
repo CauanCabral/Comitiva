@@ -1,8 +1,6 @@
 <?php
 class ProposalsController extends AppController {
-
 	public $name = 'Proposals';
-	public $uses = array('Proposal');
 	public $helpers = array(
 		'TinyMCE.TinyMCE',
 		'Locale.Locale'
@@ -136,7 +134,7 @@ class ProposalsController extends AppController {
 	{
 		$this->Proposal->recursive = 0;
 
-		if(isset($this->request->data))
+		if(!empty($this->request->data))
 		{
 			$approved = $this->request->data['Proposal']['approved'];
 		}

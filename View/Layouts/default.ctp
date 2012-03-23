@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html  lang="pt-br">
+<html lang="pt-br">
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title><?php echo __('Comitiva'), ': ', $title_for_layout; ?></title>
@@ -40,6 +40,7 @@
 		echo $this->fetch('css');
 		echo $this->fetch('script');
 	?>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 	<div class="container-fluid">
@@ -55,7 +56,6 @@
 			<?php endif; ?>
 
 			<div id="content">
-
 				<?php
 				if ($this->Session->check('Message.auth'))
 				{
@@ -71,10 +71,9 @@
 				{
 					echo $this->Session->flash();
 				}
+
+				echo $content_for_layout;
 				?>
-
-				<?php echo $content_for_layout; ?>
-
 			</div>
 			<div id="footer">
 				<?php echo $this->element('footer'); ?>

@@ -68,7 +68,7 @@ class PaymentsController extends AppController
 				$this->__setFlash('Pagamento atualizado!', 'success');
 				$this->redirect(array('action' => 'index'));
 			}
-			
+
 			$this->__setFlash('O pagamento não pôde ser atualizado. Tente novamente.', 'attention');
 		}
 
@@ -195,19 +195,19 @@ class PaymentsController extends AppController
 			$this->__setFlash('Inscrição Inválida', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
-		
+
 		if($subscription['Subscription']['user_id'] != $this->activeUser['id'])
 		{
 			$this->__setFlash('Você não possui autorização para realizar esta ação!', 'attention');
 			$this->redirect(array('action' => 'index'));
 		}
-		
+
 		if($subscription['Event']['free'])
 		{
 			$this->__setFlash('Este evento é gratuito!', 'success');
 			$this->__goBack();
 		}
-		
+
 		if(!empty($subscription['Payment']['id']))
 		{
 			$this->__setFlash('Este pagamento já foi informado!', 'attention');
