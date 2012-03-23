@@ -43,10 +43,11 @@ class AppController extends Controller
 
 	public $helpers = array(
 		'Session',
-		'Html',
-		'Form',
 		'Js',
-		'Locale.Locale'
+		'Locale.Locale',
+		'Html'		=> array('className' => 'TwitterBootstrap.BootstrapHtml'),
+		'Form'		=> array('className' => 'TwitterBootstrap.BootstrapForm'),
+		'Paginator'	=> array('className' => 'TwitterBootstrap.BootstrapPaginator'),
 	);
 
 	public $paginate = array('limit' => 50);
@@ -88,7 +89,6 @@ class AppController extends Controller
 	 */
 	public function beforeRender()
 	{
-		// $this->__setErrorLayout();
 	}
 
 	public function isAuthorized()

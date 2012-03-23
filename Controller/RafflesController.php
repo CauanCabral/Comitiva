@@ -29,16 +29,14 @@ class RafflesController extends AppController
 	{
 		if ($this->request->is('post')) 
 		{
-			$this->Raffle->create();
-			if ($this->Raffle->save($this->request->data)) 
+			$winner = $this->Raffle->random($this->request->data['reincident']);
+
+			if($winner === 0)
 			{
-				$this->Session->setFlash(__(''));
-				$this->redirect(array('action' => 'index'));
-			} 
-			else
-			{
-				$this->Session->setFlash(__('Problema na realização do sorteio'));
-			}
+				$this->Session->setFlash(__('Não há usuários para sortear'));
+			}	
+
+			$this->set('winner', $winner);
 		}
 	}
 
