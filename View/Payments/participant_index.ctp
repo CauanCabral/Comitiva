@@ -6,13 +6,7 @@
 </div>
 <div class="payments index">
 <h2><?php echo __('Meus Pagamentos');?></h2>
-<p>
-<?php
-echo $this->Paginator->counter(array(
-'format' => __('Página %page% de %pages%, mostrando %current% registros de um total de %count%, começando no registro %start%, terminando em %end%')
-));
-?></p>
-<table cellpadding="0" cellspacing="0">
+<table class="table table-striped table-bordered table-condensed">
 <tr>
 	<th><?php echo $this->Paginator->sort('Payment.date', __('Data'));?></th>
 	<th><?php echo __('Evento');?></th>
@@ -44,8 +38,5 @@ foreach ($payments as $payment):
 <?php endforeach; ?>
 </table>
 </div>
-<div class="paging">
-	<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'disabled'));?>
- | 	<?php echo $this->Paginator->numbers();?>
-	<?php echo $this->Paginator->next(__('próxima').' >>', array(), null, array('class' => 'disabled'));?>
-</div>
+<?php
+echo $this->element('paginate');
