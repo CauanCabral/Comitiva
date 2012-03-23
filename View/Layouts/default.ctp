@@ -17,8 +17,6 @@
 		echo $this->Html->script('bootstrap.min');
 		// DATEPICKER
 		echo $this->Html->script('bootstrap-datepicker');
-		// JS's específicos
-		echo $this->Html->script('ui');
 
 		echo $this->Html->script('menu');
 
