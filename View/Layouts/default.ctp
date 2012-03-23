@@ -48,9 +48,15 @@
 			</div>
 
 			<?php if(isset($menuItems) && !empty($menuItems)): ?>
-			<ul id="menu">
-				<?php echo $this->element('menu', $menuItems); ?>
-			</ul>
+			<div class="navbar">
+				<div class="navbar-inner">
+					<div class="container">
+						<ul class="nav">
+						<?php echo $this->element('menu', $menuItems); ?>
+						</ul>
+					</div>
+				</div>
+			</div>
 			<?php endif; ?>
 
 			<div id="content">

@@ -277,12 +277,12 @@ class AppController extends Controller
 		$this->autoRender = $autoRender;
 	}
 
-	protected function __setFlash($message, $type = 'success')
+	protected function __setFlash($message, $class = 'success')
 	{
-		if(strpos($type, 'alert') === false)
-			$type = 'alert-' . $type;
+		if(strpos($class, 'alert') === false)
+			$class = 'alert-' . $class;
 
-		$this->Session->setFlash(__($message), 'default', array('class' => $type));
+		$this->Session->setFlash(__($message), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => $class));
 	}
 
 	/**
