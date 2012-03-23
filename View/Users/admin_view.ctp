@@ -54,7 +54,7 @@
 <div class="related">
 	<h3><?php echo __('Inscrições do usuário');?></h3>
 	<?php if (!empty($user['Subscription'])):?>
-	<table cellpadding = "0" cellspacing = "0">
+	<table class="table table-striped table-bordered table-condensed">
 	<tr>
 		<th><?php echo __('Evento'); ?></th>
 		<th><?php echo __('Data'); ?></th>
@@ -63,7 +63,7 @@
 	<?php
 		$i = 0;
 		foreach ($user['Subscription'] as $subscription):
-			$class = null; 
+			$class = null;
 			if ($i++ % 2 == 0) {
 				$class = ' class="altrow"';
 			}

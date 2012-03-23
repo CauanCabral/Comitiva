@@ -40,11 +40,9 @@
 		</dl>
 
 		<?php if (!empty($event['EventDate'])):?>
-		<br />
-		<div class="related">
 			<h3><?php echo __('Datas');?></h3>
 
-			<table cellpadding = "0" cellspacing = "0">
+			<table class="table table-striped table-bordered table-condensed">
 			<tr>
 				<th><?php echo __('Legenda'); ?></th>
 				<th><?php echo __('Data'); ?></th>
@@ -63,14 +61,11 @@
 				</tr>
 			<?php endforeach; ?>
 			</table>
-		</div>
 		<?php endif; ?>
 
 		<?php if (!empty($event['EventPrice'])):?>
-		<br />
-		<div class="related">
 			<h3><?php echo __('Valores');?></h3>
-			<table cellpadding = "0" cellspacing = "0">
+			<table  class="table table-striped table-bordered table-condensed">
 			<tr>
 				<th><?php echo __('Observação');?></th>
 				<th><?php echo __('Valor'); ?></th>
@@ -91,14 +86,11 @@
 				</tr>
 			<?php endforeach; ?>
 			</table>
-		</div>
 		<?php endif; ?>
 
 		<?php if (!empty($event['ChildEvent'])):?>
-		<br />
-		<div class="related">
 			<h3><?php echo __('Sub-eventos');?></h3>
-			<table cellpadding = "0" cellspacing = "0">
+			<table class="table table-striped table-bordered table-condensed">
 			<tr>
 				<th><?php echo __('Nome'); ?></th>
 				<th><?php echo __('Descrição'); ?></th>
@@ -125,7 +117,6 @@
 				</tr>
 			<?php endforeach; ?>
 			</table>
-		</div>
 		<?php endif; ?>
 	</div>
 </div>

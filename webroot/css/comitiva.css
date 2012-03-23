@@ -1,4 +1,46 @@
+/** Scaffold View **/
+
+dt, dd		{ line-height: 3em; }
+dl .altrow	{ background: #F4F4F4; }
+dt			{ padding-left: 4px; }
+dd			{ margin-left:  30em; margin-top: -3em; vertical-align: top;}
+
 /** Glyphs **/
 [class^="glyph-"],
 [class*=" glyph-"]	{ margin-right: 3px; }
 td a				{ margin-right: 10px; }
+
+/** Datepicker **/
+.datepicker td.today,
+.datepicker td.today:hover {
+	background-color: #006dcc;
+	background-image: -moz-linear-gradient(top, #FFFF77, #FFFF77);
+	background-image: -ms-linear-gradient(top, #FFFF77, #FFFF77);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FFFF77), to(#FFFF77));
+	background-image: -webkit-linear-gradient(top, #FFFF77, #FFFF77);
+	background-image: -o-linear-gradient(top, #FFFF77, #FFFF77);
+	background-image: linear-gradient(top, #FFFF77, #FFFF77);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFF77', endColorstr='#FFFF77', GradientType=0);
+	border-color: #FFFF77 #FFFF77 #002a80;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+	color: #333;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.datepicker td.today:hover,
+.datepicker td.today:hover:hover,
+.datepicker td.today:active,
+.datepicker td.today:hover:active,
+.datepicker td.today.today,
+.datepicker td.today:hover.today,
+.datepicker td.today.disabled,
+.datepicker td.today:hover.disabled,
+.datepicker td.today[disabled],
+.datepicker td.today:hover[disabled]	{ background-color: #FFFF77; }
+
+
+/** ERROR **/
+.error			{ margin: 0 auto; }
+.error-msg		{ font-size: 240pt; font-family:arial; font-weight: bold; color:#1A5D9C; margin-top:5%; height:170px; }

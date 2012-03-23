@@ -1,11 +1,11 @@
-<div class="actions">
-	<ul>
+<div class="row-fluid">
+	<ul class="nav nav-tabs nav-stacked span2">
 		<li><?php echo $this->Html->link(__('Listar Eventos'), array('action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('Inscrever neste evento'), array('controller' => 'subscriptions', 'action' => 'add',$event['Event']['id'])); ?> </li>
 	</ul>
-</div>
-<div class="events view">
-<h2><?php echo __('Evento');?></h2>
+
+	<div class="span10">
+	<h2><?php echo __('Evento');?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Nome'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
@@ -29,49 +29,18 @@
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Gratuito'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $event['Event']['free'] == TRUE ? __('Sim') : __('Não'); ?>
+			<?php echo $event['Event']['free'] ? __('Sim') : __('Não'); ?>
 			&nbsp;
 		</dd>
 	</dl>
-	
-	<div class="related">
-		<h3><?php echo __('Pagamento')?></h3>
-		<p>Você pode realizar o pagamento de sua inscrição pelo serviço MoIP.<br/>
-		   Basta clicar no botão abaixo e seguir os passos pedidos. Após realizar o pagamento, vá até<br />
-		   a página de suas inscrições e confirme o pagamento informando o email utilizado.
-		</p>
-		INCLUIR AQUI BOTÃO
-		<br />
-		<p>
-			Se preferir, você ainda pode fazer uma transferência, DOC ou depósito para a conta:
-		</p>
-		<dl>
-			<dt>Banco</dt>
-			<dd>ALGUM BANCO</dd>
-			<dt class="altrow">Agência</dt>
-			<dd class="altrow">0000-0</dd>
-			<dt>Conta Poupança</dt>
-			<dd>1000000-0</dd>
-			<dt class="altrow">Titular</dt>
-			<dd class="altrow">NOME DO TITULAR</dd>
-			<dt>CPF do Titular</dt>
-			<dd>xxx.xxx.xxx-xx</dd>
-		</dl>
-		<br />
-		<p>
-			<strong>ATENÇÃO: a Conta é Poupança. Depósito/transferência para conta Corrente será desconsiderado.</strong>
-			<br />
-			Não se esqueça de confirmar seu pagamento, informando o valor, data e horário do depósito ou transferência, caso tenha optado por este método.
-		</p>
-	</div>
-	
-	
+
+	<h3><?php echo __('Pagamento')?></h3>
+	<p><?php echo Configure::read('Comitiva.paymentInfo'); ?></p>
+
 	<?php if (!empty($event['EventDate'])):?>
-	<br />
-	<div class="related">
 		<h3><?php echo __('Datas');?></h3>
-		
-		<table cellpadding = "0" cellspacing = "0">
+
+		<table class="table table-striped table-bordered table-condensed">
 		<tr>
 			<th><?php echo __('Legenda'); ?></th>
 			<th><?php echo __('Data'); ?></th>
@@ -90,14 +59,11 @@
 			</tr>
 		<?php endforeach; ?>
 		</table>
-	</div>
 	<?php endif; ?>
-	
+
 	<?php if (!empty($event['EventPrice'])):?>
-	<br />
-	<div class="related">
 		<h3><?php echo __('Valores');?></h3>
-		<table cellpadding = "0" cellspacing = "0">
+		<table class="table table-striped table-bordered table-condensed">
 		<tr>
 			<th><?php echo __('Observação');?></th>
 			<th><?php echo __('Valor'); ?></th>
@@ -118,14 +84,11 @@
 			</tr>
 		<?php endforeach; ?>
 		</table>
-	</div>
 	<?php endif; ?>
-	
+
 	<?php if (!empty($event['ChildEvent'])):?>
-	<br />
-	<div class="related">
 		<h3><?php echo __('Sub-eventos');?></h3>
-		<table cellpadding = "0" cellspacing = "0">
+		<table class="table table-striped table-bordered table-condensed">
 		<tr>
 			<th><?php echo __('Nome'); ?></th>
 			<th><?php echo __('Descrição'); ?></th>
@@ -143,13 +106,13 @@
 			<tr<?php echo $class;?>>
 				<td><?php echo $childEvent['title'];?></td>
 				<td><?php echo $childEvent['description'];?></td>
-				<td><?php $childEvent['free'] == TRUE ? __('Sim') : __('Não');?></td>
+				<td><?php echo $childEvent['free'] ? __('Sim') : __('Não');?></td>
 				<td class="actions">
-					<?php echo $this->Html->link(__('Inscrever-se'), array('controller' => 'subscriptions', 'action' => 'add', $childEvent['id'])); ?>
+					<?php echo $this->Html->glyphLink(__('Inscrever-se'), array('controller' => 'subscriptions' ,'action' => 'add', $childEvent['id']), array('glyph' => 'glyph-signin glyph-large')); ?>
 				</td>
 			</tr>
 		<?php endforeach; ?>
 		</table>
-	</div>
 	<?php endif; ?>
+	</div>
 </div>
