@@ -18,8 +18,6 @@
 		// DATEPICKER
 		echo $this->Html->script('bootstrap-datepicker');
 
-		echo $this->Html->script('menu');
-
 		//========================= Estilos
 
 		// JQUERY
@@ -30,8 +28,9 @@
 		// DATEPICKER
 		echo $this->Html->css('datepicker');
 
-		//echo $this->Html->css('comitiva');
-		echo $this->Html->css('menu');
+		echo $this->Html->css('font-awesome');
+
+		echo $this->Html->css('comitiva');
 
 		// ======================== Meta, Css e Scripts via Cake
 		echo $this->fetch('meta');
@@ -42,13 +41,12 @@
 </head>
 <body>
 	<div class="container-fluid">
+		<div id="header">
+			<h1><?php echo $this->Html->link(__('Comitiva: Sistema de controle de eventos do PHPMS'), 'http://phpms.org'); ?></h1>
+		</div>
 		<div class="row-fluid" id="content">
-			<div id="header">
-				<h1><?php echo $this->Html->link(__('Comitiva: Sistema de controle de eventos do PHPMS'), 'http://phpms.org'); ?></h1>
-			</div>
-
 			<?php if(isset($menuItems) && !empty($menuItems)): ?>
-			<div class="navbar">
+			<div class="row-fluid navbar">
 				<div class="navbar-inner">
 					<div class="container">
 						<ul class="nav">
@@ -59,7 +57,7 @@
 			</div>
 			<?php endif; ?>
 
-			<div id="content">
+			<div class="row-fluid">
 				<?php
 				if ($this->Session->check('Message.auth'))
 				{
@@ -76,16 +74,14 @@
 					echo $this->Session->flash();
 				}
 
-				echo $content_for_layout;
+				echo $this->fetch('content');
 				?>
 			</div>
-			<div id="footer">
+			<div id="footer" class="row-fluid">
 				<?php echo $this->element('footer'); ?>
 			</div>
 		</div>
 	</div>
-	<?php
-		echo $this->Js->writeBuffer();
-	?>
+	<?php echo $this->Js->writeBuffer(); ?>
 </body>
 </html>
