@@ -12,9 +12,11 @@ class AddAdminUser extends CakeMigration
 
 	public $migration = array(
 			'up' => array(
-				),
+
+			),
 			'down' => array(
-				)
+				
+			)
 		);
 
 	public function after($direction)
@@ -24,9 +26,10 @@ class AddAdminUser extends CakeMigration
 			return true;
 		}
 
-		$user['User'] = array('username' => 'admin',
+		$user['User'] = array(
+			'username' => 'admin',
 			'password' => Security::hash('admin', null, true),
-			'type' => 'admin',
+			'groups' => 'admin',
 			'email' => 'admin@example.com',
 			'name' => 'Admin',
 			'nickname' => 'admin',

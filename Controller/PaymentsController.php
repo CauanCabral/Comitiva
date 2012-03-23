@@ -139,7 +139,7 @@ class PaymentsController extends AppController
 		}
 		else
 		{
-			$this->__setFlash(_'Não foi possível confirmar o pagamento', 'error');
+			$this->__setFlash('Não foi possível confirmar o pagamento', 'error');
 		}
 
 		$this->__goBack();
