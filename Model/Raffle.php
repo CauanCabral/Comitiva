@@ -25,9 +25,11 @@ class Raffle extends AppModel
 		if($quantity == 0)
 			return 0;
 
+		$userslist = array();
+
 		foreach($users as $id => $name)
 		{
-			$userlist[] = array(
+			$userslist[] = array(
 				'id' => $id,
 				'name' => $name
 			);
@@ -38,7 +40,8 @@ class Raffle extends AppModel
 		if(!$reincident)
 		{
 			$raffles = array();
-			while(count($raffles) > 0)
+			$i = 0;
+			while($i <= $quantity)
 			{
 				$raffles = $this->find('all', array(
 					'conditions' => array(
@@ -47,12 +50,17 @@ class Raffle extends AppModel
 					'fields' => array('id')
 				));
 
-				$key = $this->getRandKey($quantity-1);
-			}
+				$i++;
+				if(!empty($raffles))
+					continue;
 
+				return $userslist[$key];
+			}	
+
+			return 0;
 		}
 
-		return $userlist[$key];
+		return $userslist[$key];
 	}
 
 	protected function getRandKey($max)

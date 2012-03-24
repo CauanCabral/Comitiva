@@ -7,6 +7,8 @@ App::uses('AppController', 'Controller');
  */
 class RafflesController extends AppController
 {
+	public $helpers = array('TwitterBootstrap.BootstrapHtml', 'TwitterBootstrap.BootstrapForm', 'TwitterBootstrap.BootstrapPaginator');
+	
 	public function admin_index()
 	{
 		$this->Raffle->recursive = 0;
@@ -45,8 +47,36 @@ class RafflesController extends AppController
 		$this->set('awards', $awards);
 	}
 
-	public function delete($id = null) 
+	public function admin_delete($id = null) 
 	{
+		$this->Raffle->id = $id;
+		
+		if (!$this->Raffle->exists())
+		{
+			throw new NotFoundException('Premiado inexistente');
+		}
+		
+		if ($this->Raffle->delete()) 
+		{
+			$this->Session->setFlash(
+				__('Premiado excluído!'),
+				'alert',
+				array(
+					'plugin' => 'TwitterBootstrap',
+					'class' => 'alert-success'
+				)
+			);
+			$this->redirect(array('action' => 'index'));
+		}
+		$this->Session->setFlash(
+			__('Não foi possível excluir o premiado. Tente novamente'),
+			'alert',
+			array(
+				'plugin' => 'TwitterBootstrap',
+				'class' => 'alert-error'
+			)
+		);
+		$this->redirect(array('action' => 'index'));
 	}
 
 	public function admin_ajaxGetWinner()
@@ -54,10 +84,12 @@ class RafflesController extends AppController
 		if ($this->request->is('ajax')) 
 		{
 			$reincident = $this->request->query['reincident'];
+			$winner = $this->Raffle->random((bool)$reincident);	
 
-			$winner = $this->Raffle->random($reincident);	
+			if( $winner === 0)
+				 $winner = array('name' => 'Nenhum participante disponível', 'id' => 0);
 
-			$this->set('data', $winner);
+			$this->set('data',  $winner);
 			$this->viewPath = 'Elements';
 			$this->layout = null;
 			$this->render('json');

@@ -1,6 +1,12 @@
 <div class="row-fluid">
-	<div class="span9">
-		<h2><?php  echo __('Visualizar Sorteio');?></h2>
+	<ul  class="nav nav-tabs nav-stacked span2">
+		<li><?php echo $this->Html->link(__('Alterar Premiação'), array('action' => 'edit', $award['Award']['id'])); ?> </li>
+		<li><?php echo $this->Form->postLink(__('Excluir Premiação'), array('action' => 'delete', $award['Award']['id']), null, __('Deseja excluir a premiação?')); ?> </li>
+		<li><?php echo $this->Html->link(__('Listar Premiações'), array('action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Nova Premiação'), array('action' => 'add')); ?> </li>
+	</ul>
+	<div class="span10">
+		<h2><?php  echo __('Visualizar premiação');?></h2>
 		<dl>
 			<dt><?php echo __('Título'); ?></dt>
 			<dd>
@@ -23,15 +29,18 @@
 				&nbsp;
 			</dd>
 		</dl>
-	</div>
-	<div class="span3">
-		<ul class="nav nav-list">
-			<li class="nav-header"><?php echo __('Ações'); ?></li>
-			<li><?php echo $this->Html->link(__('Alterar sorteio'), array('action' => 'edit', $award['Award']['id'])); ?> </li>
-			<li><?php echo $this->Form->postLink(__('Excluir sorteio')), array('action' => 'delete', $award['Award']['id']), null, __('Deseja excluir o sorteio?')); ?> </li>
-			<li><?php echo $this->Html->link(__('Listar sorteios'), array('action' => 'index')); ?> </li>
-			<li><?php echo $this->Html->link(__('Novo sorteio'), array('action' => 'add')); ?> </li>
-		</ul>
+		<h2><?php  echo __('Ganhadores');?></h2>
+		<dl>
+		<?php 
+			foreach($award['Raffle'] as $raffle):
+		?>
+		<dt><?php echo __('Participante'); ?></dt>
+			<dd>
+				<?php echo $raffle['User']['name']; ?>
+				&nbsp;
+			</dd>
+		<?php endforeach; ?>
+		</dl>
 	</div>
 <div>
 

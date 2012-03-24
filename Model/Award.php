@@ -11,4 +11,5 @@ class Award extends AppModel {
  * @var string
  */
 	public $displayField = 'title';
+	public $hasMany = array('Raffle');
 }

@@ -50,7 +50,10 @@ class AwardsController extends AppController {
 		{
 			throw new NotFoundException(__('Sorteio não encontrado'));
 		}
-		$this->set('award', $this->Award->read(null, $id));
+		$this->set('award', $this->Award->find('first', array(
+			'conditions' => array('id' => $id),
+			'contain' => array('Raffle.User')
+		)));
 	}
 
 /**
@@ -143,11 +146,6 @@ class AwardsController extends AppController {
  */
 	public function admin_delete($id = null)
 	{
-		if (!$this->request->is('post'))
-		{
-			throw new MethodNotAllowedException();
-		}
-		
 		$this->Award->id = $id;
 		
 		if (!$this->Award->exists())
