@@ -79,8 +79,6 @@ class UsersController extends AppController
 			$this->__setFlash('Endereço de email não cadastrado', 'attention');
 			return;
 		}
-
-		$this->__setFlash('Você deve informar seu endereço de email cadastrado', 'attention');
 	}
 
 	public function reset_password($secureHash = '')
@@ -240,10 +238,9 @@ class UsersController extends AppController
 			if(is_array($this->request->data['User']['groups']) && !empty($this->request->data['User']['groups']))
 			{
 				$groups = array_merge($groups, $this->request->data['User']['groups']);
-				$groups = json_encode($this->request->data['User']['groups']);
 			}
 
-			$this->request->data['User']['groups'] = $groups;
+			$this->request->data['User']['groups'] = json_encode($groups);
 
 			if ($this->User->save($this->request->data))
 			{

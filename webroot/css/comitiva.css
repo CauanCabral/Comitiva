@@ -1,3 +1,6 @@
+/** Layout basics **/
+#header { margin-bottom: 15px; border-bottom: 1px solid #ccc; }
+
 /** Scaffold View **/
 
 dt, dd		{ line-height: 3em; }
@@ -40,7 +43,10 @@ td a				{ margin-right: 10px; }
 .datepicker td.today[disabled],
 .datepicker td.today:hover[disabled]	{ background-color: #FFFF77; }
 
+/** Forms **/
 .fullWidth { width: 100%;}
+.loginSubmit { background-color: transparent; margin: 10px 0;}
+.vspace { margin: 10px auto;}
 
 /** ERROR **/
 .error			{ margin: 0 auto; }

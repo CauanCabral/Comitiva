@@ -71,7 +71,7 @@
 				echo $this->fetch('content');
 				?>
 			</div>
-			<div id="footer" class="row-fluid">
+			<div id="footer" class="row-fluid well">
 				<?php echo $this->element('footer'); ?>
 			</div>
 		</div>

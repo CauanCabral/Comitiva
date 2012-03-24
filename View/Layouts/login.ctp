@@ -11,11 +11,11 @@
 
 		//========================= Estilos
 
-		// JQUERY
 		echo $this->Html->css('jquery/ui');
-		// TWITTER
 		echo $this->Html->css('bootstrap.min');
 		echo $this->Html->css('bootstrap-responsive.min');
+		echo $this->Html->css('comitiva');
+		echo $this->Html->css('font-awesome');
 
 		// ======================== Meta, Css e Scripts via Cake
 		echo $this->fetch('meta');
@@ -25,12 +25,12 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<div class="row-fluid" id="content">
+		<div class="row-fluid">
 			<div id="header">
 				<h1><?php echo $this->Html->link(__('Comitiva: Sistema de controle de eventos'), 'http://phpms.org', array('title' => __('Copyright© Grupo de Usuários PHP de Mato Grosso do Sul - PHPMS'))); ?></h1>
 			</div>
 
-			<div id="content">
+			<div id="content" class="row-fluid">
 				<?php
 				if ($this->Session->check('Message.auth'))
 				{
@@ -52,7 +52,7 @@
 
 			</div>
 
-			<div id="footer">
+			<div id="footer" class="well">
 				<?php echo $this->element('footer'); ?>
 			</div>
 		</div>
