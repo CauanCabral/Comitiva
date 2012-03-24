@@ -5,28 +5,26 @@
 	<div class="span10">
 		<h2><?php echo __('Sorteios Realizados');?></h2>
 
-		<p>
-			<?php echo $this->BootstrapPaginator->counter(array('format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')));?>
-		</p>
-
 		<table class="table table-striped table-bordered table-condensed">
 			<tr>
-				<th><?php echo $this->BootstrapPaginator->sort('title', __('Título'));?></th>
-				<th><?php echo $this->BootstrapPaginator->sort('created', __('Criado em'));?></th>
+				<th><?php echo $this->Paginator->sort('title', __('Título'));?></th>
+				<th><?php echo $this->Paginator->sort('created', __('Criado em'));?></th>
 				<th class="actions"><?php echo __('Actions');?></th>
 			</tr>
-		<?php foreach ($awards as $award): ?>
+			<?php foreach ($awards as $award): ?>
 			<tr>
 				<td><?php echo $award['Award']['title']; ?>&nbsp;</td>
 				<td><?php echo $this->Locale->datetime($award['Award']['created']); ?>&nbsp;</td>
 				<td class="actions">
-					<?php echo $this->Html->glyphLink(__('Ver'), array('action' => 'view', $award['Award']['id']), array('glyph' => 'glyph-file glyph-large')); ?>
-					<?php echo $this->Html->glyphLink(__('Editar'), array('action' => 'edit', $award['Award']['id']), array('glyph' => 'glyph-file glyph-large')); ?>
-					<?php echo $this->Html->glyphLink(__('Remover'), array('action' => 'delete', $award['Award']['id']), array('glyph' => 'glyph-file glyph-large'), __('Deseja remover a premiação?')); ?>
+					<?php
+						echo $this->Html->glyphLink(__('Ver'), array('action' => 'view', $award['Award']['id']), array('glyph' => 'glyph-file glyph-large')),
+						$this->Html->glyphLink(__('Editar'), array('action' => 'edit', $award['Award']['id']), array('glyph' => 'glyph-file glyph-large')),
+						$this->Html->glyphLink(__('Remover'), array('action' => 'delete', $award['Award']['id']), array('glyph' => 'glyph-file glyph-large'), __('Deseja remover a premiação?'));
+					?>
 				</td>
 			</tr>
 		<?php endforeach; ?>
 		</table>
-		<?php echo $this->BootstrapPaginator->pagination(); ?>
+		<?php echo $this->element('paginate'); ?>
 	</div>
 </div>
