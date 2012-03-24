@@ -436,7 +436,7 @@ class UsersController extends AppController
 		{
 			$sub = '[' . Configure::read('Comitiva.name') . ' - Inscrições] Confirmação de conta';
 
-			if($email->__sendMailNotification($userData['User']['email'], $sub, 'account_confirm'))
+			if($this->__sendMailNotification($userData['User']['email'], $sub, 'account_confirm'))
 			{
 				$this->__setFlash('Foi enviado um email para confirmação da sua conta', 'attention');
 				return true;
