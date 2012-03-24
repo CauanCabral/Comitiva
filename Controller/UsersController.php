@@ -108,10 +108,10 @@ class UsersController extends AppController
 			if(!empty($this->request->data) && $this->request->data['User']['id'] == $userToAlter['User']['id'])
 			{
 				$toSave = array(
-					'token' => NULL,
-					'token_expires_at' => NULL,
-					'password' => $this->Auth->password($this->request->data['User']['new_pass']),
-					'id' => $this->request->data['User']['id']
+					'id' => $userToAlter['User']['id'],
+					'token' => null,
+					'token_expires_at' => null,
+					'password' => $this->request->data['User']['password']
 				);
 
 				if($this->User->save($toSave, array('validate' => false)))
@@ -124,9 +124,6 @@ class UsersController extends AppController
 				return;
 			}
 		}
-
-		$this->__setFlash('O endereço acessado não é válido.', 'attention');
-		$this->redirect('/');
 	}
 
 	public function account_create()
@@ -154,7 +151,7 @@ class UsersController extends AppController
 		}
 	}
 
-	public function account_confirm($hash = NULL,$user)
+	public function account_confirm($hash = null,$user)
 	{
 		if(isset($hash) && isset($user))
 		{
@@ -398,7 +395,7 @@ class UsersController extends AppController
 		{
 			$sub = '[' . Configure::read('Comitiva.name') . ' - Inscrições] Pedido para recuperar senha';
 
-			if($email->__sendMailNotification($userData['User']['email'], $sub, 'reset_password'))
+			if($this->__sendMailNotification($userData['User']['email'], $sub, 'reset_password'))
 			{
 				$this->__setFlash('Instruções para redefinir a senha foram enviadas para seu email cadastrado');
 				return;
