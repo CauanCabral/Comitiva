@@ -7,28 +7,28 @@
 class AlterUsers extends CakeMigration
 {
 	public $migration = array(
-			'up' => array(
-					'alter_field' => array(
-							'users' => array(
-								'type' => array(
-									'name' => 'groups',
-									'length' => 255,
-									'default' => '["participant"]'
-								)
-							)
-						)
-				),
-			'down' => array(
-					'alter_field' => array(
-							'users' => array(
-								'groups' => array(
-									'name' => 'type',
-									'length' => 30,
-									'default' => 'participant'
-								)
-							)
-						)
+		'up' => array(
+			'alter_field' => array(
+				'users' => array(
+					'type' => array(
+						'name' => 'groups',
+						'length' => 255,
+						'default' => '["participant"]'
+					)
 				)
+			)
+		),
+		'down' => array(
+			'alter_field' => array(
+					'users' => array(
+						'groups' => array(
+							'name' => 'type',
+							'length' => 30,
+							'default' => 'participant'
+						)
+					)
+				)
+			)
 		);
 
 	public function before($direction)
