@@ -305,13 +305,14 @@ class AppController extends Controller
 
 	protected function __sendMailNotification($to, $subject, $tmpl, $body = null)
 	{
-		$email = new CakeEmail();
+		$email = new CakeEmail('default');
 
 		$email->to($to)
 				->subject($subject)
 				->replyTo(Configure::read('Message.replyTo'))
 				->from(Configure::read('Message.from'))
-				->emailFormat('html');
+				->emailFormat('html')
+				->viewVars($this->viewVars);
 
 		if($body !== null)
 			$email->body($body);
