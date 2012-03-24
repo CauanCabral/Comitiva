@@ -121,6 +121,7 @@ class AppController extends Controller
 		$this->Auth->logoutRedirect = '/';
 		$this->Auth->loginRedirect = '/estatica/logged';
 
+		$this->Auth->flash['params'] = array('class' => 'alert alert-info');
 		$this->Auth->loginError = __('Falha no login. Por favor, verifique se o usuário e senha digitado estão corretos.');
 		$this->Auth->authError = __('Desculpe, você precisa estar autenticado para acessar esta página.');
 
