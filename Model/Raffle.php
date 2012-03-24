@@ -6,7 +6,7 @@ App::uses('AppModel', 'Model');
  */
 class Raffle extends AppModel 
 {
-	public $belongsTo = array('User');
+	public $belongsTo = array('User', 'Award');
 
 	/**
 	*
@@ -14,7 +14,10 @@ class Raffle extends AppModel
 	public function random($reincident = true)
 	{
 		$users = $this->User->find('list', array(
-			'fields' => array('name')
+			'fields' => array('name'),
+			'conditions' => array(
+				'groups' => array('["participant"]')
+			)
 		));
 
 		$quantity = count($users);
@@ -30,21 +33,35 @@ class Raffle extends AppModel
 			);
 		}
 
-		list($usec, $sec) = explode(' ', microtime());
-  		$seed = (float) $sec + ((float) $usec * 100000);	
-		mt_srand($seed);
-		$key = mt_rand(0, $quantity-1);
+		$key = $this->getRandKey($quantity-1);
 
 		if(!$reincident)
 		{
-			$raffles = $this->find('first', array(
-				'conditions' => array(
-					'user_id' => $userslist[$key]['id']
-				)
-			));
+			$raffles = array();
+			while(count($raffles) > 0)
+			{
+				$raffles = $this->find('all', array(
+					'conditions' => array(
+						'user_id' => $userslist[$key]['id']
+					),
+					'fields' => array('id')
+				));
+
+				$key = $this->getRandKey($quantity-1);
+			}
 
 		}
 
 		return $userlist[$key];
 	}
+
+	protected function getRandKey($max)
+	{
+		list($usec, $sec) = explode(' ', microtime());
+  		$seed = (float) $sec + ((float) $usec * 100000);	
+		mt_srand($seed);
+		
+		return mt_rand(0, $max);
+	}
+
 }

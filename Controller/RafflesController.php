@@ -9,7 +9,6 @@ class RafflesController extends AppController
 {
 	public function admin_index()
 	{
-		pr($this->Raffle->random());
 		$this->Raffle->recursive = 0;
 		$this->set('raffles', $this->paginate());
 	}
@@ -29,18 +28,39 @@ class RafflesController extends AppController
 	{
 		if ($this->request->is('post')) 
 		{
-			$winner = $this->Raffle->random($this->request->data['reincident']);
+			$raffle['award_id'] = $this->request->data['Raffle']['award_id'];
+			$raffle['user_id'] = $this->request->data['Raffle']['user_id'];
 
-			if($winner === 0)
+			$this->Raffle->create();
+			if($this->Raffle->save($raffle))
 			{
-				$this->Session->setFlash(__('Não há usuários para sortear'));
-			}	
-
-			$this->set('winner', $winner);
+				$this->__setFlash('Ganhador registrado!', 'success');
+				$this->redirect('index');
+			}
 		}
+
+		$awards = $this->Raffle->Award->find('list');
+		$awards[0] = __('Selecione um sorteio');
+		ksort($awards, SORT_NUMERIC);
+		$this->set('awards', $awards);
 	}
 
 	public function delete($id = null) 
 	{
+	}
+
+	public function admin_ajaxGetWinner()
+	{
+		if ($this->request->is('ajax')) 
+		{
+			$reincident = $this->request->query['reincident'];
+
+			$winner = $this->Raffle->random($reincident);	
+
+			$this->set('data', $winner);
+			$this->viewPath = 'Elements';
+			$this->layout = null;
+			$this->render('json');
+		}
 	}
 }

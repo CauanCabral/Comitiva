@@ -1,11 +1,6 @@
 <div class="raffles view">
 <h2><?php  echo __('Raffle');?></h2>
 	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($raffle['Raffle']['id']); ?>
-			&nbsp;
-		</dd>
 		<dt><?php echo __('User Id'); ?></dt>
 		<dd>
 			<?php echo h($raffle['Raffle']['user_id']); ?>
