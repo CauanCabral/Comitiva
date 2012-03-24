@@ -230,7 +230,7 @@ class UsersController extends AppController
 			$this->request->data['User']['active'] = true;
 
 			// default group (all user are in participant group
-			$groups = array('participant');
+			$groups = array();
 
 			if(is_array($this->request->data['User']['groups']) && !empty($this->request->data['User']['groups']))
 			{

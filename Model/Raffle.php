@@ -16,7 +16,7 @@ class Raffle extends AppModel
 		$users = $this->User->find('list', array(
 			'fields' => array('name'),
 			'conditions' => array(
-				'groups' => array('["participant"]')
+				'groups' => array('["participant"]', '["speaker"]')
 			)
 		));
 

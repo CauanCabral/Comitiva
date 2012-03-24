@@ -76,6 +76,6 @@
 			</div>
 		</div>
 	</div>
-	<?php echo $this->Js->writeBuffer(); ?>
+	<?php echo $this->Js::writeBuffer(); ?>
 </body>
 </html>
