@@ -121,6 +121,7 @@ class AppController extends Controller
 		$this->Auth->logoutRedirect = '/';
 		$this->Auth->loginRedirect = '/estatica/logged';
 
+		$this->Auth->flash['params'] = array('class' => 'alert alert-info');
 		$this->Auth->loginError = __('Falha no login. Por favor, verifique se o usuário e senha digitado estão corretos.');
 		$this->Auth->authError = __('Desculpe, você precisa estar autenticado para acessar esta página.');
 
@@ -172,11 +173,11 @@ class AppController extends Controller
 					'action' => 'index',
 					'admin' => true
 				),
-				__('Propostas') => array(
-					'controller' => 'proposals',
-					'action' => 'index',
-					'admin' => true
-				),
+				// __('Propostas') => array(
+				// 	'controller' => 'proposals',
+				// 	'action' => 'index',
+				// 	'admin' => true
+				// ),
 				__('Minha conta') => array(
 					'controller' => 'users',
 					'action' => 'profile',
@@ -195,22 +196,22 @@ class AppController extends Controller
 				)
 			);
 
-			if($this->__checkGroup('speaker'))
-			{
-				$menu[__('Propostas')] = array(
-						'controller' => 'proposals',
-						'action' => 'index',
-						'speaker' => true
-				);
-			}
-			else
-			{
-				$menu[__('Propostas')] = array(
-						'controller' => 'proposals',
-						'action' => 'add',
-						'participant' => true
-				);
-			}
+			// if($this->__checkGroup('speaker'))
+			// {
+			// 	$menu[__('Propostas')] = array(
+			// 			'controller' => 'proposals',
+			// 			'action' => 'index',
+			// 			'speaker' => true
+			// 	);
+			// }
+			// else
+			// {
+			// 	$menu[__('Propostas')] = array(
+			// 			'controller' => 'proposals',
+			// 			'action' => 'add',
+			// 			'participant' => true
+			// 	);
+			// }
 
 			$menu[__('Minha conta')] = array(
 				'controller' => 'users',
@@ -278,9 +279,12 @@ class AppController extends Controller
 		$this->autoRender = $autoRender;
 	}
 
-	protected function __setFlash($message, $type = 'success')
+	protected function __setFlash($message, $class = 'success')
 	{
-		$this->Session->setFlash(__($message), 'default', array('class' => $type));
+		if(strpos($class, 'alert') === false)
+			$class = 'alert-' . $class;
+
+		$this->Session->setFlash(__($message), 'alert', array('plugin' => 'TwitterBootstrap', 'class' => $class));
 	}
 
 	/**
@@ -303,13 +307,14 @@ class AppController extends Controller
 
 	protected function __sendMailNotification($to, $subject, $tmpl, $body = null)
 	{
-		$email = new CakeEmail();
+		$email = new CakeEmail('default');
 
 		$email->to($to)
 				->subject($subject)
 				->replyTo(Configure::read('Message.replyTo'))
 				->from(Configure::read('Message.from'))
-				->emailFormat('html');
+				->emailFormat('html')
+				->viewVars($this->viewVars);
 
 		if($body !== null)
 			$email->body($body);

@@ -35,13 +35,15 @@ class User extends AppModel
 		'email' => array(
 			'email' => array(
 				'rule' => array('email'),
+				'message' => 'Forneça um endereço válido'
 			),
 			'notempty' => array(
 				'rule' => array('notempty'),
-                                'message' => 'Por favor, preencha o email'
+				'message' => 'Por favor, preencha o email'
 			),
 			'unique' => array(
-				'rule' => array('isUnique')
+				'rule' => array('isUnique'),
+				'message' => 'Email já cadastrado no sistema'
 			)
 		),
 		'name' => array(

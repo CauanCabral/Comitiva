@@ -1,14 +1,16 @@
-<div class="actions">
-	<ul>
+<div class="row-fluid">
+	<ul class="nav nav-tabs nav-stacked span2">
 		<li><?php echo $this->Html->link('Entrar', array('action' => 'login', 'admin' => false)); ?></li>
 	</ul>
-</div>
 
-<div class="form login">
-<h2>Recuperação de Senha</h2>
-<?php
-	echo $this->Form->create('User', array('url' => array('controller' => 'users', 'action' =>'recover')));
-	echo $this->Form->input('User.email');
-	echo $this->Form->end('Enviar instruções');
-?>
+	<div class="span10">
+	<h2>Recuperação de Senha</h2>
+	<?php
+		echo $this->Form->create('User', array('url' => array('controller' => 'users', 'action' =>'recover')));
+
+		$this->Form->newLine(array('7'));
+		echo $this->Form->input('User.email', array('class' => 'fullWidth'));
+		$this->Form->newLine(array('3'));
+		echo $this->Form->submit(__('Enviar instruções'), array('div' => 'loginSubmit'));
+	?>
 </div>

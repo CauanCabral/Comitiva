@@ -9,12 +9,17 @@ Configure::write('Language.default', 'pt-br');
 // Definição do email utilizado para enviar mensagens
 Configure::write('Message.from', array('admin@phpms.org' => 'PHPMS'));
 
+// Email para retorno
 Configure::write('Message.replyTo', 'admin@phpms.org');
 
-//
+// Nome abreviado da aplicação/organizador
 Configure::write('Comitiva.name', 'PHPMS');
 
+// Nome completo da aplicação/organizador
 Configure::write('Comitiva.fullName', 'PHPMS - Grupo de Desenvolvedores PHP de Mato Grosso do Sul.');
+
+// Informações gerais sobre as formas de pagamento
+Configure::write('Comitiva.paymentInfo', '');
 
 Configure::write('Comitiva.googleApiLibs', array(
 	'jquery' => '1.7',

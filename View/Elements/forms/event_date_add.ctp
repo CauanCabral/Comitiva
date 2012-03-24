@@ -1,25 +1,22 @@
 <?php
-	if(!isset($i))
+if(!isset($i))
+{
+	$i = 0;
+}
+echo '<div class="eventDate">';
+	echo $this->Form->inputBootstrap("EventDate.{$i}.date", array(
+		'label' => __('Data'),
+		'type' => 'text',
+		'class' => 'jsDatepicker',
+		)
+	);
+	echo $this->Form->inputBootstrap("EventDate.{$i}.desc", array(
+		'label' => __('Desc')
+		)
+	);
+
+	if(isset($id))
 	{
-		$i = 0;
+		echo $this->Form->input("EventDate.{$i}.id", array('type'=> 'hidden', 'value' => $id));
 	}
-	echo '<div class="eventDate">';
-		echo $this->Form->input("EventDate.{$i}.date", array(
-			'label' => __('Data'),
-			'type' => 'datetime',
-			'minYear' => date('Y'),
-			'maxYear' => date('Y') + 5
-			)
-		);
-		echo $this->Form->input("EventDate.{$i}.desc", array(
-			'label' => __('Desc')
-			)
-		);
-		
-		// case form is showed in edit action
-		if(isset($id))
-		{
-			echo $this->Form->input("EventDate.{$i}.id", array('type'=> 'hidden', 'value' => $id));
-		}
-	echo '</div>';
-?>
+echo '</div>';

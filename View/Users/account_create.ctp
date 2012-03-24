@@ -1,56 +1,40 @@
-<div class="actions">
-	<ul>
-		<li><?php echo $this->Html->link(__('Início'), '/') ?></li>
+<div class="row-fluid">
+	<ul class="nav nav-tabs nav-stacked span2">
+		<li><?php echo $this->Html->glyphLink(__('Início'), '/', array('glyph' => 'glyph-home')) ?></li>
 	</ul>
-</div>
-<div class="form">
-<?php echo $this->Form->create('User');?>
-	<fieldset>
- 		<legend><?php echo __('Criar uma conta');?></legend>
-	<?php
-		echo $this->Form->input('name', array(
-			'label' => __('Nome'),
-			'error' => array(
-				'notempty' => __('Informe seu nome')
-			)	
-		));
-		echo $this->Form->input('nickname', array('label' => __('Sobrenome')));
-		echo $this->Form->input('birthday', array(
-			'label' => __('Data de nascimento'),
-			'type' => 'date',
-			'dateFormat' => 'DMY',
-			'minYear' => date('Y')-100,
-			'maxYear' => date('Y')-10
-		));
-		echo $this->Form->input('email', array('label' => __('Email'),
-			'error' => array(
-				'notempty' => __('Informe seu e-mail',1),
-				'email' => __('Informe um e-mail valido',1),
-				'unique' => __('Este e-mail já está em uso',1)
-			)	
-		));
-		echo $this->Form->input('username', array(
-			'label' => __('Nome de usuário'),
-			'error' => array(
-				'notempty' => __('Informe um nome de usuário'),
-				'unique' => __('Este nome de usuário já está em uso'),
-				'alphanumeric' => __('Forneça uma combinação de números e letras')
-			)
-		));
-		echo $this->Form->input('User.password', array('label' => __('Senha')));
-		echo $this->Form->input('User.password_confirm', array(
-			'label' => __('Confirme a senha'),
-			'type' => 'password',
-			'div' => array('class' => 'required')
-		));
-		echo $this->Form->input('cpf', array('label' => __('CPF')));
-		echo $this->Form->input('address', array('label' => __('Endereço')));
-		echo $this->Form->input('city', array('label' => __('Cidade')));
-		echo $this->Form->input('state', array('label' => __('Estado')));
-		echo $this->Form->input('phone', array('label' => 'Telefone'));
-		
-		echo "<p class='small' style='color:red;'>* Informações obrigatórias para geração de certificado.</p>";
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Criar'));?>
+	<div class="span10">
+	<?php echo $this->Form->create('User');?>
+		<fieldset>
+	 		<legend><?php echo __('Criar uma conta');?></legend>
+		<?php
+			$this->Form->newLine(array('4', '4', '2'));
+			echo $this->Form->input('name', array('label' => __('Nome'), 'class' => 'fullWidth'));
+			echo $this->Form->input('nickname', array('label' => __('Sobrenome'), 'class' => 'fullWidth'));
+			echo $this->Form->input('birthday', array(
+				'label' => __('Data de nascimento'),
+				'type' => 'text',
+				'class' => 'jsDatepicker fullWidth'
+				)
+			);
+
+			$this->Form->newLine(array('7', '3'));
+			echo $this->Form->input('email', array('label' => __('Email'), 'class' => 'fullWidth'));
+			echo $this->Form->input('cpf', array('label' => __('CPF'), 'class' => 'fullWidth'));
+
+			$this->Form->newLine(array('4', '3', '1', '2'));
+			echo $this->Form->input('address', array('label' => __('Endereço'), 'class' => 'fullWidth'));
+			echo $this->Form->input('city', array('label' => __('Cidade'), 'class' => 'fullWidth'));
+			echo $this->Form->input('state', array('label' => __('Estado'), 'class' => 'fullWidth'));
+			echo $this->Form->input('phone', array('label' => __('Telefone'), 'class' => 'fullWidth'));
+
+			$this->Form->newLine(array('4', '3', '3'));
+			echo $this->Form->input('username', array('label' => __('Nome de usuário'), 'class' => 'fullWidth'));
+			echo $this->Form->input('password', array('label' => __('Senha'), 'class' => 'fullWidth'));
+			echo $this->Form->input('password_confirm', array('label' => __('Confirme a senha'), 'type' => 'password', 'class' => 'fullWidth'));
+
+			echo "<p class='small' style='color:red;'>* Informações obrigatórias para geração de certificado.</p>";
+		?>
+		</fieldset>
+	<?php echo $this->Form->end(__('Criar'));?>
+	</div>
 </div>
