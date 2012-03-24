@@ -12,10 +12,8 @@ class AddAdminUser extends CakeMigration
 
 	public $migration = array(
 			'up' => array(
-
 			),
 			'down' => array(
-				
 			)
 		);
 

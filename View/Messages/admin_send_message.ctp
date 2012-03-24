@@ -1,25 +1,26 @@
-<?php
-	echo $this->element('editor'); 
-?>
-<div class="messages form">
+<?php echo $this->element('editor'); ?>
+<div class="row-fluid">
 <?php echo $this->Form->create('Message', array('action' => 'sendMessage'));?>
 	<fieldset>
  		<legend><?php echo __('Enviar Mensagem');?></legend>
 	<?php
+		$this->Form->newLine(array('3', '3', '2'));
 		echo $this->Form->input('Message.to', array(
-			'legend' => __('Enviar para'),
-			'type' => 'radio',
+			'label' => __('Enviar para'),
 			'options' => $types
 		));
 		echo $this->Form->input('Message.toFilter', array(
-			'legend' => __('Selecione os filtros para seleção dos destinatários'),
-			'type' => 'radio',
+			'label' => __('Selecione um filtro'),
 			'options' => $filters
 		));
 		echo $this->Form->input('Message.event_id', array('label' => __('Evento'),'options' => $events));
-		echo $this->Form->input('Message.subject', array('label' => __('Assunto')));
+
+		$this->Form->newLine(array('8'));
+		echo $this->Form->input('Message.subject', array('label' => __('Assunto'), 'class' => 'fullWidth'));
+
+		$this->Form->newLine(array('10'));
 		echo $this->Form->input('Message.text', array('label' => __('Mensagem'), 'rows' => 15));
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Enviar'));?>
+	<?php echo $this->Form->submit(__('Enviar'));?>
 </div>

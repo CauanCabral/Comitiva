@@ -16,3 +16,6 @@
 [submodule "Plugin/TwitterBootstrap"]
 	path = Plugin/TwitterBootstrap
 	url = git://github.com/radig/TwitterBootstrap.git
+[submodule "Plugin/Mailer"]
+	path = Plugin/Mailer
+	url = git://github.com/radig/mailer.git

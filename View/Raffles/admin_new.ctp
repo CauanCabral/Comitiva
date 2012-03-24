@@ -7,13 +7,15 @@
 		<fieldset>
 			<legend><?php echo __('Sorteio'); ?></legend>
 			<?php
+				echo $this->Form->newLine(array('4'));
 				echo $this->Form->input('award_id', array(
 					'label' => __('Selecione a Premiação'),
 					'id' => 'jsAward',
 					'class' => 'fullWidth',
 
 				));
-				echo $this->Form->input('reincident', array(
+				echo $this->Form->newLine(array('4'));
+				echo $this->Form->inputBootstrap('reincident', array(
 					'label' => __('Reincidente? (Participante pode ser sorteado novamente?)'),
 					'id' => 'jsReincident',
 					'type' => 'checkbox',
@@ -24,7 +26,7 @@
 				));
 			?>
 				<div id="winner"  class="span4" style="font-size: 1.9em;float:right"></div>
-			<?php echo $this->Html->link(__('Sortear'), '#', array('class' => 'btn btn-primary', 'id' => 'jsStartRaffle'));
+			<?php echo $this->Html->link(__('Sortear'), '#', array('class' => 'btn btn-warning', 'id' => 'jsStartRaffle'));
 				echo $this->Form->submit(__('Salvar ganhador'), array('id' => 'jsSubmit'));
 			?>
 		</fieldset>
@@ -40,7 +42,7 @@ $script = <<<SCRIPT
 	  		dataType: 'json',
 	  		data: {reincident: repeat}
 		})
-		.success(function(data, status) { 
+		.success(function(data, status) {
 			$('#winner').html(data.name);
 			$('#jsUserId').val(data.id);
 		});

@@ -8,17 +8,17 @@
 		<dl>
 			<dt><?php echo __('Premiação'); ?></dt>
 			<dd>
-				<?php echo h($raffle['Award']['title']); ?>
+				<?php echo $raffle['Award']['title']; ?>
 				&nbsp;
 			</dd>
 			<dt><?php echo __('Ganhador'); ?></dt>
 			<dd>
-				<?php echo h($raffle['User']['name']); ?>
+				<?php echo $raffle['User']['name']; ?>
 				&nbsp;
 			</dd>
 			<dt><?php echo __('Registrado em'); ?></dt>
 			<dd>
-				<?php echo h($raffle['Raffle']['created']); ?>
+				<?php echo $this->Locale->dateTime($raffle['Raffle']['created']); ?>
 				&nbsp;
 			</dd>
 		</dl>

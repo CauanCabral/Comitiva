@@ -7,31 +7,14 @@ App::uses('AppController', 'Controller');
  */
 class AwardsController extends AppController {
 
-/**
- *  Layout
- *
- * @var string
- */
-	public $layout = 'default';
+	public $helpers = array('TinyMCE.TinyMCE');
 
-/**
- * Helpers
- *
- * @var array
- */
-	public $helpers = array('TwitterBootstrap.BootstrapHtml', 'TwitterBootstrap.BootstrapForm', 'TwitterBootstrap.BootstrapPaginator');
-/**
- * Components
- *
- * @var array
- */
-	public $components = array('Session');
 /**
  * admin_index method
  *
  * @return void
  */
-	public function admin_index() 
+	public function admin_index()
 	{
 		$this->Award->recursive = 0;
 		$this->set('awards', $this->paginate());
@@ -50,6 +33,7 @@ class AwardsController extends AppController {
 		{
 			throw new NotFoundException(__('Sorteio não encontrado'));
 		}
+
 		$this->set('award', $this->Award->find('first', array(
 			'conditions' => array('id' => $id),
 			'contain' => array('Raffle.User')
@@ -68,27 +52,11 @@ class AwardsController extends AppController {
 			$this->Award->create();
 			if ($this->Award->save($this->request->data))
 			{
-				$this->Session->setFlash(
-					__('Sorteio criado!'),
-					'alert',
-					array(
-						'plugin' => 'TwitterBootstrap',
-						'class' => 'alert-success'
-					)
-				);
+				$this->__setFlash('Sorteio criado!', 'success');
 				$this->redirect(array('action' => 'index'));
-			} 
-			else
-			{
-				$this->Session->setFlash(
-					__('Não foi possível criar o sorteio. Tente novamente'),
-					'alert',
-					array(
-						'plugin' => 'TwitterBootstrap',
-						'class' => 'alert-error'
-					)
-				);
 			}
+
+			$this->__setFlash('Não foi possível criar o sorteio. Tente novamente', 'alert-error');
 		}
 	}
 
@@ -106,32 +74,16 @@ class AwardsController extends AppController {
 			throw new NotFoundException(__('Sorteio não encontrado'));
 		}
 
-		if ($this->request->is('post') || $this->request->is('put')) 
+		if ($this->request->is('post') || $this->request->is('put'))
 		{
 			if ($this->Award->save($this->request->data))
 			{
-				$this->Session->setFlash(
-					__('Sorteio atualizado!'),
-					'alert',
-					array(
-						'plugin' => 'TwitterBootstrap',
-						'class' => 'alert-success'
-					)
-				);
+				$this->__setFlash('Sorteio atualizado!', 'success');
 				$this->redirect(array('action' => 'index'));
-			} 
-			else
-			{
-				$this->Session->setFlash(
-					__('Não foi possível atualizar o sorteio. Tente novamente'),
-					'alert',
-					array(
-						'plugin' => 'TwitterBootstrap',
-						'class' => 'alert-error'
-					)
-				);
 			}
-		} 
+
+			$this->__setFlash('Não foi possível atualizar o sorteio. Tente novamente', 'error');
+		}
 		else
 		{
 			$this->request->data = $this->Award->read(null, $id);
@@ -147,32 +99,19 @@ class AwardsController extends AppController {
 	public function admin_delete($id = null)
 	{
 		$this->Award->id = $id;
-		
+
 		if (!$this->Award->exists())
 		{
 			throw new NotFoundException(__('Invalid %s', __('award')));
 		}
-		
-		if ($this->Award->delete()) 
+
+		if ($this->Award->delete())
 		{
-			$this->Session->setFlash(
-				__('Sorteio excluído!'),
-				'alert',
-				array(
-					'plugin' => 'TwitterBootstrap',
-					'class' => 'alert-success'
-				)
-			);
+			$this->__setFlash('Sorteio excluído!', 'success');
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->Session->setFlash(
-			__('Não foi possível excluir o sorteio. Tente novamente'),
-			'alert',
-			array(
-				'plugin' => 'TwitterBootstrap',
-				'class' => 'alert-error'
-			)
-		);
+
+		$this->__setFlash('Não foi possível excluir o sorteio. Tente novamente', 'error');
 		$this->redirect(array('action' => 'index'));
 	}
 }

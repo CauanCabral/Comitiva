@@ -20,18 +20,18 @@
 			</dd>
 			<dt><?php echo __('Criado em'); ?></dt>
 			<dd>
-				<?php echo $this->Locale->date($award['Award']['created']); ?>
+				<?php echo $this->Locale->dateTime($award['Award']['created']); ?>
 				&nbsp;
 			</dd>
 			<dt><?php echo __('Modificado em'); ?></dt>
 			<dd>
-				<?php echo $this->Locale->date($award['Award']['modified']); ?>
+				<?php echo $this->Locale->dateTime($award['Award']['modified']); ?>
 				&nbsp;
 			</dd>
 		</dl>
-		<h2><?php  echo __('Ganhadores');?></h2>
+		<h2><?php echo __('Ganhadores');?></h2>
 		<dl>
-		<?php 
+		<?php
 			foreach($award['Raffle'] as $raffle):
 		?>
 		<dt><?php echo __('Participante'); ?></dt>
@@ -42,5 +42,4 @@
 		<?php endforeach; ?>
 		</dl>
 	</div>
-<div>
-
+</div>

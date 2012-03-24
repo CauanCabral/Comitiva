@@ -1,6 +1,6 @@
 <?php
 App::uses('Sanitize', 'Utility');
-
+App::uses('Mailer', 'Mailer.Lib');
 class MessagesController extends AppController
 {
 	public $helpers = array('TinyMCE.TinyMCE');
@@ -50,21 +50,21 @@ class MessagesController extends AppController
 			// verifica se há destinatário
 			if(!empty($op['to']))
 			{
-				// trata o retorno do envio
-				switch($this->__sendMessage($op))
+				$status = $this->__sendMessage($op);
+
+				if($status === true)
 				{
-					case 0:
-						$this->__setFlash('Mensagem enviada', 'success');
-						$this->redirect(array('action' => 'index'));
-						break;
-					case 1:
-						$this->__setFlash('A mensagem não pode ser enviada a todos os destinatários', 'attention');
-						$this->redirect(array('action' => 'index'));
-						break;
-					case -1:
-						$this->__setFlash('Falha no envio', 'error');
-						break;
+					$this->__setFlash('Mensagem enviada', 'success');
+					$this->redirect(array('action' => 'index'));
 				}
+
+				if($status > 1)
+				{
+					$this->__setFlash('A mensagem não pode ser enviada a todos os destinatários', 'attention');
+					$this->redirect(array('action' => 'index'));
+				}
+
+				$this->__setFlash('Falha no envio', 'error');
 			}
 
 		}
@@ -92,22 +92,52 @@ class MessagesController extends AppController
 	/**
 	 * Envia uma mensagem, utilizando os dados setados no atributo da classe MessagesController::data
 	 *
-	 * @return int $status - 0 em caso de sucesso, 1 caso haja erro no envio para alguém e -1 caso não seja possível enviar nenhuma mensagem
+	 * @return int $status
+	 *             - true em caso de sucesso
+	 *             - int > 0 caso haja erro no envio para alguém
+	 *             - false caso não seja possível enviar nenhuma mensagem
 	 */
 	protected function __sendMessage($options = array())
 	{
 		if(empty($options))
 			return -1;
 
-		if($this->__sendMailNotification($options['to'], $options['subject'], 'default', $options['body']))
-		{
-			return 0;
-		}
+		config('email');
+		$configClass = new EmailConfig();
+		$config = $configClass->default;
+		$transport =strtolower($config['tranport']);
 
-		//Não é possível detectar falha parcial com CakeEmail?
-		//return 1;
+		if($tranport !== 'smtp')
+			throw new CakeException('Configuração de email não disponível', true);
 
-		return -1;
+		$compatibleConfig = array(
+			'transport' => 'smtp',
+			'smpt' => array(
+				'username' => $config['username'],
+				'password' => $config['password'],
+				'port' => $config['port'],
+				'host' => substr($config['host'], 3),
+				'encryptation' => 'ssl',
+			)
+		);
+
+		$mailer = new Mailer($compatibleConfig);
+
+		if(($status = $mailer->sendMessage($options)) === 0)
+			return false;
+
+		$tos = 0;
+
+		if(isset($options['to']))
+			$tos += count($options['to']);
+
+		if(isset($options['cc']))
+			$tos += count($options['cc']);
+
+		if(isset($options['bcc']))
+			$tos += count($options['bcc']);
+
+		return $status == $tos ? true : $status;
 	}
 
 	/**
