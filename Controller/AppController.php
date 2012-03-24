@@ -172,11 +172,11 @@ class AppController extends Controller
 					'action' => 'index',
 					'admin' => true
 				),
-				__('Propostas') => array(
-					'controller' => 'proposals',
-					'action' => 'index',
-					'admin' => true
-				),
+				// __('Propostas') => array(
+				// 	'controller' => 'proposals',
+				// 	'action' => 'index',
+				// 	'admin' => true
+				// ),
 				__('Minha conta') => array(
 					'controller' => 'users',
 					'action' => 'profile',
@@ -195,22 +195,22 @@ class AppController extends Controller
 				)
 			);
 
-			if($this->__checkGroup('speaker'))
-			{
-				$menu[__('Propostas')] = array(
-						'controller' => 'proposals',
-						'action' => 'index',
-						'speaker' => true
-				);
-			}
-			else
-			{
-				$menu[__('Propostas')] = array(
-						'controller' => 'proposals',
-						'action' => 'add',
-						'participant' => true
-				);
-			}
+			// if($this->__checkGroup('speaker'))
+			// {
+			// 	$menu[__('Propostas')] = array(
+			// 			'controller' => 'proposals',
+			// 			'action' => 'index',
+			// 			'speaker' => true
+			// 	);
+			// }
+			// else
+			// {
+			// 	$menu[__('Propostas')] = array(
+			// 			'controller' => 'proposals',
+			// 			'action' => 'add',
+			// 			'participant' => true
+			// 	);
+			// }
 
 			$menu[__('Minha conta')] = array(
 				'controller' => 'users',
