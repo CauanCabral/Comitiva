@@ -9,23 +9,17 @@
 				<legend><?php echo __('Novo Sorteio'); ?></legend>
 				<?php
 				$this->Form->newLine(array('5'));
-				echo $this->Form->input('event_id', array(
-					'label' => __('Evento'),
-					'options' => $events,
-					'class' => 'fullWidth'
-				));
+				$this->Form->newLine(array('5', '3'));
 				echo $this->Form->input('title', array(
 					'required' => 'required',
 					'label' => __('Título'),
 					'class' => 'fullWidth'
 				));
-				$this->Form->newLine(array('10'));
-				echo $this->Form->input('description', array(
-					'label' => __('Descrição'),
-					'rows' => 15
+				echo $this->Form->input('event_id', array(
+					'label' => __('Evento')
 				));
-				echo $this->Form->inputBootstrap('groups', array(
-					'label' => __('Quem pode ganhar'),
+				echo $this->Form->input('groups', array(
+					'label' => __('Grupos'),
 					'options' => array(
 						'participant' => __('Participante'),
 						'speaker' => __('Palestrante'),
@@ -33,7 +27,12 @@
 						),
 					'multiple' => true
 					)
-			);
+				);
+				$this->Form->newLine(array('10'));
+				echo $this->Form->input('description', array(
+					'label' => __('Descrição'),
+					'rows' => 15
+				));
 				?>
 			</fieldset>
 			<?php echo $this->Form->submit(__('Salvar'));?>
