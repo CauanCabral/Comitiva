@@ -2,7 +2,7 @@
 	<ul class="nav nav-tabs nav-stacked span2">
 		<li><?php echo $this->Html->link(__('Listar Premiados'), array('action' => 'index'));?></li>
 	</ul>
-	<div class="span9">
+	<div class="span10">
 		<?php echo $this->Form->create('Raffle', array('id' => 'jsForm'));?>
 		<fieldset>
 			<legend><?php echo __('Sorteio'); ?></legend>
@@ -25,19 +25,25 @@
 					'id' => 'jsUserId'
 				));
 			?>
-				<div id="winner"  class="span4" style="font-size: 1.9em;float:right"></div>
-			<?php echo $this->Html->link(__('Sortear'), '#', array('class' => 'btn btn-warning', 'id' => 'jsStartRaffle'));
-				echo $this->Form->submit(__('Salvar ganhador'), array('id' => 'jsSubmit'));
-			?>
+			<div class="row-fluid">
+				<div class="hero-unit span2" style="font-size: 1.9em;">
+					<span id="winner"></span>
+				</div>
+				<div class="span4">
+				<?php echo $this->Html->link(__('Sortear'), '#', array('class' => 'btn btn-warning', 'id' => 'jsStartRaffle'));
+				?>
+				</div>
+			</div>
+			<?php echo $this->Form->submit(__('Salvar ganhador'), array('id' => 'jsSubmit')); ?>
 		</fieldset>
 	</div>
 </div>
 <?php
 $script = <<<SCRIPT
-	$('#jsStartRaffle').click(function() {
-		repeat = $('#jsReincident').is(':checked') ? 1 : 0;
-
-		award_id = $('#jsAward').val();
+	$('#jsStartRaffle').click(function(e) {
+		e.preventDefault();
+		var repeat = $('#jsReincident').is(':checked') ? 1 : 0;
+		var award_id = $('#jsAward').val();
 		$.ajax({
 	  		url: '/admin/raffles/ajaxGetWinner',
 	  		dataType: 'json',
@@ -47,12 +53,14 @@ $script = <<<SCRIPT
 			$('#winner').html(data.name);
 			$('#jsUserId').val(data.id);
 		});
+
+		return false;
 	});
 
 	$('#jsSubmit').click(function(e) {
 		e.preventDefault();
 
-		award_id = $('#jsAward').val();
+		var award_id = $('#jsAward').val();
 
 		if(award_id == 0)
 		{
