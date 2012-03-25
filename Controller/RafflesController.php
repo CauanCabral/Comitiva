@@ -39,7 +39,7 @@ class RafflesController extends AppController
 			}
 		}
 
-		$awards = $this->Raffle->Award->find('list');
+		$awards = $this->Raffle->Award->getList();
 		$awards[0] = __('Selecione um sorteio');
 		ksort($awards, SORT_NUMERIC);
 		$this->set('awards', $awards);

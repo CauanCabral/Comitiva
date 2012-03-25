@@ -19,11 +19,22 @@
 					'label' => __('Título'),
 					'class' => 'fullWidth'
 				));
-				$this->Form->newLine(array('7'));
+				$this->Form->newLine(array('10'));
 				echo $this->Form->input('description', array(
 					'label' => __('Descrição'),
 					'rows' => 15
 				));
+
+				echo $this->Form->inputBootstrap('groups', array(
+					'label' => __('Grupos'),
+					'options' => array(
+						'participant' => __('Participante'),
+						'speaker' => __('Palestrante'),
+						'admin' => __('Administrador')
+						),
+					'multiple' => true
+					)
+				);
 				?>
 			</fieldset>
 			<?php echo $this->Form->submit(__('Salvar'));?>

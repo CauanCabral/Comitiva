@@ -20,11 +20,12 @@ class AddFieldEventId extends CakeMigration {
 			'create_field' => array(
 				'awards' => array(
 					'event_id' => array('type' => 'integer', 'null' => false, 'after' => 'modified'),
+					'groups' => array('type' => 'string', 'length' => 255)
 				),
 			),
 		),
 		'down' => array(
-			'drop_field' => array('awards' => array('event_id'))
+			'drop_field' => array('awards' => array('event_id', 'groups'))
 		),
 	);
 

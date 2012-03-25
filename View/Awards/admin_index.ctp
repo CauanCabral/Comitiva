@@ -18,8 +18,8 @@
 				<td class="actions">
 					<?php
 						echo $this->Html->glyphLink(__('Ver'), array('action' => 'view', $award['Award']['id']), array('glyph' => 'glyph-file glyph-large')),
-						$this->Html->glyphLink(__('Editar'), array('action' => 'edit', $award['Award']['id']), array('glyph' => 'glyph-file glyph-large')),
-						$this->Html->glyphLink(__('Remover'), array('action' => 'delete', $award['Award']['id']), array('glyph' => 'glyph-file glyph-large'), __('Deseja remover a premiação?'));
+						$this->Html->glyphLink(__('Editar'), array('action' => 'edit', $award['Award']['id']), array('glyph' => 'glyph-edit glyph-large')),
+						$this->Html->glyphLink(__('Remover'), array('action' => 'delete', $award['Award']['id']), array('glyph' => 'glyph-remove glyph-large'), __('Deseja remover a premiação?'));
 					?>
 				</td>
 			</tr>

@@ -18,8 +18,19 @@ class Raffle extends AppModel
 		$award = $this->Award->find('first', array(
 			'conditions' => array(
 				'Award.id' => $award_id
-			)
+			),
+			'contain' => array('Event')
 		));
+
+		$groups = json_decode($award['Award']['groups']);
+
+		$winners = array();
+
+		foreach ($groups as $group) {
+			$winners[] = '["' . $group . '"]';
+		}
+
+		$winners = array_merge($winners, array('["participant","speaker"]'));
 
 		$subscriptions = $Subscription->find('list', array(
 			'conditions' => array(
@@ -32,7 +43,7 @@ class Raffle extends AppModel
 		$users = $this->User->find('list', array(
 			'fields' => array('name'),
 			'conditions' => array(
-				'groups' => array('["participant"]', '["speaker"]'),
+				'groups' => $winners,
 				'User.id' => array_values($subscriptions)
 			)
 		));
@@ -62,7 +73,8 @@ class Raffle extends AppModel
 			{
 				$raffles = $this->find('all', array(
 					'conditions' => array(
-						'user_id' => $userslist[$key]['id']
+						'user_id' => $userslist[$key]['id'],
+						'award_id' => $award_id
 					),
 					'fields' => array('id')
 				));
