@@ -37,7 +37,6 @@ class UsersController extends AppController
 
 				$this->User->id = $this->activeUser['id'];
 
-				// update 'last_access' field
 				$this->User->saveField('last_access', $now->format("Y-m-d H:i:s"));
 
 				$this->__setFlash('Você está autenticado', 'success');

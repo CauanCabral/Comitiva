@@ -3,10 +3,10 @@
  * PHP versions 5
  *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Comitiva : Sistema de gerenciamento de eventos ( http://comitiva.phpms.org )
- * Copyright 2010, Grupo de Desenvolvedores PHP de Mato Grosso do Sul - PHPMS ( http://phpms.org )
+ * Copyright 2010-2012, Grupo de Desenvolvedores PHP de Mato Grosso do Sul - PHPMS ( http://phpms.org )
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
@@ -15,19 +15,17 @@
  * @link          http://cakephp.org CakePHP(tm) Project
  * @copyright     Copyright 2010-2012, Grupo de Desenvolvedores PHP de Mato Grosso do Sul - PHPMS ( http://phpms.org )
  * @link          http://comitiva.phpms.org Comitiva Project
- * @package       cake
- * @subpackage    cake.comitiva
+ * @package       Comitiva
+ * @subpackage    Comitiva.Controller
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
 /**
- * Base of all Application Controllers
+ * Controler base para o restante da aplicação.
+ * Fornece vários métodos auxiliares para toda a aplicação.
  *
- * Add your application-wide methods in the class below, your controllers
- * will inherit them.
- *
- * @package       cake
- * @subpackage    cake.comitiva
+ * @package       Comitiva
+ * @subpackage    Comitiva.Controller
  */
 class AppController extends Controller
 {
@@ -73,14 +71,14 @@ class AppController extends Controller
 	 */
 	public function beforeFilter()
 	{
+		parent::beforeFilter();
+
 		$this->__setupAuth();
 
 		if(!empty($this->activeUser))
 		{
 			$this->__buildMenu();
 		}
-
-		parent::beforeFilter();
 	}
 
 	/**
@@ -256,15 +254,10 @@ class AppController extends Controller
 	 */
 	protected function __checkGroup($group, $user_groups = null)
 	{
-		$this->activeUser['groups'] = json_encode(array('admin'));
 		if($user_groups == null)
-		{
 			$groups = json_decode($this->activeUser['groups'], true);
-		}
 		else
-		{
 			$groups = $user_groups;
-		}
 
 		foreach($groups as $g)
 		{
