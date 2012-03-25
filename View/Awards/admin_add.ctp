@@ -9,6 +9,11 @@
 				<legend><?php echo __('Novo Sorteio'); ?></legend>
 				<?php
 				$this->Form->newLine(array('5'));
+				echo $this->Form->input('event_id', array(
+					'label' => __('Evento'),
+					'options' => $events,
+					'class' => 'fullWidth'
+				));
 				echo $this->Form->input('title', array(
 					'required' => 'required',
 					'label' => __('Título'),

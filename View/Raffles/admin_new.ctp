@@ -37,10 +37,11 @@ $script = <<<SCRIPT
 	$('#jsStartRaffle').click(function() {
 		repeat = $('#jsReincident').is(':checked') ? 1 : 0;
 
+		award_id = $('#jsAward').val();
 		$.ajax({
 	  		url: '/admin/raffles/ajaxGetWinner',
 	  		dataType: 'json',
-	  		data: {reincident: repeat}
+	  		data: {reincident: repeat, award_id: award_id}
 		})
 		.success(function(data, status) {
 			$('#winner').html(data.name);

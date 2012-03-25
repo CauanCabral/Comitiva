@@ -11,12 +11,29 @@ class Raffle extends AppModel
 	/**
 	*
 	*/
-	public function random($reincident = true)
+	public function random($award_id, $reincident = true)
 	{
+		$Subscription = ClassRegistry::init('Subscription');
+
+		$award = $this->Award->find('first', array(
+			'conditions' => array(
+				'Award.id' => $award_id
+			)
+		));
+
+		$subscriptions = $Subscription->find('list', array(
+			'conditions' => array(
+				'event_id' => $award['Event']['id'],
+				'checked' => 1
+			),
+			'fields' => array('id', 'user_id')
+		));
+
 		$users = $this->User->find('list', array(
 			'fields' => array('name'),
 			'conditions' => array(
-				'groups' => array('["participant"]', '["speaker"]')
+				'groups' => array('["participant"]', '["speaker"]'),
+				'User.id' => array_values($subscriptions)
 			)
 		));
 

@@ -11,6 +11,9 @@
 				<?php
 				echo $this->Form->hidden('id');
 				$this->Form->newLine(array('5'));
+				echo $this->Form->input('event_id', array(
+					'label' => __('Evento')
+				));
 				echo $this->Form->input('title', array(
 					'required' => 'required',
 					'label' => __('Título'),

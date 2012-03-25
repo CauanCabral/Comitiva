@@ -35,8 +35,8 @@ class AwardsController extends AppController {
 		}
 
 		$this->set('award', $this->Award->find('first', array(
-			'conditions' => array('id' => $id),
-			'contain' => array('Raffle.User')
+			'conditions' => array('Award.id' => $id),
+			'contain' => array('Raffle.User', 'Event')
 		)));
 	}
 
@@ -58,6 +58,9 @@ class AwardsController extends AppController {
 
 			$this->__setFlash('Não foi possível criar o sorteio. Tente novamente', 'alert-error');
 		}
+
+			$events = $this->Award->Event->find('list');
+			$this->set('events', $events);
 	}
 
 /**
@@ -86,7 +89,12 @@ class AwardsController extends AppController {
 		}
 		else
 		{
-			$this->request->data = $this->Award->read(null, $id);
+			$this->request->data = $this->Award->find('first',array(
+				'conditions' => array('Award.id' => $id),
+			));
+
+			$events = $this->Award->Event->find('list');
+			$this->set('events', $events);
 		}
 	}
 

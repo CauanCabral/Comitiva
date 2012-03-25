@@ -76,7 +76,8 @@ class RafflesController extends AppController
 		if ($this->request->is('ajax'))
 		{
 			$reincident = $this->request->query['reincident'];
-			$winner = $this->Raffle->random((bool)$reincident);
+			$award_id = $this->request->query['award_id'];
+			$winner = $this->Raffle->random($award_id, (bool)$reincident);
 
 			if( $winner === 0)
 				 $winner = array('name' => 'Nenhum participante disponível', 'id' => 0);

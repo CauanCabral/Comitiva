@@ -13,6 +13,11 @@
 				<?php echo $award['Award']['title']; ?>
 				&nbsp;
 			</dd>
+			<dt><?php echo __('Evento'); ?></dt>
+			<dd>
+				<?php echo $award['Event']['title']; ?>
+				&nbsp;
+			</dd>
 			<dt><?php echo __('Descrição'); ?></dt>
 			<dd>
 				<?php echo $award['Award']['description']; ?>
