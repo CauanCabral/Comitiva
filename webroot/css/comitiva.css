@@ -47,6 +47,8 @@ td a				{ margin-right: 10px; }
 .fullWidth { width: 100%;}
 .loginSubmit { background-color: transparent; margin: 10px 0;}
 .vspace { margin: 10px auto;}
+.required label { color: #c00; font-weight: bold;}
+.required label:after { content: ' *';}
 
 /** ERROR **/
 .error			{ margin: 0 auto; }

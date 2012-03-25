@@ -19,8 +19,6 @@
 				&nbsp;
 			</dd>
 		</dl>
-	</div>
-	<div class="related">
 		<h3><?php echo __('Pagamentos Efetuados');?></h3>
 		<?php if (!empty($subscription['Payment']['id'])):?>
 		<table class="table table-striped table-bordered table-condensed">
