@@ -1,38 +1,37 @@
-<div class="users form">
-<?php echo $this->Form->create('User', array('action' => 'edit'));?>
+<div class="row-fluid">
+	<ul class="nav nav-tabs nav-stacked span2">
+		<li><?php echo $this->Html->link(__('Minhas Inscrições'), array('controller' => 'subscriptions', 'action' => 'index')); ?> </li>
+	</ul>
+	<div class="span10">
+	<?php echo $this->Form->create('User', array('action' => 'edit'));?>
 	<fieldset>
  		<legend><?php echo __('Editar Dados');?></legend>
- 		<p><?php echo __('Se desejar você pode alterar abaixo seu tipo de participação')?>
 	<?php
-		echo $this->Form->input('User.username', array(
+		echo $this->Form->input('User.id', array('type' => 'hidden'));
+		echo $this->Form->inputBootstrap('User.username', array(
 			'label' => __('Nome de Usuário'),
 			'disabled' => true
 		));
-		echo $this->Form->input('User.email');
-		echo $this->Form->input('User.name',array(
-			'label' => __('Nome')
-		));
-		echo $this->Form->input('User.nickname',array(
-			'label' => __('Sobrenome')
-		));
-		echo $this->Form->input('User.birthday',array(
-			'label' => __('Nascimento'),
-			'type' => 'date',
-			'minYear' => date('Y')-100,
-			'maxYear' => date('Y'),
-			'dateFormat' => 'DMY'
-		));
-		echo $this->Form->input('User.cpf', array('label' => __('CPF')));
-		echo $this->Form->input('User.address', array('label' => __('Endereço')));
-		echo $this->Form->input('User.city', array('label' => __('Cidade')));
-		echo $this->Form->input('User.state', array('label' => __('Estado')));
-		echo $this->Form->input('User.phone', array('label' => 'Telefone',1));
+		$this->Form->newLine(array('3', '4', '3'));
+		echo $this->Form->input('name', array('label' => __('Nome'), 'class' => 'fullWidth'));
+		echo $this->Form->input('nickname', array('label' => __('Sobrenome'), 'class' => 'fullWidth'));
+		echo $this->Form->input('birthday', array(
+			'label' => __('Data de nascimento'),
+			'type' => 'text',
+			'class' => 'jsDatepicker fullWidth'
+			)
+		);
+		$this->Form->newLine(array('7', '3'));
+			echo $this->Form->input('email', array('label' => __('Email'), 'class' => 'fullWidth'));
+			echo $this->Form->input('cpf', array('label' => __('CPF'), 'class' => 'fullWidth'));
+
+			$this->Form->newLine(array('4', '3', '1', '2'));
+			echo $this->Form->input('address', array('label' => __('Endereço'), 'class' => 'fullWidth'));
+			echo $this->Form->input('city', array('label' => __('Cidade'), 'class' => 'fullWidth'));
+			echo $this->Form->input('state', array('label' => __('Estado'), 'class' => 'fullWidth'));
+			echo $this->Form->input('phone', array('label' => __('Telefone'), 'class' => 'fullWidth'));
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Salvar', 1));?>
-</div>
-<div class="actions">
-	<ul>
-		<li><?php echo $this->Html->link(__('Minhas Inscrições'), array('controller' => 'subscriptions', 'action' => 'index')); ?> </li>
-	</ul>
+	</div>
 </div>
