@@ -8,6 +8,7 @@ echo '<div class="eventDate">';
 		'label' => __('Data'),
 		'type' => 'text',
 		'class' => 'jsDatepicker',
+		'value' => $this->Form->value("EventDate.{$i}.date") ? $this->Locale->date($this->Form->value("EventDate.{$i}.date")) : ''
 		)
 	);
 	echo $this->Form->inputBootstrap("EventDate.{$i}.desc", array(
