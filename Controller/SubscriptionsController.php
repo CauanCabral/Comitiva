@@ -32,7 +32,7 @@ class SubscriptionsController extends AppController
 	{
 		if (!$id)
 		{
-			$this->__setFlash('Inscrição inválida.', 'attention');
+			$this->__setFlash('Inscrição inválida.');
 			$this->__goBack();
 		}
 
@@ -51,7 +51,7 @@ class SubscriptionsController extends AppController
 				$this->redirect(array('action' => 'index'));
 			}
 
-			$this->__setFlash('A inscrição não pôde ser salva. Tente novamente.', 'attention');
+			$this->__setFlash('A inscrição não pôde ser salva. Tente novamente.');
 		}
 
 		$users = $this->Subscription->User->getList();
@@ -63,7 +63,7 @@ class SubscriptionsController extends AppController
 	{
 		if (!$id && empty($this->request->data))
 		{
-			$this->__setFlash('Inscrição inválida', 'attention');
+			$this->__setFlash('Inscrição inválida', 'error');
 			$this->__goBack();
 		}
 
@@ -75,7 +75,7 @@ class SubscriptionsController extends AppController
 				$this->redirect(array('action' => 'index'));
 			}
 
-			$this->Session->setFlash('A inscrição não pôde ser salva. Tente novamente.', 'attention');
+			$this->Session->setFlash('A inscrição não pôde ser salva. Tente novamente.');
 		}
 
 		if (empty($this->request->data))
@@ -92,7 +92,7 @@ class SubscriptionsController extends AppController
 	{
 		if (!$id)
 		{
-			$this->__setFlash('Inscrição inválido!', 'attention');
+			$this->__setFlash('Inscrição inválido!', 'error');
 		}
 		else if ($this->Subscription->delete($id))
 		{
@@ -100,7 +100,7 @@ class SubscriptionsController extends AppController
 		}
 		else
 		{
-			$this->__setFlash('Inscrição não foi removida', 'attention');
+			$this->__setFlash('Inscrição não foi removida');
 		}
 
 		$this->__goBack();
@@ -110,7 +110,7 @@ class SubscriptionsController extends AppController
 	{
 		if(!$id)
 		{
-			$this->__setFlash('Inscrição inválido!', 'attention');
+			$this->__setFlash('Inscrição inválido!', 'error');
 			$this->__goBack();
 		}
 
@@ -118,7 +118,7 @@ class SubscriptionsController extends AppController
 
 		if(!$subscription)
 		{
-			$this->__setFlash('Inscrição inválido!', 'attention');
+			$this->__setFlash('Inscrição inválido!', 'error');
 			$this->__goBack();
 		}
 
@@ -130,7 +130,7 @@ class SubscriptionsController extends AppController
 		}
 		else
 		{
-			$this->__setFlash('Falha no check-in.', 'attention');
+			$this->__setFlash('Falha no check-in.');
 		}
 
 		$this->__goBack();
@@ -179,7 +179,7 @@ class SubscriptionsController extends AppController
 	{
 		if (!$id)
 		{
-			$this->__setFlash('Inscrição inválida', 'attention');
+			$this->__setFlash('Inscrição inválida', 'error');
 			$this->__goBack();
 		}
 
@@ -207,7 +207,7 @@ class SubscriptionsController extends AppController
 		{
 			if($this->request->data['Subscription']['confirm'] != sha1($event_id))
 			{
-				$this->__setFlash('A inscrição não pôde ser realizada. Verifique se o evento ainda está disponível.', 'attention');
+				$this->__setFlash('A inscrição não pôde ser realizada. Verifique se o evento ainda está disponível.');
 				$this->redirect(array('action' => 'index'));
 			}
 
@@ -215,7 +215,7 @@ class SubscriptionsController extends AppController
 			if($this->Subscription->Event->read(null, $event_id) === false || !$this->Subscription->Event->openToSubscription($event_id))
 			{
 				//caso não seja saí da inscrição
-				$this->__setFlash('A inscrição não pôde ser realizada. O evento não existe ou as inscrições foram encerradas.', 'attention');
+				$this->__setFlash('A inscrição não pôde ser realizada. O evento não existe ou as inscrições foram encerradas.');
 				$this->redirect(array('action' => 'index'));
 			}
 
@@ -230,7 +230,7 @@ class SubscriptionsController extends AppController
 				$this->redirect(array('action' => 'index'));
 			}
 
-			$this->__setFlash('A inscrição não pôde ser realizada. Tente novamente.', 'attention');
+			$this->__setFlash('A inscrição não pôde ser realizada. Tente novamente.');
 			$this->redirect(array('action' => 'index'));
 		}
 
@@ -240,7 +240,7 @@ class SubscriptionsController extends AppController
 
 			if(!empty($subscription))
 			{
-				$this->__setFlash('Sua inscrição neste evento já foi efetuada!', 'attention');
+				$this->__setFlash('Sua inscrição neste evento já foi efetuada!');
 				$this->__goBack();
 			}
 
@@ -253,7 +253,7 @@ class SubscriptionsController extends AppController
 	{
 		if (!$id)
 		{
-			$this->__setFlash('Inscrição inválido!', 'attention');
+			$this->__setFlash('Inscrição inválido!', 'error');
 			$this->__goBack();
 		}
 
@@ -263,7 +263,7 @@ class SubscriptionsController extends AppController
 		if(!empty($subscription))
 		{
 			// caso não esteja somente seta a mensagem de erro
-			$this->__setFlash('Inscrição inválida.', 'attention');
+			$this->__setFlash('Inscrição inválida.', 'error');
 		}
 		// caso contrário tenta excluir a inscrição
 		else if ($this->Subscription->delete($id))
@@ -274,7 +274,7 @@ class SubscriptionsController extends AppController
 		else
 		{
 			// caso contrário define mensagem de falha
-			$this->__setFlash('Inscrição não foi removida', 'attention');
+			$this->__setFlash('Inscrição não foi removida');
 		}
 
 		$this->__goBack();

@@ -8,8 +8,9 @@
 		<table class="table table-striped table-bordered table-condensed">
 		<tr>
 			<th><?php echo $this->Paginator->sort('Event.title', __('Título'));?></th>
+			<th><?php echo $this->Paginator->sort('Event.open', __('Aberto para inscrição?'));?></th>
 			<th><?php echo $this->Paginator->sort('Event.free', __('Gratuito?'));?></th>
-		  <th><?php echo $this->Paginator->sort('Event.open_for_proposals', __('Submissão de Propostas liberada?'));?></th>
+			<th><?php echo $this->Paginator->sort('Event.open_for_proposals', __('Submissão de Propostas liberada?'));?></th>
 			<th><?php echo __('Inscritos');?></th>
 			<th class="actions"><?php echo __('Ações');?></th>
 		</tr>
@@ -21,9 +22,12 @@
 					<?php echo $event['Event']['title']; ?>
 				</td>
 				<td>
+					<?php echo $event['Event']['open'] ? __('Sim') : __('Não'); ?>
+				</td>
+				<td>
 					<?php echo $event['Event']['free'] ? __('Sim') : __('Não'); ?>
 				</td>
-		     <td>
+				<td>
 					<?php echo $event['Event']['open_for_proposals'] ? __('Sim') : __('Não'); ?>
 				</td>
 				<td>

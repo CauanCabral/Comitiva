@@ -40,7 +40,7 @@
 					<?php
 						echo $this->Html->glyphLink(__('Ver'), array('action' => 'view', $user['User']['id']), array('glyph' => 'glyph-file glyph-large')),
 							$this->Html->glyphLink(__('Alterar'), array('action' => 'edit', $user['User']['id']), array('glyph' => 'glyph-edit glyph-large')),
-							$this->Html->glyphLink(__('Remover'), array('action' => 'delete', $user['User']['id']), array('glyph' => 'glyph-trash glyph-large'), sprintf(__('Deseja realmente excluir o usuário #%s?'), $user['User']['name']));
+							$this->Html->glyphLink(__('Remover'), array('action' => 'delete', $user['User']['id']), array('glyph' => 'glyph-trash glyph-large'), sprintf(__('Deseja realmente excluir o usuário %s?'), $user['User']['name']));
 					?>
 				</td>
 			</tr>

@@ -65,7 +65,7 @@ class ProposalsController extends AppController {
 			}
 			else
 			{
-				$this->__setFlash('Proposta não pode ser submetida. Verifique os dados ou entre em contato com os organizadores do evento', 'attention');
+				$this->__setFlash('Proposta não pode ser submetida. Verifique os dados ou entre em contato com os organizadores do evento', 'error');
 			}
 		}
 
@@ -74,7 +74,7 @@ class ProposalsController extends AppController {
 
  	 	if(isset($event_id) && !array_key_exists($event_id, $events))
  	 	{
- 	 		$this->__setFlash('O evento selecionado não está aberto a propostas. Selecione outro evento', 'attention');
+ 	 		$this->__setFlash('O evento selecionado não está aberto a propostas. Selecione outro evento', 'error');
  	 		$event_id = 0;
  	 	}
 
@@ -86,7 +86,7 @@ class ProposalsController extends AppController {
 	{
 		if (!$id && empty($this->request->data))
 		{
-			$this->__setFlash('Proposta inválida', 'attention');
+			$this->__setFlash('Proposta inválida', 'error');
 			$this->__goBack();
 		}
 
@@ -100,7 +100,7 @@ class ProposalsController extends AppController {
 				$this->__goBack();
 			}
 
-			$this->__setFlash('As alterações não puderam ser salva. Tente novamente, por favor.', 'attention');
+			$this->__setFlash('As alterações não puderam ser salva. Tente novamente, por favor.');
 		}
 
 		if (empty($this->request->data))
@@ -116,7 +116,7 @@ class ProposalsController extends AppController {
 	{
 		if (!$id)
 		{
-			$this->__setFlash('Proposta inválida', 'attention');
+			$this->__setFlash('Proposta inválida', 'error');
 			$this->redirect(array('action'=>'index'));
 		}
 
@@ -126,7 +126,7 @@ class ProposalsController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 
-		$this->__setFlash('Proposta não foi removida', 'attention');
+		$this->__setFlash('Proposta não foi removida');
 		$this->redirect(array('action' => 'index'));
 	}
 
@@ -149,7 +149,7 @@ class ProposalsController extends AppController {
 	{
 		if (!$id)
 		{
-			$this->__setFlash('Proposta inválida', 'attention');
+			$this->__setFlash('Proposta inválida', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 
@@ -167,7 +167,7 @@ class ProposalsController extends AppController {
 				$this->redirect(array('action' => 'index'));
 			}
 
-			$this->__setFlash('A proposta não pode ser salva. Tente novamente, por favor.', 'attention');
+			$this->__setFlash('A proposta não pode ser salva. Tente novamente, por favor.');
 		}
 
 		$users = $this->Proposal->User->find('list');
@@ -180,7 +180,7 @@ class ProposalsController extends AppController {
 	{
 		if (!$id && empty($this->request->data))
 		{
-			$this->__setFlash('Proposta inválida', 'attention');
+			$this->__setFlash('Proposta inválida', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 
@@ -192,7 +192,7 @@ class ProposalsController extends AppController {
 				$this->redirect(array('action' => 'index'));
 			}
 
-			$this->__setFlash('As alterações não puderam ser salvas. Tente novamente, por favor.', 'attention');
+			$this->__setFlash('As alterações não puderam ser salvas. Tente novamente, por favor.');
 			return;
 		}
 
@@ -208,7 +208,7 @@ class ProposalsController extends AppController {
 	{
 		if (!$id)
 		{
-			$this->__setFlash('Proposta inválida', 'attention');
+			$this->__setFlash('Proposta inválida', 'error');
 			$this->redirect(array('action'=>'index'));
 		}
 
@@ -218,7 +218,7 @@ class ProposalsController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 
-		$this->__setFlash('A proposta não pode ser removida', 'attention');
+		$this->__setFlash('A proposta não pode ser removida');
 		$this->redirect(array('action' => 'index'));
 	}
 
@@ -248,7 +248,7 @@ class ProposalsController extends AppController {
 
 					if(!$this->Proposal->User->save($user))
 					{
-						$this->__setFlash('Não foi possível atualizar o grupo do usuário.', 'attention');
+						$this->__setFlash('Não foi possível atualizar o grupo do usuário.');
 					}
 				}
 
@@ -272,7 +272,7 @@ class ProposalsController extends AppController {
 					return;
 				}
 
-				$this->__setFlash('Não foi possivel enviar e-mail. Verifique as configurações do servidor', 'attention');
+				$this->__setFlash('Não foi possivel enviar e-mail. Verifique as configurações do servidor', 'error');
 				$this->redirect(array('action'=>'view', $id));
 			}
 		}
@@ -302,7 +302,7 @@ class ProposalsController extends AppController {
 		if(!empty($id))
 			$this->set('id', $id);
 		else
-			$this->__setFlash('Proposta invalida', 'attention');
+			$this->__setFlash('Proposta invalida', 'error');
 	}
 
 	protected function setView()

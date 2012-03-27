@@ -33,7 +33,7 @@ class EventsController extends AppController
 	{
 		if (!$id)
 		{
-			$this->__setFlash('Evento inválido', 'attention');
+			$this->__setFlash('Evento inválido', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 
@@ -57,7 +57,7 @@ class EventsController extends AppController
 				$this->redirect(array('action' => 'index'));
 			}
 
-			$this->__setFlash('Novo evento não pode ser salvo. Tente novamente.', 'attention');
+			$this->__setFlash('Novo evento não pode ser salvo. Tente novamente.');
 		}
 
 		$events = $this->Event->find('list');
@@ -68,7 +68,7 @@ class EventsController extends AppController
 	{
 		if (!$id && empty($this->request->data))
 		{
-			$this->__setFlash('Evento inválido', 'attention');
+			$this->__setFlash('Evento inválido', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 
@@ -87,7 +87,7 @@ class EventsController extends AppController
 				$this->redirect(array('action' => 'index'));
 			}
 
-			$this->__setFlash('O evento não pode ser salvo. Tente novamente.', 'attention');
+			$this->__setFlash('O evento não pode ser salvo. Tente novamente.');
 		}
 
 		if (empty($this->request->data))
@@ -103,7 +103,7 @@ class EventsController extends AppController
 	{
 		if (!$id)
 		{
-			$this->__setFlash('Id de evento inválido.', 'attention');
+			$this->__setFlash('Id de evento inválido.', 'error');
 		}
 		if ($this->Event->delete($id))
 		{
@@ -111,7 +111,7 @@ class EventsController extends AppController
 		}
 		else
 		{
-			$this->__setFlash('Evento não foi apagado!', 'attention');
+			$this->__setFlash('Evento não foi apagado!', 'error');
 		}
 
 		$this->__goBack();
@@ -133,14 +133,22 @@ class EventsController extends AppController
 			)
 		);
 
-		$this->set('events', $this->paginate());
+		$events = $this->paginate();
+
+		foreach ($events as &$event)
+		{
+			// atualiza situação do evento, se necessário
+			$event['Event']['open'] = $this->Event->openToSubscription($event['Event']['id'], $event);
+		}
+
+		$this->set(compact('events'));
 	}
 
 	public function participant_view($id = null)
 	{
 		if (!$id)
 		{
-			$this->__setFlash('Evento inválido', 'attention');
+			$this->__setFlash('Evento inválido', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 
@@ -158,21 +166,20 @@ class EventsController extends AppController
 		if($this->request->is('ajax'))
 		{
 			$this->__prepareAjax();
+			$i = 0;
 
-			if(isset($this->request->params['url']['lastDateIndex']) && $this->request->params['url']['lastDateIndex'] != null)
+			if(isset($this->request->query['lastDateIndex']) && $this->request->query['lastDateIndex'] != null)
 			{
-				$i = Sanitize::paranoid($this->request->params['url']['lastDateIndex']);
-			}
-			else
-			{
-				$i = 0;
+				$i = Sanitize::paranoid($this->request->query['lastDateIndex']);
 			}
 
 			$this->set('i', $i);
 
 			$this->render('event_date_add');
+			return;
 		}
-		else if(isset($this->passedArgs['index']) && is_numeric($this->passedArgs['index']))
+
+		if(isset($this->passedArgs['index']) && is_numeric($this->passedArgs['index']))
 		{
 			$this->set('i', $this->passedArgs['index']);
 
@@ -197,7 +204,10 @@ class EventsController extends AppController
 			}
 
 			$this->render('event_date_add');
+			return;
 		}
+
+		throw new CakeException(__('Requisição inválida.'));
 	}
 
 	/**
@@ -219,22 +229,21 @@ class EventsController extends AppController
 
 		if($this->request->is('ajax'))
 		{
+			$i = 0;
 			$this->__prepareAjax();
 
-			if(isset($this->request->params['url']['lastPriceIndex']) && $this->request->params['url']['lastPriceIndex'] != null)
+			if(isset($this->request->query['lastPriceIndex']) && $this->request->query['lastPriceIndex'] != null)
 			{
-				$i = Sanitize::paranoid($this->request->params['url']['lastPriceIndex']);
-			}
-			else
-			{
-				$i = 0;
+				$i = Sanitize::paranoid($this->request->query['lastPriceIndex']);
 			}
 
 			$this->set('i', $i);
 
 			$this->render('event_price_add');
+			return;
 		}
-		else if(isset($this->passedArgs['index']) && is_numeric($this->passedArgs['index']))
+
+		if(isset($this->passedArgs['index']) && is_numeric($this->passedArgs['index']))
 		{
 			$this->set('i', $this->passedArgs['index']);
 
@@ -254,11 +263,14 @@ class EventsController extends AppController
 			}
 
 			$this->render('event_price_add');
+			return;
 		}
+
+		throw new CakeException(__('Requisição inválida.'));
 	}
 
 	/**
-	 * TODO implementar remoção de preço
+	 * @todo implementar remoção de preço
 	 *
 	 * @return unknown_type
 	 */

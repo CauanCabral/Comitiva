@@ -37,12 +37,14 @@ class Event extends AppModel
 		'EventDate' => array(
 			'className' => 'EventDate',
 			'foreignKey' => 'event_id',
-			'dependent' => true
+			'dependent' => true,
+			'order' => 'EventDate.date ASC'
 		),
 		'EventPrice' => array(
 			'className' => 'EventPrice',
 			'foreignKey' => 'event_id',
-			'dependent' => true
+			'dependent' => true,
+			'order' => 'EventPrice.final_date ASC'
 		),
 		'ChildEvent' => array(
 			'className' => 'Event',
@@ -59,14 +61,10 @@ class Event extends AppModel
 	public function add($event = null)
 	{
 		if($event === null)
-		{
 			return false;
-		}
 
 		if(!isset($event['Event']['alias']))
-		{
 			$event['Event']['alias'] = Inflector::slug(mb_strtolower($event['Event']['title']), '-');
-		}
 
 		if(empty($event['EventDate']))
 			unset($event['EventDate']);
@@ -74,18 +72,9 @@ class Event extends AppModel
 		if(empty($event['EventPrice']))
 			unset($event['EventPrice']);
 
-		// init transaction
-		$this->begin();
+		if($this->saveAssociated($event))
+			return true;
 
-		if($this->saveAll($event, array('validate' => 'first')))
-		{
-			// save database changes
-			$this->commit();
-			return TRUE;
-		}
-
-		// has an error
-		$this->rollback();
 		return false;
 	}
 
@@ -105,20 +94,41 @@ class Event extends AppModel
 	}
 
 	/**
-	 * Retorna a situação de um evento em relação a inscrição de novos participantes
+	 * Retorna a situação de um evento em relação a inscrição de novos participantes.
+	 *
+	 * Por padrão  um evento está aberto para inscrição até o dia anterior
+	 * ao seu último dia de realização. Ou seja, um participante pode se inscrever
+	 * durante o evento, desde que não seja no último dia.
+	 *
+	 * Outra condição necessária para o evento estar aberto é o campo 'open' ter
+	 * valor 1 (true). Caso contrário o evento estará fechado, com prioridade
+	 * sobre o critério anterior.
 	 *
 	 * @param int $id
+	 * @param array $eventData Dados de um read ou find('first') no modelo Evento
 	 * @return bool $open
 	 */
-	public function openToSubscription($id)
+	public function openToSubscription($id, $eventData = null)
 	{
+		if($eventData == null && !empty($this->data))
+			$eventData = $this->data;
+
+		if($eventData == null)
+		{
+			$this->contain();
+			$eventData = $this->read('open', $id);
+		}
+
+		if($eventData['Event']['open'] == false)
+			return false;
+
 		$event_dates = $this->EventDate->find('all', array(
 			'conditions' => array('event_id' => $id),
 			'contain' => array()
 		));
 
 		$today = date('Y-m-d');
-		$end = (date('Y') - 100) . date('-m-d'); // instancia as variáveis com o ano de 100 anos atrás
+		$end = (date('Y') - 100) . date('-m-d');
 
 		foreach($event_dates as $eventDate)
 		{
@@ -126,6 +136,16 @@ class Event extends AppModel
 				$end = $eventDate['EventDate']['date'];
 		}
 
-		return ($today < $end);
+		$isOpen = ($today < $end);
+
+		// atualiza o evento como fechado para futuras consultas
+		if(!$isOpen)
+		{
+			$this->create();
+			$this->id = $id;
+			$this->saveField('open', 0);
+		}
+
+		return $isOpen;
 	}
 }

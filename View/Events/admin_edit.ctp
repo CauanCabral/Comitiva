@@ -13,6 +13,7 @@
 			echo $this->Form->input('Event.title', array('label' => __('Titulo'), 'class' => 'fullWidth'));
 			echo $this->Form->input('Event.parent_id', array('label' => __('Macro Evento'), 'options' => array_merge(array('Selecione um evento'),$events)));
 
+			echo $this->Form->inputBootstrap('Event.open', array('label' => __('Aberto para inscrição?'), 'type' => 'checkbox'));
 			echo $this->Form->inputBootstrap('Event.free', array('label' => __('Gratuito?'), 'type' => 'checkbox'));
 			echo $this->Form->inputBootstrap('Event.open_for_proposals', array('type' => 'checkbox', 'label' => __('Aberto para Submissão de Propostas')));
 
@@ -46,7 +47,6 @@
 			 * EventDate hasMany add
 			 */
 			echo $this->Html->link(__('Adicionar data'), array('action' => 'eventPriceAdd', 'prefix' => 'admin'), array('id' => 'addEventDate'));
-			echo $this->Form->input('EventDate.counter', array('type' => 'hidden', 'value' => 0, 'id' => 'dateCounter'));
 			echo '<fieldset id="datesEvent">';
 
 			// Recover error state
@@ -59,62 +59,13 @@
 					echo $this->requestAction("/admin/events/eventDateAdd/index:{$i}/id:{$eventDate['id']}");
 					$counter++;
 				}
-
-				echo $this->Html->scriptBlock('$("#dateCounter").val('. $counter .')', array('inline' => false));
 			}
 			echo '</fieldset>';
+			echo $this->Form->input('EventDate.counter', array('type' => 'hidden', 'value' => $counter, 'id' => 'dateCounter'));
 			?>
 
 		</fieldset>
 	<?php echo $this->Form->end(__('Salvar'));?>
 	</div>
 </div>
-<?php
-$handlers = <<<SCRIPT
-	$('#EventFree').bind('click', function (e) {
-
-		// se ele foi selecionado, então reseta campos de preço
-		if($(this).attr('checked') == true)
-		{
-			$('#priceCounter').val(0);
-			$('#pricesEvent').html('');
-		}
-	});
-
-	$('#addEventPrice').bind('click', function (e) {
-		e.preventDefault();
-
-	 	counter = parseInt($('#priceCounter').val());
-
-	 	$.ajax({
-	 		url: '../eventPriceAdd/',
-	 		data: 'lastPriceIndex=' + counter,
-	 		success: function(data, eventStatus) {
-	 			$('#EventFree').attr('checked', false);
-	 			$('#pricesEvent').append(data);
-	 			$('#priceCounter').val(counter + 1);
-	 		}
-	 	});
-
-	 	return false;
-	 });
-
-	 $('#addEventDate').bind('click', function (e) {
-	 	e.preventDefault();
-
-	 	counter = parseInt($('#dateCounter').val());
-
-	 	$.ajax({
-	 		url: '../eventDateAdd/',
-	 		data: 'lastDateIndex=' + counter,
-	 		success: function(data, eventStatus) {
-	 			$('#datesEvent').append(data);
-	 			$('#dateCounter').val(counter + 1);
-	 		}
-	 	});
-
-	 	return false;
-	 });
-SCRIPT;
-echo $this->Html->scriptBlock($handlers, array('secure' => true));
-?>
+<?php echo $this->Html->script('events'); ?>

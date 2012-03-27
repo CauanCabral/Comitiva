@@ -60,7 +60,7 @@ class MessagesController extends AppController
 
 				if($status > 1)
 				{
-					$this->__setFlash('A mensagem não pode ser enviada a todos os destinatários', 'attention');
+					$this->__setFlash('A mensagem não pode ser enviada a todos os destinatários');
 					$this->redirect(array('action' => 'index'));
 				}
 

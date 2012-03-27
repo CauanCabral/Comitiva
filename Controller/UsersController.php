@@ -28,7 +28,7 @@ class UsersController extends AppController
 				// verifica se usuário logado está ativo
 				if(empty($this->activeUser['active']))
 				{
-					$this->__setFlash('Você precisa ativar sua conta. Verifique seu email por favor.', 'attention');
+					$this->__setFlash('Você precisa ativar sua conta. Verifique seu email por favor.');
 
 					$this->redirect($this->Auth->logout());
 				}
@@ -44,7 +44,7 @@ class UsersController extends AppController
 				$this->redirect($this->Auth->redirect());
 			}
 
-			$this->__setFlash('Usuário ou senha incorreto', 'attention');
+			$this->__setFlash('Usuário ou senha incorreto', 'error');
 		}
 	}
 
@@ -75,7 +75,7 @@ class UsersController extends AppController
 				return;
 			}
 
-			$this->__setFlash('Endereço de email não cadastrado', 'attention');
+			$this->__setFlash('Endereço de email não cadastrado', 'error');
 			return;
 		}
 	}
@@ -98,7 +98,7 @@ class UsersController extends AppController
 
 			if(empty($userToAlter))
 			{
-				$this->__setFlash('Token fornecido inválido. Verique o endereço acessado, por favor.', 'attention');
+				$this->__setFlash('Token fornecido inválido. Verique o endereço acessado, por favor.', 'error');
 				$this->redirect('/');
 			}
 
@@ -119,7 +119,7 @@ class UsersController extends AppController
 					$this->redirect(array('action' => 'login'));
 				}
 
-				$this->__setFlash('Falha ao atualizar senha. Tente novamente.', 'attention');
+				$this->__setFlash('Falha ao atualizar senha. Tente novamente.');
 				return;
 			}
 		}
@@ -146,7 +146,7 @@ class UsersController extends AppController
 			if(isset($this->request->data['User']['password_confirm']))
 				unset($this->request->data['User']['password_confirm']);
 
-			$this->__setFlash('Não foi possível criar a conta. Verifique os dados inseridos.', 'attention');
+			$this->__setFlash('Não foi possível criar a conta. Verifique os dados inseridos.');
 		}
 	}
 
@@ -157,12 +157,25 @@ class UsersController extends AppController
 			$userData = $this->User->find('first', array(
 				'conditions' => array(
 					'username' => $user
-				)
+				),
+				'fields' => array('id', 'active', 'account_validation_token', 'account_validation_expires_at')
 			));
 
 			if($userData['User']['active'])
 			{
-				$this->__setFlash('Seu cadastro já foi verificado', 'attention');
+				$this->__setFlash('Seu cadastro já foi verificado');
+				$this->redirect('/');
+			}
+
+			$expiresAt = new DateTime($userData['User']['account_validation_expires_at']);
+			$now = date('U');
+
+			if($expiresAt->format('U') < $now)
+			{
+				$this->__setFlash('Seu cadastro expirou. Você pode criar uma nova conta se desejar.', 'error');
+
+				$this->User->delete($userData['User']['id']);
+
 				$this->redirect('/');
 			}
 
@@ -172,17 +185,17 @@ class UsersController extends AppController
 				$userData['User']['account_validation_expires_at'] = null;
 				$userData['User']['active'] = true;
 
-				$this->User->save($userData);
+				$this->User->save($userData['User'], true, array('account_validation_token', 'account_validation_expires_at', 'active'));
 
 				$this->__setFlash('Cadastro Verificado com Sucesso!', 'success');
 				$this->redirect('/');
 			}
 
-			$this->__setFlash('Código de verificação inválido!', 'attention');
+			$this->__setFlash('Código de verificação inválido!', 'error');
 			$this->redirect('/');
 		}
 
-		$this->__setFlash('Corrija o nome de usuário e/ou código de verificação!', 'attention');
+		$this->__setFlash('Endereço inválido!', 'error');
 		$this->redirect('/');
 	}
 
@@ -205,7 +218,7 @@ class UsersController extends AppController
 	{
 		if (!$id)
 		{
-			$this->__setFlash('Usuário inválido', 'attention');
+			$this->__setFlash('Usuário inválido', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 
@@ -252,7 +265,7 @@ class UsersController extends AppController
 
 			$this->request->data['User']['groups'] = json_decode($groups, true);
 
-			$this->__setFlash('Usuário não pode ser salvo. Tente novamente, por favor.', 'attention');
+			$this->__setFlash('Usuário não pode ser salvo. Tente novamente, por favor.');
 		}
 	}
 
@@ -260,7 +273,7 @@ class UsersController extends AppController
 	{
 		if (!$id && empty($this->request->data))
 		{
-			$this->__setFlash('Usuário inválido', 'attention');
+			$this->__setFlash('Usuário inválido', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 
@@ -283,7 +296,7 @@ class UsersController extends AppController
 
 			$this->request->data['User']['groups'] = json_decode($this->request->data['User']['groups'], true);
 
-			$this->__setFlash('Não foi possível salvar a alteração. Tente novamente, por favor.', 'attention');
+			$this->__setFlash('Não foi possível salvar a alteração. Tente novamente, por favor.');
 		}
 
 		if (empty($this->request->data))
@@ -297,7 +310,7 @@ class UsersController extends AppController
 	{
 		if (!$id)
 		{
-			$this->__setFlash('Usuário inválido', 'attention');
+			$this->__setFlash('Usuário inválido');
 			$this->redirect(array('action'=>'index'));
 		}
 
@@ -307,7 +320,7 @@ class UsersController extends AppController
 			$this->redirect(array('action'=>'index'));
 		}
 
-		$this->__setFlash('Usuário não pode ser removido', 'attention');
+		$this->__setFlash('Usuário não pode ser removido', 'error');
 		$this->redirect(array('action' => 'index'));
 	}
 
@@ -335,7 +348,7 @@ class UsersController extends AppController
 				$this->redirect('/');
 			}
 
-			$this->__setFlash('Erro ao Atualizar Dados', 'attention');
+			$this->__setFlash('Erro ao Atualizar Dados');
 		}
 
 		$this->request->data = $this->User->read(null, $this->activeUser['id']);
@@ -378,13 +391,7 @@ class UsersController extends AppController
 		$token_expires = $d->format('Y-m-d H:i:s');
 
 		$success = $this->User->save(
-			array(
-				'User' => array(
-					'id' => $userData['User']['id'],
-					'token' => $secureHash,
-					'token_expires_at' => $token_expires
-				)
-			)
+			array('id' => $userData['User']['id'], 'token' => $secureHash, 'token_expires_at' => $token_expires)
 		);
 
 		$this->set('user', $userData['User']['name']);
@@ -401,7 +408,7 @@ class UsersController extends AppController
 			}
 		}
 
-		$this->__setFlash(sprintf('Não foi possível iniciar processo para rercuperação da senha. Entre em contato através do email %s para obter ajuda', Configure::read('Message.from')), 'attention');
+		$this->__setFlash(sprintf('Não foi possível iniciar processo para rercuperação da senha. Entre em contato através do email %s para obter ajuda', Configure::read('Message.from')), 'error');
 	}
 
 	/**
@@ -418,14 +425,9 @@ class UsersController extends AppController
 
 		$token = sha1(md5($this->request->data['User']['password']) . time());
 
+		$this->User->create();
 		$success = $this->User->save(
-			array(
-				'User' => array(
-					'id' => $userData['User']['id'],
-					'account_validation_token' => $token,
-					'account_validation_expires_at' => $d->format('Y-m-d H:i:s')
-				)
-			)
+			array('id' => $userData['User']['id'], 'account_validation_token' => $token, 'account_validation_expires_at' => $d->format('Y-m-d H:i:s'))
 		);
 
 		$this->set('user', $userData['User']);
@@ -437,7 +439,7 @@ class UsersController extends AppController
 
 			if($this->__sendMailNotification($userData['User']['email'], $sub, 'account_confirm'))
 			{
-				$this->__setFlash('Foi enviado um email para confirmação da sua conta', 'attention');
+				$this->__setFlash('Foi enviado um email para confirmação da sua conta', 'info');
 				return true;
 			}
 		}
@@ -446,7 +448,7 @@ class UsersController extends AppController
 			$this->User->delete($userData['User']['id']);
 		}
 
-		$this->__setFlash(sprintf(__('Não foi possível enviar o email de confirmação da conta para seu endereço. Entre em contato através do email %s para obter ajuda'), Configure::read('Message.replyTo')), 'attention');
+		$this->__setFlash(sprintf(__('Não foi possível enviar o email de confirmação da conta para seu endereço. Entre em contato através do email %s para obter ajuda'), Configure::read('Message.replyTo')), 'error');
 
 		return false;
 	}

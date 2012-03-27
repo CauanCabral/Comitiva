@@ -96,10 +96,13 @@ class User extends AppModel
 
 	public function beforeSave($options = array())
 	{
+		parent::beforeSave($options);
+
 		if(isset($this->data['User']['password']) && !empty($this->data['User']['password']))
 		{
 			$this->data['User']['password'] = AuthComponent::password($this->data['User']['password']);
 		}
+
 		return true;
     }
 
@@ -119,7 +122,7 @@ class User extends AppModel
 		$passwd = $check['password'];
 
 		// caso seja uma atualização do registro (onde a senha não pode ser alterada)
-		if(isset($this->data[$this->name]['id']))
+		if(isset($this->data[$this->alias]['id']))
 		{
 			return true;
 		}
@@ -130,11 +133,11 @@ class User extends AppModel
 			return false;
 		}
 
-		if(!empty($this->data[$this->name]['password_confirm']))
+		if(!empty($this->data[$this->alias]['password_confirm']))
 		{
-			$confirm = $this->data[$this->name]['password_confirm'];
+			$confirm = $this->data[$this->alias]['password_confirm'];
 
-			unset($this->data[$this->name]['password_confirm']);
+			unset($this->data[$this->alias]['password_confirm']);
 		}
 		// faltou campo de confirmação
 		else
@@ -147,7 +150,7 @@ class User extends AppModel
 		// valida o tamanho da senha
 		if(mb_strlen($passwd) < 4)
 		{
-			$this->validationErrors['password_confirm'] = 'A senha deve ter pelo menos 4 caracteres';
+			$this->validationErrors['password'] = 'A senha deve ter pelo menos 4 caracteres';
 
 			return false;
 		}

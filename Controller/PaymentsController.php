@@ -40,7 +40,7 @@ class PaymentsController extends AppController
 				$this->redirect(array('action' => 'index'));
 			}
 
-			$this->__setFlash('O pagamento não pôde ser salvo. Tente novamente.', 'attention');
+			$this->__setFlash('O pagamento não pôde ser salvo. Tente novamente.');
 		}
 
 		if($id == null)
@@ -69,7 +69,7 @@ class PaymentsController extends AppController
 				$this->redirect(array('action' => 'index'));
 			}
 
-			$this->__setFlash('O pagamento não pôde ser atualizado. Tente novamente.', 'attention');
+			$this->__setFlash('O pagamento não pôde ser atualizado. Tente novamente.');
 		}
 
 		if (empty($this->request->data))
@@ -113,7 +113,7 @@ class PaymentsController extends AppController
 
 		if(is_array($verify) && $verify['Payment']['confirmed'] == 1)
 		{
-			$this->__setFlash('Pagamento já havia sido confirmado', 'attention');
+			$this->__setFlash('Pagamento já havia sido confirmado');
 			$this->__goBack();
 		}
 
@@ -134,7 +134,7 @@ class PaymentsController extends AppController
 			}
 			else
 			{
-				$this->__setFlash('Pagamento confirmado, mas aviso não pode ser enviado por email', 'attention');
+				$this->__setFlash('Pagamento confirmado, mas aviso não pode ser enviado por email');
 			}
 		}
 		else
@@ -198,7 +198,7 @@ class PaymentsController extends AppController
 
 		if($subscription['Subscription']['user_id'] != $this->activeUser['id'])
 		{
-			$this->__setFlash('Você não possui autorização para realizar esta ação!', 'attention');
+			$this->__setFlash('Você não possui autorização para realizar esta ação!', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 
@@ -210,7 +210,7 @@ class PaymentsController extends AppController
 
 		if(!empty($subscription['Payment']['id']))
 		{
-			$this->__setFlash('Este pagamento já foi informado!', 'attention');
+			$this->__setFlash('Este pagamento já foi informado!');
 			$this->__goBack();
 		}
 
@@ -225,7 +225,7 @@ class PaymentsController extends AppController
 				$this->redirect(array('action' => 'index'));
 			}
 
-			$this->__setFlash('O pagamento não pôde ser registrado. Tente novamente.', 'attention');
+			$this->__setFlash('O pagamento não pôde ser registrado. Tente novamente.');
 		}
 
 		$this->set(compact('subscription'));

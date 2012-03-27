@@ -1,27 +1,37 @@
 <!DOCTYPE HTML>
-<html  lang="pt-br">
+<html lang="pt-br">
 <head>
 	<?php echo $this->Html->charset(); ?>
-	<title>
-		<?php echo __('Comitiva: '); ?>
-		<?php echo $title_for_layout; ?>
-	</title>
+	<title><?php echo __('Comitiva'), ': ', $title_for_layout; ?></title>
 	<?php
 		echo $this->Html->meta('icon');
+
+		// Carrega o Google API Loader
+		echo $this->Html->script('https://www.google.com/jsapi');
+		// Carrega os scripts disponíveis via Google CDN
+		echo $this->element('google_loader');
+
+		//========================= Scripts
+
+		echo $this->Html->script('bootstrap.min');
+		echo $this->Html->script('bootstrap-datepicker');
+		echo $this->Html->script('ui');
 
 		//========================= Estilos
 
 		echo $this->Html->css('jquery/ui');
 		echo $this->Html->css('bootstrap.min');
 		echo $this->Html->css('bootstrap-responsive.min');
-		echo $this->Html->css('comitiva');
+		echo $this->Html->css('datepicker');
 		echo $this->Html->css('font-awesome');
+		echo $this->Html->css('comitiva');
 
 		// ======================== Meta, Css e Scripts via Cake
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
 	?>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 	<div class="container-fluid">
@@ -32,24 +42,10 @@
 
 			<div id="content" class="row-fluid">
 				<?php
-				if ($this->Session->check('Message.auth'))
-				{
-					echo $this->Session->flash('auth');
-				}
+				echo $this->element('alerts');
 
-				if ($this->Session->check('Message.error'))
-				{
-					echo $this->Session->flash('error');
-				}
-
-				if ($this->Session->check('Message.flash'))
-				{
-					echo $this->Session->flash();
-				}
+				echo $this->fetch('content');
 				?>
-
-				<?php echo $content_for_layout; ?>
-
 			</div>
 
 			<div id="footer" class="well">
@@ -57,9 +53,6 @@
 			</div>
 		</div>
 	</div>
-	<?php
-		// include js generated code
-		echo $this->Js->writeBuffer();
-	?>
+	<?php echo $this->Js->writeBuffer(); ?>
 </body>
 </html>

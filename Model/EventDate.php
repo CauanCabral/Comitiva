@@ -2,11 +2,13 @@
 class EventDate extends AppModel
 {
 	public $name = 'EventDate';
-	
+
 	public $actsAs = array(
 		'Locale.Locale'
 	);
-	
+
+	public $order = 'EventDate.date ASC';
+
 	public $validate = array(
 		'date' => array(
 			'date' => array('rule' => array('notEmpty')),
