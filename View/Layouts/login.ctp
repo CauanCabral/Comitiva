@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
 	<?php echo $this->Html->charset(); ?>
-	<title><?php echo __('Comitiva'), ': ', $title_for_layout; ?></title>
+	<title><?php echo __('Comitiva'), ': ', __d('title', $title_for_layout); ?></title>
 	<?php
 		echo $this->Html->meta('icon');
 

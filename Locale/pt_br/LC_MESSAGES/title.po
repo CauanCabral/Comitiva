@@ -1,0 +1,26 @@
+msgid "Users"
+msgstr "Usuários"
+
+msgid "Events"
+msgstr "Eventos"
+
+msgid "Payments"
+msgstr "Pagamentos"
+
+msgid "Subscriptions"
+msgstr "Inscrições"
+
+msgid "Messages"
+msgstr "Mensagens"
+
+msgid "Proposals"
+msgstr "Propostas"
+
+msgid "Awards"
+msgstr "Premiações"
+
+msgid "Ruffles"
+msgstr "Sorteios"
+
+msgid "Pages"
+msgstr "Páginas"
