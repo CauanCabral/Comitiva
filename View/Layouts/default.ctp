@@ -30,6 +30,8 @@
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
+
+		echo $this->Html->scriptBlock('baseUrl= "' . Router::url('/', true) . '";');
 	?>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>

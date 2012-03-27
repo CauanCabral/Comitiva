@@ -12,7 +12,7 @@ $(document).ready(function() {
 		e.preventDefault();
 	 	var counter = parseInt($('#priceCounter').val());
 	 	$.get(
-	 		'../eventPriceAdd/',
+	 		'/admin/events/eventPriceAdd/',
 	 		{ lastPriceIndex : counter },
 	 		function(data) {
 	 			$('#EventFree').attr('checked', false);
@@ -27,7 +27,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		var counter = parseInt($('#dateCounter').val());
 		$.get(
-			'../eventDateAdd/',
+			'/admin/events/eventDateAdd/',
 			{ lastDateIndex : counter },
 			function(data) {
 				$('#datesEvent').append(data);

@@ -18,7 +18,7 @@
 			)
 		);
 		echo $this->Form->input('Payment.date', array(
-			'label' => __('Data de nascimento'),
+			'label' => __('Data'),
 			'type' => 'text',
 			'class' => 'jsDatepicker'
 			)

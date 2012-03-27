@@ -15,7 +15,7 @@
 			$this->Form->newLine(array('3', '3'));
 			echo $this->Form->input('Payment.amount', array('label' => __('Valor')));
 			echo $this->Form->input('Payment.date', array(
-				'label' => __('Data de nascimento'),
+				'label' => __('Data'),
 				'type' => 'text',
 				'class' => 'jsDatepicker'
 				));

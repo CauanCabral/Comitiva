@@ -36,7 +36,7 @@
 				<td class="actions">
 					<?php
 					if($payment['Payment']['confirmed'] == 0)
-						echo $this->Html->link(__('Confirmar'), array('action' => 'confirm', $payment['Payment']['id']), array('glyph' => 'glyph-edit glyph-ok'), sprintf(__('Deseja realmente confirmar o pagamento da inscrição #%s?'), $payment['Subscription']['id']));
+						echo $this->Html->glyphLink(__('Confirmar'), array('action' => 'confirm', $payment['Payment']['id']), array('glyph' => 'glyph-thumbs-up glyph-large'), sprintf(__('Deseja realmente confirmar o pagamento da inscrição #%s?'), $payment['Subscription']['id']));
 
 					echo $this->Html->glyphLink(__('Visualizar'), array('action' => 'view', $payment['Payment']['id']), array('glyph' => 'glyph-file glyph-large')),
 						$this->Html->glyphLink(__('Editar'), array('action' => 'edit', $payment['Payment']['id']), array('glyph' => 'glyph-edit glyph-large')),
