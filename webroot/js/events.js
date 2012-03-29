@@ -1,6 +1,5 @@
 $(document).ready(function() {
 	$('#EventFree').bind('click', function (e) {
-		e.preventDefault();
 		if($(this).attr('checked') == true)
 		{
 			$('#priceCounter').val(0);
