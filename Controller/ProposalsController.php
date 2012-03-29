@@ -1,5 +1,8 @@
 <?php
-class ProposalsController extends AppController {
+App::uses('CakeEmail', 'Network/Email');
+
+class ProposalsController extends AppController
+{
 	public $name = 'Proposals';
 	public $helpers = array(
 		'TinyMCE.TinyMCE',
@@ -135,11 +138,9 @@ class ProposalsController extends AppController {
 		$this->Proposal->recursive = 0;
 
 		if(!empty($this->request->data))
-		{
-			$approved = $this->request->data['Proposal']['approved'];
-		}
+			$approved = $this->request->data['Proposal']['approved'] >= 0 ? (bool)$this->request->data['Proposal']['approved'] : null;
 
-		if(isset($approved))
+		if(isset($approved) && $approved !== null)
 			$this->set('proposals', $this->paginate(array('approved' => $approved)));
 		else
 			$this->set('proposals', $this->paginate());
@@ -260,7 +261,7 @@ class ProposalsController extends AppController {
 
 				/* Setup parameters of EmailComponent */
 				$email->to($proposal['User']['email'])
-						->subject('[' . Configure::read('Comitiva.name') . ' - Inscrições] Sua proposta foi ' . $appr)
+						->subject('[' . Configure::read('Comitiva.name') . ' - Chamada de Trabalho] Sua proposta foi ' . $appr)
 						->replyTo(Configure::read('Message.replyTo'))
 						->from(Configure::read('Message.from'))
 						->template('proposal_feedback')

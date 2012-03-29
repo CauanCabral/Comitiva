@@ -1,4 +1,5 @@
 <?php
+App::uses('CakeEmail', 'Network/Email');
 /**
  * PHP versions 5
  *
@@ -171,11 +172,11 @@ class AppController extends Controller
 					'action' => 'index',
 					'admin' => true
 				),
-				// __('Propostas') => array(
-				// 	'controller' => 'proposals',
-				// 	'action' => 'index',
-				// 	'admin' => true
-				// ),
+				__('Propostas') => array(
+					'controller' => 'proposals',
+					'action' => 'index',
+					'admin' => true
+				),
 				__('Premiações') => array(
 					'controller' => 'awards',
 				 	'action' => 'index',

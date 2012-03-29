@@ -1,6 +1,4 @@
 <?php
-App::uses('CakeEmail', 'Network/Email');
-
 class UsersController extends AppController
 {
 	public $name = 'Users';
