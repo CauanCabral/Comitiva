@@ -9,7 +9,12 @@ Colaboradores:
 	Felipe V. Rigo - http://br.linkedin.com/in/felipevargasrigo/pt
 	Bruno Porkaria - http://porkaria.com.br
 	José Ricardo da Silva - http://josericardo.eti.br
+	Alisson Oshiro - https://github.com/oshiroam
 
+Requistos mínimos:
+	CakePHP 2.x
+	MySQL 5.x
+	PHP >= 5.3
 
 Licença: MIT - http://www.opensource.org/licenses/mit-license.php
 

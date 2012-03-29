@@ -1,9 +1,9 @@
-<?php
-if(!isset($i))
-{
-	$i = 0;
-}
-echo '<div class="eventPrice">';
+<div class="eventPrice">
+	<?php
+	if(!isset($i))
+		$i = 0;
+
+	$this->Form->newLine(array('1', '1', '1', '4'));
 	echo $this->Form->input("EventPrice.{$i}.price", array(
 		'class' => 'fullWidth',
 		'label' => __('Valor'),
@@ -31,8 +31,6 @@ echo '<div class="eventPrice">';
 	);
 
 	if(isset($id))
-	{
 		echo $this->Form->input("EventPrice.{$i}.id", array('type'=> 'hidden', 'value' => $id));
-	}
-
-echo '</div>';
+?>
+</div>

@@ -51,7 +51,7 @@ class EventsController extends AppController
 			if(isset($this->request->data['EventDate']['counter']))
 				unset($this->request->data['EventDate']['counter']);
 
-			if ($this->Event->add($this->request->data))
+			if($this->Event->add($this->request->data))
 			{
 				$this->__setFlash('Novo evento salvo!', 'success');
 				$this->redirect(array('action' => 'index'));
@@ -195,6 +195,7 @@ class EventsController extends AppController
 						$this->passedArgs['index'] => array(
 							'id' => $eventDate['EventDate']['id'],
 							'date' => $eventDate['EventDate']['date'],
+							'time' => $eventDate['EventDate']['time'],
 							'desc' => $eventDate['EventDate']['desc']
 						)
 					)

@@ -9,6 +9,10 @@ class EventDate extends AppModel
 
 	public $order = 'EventDate.date ASC';
 
+	public $virtualFields = array(
+		'time' => "TIME(`EventDate`.`date`)"
+	);
+
 	public $validate = array(
 		'date' => array(
 			'date' => array('rule' => array('notEmpty')),

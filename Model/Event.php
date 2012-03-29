@@ -58,6 +58,12 @@ class Event extends AppModel
 		)
 	);
 
+	/**
+	 * Inclui ou atualiza um registro de evento.
+	 *
+	 * @param array $event Dados do evento
+	 * @return bool
+	 */
 	public function add($event = null)
 	{
 		if($event === null)
@@ -71,6 +77,15 @@ class Event extends AppModel
 
 		if(empty($event['EventPrice']))
 			unset($event['EventPrice']);
+
+		if(isset($event['EventDate']))
+		{
+			foreach($event['EventDate'] as &$dates)
+			{
+				if(!empty($dates['time']) && $dates['time'] !== '00:00')
+					$dates['date'] = $dates['date'] . ' ' . $dates['time'];
+			}
+		}
 
 		if($this->saveAssociated($event))
 			return true;

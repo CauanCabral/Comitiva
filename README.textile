@@ -1,10 +1,17 @@
 h1. Comitiva - Gerência de Eventos
 
-  *Comitiva* é um sistema para gerência de eventos desenvolvido sob o framework "CakePHP":http://cakephp.org em sua versão 2.0, compatível com
-  PHP >= 5.2 e MySQL >=5.0 ( é possível utilizar outros SGDB com pouca ou nenhuma alteração de código ). 
+  *Comitiva* é um sistema para gerência de eventos desenvolvido sob o framework "CakePHP":http://cakephp.org
 
 
-h1. Documentação
+h2. Documentação
+
+h3. Requisitos Mínimos
+
+Requistos mínimos:
+
+* CakePHP 2.x
+* MySQL 5.x ( é possível utilizar outros SGDB com pouca ou nenhuma alteração de código )
+* PHP >= 5.3
 
 Contamos com a colaboração de todos. O projeto é voluntário e nem sempre temos tempo para documentar. Algumas fontes de documentação:
 
@@ -12,17 +19,17 @@ Contamos com a colaboração de todos. O projeto é voluntário e nem sempre tem
 * "Como utilizar controle de permissão no sistema – quase tudo mudou":http://cauancabral.net/2010/08/09/comitiva-como-utilizar-controle-de-permissao-no-sistema-quase-tudo-mudou
 
 
-h1. Sobre o Projeto
+h2. Sobre o Projeto
 
-h2. Idealização
+h3. Idealização
 
   "Grupo de Desenvolvedores PHP de Mato Grosso do Sul - PHPMS":www.phpms.org
 
-h2. Desenvolvimento inicial
+h3. Desenvolvimento inicial
 
   "*Cauan Cabral*":http://cauancabral.net (cauan [em] radig.com.br )
 
-h2. Colaboradores:
+h3. Colaboradores:
 
 "*José Agripino Duarte*":http://agripinoduarte.radig.com.br
 "*Felipe V. Rigo*":http://www.felipevr.eti.br
@@ -31,15 +38,15 @@ h2. Colaboradores:
 "*Alisson Oshiro*":https://github.com/oshiroam
 
 
-h2. Licença
+h3. Licença
 
 O Comitiva é Software Livre e gratuito, distribuido sob a licença "MIT":http://www.opensource.org/licenses/mit-license.php
-  
+
 Isso significa que você pode baixar o código do Comitiva e utiliza-lo da forma que bem entender, porém deve manter o crédito aos autores originais.
-  
+
 O Comitiva é distruído da forma que está, não contendo nenhum tipo garantia ou suporte implícito.
-  
-Caso tenha dúvidas, utilize a lista do "PHPMS":http://groups.google.com/group/phpms  
+
+Caso tenha dúvidas, utilize a lista do "PHPMS":http://groups.google.com/group/phpms
 
 
 *"Consulte a Wiki do projeto para obter mais informações.":http://wiki.github.com/CauanCabral/Comitiva*
