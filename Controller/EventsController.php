@@ -26,7 +26,7 @@ class EventsController extends AppController
 		if(empty($event))
 		{
 			$this->__setFlash('Evento inválido.', 'error');
-			//$this->redirect('/');
+			$this->redirect('/');
 		}
 
 		$this->set(compact('event'));
