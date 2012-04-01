@@ -17,6 +17,10 @@
 				<?php echo $event['Event']['title']; ?>
 				&nbsp;
 			</dd>
+			<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Slug'); ?></dt>
+			<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+				<?php echo $event['Event']['alias']; ?>
+			</dd>
 			<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Inscritos'); ?></dt>
 			<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 				<?php echo $this->Html->link($event['Event']['subscription_count'], array('controller' => 'subscriptions', 'action' => 'index', $event['Event']['id'])); ?>
