@@ -1,7 +1,7 @@
 <div class="row-fluid">
 	<ul class="nav nav-tabs nav-stacked span2">
 		<li><?php echo $this->Html->glyphLink(__('Cria uma conta'), '/', array('glyph' => 'glyph-user glyph-large')); ?></li>
-		<li><?php echo $this->Html->glyphLink(__('Inscrever-se'), array('controller' => 'subscriptions', 'action' => 'add', $event['Event']['id']), array('glyph' => 'glyph-signin glyph-large')); ?></li>
+		<li><?php echo $this->Html->glyphLink(__('Inscrever-se'), array('prefix' => 'participant', 'controller' => 'subscriptions', 'action' => 'add', $event['Event']['id']), array('glyph' => 'glyph-signin glyph-large')); ?></li>
 	</ul>
 
 	<div class="span10">
