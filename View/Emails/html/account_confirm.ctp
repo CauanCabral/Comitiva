@@ -1,7 +1,7 @@
 <?php
 App::uses('Router', 'Routing');
 
-$link = Router::url("/account_confirm/{$token}/{$user['username']}", true);
+$link = Router::url("/confirmar_conta/{$token}/{$user['username']}", true);
 ?>
 <p>
 Olá <?php echo $user['name'];?>,

@@ -10,6 +10,28 @@ class EventsController extends AppController
 
 	public $helpers = array('TinyMCE.TinyMCE');
 
+	/**
+	 * Ação pública para visualização das
+	 * informações do evento.
+	 *
+	 * @return void
+	 */
+	public function view($slug = '')
+	{
+		$event = $this->Event->find('first', array(
+			'conditions' => array('Event.alias' => $slug)
+			)
+		);
+
+		if(empty($event))
+		{
+			$this->__setFlash('Evento inválido.', 'error');
+			//$this->redirect('/');
+		}
+
+		$this->set(compact('event'));
+	}
+
 	/*
 	 *  Ações para rota administrativa
 	 */
@@ -102,17 +124,11 @@ class EventsController extends AppController
 	public function admin_delete($id = null)
 	{
 		if (!$id)
-		{
 			$this->__setFlash('Id de evento inválido.', 'error');
-		}
 		if ($this->Event->delete($id))
-		{
 			$this->__setFlash('Evento apagado!', 'success');
-		}
 		else
-		{
 			$this->__setFlash('Evento não foi apagado!', 'error');
-		}
 
 		$this->__goBack();
 	}

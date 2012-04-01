@@ -1,7 +1,7 @@
 <?php
 App::uses('Router', 'Routing');
 
-$link = Router::url("/reset_password/{$token}", true);
+$link = Router::url("/nova_senha/{$token}", true);
 ?>
 <p>
 Olá <?php echo $user;?>,
