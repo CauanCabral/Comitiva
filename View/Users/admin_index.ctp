@@ -3,7 +3,12 @@
 		<li><?php echo $this->Html->link(__('Novo usuário'), array('action' => 'add')); ?></li>
 	</ul>
 	<div class="span10">
-		<h2><?php echo __('Usuários');?></h2>
+		<div class="span11">
+			<h2><?php echo __('Usuários');?></h2>
+		</div>
+		<div class="span1">
+			<?php echo $this->element('search'); ?>
+		</div>
 		<table class="table table-striped table-bordered table-condensed">
 		<tr>
 			<th><?php echo $this->Paginator->sort('id');?></th>

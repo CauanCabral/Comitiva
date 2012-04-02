@@ -11,9 +11,12 @@ class User extends AppModel
 		'fullName' => "CONCAT(User.name, ' ', User.nickname)"
 	);
 
+	public $order = array('User.name' => 'asc');
+
 	public $displayField = 'fullName';
 
 	public $actsAs = array(
+		'Search.Searchable',
 		'Locale.Locale'
 	);
 
@@ -93,6 +96,10 @@ class User extends AppModel
 			'dependent' => false
 		)
 	);
+
+	public $filterArgs = array(
+        array('name' => 'query', 'type' => 'query', 'method' => 'searchFields')
+    );
 
 	public function beforeSave($options = array())
 	{
@@ -179,5 +186,26 @@ class User extends AppModel
 		$conditions = array_merge($defaultCondition, $conditions);
 
 		return $this->find('list', array('conditions' => $conditions));
+	}
+
+	/**
+	 * Implementa busca via plugin Search
+	 *
+	 * @param array $data Valores para buscar
+	 * @return array $conditions Condições da busca
+	 */
+	public function searchFields($data = array())
+	{
+		$filter = $data['query'];
+
+		$conditions = array(
+			'OR' => array(
+				$this->alias . '.name LIKE' => '%' . $filter . '%',
+				$this->alias . '.fullName LIKE' => '%' . $filter . '%',
+				$this->alias . '.cpf' => $filter
+			)
+		);
+
+		return $conditions;
 	}
 }

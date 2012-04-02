@@ -5,6 +5,12 @@ class UsersController extends AppController
 
 	public $helpers = array('Locale.Locale');
 
+	public $components = array('Search.Prg');
+
+	public $presetVars = array(
+		array('field' => 'query', 'type' => 'value')
+	);
+
 	/***********************
 	 * Ações publicas
 	 ***********************/
@@ -27,7 +33,6 @@ class UsersController extends AppController
 				if(empty($this->activeUser['active']))
 				{
 					$this->__setFlash('Você precisa ativar sua conta. Verifique seu email por favor.');
-
 					$this->redirect($this->Auth->logout());
 				}
 
@@ -209,6 +214,10 @@ class UsersController extends AppController
 	public function admin_index()
 	{
 		$this->User->recursive = 0;
+
+		$this->Prg->commonProcess();
+        $this->paginate['conditions'] = $this->User->parseCriteria($this->passedArgs);
+
 		$this->set('users', $this->paginate());
 	}
 

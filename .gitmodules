@@ -19,3 +19,6 @@
 [submodule "Plugin/Mailer"]
 	path = Plugin/Mailer
 	url = git://github.com/radig/mailer.git
+[submodule "Plugin/Search"]
+	path = Plugin/Search
+	url = git://github.com/CakeDC/search.git
