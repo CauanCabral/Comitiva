@@ -9,7 +9,7 @@ Router::connect('/account_create', array('controller' => 'users', 'action' => 'a
 Router::connect('/criar_conta', array('controller' => 'users', 'action' => 'account_create'));
 
 Router::connect('/account_confirm/*', array('controller' => 'users', 'action' => 'account_confirm'));
-Router::connect('/confirmar_conta', array('controller' => 'users', 'action' => 'account_confirm'));
+Router::connect('/confirmar_conta/*', array('controller' => 'users', 'action' => 'account_confirm'));
 
 Router::connect('/recover', array('controller' => 'users', 'action' => 'recover'));
 Router::connect('/recuperar_senha', array('controller' => 'users', 'action' => 'recover'));
