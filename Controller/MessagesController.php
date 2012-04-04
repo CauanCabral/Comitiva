@@ -112,7 +112,7 @@ class MessagesController extends AppController
 
 		$compatibleConfig = array(
 			'transport' => 'smtp',
-			'smpt' => array(
+			'smtp' => array(
 				'username' => $config['username'],
 				'password' => $config['password'],
 				'port' => $config['port'],
