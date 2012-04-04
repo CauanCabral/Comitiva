@@ -16,6 +16,7 @@ class MessagesController extends AppController
 		if(!empty($this->request->data))
 		{
 			$op = array(
+				'from' => Configure::read('Message.from'),
 				'subject' => '[' . Configure::read('Comitiva.name') . ']' . $this->request->data['Message']['subject'],
 				'body' => $this->request->data['Message']['text']
 			);
