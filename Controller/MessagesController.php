@@ -105,9 +105,9 @@ class MessagesController extends AppController
 		config('email');
 		$configClass = new EmailConfig();
 		$config = $configClass->default;
-		$transport =strtolower($config['tranport']);
+		$transport = strtolower($config['tranport']);
 
-		if($tranport !== 'smtp')
+		if($transport !== 'smtp')
 			throw new CakeException('Configuração de email não disponível', true);
 
 		$compatibleConfig = array(
