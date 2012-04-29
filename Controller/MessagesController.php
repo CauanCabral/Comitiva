@@ -117,7 +117,7 @@ class MessagesController extends AppController
 				'username' => $config['username'],
 				'password' => $config['password'],
 				'port' => $config['port'],
-				'host' => substr($config['host'], 3),
+				'host' => substr($config['host'], 6),
 				'encryptation' => 'ssl',
 			)
 		);

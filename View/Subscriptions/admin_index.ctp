@@ -5,8 +5,15 @@
 		<li><?php echo $this->Html->link(__('Listar Eventos'), array('controller' => 'events', 'action' => 'index')); ?> </li>
 	</ul>
 
-	<div  class="events index span10">
-		<h2><?php echo __('Inscrições');?></h2>
+	<div class="events index span10">
+		<div class="row-fluid">
+			<div class="span9">
+				<h2><?php echo __('Inscrições');?></h2>
+			</div>
+			<div class="span2">
+				<?php echo $this->element('search'); ?>
+			</div>
+		</div>
 		<table class="table table-striped table-bordered table-condensed">
 		<tr>
 			<th><?php echo $this->Paginator->sort('Subscription.id', __('ID'));?></th>

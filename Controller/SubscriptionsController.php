@@ -4,9 +4,17 @@ App::import('Sanitize');
 class SubscriptionsController extends AppController
 {
 	public $name = 'Subscriptions';
-	public $uses = array('Subscription');
 
-	public $helpers = array('Csv');
+	public $helpers = array(
+		'Csv',
+		'Locale.Locale'
+	);
+
+	public $components = array('Search.Prg');
+
+	public $presetVars = array(
+		array('field' => 'query', 'type' => 'value')
+	);
 
 	/*
 	 * Ações para rota administrativa
@@ -15,13 +23,12 @@ class SubscriptionsController extends AppController
 	{
 		$this->Subscription->recursive = 0;
 
+		$this->Prg->commonProcess();
+        $this->paginate['conditions'] = $this->Subscription->parseCriteria($this->passedArgs);
+
 		if(is_numeric($event_id))
 		{
-			$this->paginate = array(
-				'conditions' => array(
-					'event_id' => $event_id
-				)
-			);
+			$this->paginate['conditions'] = array('event_id' => $event_id);
 		}
 
 		$this->set(compact('event_id'));
