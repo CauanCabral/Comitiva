@@ -17,7 +17,7 @@ class MessagesController extends AppController
 		{
 			$op = array(
 				'from' => Configure::read('Message.from'),
-				'subject' => '[' . Configure::read('Comitiva.name') . ']' . $this->request->data['Message']['subject'],
+				'subject' => '[' . Configure::read('Comitiva.name') . '] ' . $this->request->data['Message']['subject'],
 				'body' => $this->request->data['Message']['text']
 			);
 
@@ -124,8 +124,14 @@ class MessagesController extends AppController
 
 		$mailer = new Mailer($compatibleConfig);
 
-		if(($status = $mailer->sendMessage($options)) === 0)
-			return false;
+		try
+		{
+			$status = (int)$mailer->sendMessage($options);
+		}
+		catch(Exception $e)
+		{
+			$status = false;
+		}
 
 		$tos = 0;
 
@@ -138,7 +144,7 @@ class MessagesController extends AppController
 		if(isset($options['bcc']))
 			$tos += count($options['bcc']);
 
-		return $status == $tos ? true : $status;
+		return $status === $tos ? true : $status;
 	}
 
 	/**
