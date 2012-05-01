@@ -98,8 +98,8 @@ class User extends AppModel
 	);
 
 	public $filterArgs = array(
-        array('name' => 'query', 'type' => 'query', 'method' => 'searchFields')
-    );
+		array('name' => 'query', 'type' => 'query', 'method' => 'searchFields')
+	);
 
 	public function beforeSave($options = array())
 	{
@@ -200,7 +200,6 @@ class User extends AppModel
 
 		$conditions = array(
 			'OR' => array(
-				$this->alias . '.name LIKE' => '%' . $filter . '%',
 				$this->alias . '.fullName LIKE' => '%' . $filter . '%',
 				$this->alias . '.cpf' => $filter
 			)

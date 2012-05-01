@@ -3,11 +3,13 @@
 		<li><?php echo $this->Html->link(__('Novo usuário'), array('action' => 'add')); ?></li>
 	</ul>
 	<div class="span10">
-		<div class="span11">
-			<h2><?php echo __('Usuários');?></h2>
-		</div>
-		<div class="span1">
-			<?php echo $this->element('search'); ?>
+		<div class="row-fluid">
+			<div class="span9">
+				<h2><?php echo __('Usuários');?></h2>
+			</div>
+			<div class="span2">
+				<?php echo $this->element('search'); ?>
+			</div>
 		</div>
 		<table class="table table-striped table-bordered table-condensed">
 		<tr>
