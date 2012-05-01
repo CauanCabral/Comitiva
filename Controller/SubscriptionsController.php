@@ -215,7 +215,7 @@ class SubscriptionsController extends AppController
 			if($this->Subscription->Event->read(null, $event_id) === false || !$this->Subscription->Event->openToSubscription($event_id))
 			{
 				//caso não seja saí da inscrição
-				$this->__setFlash('A inscrição não pôde ser realizada. O evento não existe ou as inscrições foram encerradas.');
+				$this->__setFlash('A inscrição não pôde ser realizada. O evento não existe ou as inscrições foram encerradas.', 'warning');
 				$this->redirect(array('action' => 'index'));
 			}
 
@@ -253,17 +253,20 @@ class SubscriptionsController extends AppController
 	{
 		if (!$id)
 		{
-			$this->__setFlash('Inscrição inválido!', 'error');
+			$this->__setFlash('Inscrição inválida!', 'error');
 			$this->__goBack();
 		}
 
 		$subscription = $this->Subscription->find('first', array('recursive' => -1, 'conditions' => array('event_id' => $id, 'user_id' => $this->activeUser['id'])));
-
 		// verifica se a inscrição está registrada para o usuário logado
 		if(!empty($subscription))
 		{
 			// caso não esteja somente seta a mensagem de erro
 			$this->__setFlash('Inscrição inválida.', 'error');
+		}
+		else if(!$subscription['Event']['free'])
+		{
+			$this->__setFlash('Não é possível cancelar a inscrição.', 'error');
 		}
 		// caso contrário tenta excluir a inscrição
 		else if ($this->Subscription->delete($id))
@@ -274,7 +277,7 @@ class SubscriptionsController extends AppController
 		else
 		{
 			// caso contrário define mensagem de falha
-			$this->__setFlash('Inscrição não foi removida');
+			$this->__setFlash('Inscrição não foi removida', 'error');
 		}
 
 		$this->__goBack();

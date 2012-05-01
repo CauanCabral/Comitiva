@@ -7,7 +7,6 @@
 		<h2><?php echo __('Eventos');?></h2>
 		<table class="table table-striped table-bordered table-condensed">
 		<tr>
-			<th><?php echo $this->Paginator->sort('id');?></th>
 			<th><?php echo $this->Paginator->sort('Event.title', __('Título'));?></th>
 			<th><?php echo $this->Paginator->sort('Event.open', __('Aberto para inscrição?'));?></th>
 			<th><?php echo $this->Paginator->sort('Event.free', __('Gratuito?'));?></th>
@@ -18,9 +17,6 @@
 		foreach ($events as $event):
 		?>
 			<tr>
-				<td>
-					<?php echo $event['Event']['id']; ?>
-				</td>
 				<td>
 					<?php echo $event['Event']['title']; ?>
 				</td>

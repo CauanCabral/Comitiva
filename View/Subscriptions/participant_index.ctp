@@ -7,7 +7,6 @@
 		<h2><?php echo __('Inscrições');?></h2>
 		<table class="table table-striped table-bordered table-condensed">
 		<tr>
-			<th><?php echo $this->Paginator->sort('id');?></th>
 			<th><?php echo $this->Paginator->sort('event_id', __('Evento'));?></th>
 			<th><?php echo __('Pagamento');?></th>
 			<th class="actions"><?php echo __('Ações');?></th>
@@ -21,9 +20,6 @@
 			}
 		?>
 			<tr<?php echo $class;?>>
-				<td>
-					<?php echo $subscription['Subscription']['id']; ?>
-				</td>
 				<td>
 					<?php echo $this->Html->link($subscription['Event']['title'], array('controller' => 'subscriptions', 'action' => 'view', $subscription['Subscription']['id'])); ?>
 				</td>
@@ -43,6 +39,8 @@
 
 						if($subscription['Event']['free'] === false && !isset($subscription['Payment']['id']))
 							echo $this->Html->glyphLink(__('Informar pagamento'), array('controller' => 'payments', 'action' => 'add', $subscription['Subscription']['id']), array('glyph' => 'glyph-tag glyph-large'));
+						if($subscription['Event']['free'])
+							echo $this->Html->glyphLink(__('Remover'), array('action' => 'delete', $subscription['Subscription']['id']), array('glyph' => 'glyph-trash glyph-large'), sprintf(__('Deseja realmente excluir a inscrição #%s?'), $subscription['Subscription']['id']));
 					?>
 				</td>
 			</tr>

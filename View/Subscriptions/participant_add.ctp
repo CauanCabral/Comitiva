@@ -10,10 +10,8 @@
 		?>
 		<fieldset>
 	 		<legend><?php echo __('Confirme sua Inscrição');?></legend>
-			<h2><?php echo __('Nome do Evento') ?></h2>
 			<?php
-				echo '<h3>', $event['Event']['title'], '</h3>';
-
+				echo '<h2>', $event['Event']['title'], '</h2>';
 				if(!empty($event['ParentEvent']['title'])):
 			?>
 			<h2><?php echo __('Macro Evento') ?></h2>
@@ -25,7 +23,7 @@
 
 				<table class="table table-striped table-bordered table-condensed">
 				<tr>
-					<th><?php echo __('Legenda'); ?></th>
+					<th><?php echo __('Título'); ?></th>
 					<th><?php echo __('Data'); ?></th>
 				</tr>
 				<?php

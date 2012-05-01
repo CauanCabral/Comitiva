@@ -2,7 +2,11 @@
 	<ul class="nav nav-tabs nav-stacked span2">
 		<li><?php echo $this->Html->link(__('Listar Inscrições'), array('action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('Listar Eventos'), array('controller' => 'events', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Informar pagamento'), array('controller' => 'payments', 'action' => 'add', $subscription['Subscription']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Informar pagamento'), array('controller' => 'payments', 'action' => 'add', $subscription['Subscription']['id']));  ?>
+		<li><?php 
+
+		if($subscription['Event']['free'])
+			echo $this->Html->link(__('Cancelar Inscrição'), array('action' => 'delete', $subscription['Subscription']['id']), array(), __('Deseja cancelar a inscrição?')); ?> </li>
 	</ul>
 	<div class="span10">
 	<h2><?php echo __('Inscrição');?></h2>
