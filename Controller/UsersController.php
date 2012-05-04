@@ -188,7 +188,11 @@ class UsersController extends AppController
 				$userData['User']['account_validation_expires_at'] = null;
 				$userData['User']['active'] = true;
 
-				$this->User->save($userData['User'], true, array('account_validation_token', 'account_validation_expires_at', 'active'));
+				if(!$this->User->save($userData['User'], true, array('account_validation_token', 'account_validation_expires_at', 'active')))
+				{
+					$this->__setFlash('Houve uma falha ao confirmar sua conta. Por favor, contacte o suporte', 'error');
+					$this->redirect('/');
+				}
 
 				$this->__setFlash('Cadastro Verificado com Sucesso!', 'success');
 				$this->redirect('/');
