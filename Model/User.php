@@ -111,7 +111,7 @@ class User extends AppModel
 		}
 
 		return true;
-    }
+	}
 
 	/**
 	 * Método para validar a senha do usuário

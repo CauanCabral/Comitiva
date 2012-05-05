@@ -157,6 +157,7 @@ class UsersController extends AppController
 	{
 		if(isset($hash) && isset($user))
 		{
+			$this->User->contain();
 			$userData = $this->User->find('first', array(
 				'conditions' => array(
 					'username' => $user
