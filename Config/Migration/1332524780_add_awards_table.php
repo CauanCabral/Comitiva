@@ -28,20 +28,12 @@ class AddAwardsTable extends CakeMigration {
 						'PRIMARY' => array('column' => 'id', 'unique' => 1),
 					)
 				),
-			),
-			'create_field' => array(
-				'raffles' => array(
-					'award_id' => array('type' => 'integer', 'null' => true, 'default' => NULL, 'collate' => 'utf8_general_ci', 'charset' => 'utf8', 'after' => 'token_expires_at'),
-				),
-			),
+			)
 		),
 		'down' => array(
 			'drop_table' => array(
 				'awards'
-			),
-			'drop_field' => array(
-				'raffles' => array('award_id'),
-			),
+			)
 		),
 	);
 

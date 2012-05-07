@@ -19,15 +19,23 @@ class AddAdminUser extends CakeMigration
 
 	public function after($direction)
 	{
+		$User = $this->generateModel('User');
+
 		if($direction !== 'up')
 		{
+			echo __("Removendo usuário 'admin'...");
+			if($User->deleteAll(array('User.username' => 'admin')))
+				echo __('ok'), "\n";
+			else
+				echo __('Falha'), "\n";
+
 			return true;
 		}
 
 		$user['User'] = array(
 			'username' => 'admin',
 			'password' => Security::hash('admin', null, true),
-			'groups' => 'admin',
+			'type' => 'admin',
 			'email' => 'admin@example.com',
 			'name' => 'Admin',
 			'nickname' => 'admin',
@@ -39,8 +47,6 @@ class AddAdminUser extends CakeMigration
 			'state' => '',
 			'phone' => ''
 		);
-
-		$User = $this->generateModel('User');
 
 		if(!$User->save($user))
 		{

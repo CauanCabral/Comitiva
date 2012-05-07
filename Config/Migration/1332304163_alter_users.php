@@ -31,26 +31,24 @@ class AlterUsers extends CakeMigration
 			)
 		);
 
+	public $groups = array();
+
 	public function before($direction)
 	{
-		if($direction === 'down')
+		$model = $this->generateModel('User');
+
+		$users = $model->find('all');
+
+		foreach($users as $user)
 		{
-			$model = $this->generateModel('User');
-			
-			$users = $model->find('all');
-			
-			//$this->out(__('Atualizando registros...'), false);
-			foreach($users as $user)
+			if($direction === 'down')
 			{
-				$type = json_decode($user['User']['groups'], true);
-				$user['User']['groups'] = $type[0];
-				
-				if(!$model->save($user))
-				{
-					//$this->out('Falha ao desatualizar campo type do modelo usuário', true);
-				}
+				$this->groups[$user['User']['id']] = $user['User']['groups'];
 			}
-			//$this->out(__('ok'));
+			else
+			{
+				$this->groups[$user['User']['id']] = $user['User']['type'];
+			}
 		}
 
 		return true;
@@ -58,26 +56,39 @@ class AlterUsers extends CakeMigration
 
 	public function after($direction)
 	{
-		if($direction === 'up')
+		echo __('Atualizando registros...');
+		$model = $this->generateModel('User');
+
+		if($direction === 'down')
 		{
-			// alterando o valor do campo nos registros para equivalente na notação json
-			$model = $this->generateModel('User');
-			
-			$users = $model->find('all');
-			
-			//$this->out(__('Atualizando registros...'), false);
-			foreach($users as $user)
+			foreach($this->groups as $id => $group)
 			{
-				$user['User']['groups'] = json_encode(array(str_replace('"', '', $user['User']['groups'])));
-				
-				if(!$model->save($user))
+				$type = json_decode($group, true);
+
+				$model->create();
+				$model->id = $id;
+				if(!$model->saveField('type', $type[0]))
 				{
-					//$this->out('Falha ao desatualizar campo type do modelo usuário', true);
+					echo __('Falha ao desatualizar campo type do modelo usuário'), "\n";
 				}
 			}
-
-			//$this->out(__('ok'));
 		}
+		else
+		{
+			foreach($this->groups as $id => $group)
+			{
+				$type = json_encode(array($group));
+
+				$model->create();
+				$model->id = $id;
+				if(!$model->saveField('groups', $type))
+				{
+					echo __('Falha ao desatualizar campo type do modelo usuário'), "\n";
+				}
+			}
+		}
+
+		echo __('ok'), "\n\n";
 
 		return true;
 	}
