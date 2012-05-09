@@ -283,7 +283,7 @@ class AppController extends Controller
 		$this->autoRender = $autoRender;
 	}
 
-	protected function __setFlash($message, $class = 'success')
+	protected function __setFlash($message, $class)
 	{
 		if(strpos($class, 'alert') === false)
 			$class = 'alert-' . $class;

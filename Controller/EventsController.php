@@ -79,7 +79,7 @@ class EventsController extends AppController
 				$this->redirect(array('action' => 'index'));
 			}
 
-			$this->__setFlash('Novo evento não pode ser salvo. Tente novamente.');
+			$this->__setFlash('Novo evento não pode ser salvo. Tente novamente.', 'error');
 		}
 
 		$events = $this->Event->find('list');
