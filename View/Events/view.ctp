@@ -1,17 +1,17 @@
+<header>
+	<h1><?php echo $event['Event']['title']; ?></h1>
+		<p class="lead"><?php echo $event['Event']['lead'];?></p>
+		<?php echo $this->Html->link(__('Inscrever-se'), array('participant' => true, 'controller' => 'subscriptions', 'action' => 'add', $event['Event']['id']), array('class' => 'btn btn-primary')); ?>
+		<?php echo $this->Html->link(__('Cria uma conta'), '/', array('class' => 'btn btn-small')); ?>
+</header>
 <div class="row-fluid">
 	<ul class="nav nav-tabs nav-stacked span2">
-		<li><?php echo $this->Html->glyphLink(__('Cria uma conta'), '/', array('glyph' => 'glyph-user glyph-large')); ?></li>
-		<li><?php echo $this->Html->glyphLink(__('Inscrever-se'), array('participant' => true, 'controller' => 'subscriptions', 'action' => 'add', $event['Event']['id']), array('glyph' => 'glyph-signin glyph-large')); ?></li>
+		<li></li>
+		<li></li>
 	</ul>
 
 	<div class="span10">
-	<h2><?php echo __('Evento');?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Nome'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $event['Event']['title']; ?>
-			&nbsp;
-		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Inscritos'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $event['Event']['subscription_count']; ?>
@@ -35,7 +35,8 @@
 	</dl>
 
 	<h3><?php echo __('Pagamento')?></h3>
-	<p><?php echo Configure::read('Comitiva.paymentInfo'); ?></p>
+
+	<?php echo $event['Event']['payment_info']; ?>
 
 	<?php if (!empty($event['EventDate'])):?>
 		<h3><?php echo __('Datas');?></h3>

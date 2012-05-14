@@ -14,10 +14,12 @@
 		<fieldset>
 	 		<legend><?php echo __('Editar Inscrição');?></legend>
 		<?php
-			echo $this->Form->input('user_id', array('label' => __('Participante')));
-			echo $this->Form->input('event_id', array('label' => __('Evento')));
+			echo $this->Form->input('event_id', array('label' => __('Evento'), 'id' => 'jsEventId'));
+			echo $this->Form->input('user_id', array('type' => 'hidden', 'id' => 'jsUserId'));
+			echo $this->Form->input('user_name', array('label' => __('Usuário'), 'type' => 'text', 'id' => 'jsUserName'));
 		?>
 		</fieldset>
 	<?php echo $this->Form->end('Enviar');?>
 	</div>
 </div>
+<?php echo $this->Html->script('subscriptions'); ?>

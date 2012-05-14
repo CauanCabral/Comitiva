@@ -82,7 +82,7 @@ class Event extends AppModel
 		{
 			foreach($event['EventDate'] as &$dates)
 			{
-				if(!empty($dates['time']) && $dates['time'] !== '00:00')
+				if(!empty($dates['time']))
 					$dates['date'] = $dates['date'] . ' ' . $dates['time'];
 			}
 		}
@@ -105,7 +105,22 @@ class Event extends AppModel
 
 		$conditions = array_merge($defaultCondition, $conditions);
 
+		$this->contain();
 		return $this->find('list', array('conditions' => $conditions));
+	}
+
+	public function getOpenToSubscriptionList($conditions = array())
+	{
+		$all = $this->getList();
+		$opens = array();
+
+		foreach($all as $event => $title)
+		{
+			if($this->openToSubscription($event))
+				$opens[$event] = $title;
+		}
+
+		return $opens;
 	}
 
 	/**
@@ -137,19 +152,8 @@ class Event extends AppModel
 		if($eventData['Event']['open'] == false)
 			return false;
 
-		$event_dates = $this->EventDate->find('all', array(
-			'conditions' => array('event_id' => $id),
-			'contain' => array()
-		));
-
 		$today = date('Y-m-d');
-		$end = (date('Y') - 100) . date('-m-d');
-
-		foreach($event_dates as $eventDate)
-		{
-			if($eventDate['EventDate']['date'] > $end)
-				$end = $eventDate['EventDate']['date'];
-		}
+		$end = $this->getLastDay($id);
 
 		$isOpen = ($today < $end);
 
@@ -162,5 +166,47 @@ class Event extends AppModel
 		}
 
 		return $isOpen;
+	}
+
+	/**
+	 * Retorna o primeiro dia do evento, se houver data
+	 *
+	 * @param int $id ID do Evento
+	 * @return mixed null se o evento não possuir data definida
+	 * ou a data do primeiro dia caso existam datas
+	 */
+	public function getFirstDay($id)
+	{
+		$event_dates = $this->EventDate->find('first', array(
+			'conditions' => array('event_id' => $id),
+			'contain' => array(),
+			'order' => array('date' => 'asc')
+		));
+
+		if(empty($event_dates))
+			return null;
+
+		return $event_dates['EventDate']['date'];
+	}
+
+	/**
+	 * Retorna o último dia do evento, se houver data
+	 *
+	 * @param int $id ID do Evento
+	 * @return mixed null se o evento não possuir data definida
+	 * ou a data do último dia caso existam datas
+	 */
+	public function getLastDay($id)
+	{
+		$event_dates = $this->EventDate->find('first', array(
+			'conditions' => array('event_id' => $id),
+			'contain' => array(),
+			'order' => array('date' => 'desc')
+		));
+
+		if(empty($event_dates))
+			return null;
+
+		return $event_dates['EventDate']['date'];
 	}
 }

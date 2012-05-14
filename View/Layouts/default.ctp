@@ -19,6 +19,8 @@
 
 		//========================= Estilos
 
+		echo $this->Html->css('jquery-ui');
+		echo $this->Html->css('jquery-ui.ie');
 		echo $this->Html->css('bootstrap.min');
 		echo $this->Html->css('bootstrap-responsive.min');
 		echo $this->Html->css('datepicker');

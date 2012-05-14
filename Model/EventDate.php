@@ -15,20 +15,18 @@ class EventDate extends AppModel
 
 	public $validate = array(
 		'date' => array(
-			'date' => array('rule' => array('notEmpty')),
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
+				'message' => 'Obrigatório uma data'
+			),
 		),
 		'desc' => array(
-			'length' => array('rule' => array('maxLength', 30))
+			'length' => array(
+				'rule' => array('maxLength', 30),
+				'message' => 'Descrição muito longa. Limite de 30 caracteres.'
+				)
 		)
 	);
 
-	public $belongsTo = array(
-		'Event' => array(
-			'className' => 'Event',
-			'foreignKey' => 'event_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
-	);
+	public $belongsTo = array('Event');
 }

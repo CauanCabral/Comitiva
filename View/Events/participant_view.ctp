@@ -35,7 +35,8 @@
 	</dl>
 
 	<h3><?php echo __('Pagamento')?></h3>
-	<p><?php echo Configure::read('Comitiva.paymentInfo'); ?></p>
+
+	<?php echo $event['Event']['payment_info']; ?>
 
 	<?php if (!empty($event['EventDate'])):?>
 		<h3><?php echo __('Datas');?></h3>

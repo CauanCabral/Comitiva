@@ -61,9 +61,8 @@ class SubscriptionsController extends AppController
 			$this->__setFlash('A inscrição não pôde ser salva. Tente novamente.');
 		}
 
-		$users = $this->Subscription->User->getList();
-		$events = $this->Subscription->Event->getList();
-		$this->set(compact('users', 'events'));
+		$events = $this->Subscription->Event->getOpenToSubscriptionList();
+		$this->set(compact('events'));
 	}
 
 	public function admin_edit($id = null)
@@ -87,12 +86,13 @@ class SubscriptionsController extends AppController
 
 		if (empty($this->request->data))
 		{
+			$this->Subscription->contain(array('Event', 'User'));
 			$this->request->data = $this->Subscription->find('first', array('conditions' => array('Subscription.id' => $id)));
+			$this->request->data['Subscription']['user_name'] = $this->request->data['User']['fullName'];
 		}
 
-		$users = $this->Subscription->User->find('list');
-		$events = $this->Subscription->Event->find('list');
-		$this->set(compact('users', 'events'));
+		$events = $this->Subscription->Event->getOpenToSubscriptionList();
+		$this->set(compact('events'));
 	}
 
 	public function admin_delete($id = null)
@@ -288,5 +288,54 @@ class SubscriptionsController extends AppController
 		}
 
 		$this->__goBack();
+	}
+
+	/**
+	 * Método que retorna em JSON uma lista de usuários que ainda
+	 * não estão inscritos no evento passado.
+	 *
+	 * @param int $event_id
+	 * @return void
+	 */
+	public function admin_ajaxGetNonParticipants($event_id)
+	{
+		$this->viewClass = 'Json';
+		$this->view = null;
+
+		if(!$this->Subscription->Event->exists($event_id))
+			throw new NotFoundException("Evento não encontrado.");
+
+		$this->Subscription->contain();
+		$subscriptions = $this->Subscription->find('all', array('conditions' => array('event_id' => $event_id), 'fields' => array('user_id')));
+		$ids = array();
+
+		foreach($subscriptions as $subscription)
+		{
+			$ids[] = $subscription['Subscription']['user_id'];
+		}
+
+		$q = '%';
+		if(isset($this->request->query['term']))
+		{
+			$q .= $this->request->query['term'] . '%';
+		}
+
+		$data = $this->Subscription->User->find('list', array(
+			'conditions' => array(
+				'User.id NOT' => $ids,
+				'User.fullName LIKE' => $q
+			),
+			'fields' => array('User.id', 'User.fullName'),
+			'contain' => array())
+		);
+
+		$output = array();
+		foreach($data as $userId => $userName)
+		{
+			$output[] = array('id' => $userId, 'label' => $userName);
+		}
+
+		$this->set(compact('output'));
+		$this->set('_serialize', 'output');
 	}
 }
