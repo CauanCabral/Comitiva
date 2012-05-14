@@ -1,3 +1,6 @@
+<?php
+$eventLink = Router::url("/divulgacao/{$event['Event']['alias']}", true);
+?>
 <div class="row-fluid">
 	<ul class="nav nav-tabs nav-stacked span2">
 		<li><?php echo $this->Html->link(__('Alterar Evento'), array('action' => 'edit', $event['Event']['id'])); ?> </li>
@@ -10,25 +13,21 @@
 		<li><?php echo $this->Html->link(__('Adicionar Sub-evento'), array('controller' => 'events', 'action' => 'add'));?> </li>
 	</ul>
 	<div class="events view span10">
-	<h2><?php echo __('Evento');?></h2>
+		<div class="page-header">
+			<h1>
+				<?php echo $event['Event']['title'];?>
+				<small><?php echo $event['Event']['lead'];?></small>
+			</h1>
+			<strong>Link para divulgação: <?php echo $this->Html->link($eventLink, $eventLink)?></strong>
+		</div>
+		<div class="well">
+			<?php echo $event['Event']['description']; ?>
+		</div>
+
 		<dl><?php $i = 0; $class = ' class="altrow"';?>
-			<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Nome'); ?></dt>
-			<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-				<?php echo $event['Event']['title']; ?>
-				&nbsp;
-			</dd>
-			<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Slug'); ?></dt>
-			<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-				<?php echo $event['Event']['alias']; ?>
-			</dd>
 			<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Inscritos'); ?></dt>
 			<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 				<?php echo $this->Html->link($event['Event']['subscription_count'], array('controller' => 'subscriptions', 'action' => 'index', $event['Event']['id'])); ?>
-				&nbsp;
-			</dd>
-			<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Descrição'); ?></dt>
-			<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-				<?php echo $event['Event']['description']; ?>
 				&nbsp;
 			</dd>
 			<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Macro Evento'); ?></dt>
@@ -38,7 +37,7 @@
 			</dd>
 			<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Gratuito'); ?></dt>
 			<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-				<?php echo $event['Event']['free'] == TRUE ? __('Sim') : __('Não'); ?>
+				<?php echo $event['Event']['free'] == true ? __('Sim') : __('Não'); ?>
 				&nbsp;
 			</dd>
 		</dl>

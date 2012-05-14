@@ -12,6 +12,9 @@
 		echo $this->Form->input('Event.title', array('label' => __('Titulo'), 'class' => 'fullWidth'));
 		echo $this->Form->input('Event.parent_id', array('label' => __('Macro Evento'), 'options' => array_merge(array('Selecione um evento'),$events)));
 
+		echo $this->Form->newLine(array('10'));
+		echo $this->Form->input('Event.lead', array('label' => __('Resumo'), 'class' => 'fullWidth', 'rows' => 3));
+
 		echo $this->Form->inputBootstrap('Event.free', array('label' => __('Gratuito?'), 'type' => 'checkbox'));
 		echo $this->Form->inputBootstrap('Event.open_for_proposals', array('type' => 'checkbox', 'label' => __('Aberto para Submissão de Propostas')));
 
@@ -19,12 +22,11 @@
 		echo $this->Form->input('Event.description', array('label' => __('Descrição'), 'rows' => 15));
 
 		echo $this->Html->link(__('Adicionar preço'), array('action' => 'eventPriceAdd', 'prefix' => 'admin'), array('id' => 'addEventPrice'));
-		echo $this->Form->input('EventPrice.counter', array('type' => 'hidden', 'value' => 0, 'id' => 'priceCounter'));
 		echo '<fieldset id="pricesEvent"></fieldset>';
 
+		$counter = 0;
 		if(isset($this->request->data['EventPrice']) && !empty($this->request->data['EventPrice']))
 		{
-			$counter = 0;
 
 			foreach($this->request->data['EventPrice'] as $i => $eventPrice)
 			{
@@ -34,27 +36,21 @@
 
 			$this->Html->scriptBlock('$("#priceCounter").val('. $counter .')', array('secure' => true));
 		}
+		echo $this->Form->input('EventPrice.counter', array('type' => 'hidden', 'value' => $counter, 'id' => 'priceCounter'));
 
-		/******
-		 * EventDate hasMany add
-		 */
 		echo $this->Html->link(__('Adicionar data'), array('action' => 'eventPriceAdd', 'prefix' => 'admin'), array('id' => 'addEventDate'));
-		echo $this->Form->input('EventDate.counter', array('type' => 'hidden', 'value' => 0, 'id' => 'dateCounter'));
 		echo '<fieldset id="datesEvent"></fieldset>';
 
-		// Recover error state
+		$counter = 0;
 		if(isset($this->request->data['EventDate']) && !empty($this->request->data['EventDate']))
 		{
-			$counter = 0;
-
 			foreach($this->request->data['EventDate'] as $i => $eventDate)
 			{
 				echo $this->requestAction("/admin/events/eventDateAdd/index:{$i}");
 				$counter++;
 			}
-
-			$this->Html->scriptBlock('$("#dateCounter").val('. $counter .')', array('secure' => true));
 		}
+		echo $this->Form->input('EventDate.counter', array('type' => 'hidden', 'value' => $counter, 'id' => 'dateCounter'));
 	?>
 	</fieldset>
 	<?php echo $this->Form->end(__('Salvar'));?>
