@@ -2,6 +2,7 @@
 	<ul class="nav nav-tabs nav-stacked span2">
 		<li><?php echo $this->Html->link(__('Alterar Evento'), array('action' => 'edit', $event['Event']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('Ver inscrições'), array('controller' => 'subscriptions', 'action' => 'index', $event['Event']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Nova Inscrição'), array('controller' => 'subscriptions', 'action' => 'add', $event['Event']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('Enviar aviso aos inscritos'), array('controller' => 'events', 'action' => 'sendAdvertise', $event['Event']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('Remover Evento'), array('action' => 'delete', $event['Event']['id']), null, sprintf(__('Deseja realmente excluir o evento "%s"?'), $event['Event']['title'])); ?> </li>
 		<li><?php echo $this->Html->link(__('Listar Eventos'), array('action' => 'index')); ?> </li>

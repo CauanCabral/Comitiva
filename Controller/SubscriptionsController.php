@@ -46,7 +46,7 @@ class SubscriptionsController extends AppController
 		$this->set('subscription', $this->Subscription->read(null, $id));
 	}
 
-	public function admin_add()
+	public function admin_add($event_id = null)
 	{
 		if (!empty($this->request->data))
 		{
@@ -59,6 +59,11 @@ class SubscriptionsController extends AppController
 			}
 
 			$this->__setFlash('A inscrição não pôde ser salva. Tente novamente.');
+		}
+
+		if($event_id)
+		{
+			$this->request->data['Subscription']['event_id'] = $event_id;
 		}
 
 		$events = $this->Subscription->Event->getOpenToSubscriptionList();
