@@ -1,6 +1,6 @@
 <div class="row-fluid">
 	<ul class="nav nav-tabs nav-stacked span2">
-		<li><?php echo $this->Html->glyphLink(__('Início'), '/', array('glyph' => true, 'icon' => 'home')) ?></li>
+		<li><?php echo $this->Html->link(__('Início'), '/', array('glyph' => true, 'icon' => 'home')) ?></li>
 	</ul>
 	<div class="span10">
 	<?php echo $this->Form->create('User');?>
