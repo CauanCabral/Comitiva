@@ -9,18 +9,19 @@
 	 		<legend><?php echo __('Novo Evento');?></legend>
 		<?php
 			echo $this->Form->input('Event.id', array('type' => 'hidden'));
-			echo $this->Form->newLine(array('5', '3'));
+			$this->Form->defineRow(array(5, 3));
 			echo $this->Form->input('Event.title', array('label' => __('Titulo'), 'class' => 'fullWidth'));
 			echo $this->Form->input('Event.parent_id', array('label' => __('Macro Evento'), 'options' => array_merge(array('Selecione um evento'),$events)));
 
-			echo $this->Form->newLine(array('10'));
+			$this->Form->defineRow(array(10));
 			echo $this->Form->input('Event.lead', array('label' => __('Resumo'), 'class' => 'fullWidth', 'rows' => 3));
 
-			echo $this->Form->inputBootstrap('Event.open', array('label' => __('Aberto para inscrição?'), 'type' => 'checkbox'));
-			echo $this->Form->inputBootstrap('Event.free', array('label' => __('Gratuito?'), 'type' => 'checkbox'));
-			echo $this->Form->inputBootstrap('Event.open_for_proposals', array('type' => 'checkbox', 'label' => __('Aberto para Submissão de Propostas')));
+			$this->useGride(false);
+			echo $this->Form->input('Event.open', array('label' => __('Aberto para inscrição?'), 'type' => 'checkbox'));
+			echo $this->Form->input('Event.free', array('label' => __('Gratuito?'), 'type' => 'checkbox'));
+			echo $this->Form->input('Event.open_for_proposals', array('type' => 'checkbox', 'label' => __('Aberto para Submissão de Propostas')));
 
-			$this->Form->newLine(array('10'));
+			$this->Form->defineRow(array(10));
 			echo $this->Form->input('Event.description', array('label' => __('Descrição'), 'rows' => 15));
 
 			echo $this->Html->link(__('Adicionar preço'), array('action' => 'eventPriceAdd', 'prefix' => 'admin'), array('id' => 'addEventPrice'));

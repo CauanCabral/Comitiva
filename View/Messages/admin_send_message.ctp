@@ -4,7 +4,7 @@
 	<fieldset>
  		<legend><?php echo __('Enviar Mensagem');?></legend>
 	<?php
-		$this->Form->newLine(array('3', '3', '2'));
+		$this->Form->defineRow(array(3, 3, 2));
 		echo $this->Form->input('Message.to', array(
 			'label' => __('Enviar para'),
 			'options' => $types
@@ -15,10 +15,10 @@
 		));
 		echo $this->Form->input('Message.event_id', array('label' => __('Evento'),'options' => $events));
 
-		$this->Form->newLine(array('8'));
+		$this->Form->defineRow(array(8));
 		echo $this->Form->input('Message.subject', array('label' => __('Assunto'), 'class' => 'fullWidth'));
 
-		$this->Form->newLine(array('10'));
+		$this->Form->defineRow(array(10));
 		echo $this->Form->input('Message.text', array('label' => __('Mensagem'), 'rows' => 15));
 	?>
 	</fieldset>

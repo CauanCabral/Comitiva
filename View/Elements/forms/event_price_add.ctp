@@ -3,7 +3,7 @@
 	if(!isset($i))
 		$i = 0;
 
-	$this->Form->newLine(array('1', '1', '1', '4'));
+	$this->Form->defineRow(array(1, 1, 1, 4));
 	echo $this->Form->input("EventPrice.{$i}.price", array(
 		'class' => 'fullWidth',
 		'label' => __('Valor'),

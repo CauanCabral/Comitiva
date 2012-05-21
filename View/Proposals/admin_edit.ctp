@@ -10,7 +10,7 @@
 	 		<legend><?php echo __('Alterar Proposta'); ?></legend>
 		<?php
 			echo $this->Form->input('id');
-			$this->Form->newLine(array('3', '4', '3'));
+			$this->Form->defineRow(array(3, 4, 3));
 			echo $this->Form->input('user_id', array(
 				'label' => __('Palestrante'),
 				'class' => 'fullWidth'
@@ -26,21 +26,21 @@
 				'class' => 'fullWidth'
 				)
 			);
-			$this->Form->newLine(array('8'));
+			$this->Form->defineRow(array(8));
 			echo $this->Form->input('mini_curriculum', array(
 				'label' => __('Mini Currículo'),
 				'rows' => 8,
 				'class' => 'fullWidth'
 				)
 			);
-			$this->Form->newLine(array('8'));
+			$this->Form->defineRow(array(8));
 			echo $this->Form->input('abstract', array(
 				'label' => __('Resumo'),
 				'rows' => 8,
 				'class' => 'fullWidth'
 				)
 			);
-			$this->Form->newLine(array('8'));
+			$this->Form->defineRow(array(8));
 			echo $this->Form->input('detailed', array(
 				'label' => __('Detalhes'),
 				'rows' => 15,

@@ -31,10 +31,10 @@
 				</td>
 				<td class="actions">
 					<?php
-						echo $this->Html->glyphLink(__('Visualizar'), array('action' => 'view', $event['Event']['id']), array('glyph' => 'glyph-file glyph-large'));
+						echo $this->Html->link(__('Visualizar'), array('action' => 'view', $event['Event']['id']), array('glyph' => true, 'icon' => 'file large'));
 
 						if($event['Event']['open'])
-							echo $this->Html->glyphLink(__('Inscrever-se'), array('controller' => 'subscriptions' ,'action' => 'add', $event['Event']['id']), array('glyph' => 'glyph-signin glyph-large'));
+							echo $this->Html->link(__('Inscrever-se'), array('controller' => 'subscriptions' ,'action' => 'add', $event['Event']['id']), array('glyph' => true, 'icon' => 'signin large'));
 					?>
 				</td>
 			</tr>

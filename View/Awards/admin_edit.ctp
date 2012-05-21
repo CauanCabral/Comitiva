@@ -10,7 +10,7 @@
 				<legend><?php echo __('Alterar Sorteio'); ?></legend>
 				<?php
 				echo $this->Form->hidden('id');
-				$this->Form->newLine(array('5', '3'));
+				$this->Form->defineRow(array(5, 3));
 				echo $this->Form->input('title', array(
 					'required' => 'required',
 					'label' => __('Título'),
@@ -19,6 +19,7 @@
 				echo $this->Form->input('event_id', array(
 					'label' => __('Evento')
 				));
+				$this->Form->useGrid(false);
 				echo $this->Form->input('groups', array(
 					'label' => __('Grupos'),
 					'options' => array(
@@ -29,13 +30,14 @@
 					'multiple' => true
 					)
 				);
-				$this->Form->newLine(array('10'));
+				$this->Form->defineRow(array(10));
 				echo $this->Form->input('description', array(
 					'label' => __('Descrição'),
 					'rows' => 15
 				));
 				?>
 			</fieldset>
+			<br />
 			<?php echo $this->Form->submit(__('Salvar'));?>
 	</div>
 </div>

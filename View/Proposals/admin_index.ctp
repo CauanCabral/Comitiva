@@ -72,13 +72,13 @@
 		<?php
 		if($proposal['Proposal']['approved'] === null)
 		{
-			echo $this->Html->glyphLink(__('Rejeitar'), array('action' => 'approve', $proposal['Proposal']['id'], false), array('glyph' => 'glyph-thumbs-down glyph-large'), sprintf(__('Deseja realmente rejeitar a proposta?')));
-			echo $this->Html->glyphLink(__('Aprovar'), array('action' => 'approve', $proposal['Proposal']['id'], true), array('glyph' => 'glyph-thumbs-up glyph-large'), sprintf(__('Aprovar a proposta?')));
+			echo $this->Html->link(__('Rejeitar'), array('action' => 'approve', $proposal['Proposal']['id'], false), array('glyph' => true, 'icon' => 'thumbs-down large'), sprintf(__('Deseja realmente rejeitar a proposta?')));
+			echo $this->Html->link(__('Aprovar'), array('action' => 'approve', $proposal['Proposal']['id'], true), array('glyph' => true, 'icon' => 'thumbs-up large'), sprintf(__('Aprovar a proposta?')));
 		}
 
-		echo $this->Html->glyphLink(__('Visualizar'), array('action' => 'view', $proposal['Proposal']['id']), array('glyph' => 'glyph-file glyph-large')),
-			$this->Html->glyphLink(__('Editar'), array('action' => 'edit', $proposal['Proposal']['id']), array('glyph' => 'glyph-edit glyph-large')),
-			$this->Html->glyphLink(__('Excluir'), array('action' => 'delete', $proposal['Proposal']['id']), array('glyph' => 'glyph-trash glyph-large'), sprintf(__('Deseja realmente excluir a proposta #%s?'), $proposal['Proposal']['id']));
+		echo $this->Html->link(__('Visualizar'), array('action' => 'view', $proposal['Proposal']['id']), array('glyph' => true, 'icon' => 'file large')),
+			$this->Html->link(__('Editar'), array('action' => 'edit', $proposal['Proposal']['id']), array('glyph' => true, 'icon' => 'edit large')),
+			$this->Html->link(__('Excluir'), array('action' => 'delete', $proposal['Proposal']['id']), array('glyph' => true, 'icon' => 'trash large'), sprintf(__('Deseja realmente excluir a proposta #%s?'), $proposal['Proposal']['id']));
 		?>
 		</td>
 		</tr>

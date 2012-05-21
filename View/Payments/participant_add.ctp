@@ -12,14 +12,14 @@
 			<br />
 		<?php
 			echo $this->Form->input('Subscription.id', array('type' => 'hidden', 'value' => $subscription['Subscription']['id']));
-			$this->Form->newLine(array('3', '3'));
+			$this->Form->defineRow(array(3, 3));
 			echo $this->Form->input('Payment.amount', array('label' => __('Valor')));
 			echo $this->Form->input('Payment.date', array(
 				'label' => __('Data'),
 				'type' => 'text',
 				'class' => 'jsDatepicker'
 				));
-			$this->Form->newLine(array('6'));
+			$this->Form->defineRow(array(6));
 			echo $this->Form->input('Payment.information', array('label' => __('Informações'), 'type' => 'textarea', 'rows' => 15, 'class' => 'fullWidth'));
 		?>
 		</fieldset>

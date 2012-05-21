@@ -7,15 +7,15 @@
 		<fieldset>
 			<legend><?php echo __('Sorteio'); ?></legend>
 			<?php
-				echo $this->Form->newLine(array('4'));
+				$this->Form->defineRow(array(4));
 				echo $this->Form->input('award_id', array(
 					'label' => __('Selecione a Premiação'),
 					'id' => 'jsAward',
 					'class' => 'fullWidth',
 
 				));
-				echo $this->Form->newLine(array('4'));
-				echo $this->Form->inputBootstrap('reincident', array(
+				$this->Form->defineRow(array(4));
+				echo $this->Form->input('reincident', array(
 					'label' => __('Reincidente? (Participante pode ser sorteado novamente?)'),
 					'id' => 'jsReincident',
 					'type' => 'checkbox',

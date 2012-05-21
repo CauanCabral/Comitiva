@@ -47,7 +47,7 @@
 			<td class="actions">
 				<?php
 				if(!$subscription['Event']['free']&& !$subscription['Payment']['confirmed'])
-					echo $this->Html->glyphLink(__('Confirmar pagamento'), array('controller' => 'payments', 'action' => 'confirm', $subscription['Payment']['id']), array('glyph' => 'glyph-ok glyph-large'), sprintf(__('Deseja realmente confirmar o pagamento da inscrição #%s?'), $subscription['Subscription']['id']));
+					echo $this->Html->link(__('Confirmar pagamento'), array('controller' => 'payments', 'action' => 'confirm', $subscription['Payment']['id']), array('glyph' => true, 'icon' => 'ok large'), sprintf(__('Deseja realmente confirmar o pagamento da inscrição #%s?'), $subscription['Subscription']['id']));
 
 				echo $this->Html->link(__('Ver'), array('controller' => 'payments', 'action' => 'view', $subscription['Payment']['id']));
 				?>

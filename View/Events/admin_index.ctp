@@ -34,9 +34,9 @@
 					<?php echo $event['Event']['subscription_count'] ? $this->Html->link($event['Event']['subscription_count'], array('controller' => 'subscriptions', 'action' => 'index', $event['Event']['id'])) : __('Nenhum'); ?>
 				</td>
 				<td class="actions">
-					<?php echo $this->Html->glyphLink(__('Visualizar'), array('action' => 'view', $event['Event']['id']), array('glyph' => 'glyph-file glyph-large')),
-							$this->Html->glyphLink(__('Editar'), array('action' => 'edit', $event['Event']['id']), array('glyph' => 'glyph-edit glyph-large')),
-							$this->Html->glyphLink(__('Excluir'), array('action' => 'delete', $event['Event']['id']), array('glyph' => 'glyph-trash glyph-large', 'class' => 'delete-button', 'rel' => $event['Event']['id']), sprintf(__('Tem certeza que deseja apagar o evento \'%s\'?'), $event['Event']['title']));
+					<?php echo $this->Html->link(__('Visualizar'), array('action' => 'view', $event['Event']['id']), array('glyph' => true, 'icon' => 'file large')),
+							$this->Html->link(__('Editar'), array('action' => 'edit', $event['Event']['id']), array('glyph' => true, 'icon' => 'edit large')),
+							$this->Html->link(__('Excluir'), array('action' => 'delete', $event['Event']['id']), array('glyph' => true, 'icon' => 'trash large', 'class' => 'delete-button', 'rel' => $event['Event']['id']), sprintf(__('Tem certeza que deseja apagar o evento \'%s\'?'), $event['Event']['title']));
 					?>
 				</td>
 			</tr>

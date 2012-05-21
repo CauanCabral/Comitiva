@@ -8,11 +8,11 @@
  		<legend><?php echo __('Editar Dados');?></legend>
 	<?php
 		echo $this->Form->input('User.id', array('type' => 'hidden'));
-		echo $this->Form->inputBootstrap('User.username', array(
+		echo $this->Form->input('User.username', array(
 			'label' => __('Nome de Usuário'),
 			'disabled' => true
 		));
-		$this->Form->newLine(array('3', '4', '3'));
+		$this->Form->defineRow(array('3', '4', '3'));
 		echo $this->Form->input('name', array('label' => __('Nome'), 'class' => 'fullWidth'));
 		echo $this->Form->input('nickname', array('label' => __('Sobrenome'), 'class' => 'fullWidth'));
 		echo $this->Form->input('birthday', array(
@@ -21,11 +21,11 @@
 			'class' => 'jsDatepicker fullWidth'
 			)
 		);
-		$this->Form->newLine(array('7', '3'));
+		$this->Form->defineRow(array('7', '3'));
 			echo $this->Form->input('email', array('label' => __('Email'), 'class' => 'fullWidth'));
 			echo $this->Form->input('cpf', array('label' => __('CPF'), 'class' => 'fullWidth'));
 
-			$this->Form->newLine(array('4', '3', '1', '2'));
+			$this->Form->defineRow(array('4', '3', '1', '2'));
 			echo $this->Form->input('address', array('label' => __('Endereço'), 'class' => 'fullWidth'));
 			echo $this->Form->input('city', array('label' => __('Cidade'), 'class' => 'fullWidth'));
 			echo $this->Form->input('state', array('label' => __('Estado'), 'class' => 'fullWidth'));

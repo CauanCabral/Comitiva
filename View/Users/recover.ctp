@@ -8,9 +8,9 @@
 	<?php
 		echo $this->Form->create('User', array('url' => array('controller' => 'users', 'action' =>'recover')));
 
-		$this->Form->newLine(array('7'));
+		$this->Form->defineRow(array(7));
 		echo $this->Form->input('User.email', array('class' => 'fullWidth'));
-		$this->Form->newLine(array('3'));
+		$this->Form->defineRow(array(3));
 		echo $this->Form->submit(__('Enviar instruções'), array('div' => 'loginSubmit'));
 	?>
 </div>

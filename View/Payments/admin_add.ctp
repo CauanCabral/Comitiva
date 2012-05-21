@@ -11,7 +11,7 @@
 		<h3>Evento: <?php echo $subscription['Event']['title']; ?></h3>
 		<?php
 		echo $this->Form->input('Payment.subscription_id', array('type' => 'hidden', 'value' => $subscription['Subscription']['id']));
-		$this->Form->newLine(array('3', '3'));
+		$this->Form->defineRow(array(3, 3));
 		echo $this->Form->input('Payment.amount', array(
 			'label' => __('Valor'),
 			'value' => $this->Locale->number($subscription['Payment']['amount'])
@@ -23,14 +23,15 @@
 			'class' => 'jsDatepicker'
 			)
 		);
-		$this->Form->newLine(array('6'));
+		$this->Form->defineRow(array(6));
 		echo $this->Form->input('Payment.information', array(
 			'label' => __('Informações'),
 			'type' => 'textarea',
 			'rows' => 15,
 			'class' => 'fullWidth')
 		);
-		echo $this->Form->inputBootstrap('Payment.confirmed', array(
+		$this->useGride(false);
+		echo $this->Form->input('Payment.confirmed', array(
 			'label' => __('Confirmado? '), 'options' => array(
 				0 => __('Não'),
 				1 => __('Sim')

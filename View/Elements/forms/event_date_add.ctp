@@ -3,7 +3,7 @@
 	if(!isset($i))
 		$i = 0;
 
-	$this->Form->newLine(array('1', '1', '5'));
+	$this->Form->defineRow(array(1, 1, 5));
 	echo $this->Form->input("EventDate.{$i}.date", array(
 		'label' => __('Data'),
 		'type' => 'text',

@@ -109,7 +109,7 @@
 				<td><?php echo $childEvent['description'];?></td>
 				<td><?php echo $childEvent['free'] ? __('Sim') : __('Não');?></td>
 				<td class="actions">
-					<?php echo $this->Html->glyphLink(__('Inscrever-se'), array('controller' => 'subscriptions' ,'action' => 'add', $childEvent['id']), array('glyph' => 'glyph-signin glyph-large')); ?>
+					<?php echo $this->Html->link(__('Inscrever-se'), array('controller' => 'subscriptions' ,'action' => 'add', $childEvent['id']), array('glyph' => true, 'icon' => 'signin large')); ?>
 				</td>
 			</tr>
 		<?php endforeach; ?>

@@ -18,8 +18,8 @@
 			<td><?php echo $raffle['User']['name']; ?>&nbsp;</td>
 			<td><?php echo $this->Locale->datetime($raffle['Raffle']['created']); ?>&nbsp;</td>
 			<td class="actions">
-				<?php echo $this->Html->glyphLink(__('Visualizar'), array('action' => 'view', $raffle['Raffle']['id']), array('glyph' => 'glyph-file glyph-large') ); ?>
-				<?php echo $this->Html->glyphLink(__('Excluir'), array('action' => 'delete', $raffle['Raffle']['id']),  array('glyph' => 'glyph-trash glyph-large'), __('Deseja excluir o sorteado?')); ?>
+				<?php echo $this->Html->link(__('Visualizar'), array('action' => 'view', $raffle['Raffle']['id']), array('glyph' => true, 'icon' => 'file large') ); ?>
+				<?php echo $this->Html->link(__('Excluir'), array('action' => 'delete', $raffle['Raffle']['id']),  array('glyph' => true, 'icon' => 'trash large'), __('Deseja excluir o sorteado?')); ?>
 			</td>
 		</tr>
 		<?php endforeach; ?>

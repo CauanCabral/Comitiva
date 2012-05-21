@@ -17,9 +17,9 @@
 				<td><?php echo $this->Locale->datetime($award['Award']['created']); ?>&nbsp;</td>
 				<td class="actions">
 					<?php
-						echo $this->Html->glyphLink(__('Ver'), array('action' => 'view', $award['Award']['id']), array('glyph' => 'glyph-file glyph-large')),
-						$this->Html->glyphLink(__('Editar'), array('action' => 'edit', $award['Award']['id']), array('glyph' => 'glyph-edit glyph-large')),
-						$this->Html->glyphLink(__('Remover'), array('action' => 'delete', $award['Award']['id']), array('glyph' => 'glyph-remove glyph-large'), __('Deseja remover a premiação?'));
+						echo $this->Html->link(__('Ver'), array('action' => 'view', $award['Award']['id']), array('glyph' => true, 'icon' => 'file large')),
+						$this->Html->link(__('Editar'), array('action' => 'edit', $award['Award']['id']), array('glyph' => true, 'icon' => 'edit large')),
+						$this->Html->link(__('Remover'), array('action' => 'delete', $award['Award']['id']), array('glyph' => true, 'icon' => 'remove large'), __('Deseja remover a premiação?'));
 					?>
 				</td>
 			</tr>

@@ -3,7 +3,7 @@
 		<li><?php echo $this->Html->link(__('Listar Inscrições'), array('action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('Listar Eventos'), array('controller' => 'events', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('Informar pagamento'), array('controller' => 'payments', 'action' => 'add', $subscription['Subscription']['id']));  ?>
-		<li><?php 
+		<li><?php
 
 		if($subscription['Event']['free'])
 			echo $this->Html->link(__('Cancelar Inscrição'), array('action' => 'delete', $subscription['Subscription']['id']), array(), __('Deseja cancelar a inscrição?')); ?> </li>
@@ -40,7 +40,7 @@
 				<td><?php echo $subscription['Payment']['confirmed'] ? __('Sim') : __('Não');?></td>
 
 				<td class="actions">
-					<?php echo $this->Html->glyphLink(__('Ver'), array('controller' => 'payments', 'action' => 'view', $subscription['Payment']['id']), array('glyph' => 'glyph-file glyph-large')); ?>
+					<?php echo $this->Html->link(__('Ver'), array('controller' => 'payments', 'action' => 'view', $subscription['Payment']['id']), array('glyph' => true, 'icon' => 'file large')); ?>
 				</td>
 			</tr>
 		</table>
