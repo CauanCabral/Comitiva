@@ -17,7 +17,7 @@
 				)
 			);
 
-			$this->useGride(false);
+			$this->From->useGride(false);
 			echo $this->Form->input('groups', array(
 				'label' => __('Grupos'),
 				'options' => array(

@@ -16,7 +16,7 @@
 			$this->Form->defineRow(array(10));
 			echo $this->Form->input('Event.lead', array('label' => __('Resumo'), 'class' => 'fullWidth', 'rows' => 3));
 
-			$this->useGride(false);
+			$this->From->useGride(false);
 			echo $this->Form->input('Event.open', array('label' => __('Aberto para inscrição?'), 'type' => 'checkbox'));
 			echo $this->Form->input('Event.free', array('label' => __('Gratuito?'), 'type' => 'checkbox'));
 			echo $this->Form->input('Event.open_for_proposals', array('type' => 'checkbox', 'label' => __('Aberto para Submissão de Propostas')));

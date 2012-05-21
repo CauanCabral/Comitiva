@@ -34,7 +34,7 @@
 			'rows' => 15,
 			'class' => 'fullWidth')
 		);
-		$this->useGride(false);
+		$this->From->useGride(false);
 		echo $this->Form->input('Payment.confirmed', array(
 			'label' => __('Confirmado? '), 'options' => array(
 				0 => __('Não'),
