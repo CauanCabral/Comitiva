@@ -26,7 +26,7 @@
 				));
 			?>
 			<div class="row-fluid">
-				<div class="hero-unit span2" style="font-size: 1.9em;">
+				<div class="hero-unit span4" style="font-size: 1.9em;">
 					<span id="winner"></span>
 				</div>
 				<div class="span4">
