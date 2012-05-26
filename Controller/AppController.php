@@ -273,7 +273,7 @@ class AppController extends Controller
 		if( isset($this->request->params['prefix']) && in_array($this->request->params['prefix'], Configure::read('Routing.prefixes')) )
 			return true;
 
-		if( preg_match('/^estatica\//', $this->request->url) !== false )
+		if( preg_match('/^estatica\//', $this->request->url) === 1 )
 			return true;
 
 		return false;
