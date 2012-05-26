@@ -116,6 +116,8 @@ class AppController extends Controller
 		if(!$this->__needLogin())
 			$this->Auth->allow('*');
 
+		$this->Auth->allow('account_create', 'view');
+
 		$this->Auth->autoRedirect = false;
 		$this->Auth->loginAction = array('controller' => 'users', 'action' => 'login', 'admin' => false, 'participant' => false);
 		$this->Auth->logoutRedirect = '/';

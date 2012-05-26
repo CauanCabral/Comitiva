@@ -1,69 +1,47 @@
-<header>
+
+<div class="row-fluid">
+	<ul class="nav nav-tabs nav-stacked span2">
+		<li><?php echo $this->Html->link(__('Inscrever Neste Evento'), array('participant' => true, 'controller' => 'subscriptions', 'action' => 'add', $event['Event']['id']), array('class' => '')); ?> </li>
+		<li><?php echo $this->Html->link(__('Cria uma Conta'), '/account_create', array('class' => '')); ?> </li>
+	</ul>
+<div class="span10">
+	<header>
 	<h1>
 		<?php echo $event['Event']['title']; ?>
 		<small><?php echo $event['Event']['lead'];?></small>
 	</h1>
 </header>
-<div class="row-fluid">
-	<?php echo $this->Html->link(__('Inscrever-se'), array('participant' => true, 'controller' => 'subscriptions', 'action' => 'add', $event['Event']['id']), array('class' => 'btn btn-primary')); ?>
-	<?php echo $this->Html->link(__('Cria uma conta'), '/', array('class' => 'btn btn-small')); ?>
-</div>
-<div class="row-fluid">
-	<dl><?php $i = 0; $class = ' class="altrow"';?>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Inscritos'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $event['Event']['subscription_count']; ?>
-			&nbsp;
-		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Descrição'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $event['Event']['description']; ?>
-			&nbsp;
-		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Macro Evento'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $this->Html->link($event['ParentEvent']['title'], array('controller' => 'events', 'action' => 'view', $event['ParentEvent']['id'])); ?>
-			&nbsp;
-		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo __('Gratuito'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $event['Event']['free'] ? __('Sim') : __('Não'); ?>
-			&nbsp;
-		</dd>
-	</dl>
 
+	<div class="event-info"> 
+		<h3><?php echo "Informações " ?></h3>
+		<div class="well"><?php echo $event['Event']['description']; ?></div>
+		<br/>
+		<?php if(isset($event['ParentEvent']['title'])): ?>
+		<h3><?php echo "Macro evento" ?></h3>
+			<p><?php echo $this->Html->link($event['ParentEvent']['title'], array('controller' => 'events', 'action' => 'view', $event['ParentEvent']['id']));?></p>
+		<?php endif; ?>
+		<h3><?php echo "Entrada " ?></h3>
+		<p><?php echo $event['Event']['free'] ? __('Entrada Franca') : __('Possui taxa de inscrição'); ?> </p>
+	</div>
 	<?php if(!$event['Event']['free'] && isset($event['Event']['payment_info'])): ?>
 		<h3><?php echo __('Pagamento')?></h3>
 
 		<?php echo $event['Event']['payment_info']; ?>
 	<?php endif; ?>
-
+	<br/>
 	<?php if (!empty($event['EventDate'])):?>
 		<h3><?php echo __('Datas');?></h3>
-
-		<table class="table table-striped table-bordered table-condensed">
-		<tr>
-			<th><?php echo __('Legenda'); ?></th>
-			<th><?php echo __('Data'); ?></th>
-		</tr>
 		<?php
-			$i = 0;
 			foreach ($event['EventDate'] as $eventDate):
-				$class = null;
-				if ($i++ % 2 == 0) {
-					$class = ' class="altrow"';
-				}
 			?>
-			<tr<?php echo $class;?>>
-				<td><?php echo $eventDate['desc'];?></td>
-				<td><?php echo $this->Locale->dateTime($eventDate['date']);?></td>
+				<b><?php echo $eventDate['desc'];?></b>
+				<p><?php echo $this->Locale->dateTime($eventDate['date']);?></p>
 			</tr>
 		<?php endforeach; ?>
-		</table>
 	<?php endif; ?>
-
+	<br/>
 	<?php if (!empty($event['EventPrice'])):?>
-		<h3><?php echo __('Valores');?></h3>
+		<h3><?php echo __('Taxas de Participação');?></h3>
 		<table class="table table-striped table-bordered table-condensed">
 		<tr>
 			<th><?php echo __('Observação');?></th>
