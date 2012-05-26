@@ -76,8 +76,7 @@ class AppController extends Controller
 
 		$this->__setupAuth();
 
-		if(!empty($this->activeUser))
-		{
+		if(!empty($this->activeUser)) {
 			$this->__buildMenu();
 		}
 	}
@@ -92,10 +91,14 @@ class AppController extends Controller
 
 	public function isAuthorized()
 	{
-		if( !empty($this->activeUser) && $this->__checkGroup($this->request->params['prefix']) )
-		{
+		if (empty($this->activeUser))
+			return false;
+
+		if (preg_match('/^estatica\//', $this->request->url) !== false)
 			return true;
-		}
+
+		if(isset($this->request->params['prefix']) && $this->__checkGroup($this->request->params['prefix']) )
+			return true;
 
 		return false;
 	}
@@ -110,10 +113,8 @@ class AppController extends Controller
 
 		$this->Auth->authorize = array('Controller');
 
-		if( !isset($this->request->params['prefix']) || !( in_array($this->request->params['prefix'], Configure::read('Routing.prefixes')) ) )
-		{
+		if(!$this->__needLogin())
 			$this->Auth->allow('*');
-		}
 
 		$this->Auth->autoRedirect = false;
 		$this->Auth->loginAction = array('controller' => 'users', 'action' => 'login', 'admin' => false, 'participant' => false);
@@ -126,15 +127,13 @@ class AppController extends Controller
 
 		$this->activeUser = $this->Auth->user();
 
-		if($this->activeUser != null)
+		if(!empty($this->activeUser))
 		{
 			// Define user information in view class
 			$this->set('activeUser', $this->activeUser);
 
 			if($this->request->here == '/')
-			{
 				$this->redirect('/estatica/logged');
-			}
 		}
 		else
 		{
@@ -149,6 +148,8 @@ class AppController extends Controller
 	 */
 	private function __buildMenu()
 	{
+		$menu = array();
+
 		if($this->__checkGroup('admin'))
 		{
 			$menu = array(
@@ -236,10 +237,6 @@ class AppController extends Controller
 				'speaker' => false
 			);
 		}
-		else
-		{
-			$menu = array();
-		}
 
 		$this->set('menuItems', $menu);
 	}
@@ -267,6 +264,17 @@ class AppController extends Controller
 			if($tmp === $group)
 				return true;
 		}
+
+		return false;
+	}
+
+	protected function __needLogin()
+	{
+		if( isset($this->request->params['prefix']) && in_array($this->request->params['prefix'], Configure::read('Routing.prefixes')) )
+			return true;
+
+		if( preg_match('/^estatica\//', $this->request->url) !== false )
+			return true;
 
 		return false;
 	}
