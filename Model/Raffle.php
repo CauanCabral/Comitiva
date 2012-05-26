@@ -65,21 +65,27 @@ class Raffle extends AppModel
 
 		$key = $this->getRandKey($quantity-1);
 
+		$notChosen = $userslist;
+
 		if(!$reincident)
 		{
 			$raffles = array();
 			$i = 0;
-			while($i <= $quantity)
+			
+			while(!empty($notChosen))
 			{
 				$raffles = $this->find('all', array(
 					'conditions' => array(
-						'user_id' => $userslist[$key]['id'],
+						'user_id' => $notChosen[$key]['id'],
 						'award_id' => $award_id
 					),
 					'fields' => array('id')
 				));
 
+				unset($notChosen[$key]);
+				$key = $this->getRandKey($quantity-1);
 				$i++;
+
 				if(!empty($raffles))
 					continue;
 

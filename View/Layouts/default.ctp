@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
 	<?php echo $this->Html->charset(); ?>
-	<title><?php echo __('Comitiva'), ': ', __d('title', $title_for_layout); ?></title>
+	<title><?php echo __('Comitiva'), ' - ', __d('title', $title_for_layout); ?></title>
 	<?php
 		echo $this->Html->meta('icon');
 
@@ -39,7 +39,7 @@
 <body>
 	<div class="container-fluid">
 		<div id="header">
-			<h1><?php echo $this->Html->link(__('Comitiva: Sistema de controle de eventos do PHPMS'), 'http://phpms.org'); ?></h1>
+			<h1><?php echo $this->Html->link(__('Comitiva - Sistema de controle de eventos do PHPMS'), 'http://phpms.org'); ?></h1>
 		</div>
 		<div class="row-fluid" id="content">
 			<?php if(isset($menuItems) && !empty($menuItems)): ?>
@@ -62,7 +62,7 @@
 				?>
 			</div>
 
-			<div id="footer" class="row-fluid well">
+			<div id="footer" class="row-fluid">
 				<?php echo $this->element('footer'); ?>
 			</div>
 		</div>

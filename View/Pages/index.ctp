@@ -1,4 +1,4 @@
-<div class="span10">
+<div class="span10 intro">
 	<p>
 	Bem vindo(a),<br /><br />
 	No Comitiva você acompanha eventos disponíveis, mantém histórico dos eventos<br />
@@ -10,9 +10,8 @@
 	<p>
 	<?php
 	if(!isset($activeUser)):
-		echo $this->Html->link(__('Já sou cadastrado'), array('admin' => false, 'participant' => false, 'controller' => 'users', 'action' => 'login'), array('class' => 'btn btn-primary vspace')),
-			'<br />',
-			$this->Html->link(__('Quero me cadastrar'), array('admin' => false, 'participant' => false, 'controller' => 'users', 'action' => 'account_create'), array('class' => 'btn vspace'));
+		echo $this->Html->link(__('Já sou cadastrado'), array('admin' => false, 'participant' => false, 'controller' => 'users', 'action' => 'login'), array('class' => 'btn btn-primary btn-large vspace')) , "&nbsp", "&nbsp",
+			$this->Html->link(__('Quero me cadastrar'), array('admin' => false, 'participant' => false, 'controller' => 'users', 'action' => 'account_create'), array('class' => 'btn btn-large btn-primary vspace'));
 	endif;
 	?>
 	</p>
