@@ -11,13 +11,6 @@ class UsersController extends AppController
 		array('field' => 'query', 'type' => 'value')
 	);
 
-	public function isAuthorized()
-	{
-		if($this->request['action'] == 'account_create')
-			return true;
-
-		return false;
-	}
 	/***********************
 	 * Ações publicas
 	 ***********************/
