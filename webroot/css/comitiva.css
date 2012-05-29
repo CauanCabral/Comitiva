@@ -1,7 +1,20 @@
 /** Layout basics **/
-#header { margin-bottom: 15px; border-bottom: 1px solid #ccc; }
+#header { margin-bottom: 2px; border-bottom: 1px solid #ccc; }
 
 /** Scaffold View **/
+
+a {
+	color: #3D5285;
+}
+
+
+h1, h2 {
+	color: #639920;
+}
+th a, td a, td a:hover, li a, li a:hover {
+	color: #3D5285;
+}
+
 
 dt, dd		{ line-height: 3em; }
 dl .altrow	{ background: #F4F4F4; }
@@ -55,11 +68,19 @@ td a				{ margin-right: 10px; }
 .error-msg		{ font-size: 240pt; font-family:arial; font-weight: bold; color:#1A5D9C; margin-top:5%; height:170px; }
 
 #header {
-	padding: 15px 10px;
+	padding: 5px 8px;
 }
 
 #header h1 {
-	font-size: 2.8em;
+	font-size: 1.8em;
+}
+
+#header h1 a {
+	color: #639920;
+}
+
+#header h1 a:hover {
+	color: #7BB337;
 }
 
 .login {
@@ -71,8 +92,10 @@ h1 a:hover {
 
 .intro p {
 	font-size: 1.16em;
-	line-height: 21px;
+	line-height: 20px;
 }
 
-.intro a.btn {
+#footer { 
+	text-align: center;
 }
+

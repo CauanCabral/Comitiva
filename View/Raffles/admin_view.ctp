@@ -1,5 +1,5 @@
 <div class="row-fluid">
-	<ul  class="nav nav-tabs nav-stacked span2">
+	<ul  class="nav nav-tabs nav-stacked span2 ">
 		<li><?php echo $this->Html->link(__('Listar Todos'), array('action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('Novo sorteio'), array('action' => 'new')); ?> </li>
 	</ul>

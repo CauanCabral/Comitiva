@@ -61,8 +61,8 @@
 				echo $this->fetch('content');
 				?>
 			</div>
-
-			<div id="footer" class="row-fluid well">
+			<hr></hr>
+			<div id="footer" class="row-fluid">
 				<?php echo $this->element('footer'); ?>
 			</div>
 		</div>
