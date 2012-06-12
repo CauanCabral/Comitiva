@@ -54,6 +54,10 @@ class PagesController extends AppController {
  */
 	var $uses = array();
 
+	public function index()
+	{
+
+	}
 /**
  * Displays a view
  *

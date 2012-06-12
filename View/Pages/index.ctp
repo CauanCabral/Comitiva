@@ -1,11 +1,11 @@
-<div class="span10 intro">
+<div class="span12 hero-unit">
 	<p>
-	Bem vindo(a),<br /><br />
-	No Comitiva você acompanha eventos disponíveis, mantém histórico dos eventos<br />
+	<h1>Bem vindo!</h1><br />
+	<h3>No Comitiva você acompanha eventos disponíveis, mantém histórico dos eventos<br />
 	que participou, entra em contato com os organizadores, avalia eventos e pode ganhar<br />
 	descontos nas inscrições.<br />
-	<br />
-	Se você ainda não possui uma conta, se cadastre agora, é rápido e grátis.
+	</h3><br />
+	<h3>Se você ainda não possui uma conta, se cadastre agora, é rápido e grátis.</h3>
 	</p>
 	<p>
 	<?php

@@ -91,12 +91,12 @@ class AppController extends Controller
 
 	public function isAuthorized()
 	{
-		if (empty($this->activeUser))
-			return false;
-
 		if (preg_match('/^estatica\//', $this->request->url) !== false)
 			return true;
 
+		if (empty($this->activeUser))
+			return false;
+		
 		if(isset($this->request->params['prefix']) && $this->__checkGroup($this->request->params['prefix']) )
 			return true;
 
@@ -114,7 +114,7 @@ class AppController extends Controller
 		$this->Auth->authorize = array('Controller');
 
 		if(!$this->__needLogin())
-			$this->Auth->allow('*');
+			$this->Auth->allow();
 
 		$this->Auth->allow('account_create', 'view', 'login', 'logout', 'profile');
 
