@@ -1,10 +1,10 @@
-<div class="well login">
+<div id="login">
 	<?php echo $this->Form->create('User', array('url' => array('controller' => 'users', 'action' => 'login'), 'class' => 'login'));?>
 	<fieldset>
 	<legend><?php echo __('Autenticação'); ?></legend>
 	<?php
-		echo $this->Form->input('User.username', array('label' => __('Usuário'), 'class' => 'span3', 'div' => 'control-group'));
-		echo $this->Form->input('User.password', array('label' => __('Senha'), 'class' => 'span3', 'div' => 'control-group'));
+		echo $this->Form->input('User.username', array('label' => __('Usuário')));
+		echo $this->Form->input('User.password', array('label' => __('Senha')));
 		echo $this->Form->submit(__('Entrar'), array('div' => 'loginSubmit'));
 	?>
 	</fieldset>

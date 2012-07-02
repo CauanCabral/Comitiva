@@ -1,5 +1,5 @@
 <p>
-Comitiva é um software-livre desenvolvido e mantido por membros do PHPMS.<br /> 
+Comitiva é um software-livre desenvolvido e mantido por membros do <a href="http://phpms.org" title="Grupo de Desenvolvedores PHP de Mato Grosso do Sul">PHPMS</a>.<br />
 Você pode <a href="http://github.com/CauanCabral/Comitiva" title="Clique aqui para obter o código fonte">baixar o código fonte</a> ou <a href="http://phpms.lighthouseapp.com/projects/49894-comitiva/overview" title="Clique aqui para reportar erros/bugs">reportar erros/bugs.</a><br />
 </p>
 <br />

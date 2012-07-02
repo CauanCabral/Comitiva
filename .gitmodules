@@ -22,3 +22,6 @@
 [submodule "Plugin/Search"]
 	path = Plugin/Search
 	url = git://github.com/CakeDC/search.git
+[submodule "Plugin/Datasources"]
+	path = Plugin/Datasources
+	url = git://github.com/cakephp/datasources.git

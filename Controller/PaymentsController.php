@@ -1,4 +1,9 @@
 <?php
+App::uses('AppController', 'Controller');
+App::uses('Checkout', 'PagSeguro/Controller/Component');
+App::uses('Notifications', 'PagSeguro/Controller/Component');
+App::uses('Consult', 'PagSeguro/Controller/Component');
+
 class PaymentsController extends AppController
 {
 
@@ -7,6 +12,21 @@ class PaymentsController extends AppController
 	public $uses = array('Payment');
 
 	public $components = array('Email');
+
+	public $components = array(
+		'PagSeguro.Checkout',
+        'PagSeguro.Notifications',
+        'PagSeguro.Consult'
+    );
+
+    public function beforeFilter()
+    {
+        parent::beforeFilter();
+
+        if(in_array($this->request->params['action'], array('notification', 'returning'))) {
+            $this->Auth->allow();
+        }
+    }
 
 	/*
 	 * Ações para rota administrativa
@@ -230,6 +250,121 @@ class PaymentsController extends AppController
 
 		$this->set(compact('subscription'));
 	}
+
+	/**
+     * URL de notificação para o PagSeguro.
+     *
+     * @return string
+     */
+    public function notification()
+    {
+        $this->layout = 'ajax';
+
+        $notification = $this->Notifications->read($this->request->data);
+
+        if($notification === false) {
+            throw new MethodNotAllowedException(__('Ação não permitida'));
+        }
+
+        if($this->Payment->receive($notification, $this->request->data('notificationCode'))) {
+            $this->set('status', 'success');
+        }
+
+        $this->set('status', 'error');
+    }
+
+    /**
+     * URL de retorno do PagSeguro, após um pagamento.
+     *
+     * Redireciona o usuário para página de Welcome
+     */
+    public function returning()
+    {
+        if(!$this->request->is('get') && !isset($this->request->query['transaction'])) {
+            throw new MethodNotAllowedException(__('Ação não permitida'));
+        }
+
+        $payment = $this->Consult->getTransactionInfo($this->request->query['transaction']);
+        $situation = $this->Payment->receive($payment);
+
+        if(!isset($situation['errors'])) {
+            $this->Payment->receive($situation);
+            $this->__setFlash('Você foi redirecionado com sucesso. Agora pode acompanhar sua matrícula pela sua área no sistema.', 'success');
+        }
+
+        $this->redirect('/');
+    }
+
+    /**
+     * Faz uma consulta na API pelos pagamentos realizados
+     * em uma transação específica,
+     * Atualiza o pagamento especificado e redireciona o usuário
+     * para sua view.
+     *
+     * @param string $transactionCode
+     */
+    public function consult($id = null)
+    {
+        $this->Payment->id = $id;
+        if (!$this->Payment->exists()) {
+            throw new NotFoundException('Pagamento não encontrado.');
+        }
+
+        $this->Payment->contain();
+        $payment = $this->Payment->read('transaction_code', $id);
+
+        $situation = $this->Consult->getTransactionInfo($payment['Payment']['transaction_code']);
+
+        if(!isset($situation['errors'])) {
+            $this->Payment->receive($situation);
+        }
+
+        $this->redirect(array('action'  => 'view', $id));
+    }
+
+    /**
+     * Faz uma consulta na API pelos pagamentos realizados
+     * entre duas datas e sincroniza as informações dos pagamentos
+     * realizados com os do sistema.
+     *
+     */
+    public function consultTransactions()
+    {
+        // Faz busca entre período
+        if($this->request->is('post')) {
+
+            if(!isset($this->request->data['Payment']['start']) || !isset($this->request->data['Payment']['end'])) {
+                $this->__setFlash('Dados necessários não foram passados (start e end).', 'error');
+                return;
+            }
+
+            try {
+
+                $fdt1 = implode('-', array_reverse(explode('/', $this->request->data['Payment']['start'])));
+                $fdt2 = implode('-', array_reverse(explode('/', $this->request->data['Payment']['end'])));
+
+                $dt1 = new DateTime($fdt1);
+                $dt2 = new DateTime($fdt2);
+
+                $situations = $this->Consult->getTransactions($dt1, $dt2);
+
+                while($situations['pages'] != $situations['current']) {
+                    $others = $this->Consult->getTransactions($dt1, $dt2, $situations['current']++);
+                    $situations['items'] = array_merge_recursive($situations['items'], $others['items']);
+                }
+
+                if($this->Payment->updateSituations('PagSeguro', $situations)) {
+                    $this->__setFlash('Os pagamentos foram sincronizadas.', 'success');
+                    $this->redirect(array('action' => 'index'));
+                }
+
+                $this->__setFlash('Não há nada para sincronizar no período fornecido.', 'success');
+
+            } catch(Exception $e) {
+                $this->__setFlash('Forneça duas datas válidas.', 'error');
+            }
+        }
+    }
 
 	/**
 	 * Envia um email para o endereço associado ao usuário

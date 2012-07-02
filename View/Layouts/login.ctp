@@ -36,7 +36,10 @@
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div id="header">
-				<h1><?php echo $this->Html->link(__('Comitiva: Sistema de controle de eventos'), 'http://phpms.org', array('title' => __('Copyright© Grupo de Usuários PHP de Mato Grosso do Sul - PHPMS'))); ?></h1>
+				<h1><?php
+					echo $this->Html->image('phpms_logo.png', array('url' => '/', 'title' => __('Comitiva: Sistema de controle de eventos'), 'class' => 'logo')),
+						$this->Html->link(__('Comitiva: Sistema de controle de eventos'), 'http://phpms.org', array('title' => __('Copyright© Grupo de Usuários PHP de Mato Grosso do Sul - PHPMS')));
+				?></h1>
 			</div>
 
 			<div id="content" class="row-fluid">

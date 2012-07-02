@@ -96,7 +96,7 @@ class AppController extends Controller
 
 		if (empty($this->activeUser))
 			return false;
-		
+
 		if(isset($this->request->params['prefix']) && $this->__checkGroup($this->request->params['prefix']) )
 			return true;
 

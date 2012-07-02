@@ -4,6 +4,7 @@
 .project
 *.sublime-*
 *.bak
+.directory
 nbproject
 Config/bootstrap.local.php
 Config/database.php

@@ -10,6 +10,9 @@ Router::connect('/p/*', array('controller' => 'pages', 'action' => 'display'));
 // Páginas públicas para divulgação
 Router::connect('/divulgacao/:slug', array('controller' => 'events', 'action' => 'view'), array('pass' => array('slug')));
 
+// Páginas ligadas ao PagSeguro
+Router::connect('/retorno_pagamento/*', array('controller' => 'payments', 'action' => 'view'), array('pass' => array('slug')));
+
 Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
 Router::connect('/logout', array('controller' => 'users', 'action' => 'logout'));
 
@@ -27,7 +30,6 @@ Router::connect('/perfil', array('controller' => 'users', 'action' => 'profile')
 
 Router::connect('/reset_password/*', array('controller' => 'users', 'action' => 'reset_password'));
 Router::connect('/nova_senha/*', array('controller' => 'users', 'action' => 'reset_password'));
-
 
 
 Router::connect('/admin', array('controller' => 'users', 'action' => 'profile', 'admin' => true));

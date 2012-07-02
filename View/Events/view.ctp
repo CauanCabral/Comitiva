@@ -12,7 +12,7 @@
 	</h1>
 </header>
 
-	<div class="event-info"> 
+	<div class="event-info">
 		<h3><?php echo "Informações " ?></h3>
 		<div class="well"><?php echo $event['Event']['description']; ?></div>
 		<br/>

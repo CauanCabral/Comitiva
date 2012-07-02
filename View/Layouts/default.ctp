@@ -4,7 +4,7 @@
 	<?php echo $this->Html->charset(); ?>
 	<title><?php echo __('Comitiva'), ' - ', __d('title', $title_for_layout); ?></title>
 	<?php
-		echo $this->Html->meta('icon');
+		echo $this->Html->meta('icon', 'capivara.icon.gif');
 
 		// Carrega o Google API Loader
 		echo $this->Html->script('https://www.google.com/jsapi');
@@ -39,7 +39,11 @@
 <body>
 	<div class="container-fluid">
 		<div id="header">
-			<h1><?php echo $this->Html->link(__('Comitiva - Sistema de controle de eventos do PHPMS'), 'http://phpms.org'); ?></h1>
+			<h1>
+				<?php echo $this->Html->image('phpms_logo.png', array('url' => '/', 'title' => __('Comitiva: Sistema de controle de eventos'), 'class' => 'logo')),
+						$this->Html->link(__('Comitiva: Sistema de controle de eventos'), 'http://phpms.org', array('title' => __('Copyright© Grupo de Usuários PHP de Mato Grosso do Sul - PHPMS')));
+				?>
+			</h1>
 		</div>
 		<div class="row-fluid" id="content">
 			<?php if(isset($menuItems) && !empty($menuItems)): ?>
