@@ -27,14 +27,9 @@
 					<th><?php echo __('Data'); ?></th>
 				</tr>
 				<?php
-					$i = 0;
 					foreach ($event['EventDate'] as $eventDate):
-						$class = null;
-						if ($i++ % 2 == 0) {
-							$class = ' class="altrow"';
-						}
 					?>
-					<tr<?php echo $class;?>>
+					<tr>
 						<td><?php echo $eventDate['desc'];?></td>
 						<td><?php echo $this->Locale->dateTime($eventDate['date']);?></td>
 					</tr>
@@ -44,22 +39,17 @@
 
 			<?php if (!empty($event['EventPrice'])):?>
 				<h3><?php echo __('Valores');?></h3>
-				<table class="table table-striped table-bordered table-condensed">
+				<table class="table table-striped table-bordered table-condensed jsRowSelect">
 				<tr>
+					<th>&nbsp;</th>
 					<th><?php echo __('Observação');?></th>
 					<th><?php echo __('Valor'); ?></th>
 					<th><?php echo __('Data inicial'); ?></th>
 					<th><?php echo __('Data final'); ?></th>
 				</tr>
-				<?php
-					$i = 0;
-					foreach ($event['EventPrice'] as $eventPrice):
-						$class = null;
-						if ($i++ % 2 == 0) {
-							$class = ' class="altrow"';
-						}
-					?>
-					<tr<?php echo $class;?>>
+				<?php foreach ($event['EventPrice'] as $eventPrice): ?>
+					<tr>
+						<td><?php echo "<input type=\"radio\" name=\"data[Subscription][event_price_id]\" value=\"{$eventPrice['id']}\" />"; ?></td>
 						<td><?php echo $eventPrice['observation'];?></td>
 						<td><?php echo $this->Locale->currency($eventPrice['price']);?></td>
 						<td><?php echo $this->Locale->dateTime($eventPrice['start_date']);?></td>

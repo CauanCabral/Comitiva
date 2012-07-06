@@ -12,7 +12,8 @@ class Subscription extends AppModel
 			'className' => 'Event',
 			'foreignKey' => 'event_id',
 			'counterCache' => true
-		)
+		),
+		'EventPrice'
 	);
 
 	public $hasOne = array(
@@ -31,6 +32,39 @@ class Subscription extends AppModel
 	public $filterArgs = array(
 		array('name' => 'query', 'type' => 'query', 'method' => 'searchFields')
 	);
+
+	/**
+	 * Prepara os dados para o PagSeguro
+	 *
+	 * @param  array $event
+	 * @param  array $participant
+	 * @param  int   $price_id
+	 * @return
+	 */
+	public function buildPaymentParams($event, $participant, $price_id)
+	{
+		if(empty($this->id))
+			return false;
+
+		$price = $this->EventPrice->find('first', array('conditions' => array('EventPrice.id' => $price_id), 'contain' => array()));
+
+		$item = array(
+			'reference' => $this->id,
+			'sender' => array(
+				'senderName' => $participant['name'],
+				'senderEmail' => $participant['email'],
+			),
+			'item' => array(
+				'id' => $this->id,
+				'description' => "Inscrição no evento {$event['title']}",
+				'amount' => $price['EventPrice']['price'],
+				'quantity' => 1
+			),
+			'total' => $price['EventPrice']['price']
+		);
+
+		return $item;
+	}
 
 	/**
 	 * Recebe o id de um evento e retorna todos os usuários

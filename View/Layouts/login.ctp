@@ -50,7 +50,7 @@
 				?>
 			</div>
 
-			<div id="footer" class="well">
+			<div id="footer">
 				<?php echo $this->element('footer'); ?>
 			</div>
 		</div>

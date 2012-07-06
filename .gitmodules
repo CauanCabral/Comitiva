@@ -25,3 +25,6 @@
 [submodule "Plugin/Datasources"]
 	path = Plugin/Datasources
 	url = git://github.com/cakephp/datasources.git
+[submodule "Plugin/PagSeguro"]
+	path = Plugin/PagSeguro
+	url = git://github.com/radig/pagseguro.git

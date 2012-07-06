@@ -1,5 +1,6 @@
 <?php
-App::import('Sanitize');
+App::uses('Sanitize', 'Utility');
+App::uses('Checkout', 'PagSeguro/Controller/Component');
 
 class SubscriptionsController extends AppController
 {
@@ -10,7 +11,10 @@ class SubscriptionsController extends AppController
 		'Locale.Locale'
 	);
 
-	public $components = array('Search.Prg');
+	public $components = array(
+		'PagSeguro.Checkout',
+		'Search.Prg'
+	);
 
 	public $presetVars = array(
 		array('field' => 'query', 'type' => 'value')
@@ -24,11 +28,11 @@ class SubscriptionsController extends AppController
 		$this->Subscription->recursive = 0;
 
 		$this->Prg->commonProcess();
-        $this->paginate['conditions'] = $this->Subscription->parseCriteria($this->passedArgs);
+		$this->paginate['conditions'] = $this->Subscription->parseCriteria($this->passedArgs);
 
 		if(is_numeric($event_id))
 		{
-			$this->paginate['conditions'] = array('event_id' => $event_id);
+			$this->paginate['conditions'] = array('Subscription.event_id' => $event_id);
 		}
 
 		$this->set(compact('event_id'));
@@ -219,15 +223,14 @@ class SubscriptionsController extends AppController
 		{
 			if($this->request->data['Subscription']['confirm'] != sha1($event_id))
 			{
-				$this->__setFlash('A inscrição não pôde ser realizada. Verifique se o evento ainda está disponível.');
+				$this->__setFlash('A inscrição não pôde ser realizada. Verifique se o evento ainda está disponível.', 'alert');
 				$this->redirect(array('action' => 'index'));
 			}
 
 			// verifica se o evento é mesmo válido
-			if($this->Subscription->Event->read(null, $event_id) === false || !$this->Subscription->Event->openToSubscription($event_id))
+			if(($eventData = $this->Subscription->Event->read(null, $event_id)) === false || !$this->Subscription->Event->openToSubscription($event_id))
 			{
-				//caso não seja saí da inscrição
-				$this->__setFlash('A inscrição não pôde ser realizada. O evento não existe ou as inscrições foram encerradas.', 'warning');
+				$this->__setFlash('A inscrição não pôde ser realizada. O evento não existe ou as inscrições foram encerradas.', 'alert');
 				$this->redirect(array('action' => 'index'));
 			}
 
@@ -236,14 +239,39 @@ class SubscriptionsController extends AppController
 			$this->request->data['Subscription']['event_id'] = $event_id;
 			$this->request->data['Subscription']['user_id'] = $this->activeUser['id'];
 
-			if ($this->Subscription->save($this->request->data))
-			{
-				$this->__setFlash('Sua inscrição no evento foi efetuada!', 'success');
+			if (!$this->Subscription->save($this->request->data)) {
+				$this->__setFlash('A inscrição não pôde ser realizada. Tente novamente.', 'alert');
 				$this->redirect(array('action' => 'index'));
 			}
 
-			$this->__setFlash('A inscrição não pôde ser realizada. Tente novamente.');
-			$this->redirect(array('action' => 'index'));
+			if($eventData['Event']['free']) {
+				$this->__setFlash(__("Sua inscrição no evento foi efetuada com sucesso!"), 'success');
+				$this->redirect(array('action' => 'index'));
+			} else {
+
+				$payment = $this->Subscription->buildPaymentParams($eventData['Event'], $this->activeUser, $this->request->data['Subscription']['event_price_id']);
+				$name = substr($this->activeUser['name'] . ' ' . $this->activeUser['nickname'], 0, 50);
+
+				$this->Checkout->setReference($payment['reference']);
+				unset($payment['reference']);
+				$this->Checkout->setItem($payment['item']);
+				unset($payment['item']);
+				$this->Checkout->setCustomer($this->activeUser['email'], $name);
+				unset($payment['sender']);
+
+				$this->Checkout->config($payment);
+				$response = $this->Checkout->finalize(false);
+
+				if(isset($response['checkout'])) {
+					$msg = __("Sua inscrição no evento foi efetuada com sucesso!\nIremos agora redirecionar você para o PagSeguro, onde será possível pagar sua inscrição.");
+					$this->flash($msg, $response['redirectTo'], 2);
+					return;
+				}
+
+				$email = Configure::read('Message.replyTo');
+				$this->__setFlash("Não foi possível iniciar processo de pagamento. Entre em contato atráves do email {$email}", 'error');
+				$this->redirect(array('controller' => 'subscriptions', 'action' => 'view', $this->Subscription->id));
+			}
 		}
 
 		if($event_id != null)
@@ -252,7 +280,7 @@ class SubscriptionsController extends AppController
 
 			if(!empty($subscription))
 			{
-				$this->__setFlash('Sua inscrição neste evento já foi efetuada!');
+				$this->__setFlash('Sua inscrição neste evento já foi efetuada!', 'error');
 				$this->__goBack();
 			}
 
@@ -270,25 +298,20 @@ class SubscriptionsController extends AppController
 		}
 
 		$subscription = $this->Subscription->find('first', array('recursive' => -1, 'conditions' => array('event_id' => $id, 'user_id' => $this->activeUser['id'])));
-		// verifica se a inscrição está registrada para o usuário logado
 		if(!empty($subscription))
 		{
-			// caso não esteja somente seta a mensagem de erro
 			$this->__setFlash('Inscrição inválida.', 'error');
 		}
 		else if(!$subscription['Event']['free'])
 		{
 			$this->__setFlash('Não é possível cancelar a inscrição.', 'error');
 		}
-		// caso contrário tenta excluir a inscrição
 		else if ($this->Subscription->delete($id))
 		{
-			// se for excluída, define mensagem de sucesso
 			$this->__setFlash('Inscriçao removida!', 'success');
 		}
 		else
 		{
-			// caso contrário define mensagem de falha
 			$this->__setFlash('Inscrição não foi removida', 'error');
 		}
 

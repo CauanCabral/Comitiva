@@ -26,6 +26,28 @@ Configure::write('Comitiva.googleApiLibs', array(
 	'jqueryui' => '1.8'
 ));
 
+Configure::write('PagSeguro', array(
+    'email' => 'COLOQUE UM EMAIL VALIDO',
+    'token' => 'COLOQUE UM TOKEN VALIDO'
+));
+
+// Configurações do Cake 2.2
+Configure::write('Dispatcher.filters', array(
+    'AssetDispatcher',
+    'CacheDispatcher'
+));
+
+CakeLog::config('debug', array(
+    'engine' => 'FileLog',
+    'types' => array('notice', 'info', 'debug'),
+    'file' => 'debug',
+));
+CakeLog::config('error', array(
+    'engine' => 'FileLog',
+    'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
+    'file' => 'error',
+));
+
 CakePlugin::loadAll();
 
 /*

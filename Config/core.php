@@ -1,7 +1,7 @@
 <?php
 Configure::write('debug', 0);
 
-define('LOG_ERROR', 2);
+define('LOG_ERROR', LOG_ERR);
 Configure::write('Error', array(
 	'handler' => 'ErrorHandler::handleError',
 	'level' => E_ALL & ~E_DEPRECATED,

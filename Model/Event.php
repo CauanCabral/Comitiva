@@ -5,6 +5,8 @@ class Event extends AppModel
 
 	public $displayField = 'title';
 
+	public $actsAs = array('Locale.Locale');
+
 	public $validate = array(
 		'title' => array(
 			'notempty' => array(
