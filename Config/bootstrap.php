@@ -50,9 +50,6 @@ CakeLog::config('error', array(
 
 CakePlugin::loadAll();
 
-/*
- * Include local bootstrap, only for settings specify enviroment (local machine of developer or production)
- */
 if(file_exists(APP . 'Config' . DS . 'bootstrap.local.php'))
 {
 	include(APP . 'Config' . DS . 'bootstrap.local.php');

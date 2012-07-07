@@ -97,9 +97,9 @@ class Payment extends AppModel
         $check = $this->find('first', array(
             'conditions' => array(
                 'Payment.transaction_code' => $data['code'],
-                'Event.id' => $data['reference']
+                'Subscription.id' => $data['reference']
             	),
-            'contain' => array('Event')
+            'contain' => array('Subscription')
             )
         );
 

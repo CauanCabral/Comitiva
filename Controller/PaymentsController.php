@@ -339,7 +339,6 @@ class PaymentsController extends AppController
             }
 
             try {
-
                 $fdt1 = implode('-', array_reverse(explode('/', $this->request->data['Payment']['start'])));
                 $fdt2 = implode('-', array_reverse(explode('/', $this->request->data['Payment']['end'])));
 
