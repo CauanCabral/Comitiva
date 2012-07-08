@@ -47,7 +47,9 @@
 					<th><?php echo __('Data inicial'); ?></th>
 					<th><?php echo __('Data final'); ?></th>
 				</tr>
-				<?php foreach ($event['EventPrice'] as $eventPrice): ?>
+				<?php
+					foreach ($event['EventPrice'] as $eventPrice):
+				?>
 					<tr>
 						<td><?php echo "<input type=\"radio\" name=\"data[Subscription][event_price_id]\" value=\"{$eventPrice['id']}\" />"; ?></td>
 						<td><?php echo $eventPrice['observation'];?></td>

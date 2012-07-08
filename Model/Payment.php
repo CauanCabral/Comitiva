@@ -88,15 +88,13 @@ class Payment extends AppModel
      */
     public function update($data)
     {
-        $date = DateTime::createFromFormat(DateTime::W3C , $data['date']);
-
         $toSave = array(
             'subscription_id' => $data['reference'],
             'transaction_code' => $data['code'],
             'status' => $data['status'],
             'confirmed' => ($data['status'] == 3 || $data['status'] == 4) ? true : false,
             'information' => 'Pagamento via PagSeguro',
-            'date' => $date->format('Y-m-d H:i:s'),
+            'date' => substr($data['date'], 0, 10),
             'amount' => $data['grossAmount']
         );
 
