@@ -287,7 +287,9 @@ class PaymentsController extends AppController
         $situation = $this->Payment->receive($payment);
 
         if($situation) {
-            $this->__setFlash('Você foi redirecionado com sucesso. Agora pode acompanhar sua matrícula pela sua área no sistema.', 'success');
+            $this->__setFlash('Você foi redirecionado com sucesso. Agora pode acompanhar sua inscrição pela sua área no sistema.', 'success');
+        } else {
+        	$this->__setFlash('Não foi possível recuperar as informações da transação. Por favor, entre em contato com a organização do evento.', 'alert');
         }
 
         $this->redirect('/');
