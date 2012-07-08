@@ -11,9 +11,8 @@ class PaymentsController extends AppController
 
 	public $uses = array('Payment');
 
-	public $components = array('Email');
-
 	public $components = array(
+		'Email',
 		'PagSeguro.Checkout',
         'PagSeguro.Notifications',
         'PagSeguro.Consult'
@@ -266,7 +265,7 @@ class PaymentsController extends AppController
             throw new MethodNotAllowedException(__('Ação não permitida'));
         }
 
-        if($this->Payment->receive($notification, $this->request->data('notificationCode'))) {
+        if($this->Payment->receive($notification)) {
             $this->set('status', 'success');
         }
 
@@ -287,8 +286,7 @@ class PaymentsController extends AppController
         $payment = $this->Consult->getTransactionInfo($this->request->query['transaction']);
         $situation = $this->Payment->receive($payment);
 
-        if(!isset($situation['errors'])) {
-            $this->Payment->receive($situation);
+        if($situation) {
             $this->__setFlash('Você foi redirecionado com sucesso. Agora pode acompanhar sua matrícula pela sua área no sistema.', 'success');
         }
 

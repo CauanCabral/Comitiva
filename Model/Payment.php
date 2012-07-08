@@ -33,18 +33,17 @@ class Payment extends AppModel
      * Recebe notificação de pagamentos a partir de diversas fontes
      * (no momento com suporte apenas ao PagSeguro),
      *
-     * @param string $type
      * @param array $data
      * @return bool
      */
-    public function receive($data, $notificationCode = null)
+    public function receive($data)
     {
         if(!isset($data['code']))
             return false;
 
         $this->begin();
 
-        if(!$this->update($data, $notificationCode)) {
+        if(!$this->update($data)) {
             $this->rollback();
             return false;
         }
@@ -57,7 +56,6 @@ class Payment extends AppModel
      * Atualização a situação do pagamentos a partir de diversas fontes
      * (no momento com suporte apenas ao PagSeguro),
      *
-     * @param string $type
      * @param array $data
      * @return boolean
      */
@@ -90,9 +88,17 @@ class Payment extends AppModel
      */
     public function update($data)
     {
-        // Recupera a mensagem do estado do pagamento
-        $status = $this->StatusMessage->read('name', $data['status_code']);
-        $data['status_msg'] = $status['StatusMessage']['name'];
+        $date = DateTime::createFromFormat(DateTime::W3C , substr($data['date'], 0, 18) . substr($data['date'], -6));
+
+        $toSave = array(
+            'subscription_id' => $data['reference'],
+            'transaction_code' => $data['code'],
+            'status' => $data['status'],
+            'confirmed' => ($data['status'] == 3 || $data['status'] == 4) ? true : false,
+            'information' => 'Pagamento via PagSeguro',
+            'date' => $date->format('Y-m-d H:i:s'),
+            'amount' => $data['grossAmount']
+        );
 
         $check = $this->find('first', array(
             'conditions' => array(
@@ -105,11 +111,11 @@ class Payment extends AppModel
 
         // é uma atualização
         if($check) {
-            $data['id'] = $check['Payment']['id'];
+            $toSave['id'] = $check['Payment']['id'];
         }
 
         $this->create();
-        if(!$this->save($data)) {
+        if(!$this->save($toSave)) {
             return false;
         }
 
