@@ -88,7 +88,7 @@ class Payment extends AppModel
      */
     public function update($data)
     {
-        $date = DateTime::createFromFormat(DateTime::W3C , substr($data['date'], 0, 18) . substr($data['date'], -6));
+        $date = DateTime::createFromFormat(DateTime::W3C , $data['date']);
 
         $toSave = array(
             'subscription_id' => $data['reference'],
