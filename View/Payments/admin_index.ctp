@@ -25,7 +25,7 @@
 					<?php echo $this->Locale->date($payment['Payment']['date']); ?>
 				</td>
 				<td>
-					<?php echo  $this->Html->link($payment['Subscription']['Event']['title'], array('controller' => 'events', 'action' => 'view', $payment['Subscription']['Event']['id'])); ?>
+					<?php echo  $this->Html->link($payment['Subscription']['Event']['title'], array('controller' => 'events', 'action' => 'view', $payment['Subscription']['event_id'])); ?>
 				</td>
 				<td>
 					<?php echo $this->Locale->currency($payment['Payment']['amount']); ?>

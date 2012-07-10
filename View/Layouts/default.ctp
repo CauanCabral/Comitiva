@@ -4,7 +4,7 @@
 	<?php echo $this->Html->charset(); ?>
 	<title><?php echo __('Comitiva'), ' - ', __d('title', $title_for_layout); ?></title>
 	<?php
-		echo $this->Html->meta('icon', 'capivara.icon.gif');
+		echo $this->Html->meta('icon');
 
 		// Carrega o Google API Loader
 		echo $this->Html->script('https://www.google.com/jsapi');
