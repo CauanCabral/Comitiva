@@ -45,6 +45,9 @@ class EventsController extends AppController
 					'Event.parent_id ' => 0,
 					'Event.parent_id IS NULL'
 				)
+			),
+			'order' => array(
+				'Event.id' => 'desc'
 			)
 		);
 
@@ -146,6 +149,9 @@ class EventsController extends AppController
 					'Event.parent_id ' => 0,
 					'Event.parent_id IS NULL'
 				)
+			),
+			'order' => array(
+				'Event.id' => 'desc'
 			)
 		);
 

@@ -35,6 +35,8 @@ class SubscriptionsController extends AppController
 			$this->paginate['conditions'] = array('Subscription.event_id' => $event_id);
 		}
 
+		$this->paginate['order'] = array('Subscription.id' => 'desc');
+
 		$this->set(compact('event_id'));
 		$this->set('subscriptions', $this->paginate());
 	}
@@ -188,6 +190,7 @@ class SubscriptionsController extends AppController
 	public function participant_index()
 	{
 		$this->Subscription->recursive = 0;
+		$this->paginate['order'] = array('Subscription.id' => 'desc');
 		$this->set('subscriptions', $this->paginate(array('user_id' => $this->activeUser['id'])));
 	}
 

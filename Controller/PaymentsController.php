@@ -33,6 +33,8 @@ class PaymentsController extends AppController
 	public function admin_index()
 	{
 		$this->Payment->recursive = 2;
+		$order = array('order' => array('Payment.event_id' => 'desc', 'Payment.id' => 'desc'));
+		$this->paginate = array_merge($order, $this->paginate);
 
 		$this->set('payments', $this->paginate());
 	}

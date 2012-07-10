@@ -293,7 +293,15 @@ class AppController extends Controller
 		$this->autoRender = $autoRender;
 	}
 
-	protected function __setFlash($message, $class)
+	/**
+	 * Wrapper para Session::setFlash com definição
+	 * de estilo facilitada
+	 *
+	 * @param  string $message
+	 * @param  string $class Tipo de mensagem (alert|info|error|success)
+	 * @return void
+	 */
+	protected function __setFlash($message, $class = 'alert')
 	{
 		if(strpos($class, 'alert') === false)
 			$class = 'alert-' . $class;
@@ -309,8 +317,7 @@ class AppController extends Controller
 	protected function __goBack()
 	{
 		// caso a página anterior seja diferente da página atual
-		if($this->referer() != $this->request->here)
-		{
+		if($this->referer() != $this->request->here) {
 			// tenta redirecionar de volta para tela anterior, caso não consiga manda par action index
 			$this->redirect($this->referer(array('action'=>'index'), true));
 		}
