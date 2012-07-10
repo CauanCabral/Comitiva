@@ -32,7 +32,7 @@ class UsersController extends AppController
 				// verifica se usuário logado está ativo
 				if(empty($this->activeUser['active']))
 				{
-					$this->__setFlash('Você precisa ativar sua conta. Verifique seu email por favor.');
+					$this->__setFlash('Você precisa ativar sua conta. Verifique seu email por favor.', 'alert');
 					$this->redirect($this->Auth->logout());
 				}
 
@@ -149,7 +149,7 @@ class UsersController extends AppController
 			if(isset($this->request->data['User']['password_confirm']))
 				unset($this->request->data['User']['password_confirm']);
 
-			$this->__setFlash('Não foi possível criar a conta. Verifique os dados inseridos.');
+			$this->__setFlash('Não foi possível criar a conta. Verifique os dados inseridos.', 'alert');
 		}
 	}
 
@@ -281,7 +281,7 @@ class UsersController extends AppController
 
 			$this->request->data['User']['groups'] = json_decode($groups, true);
 
-			$this->__setFlash('Usuário não pode ser salvo. Tente novamente, por favor.');
+			$this->__setFlash('Usuário não pode ser salvo. Tente novamente, por favor.', 'alert');
 		}
 	}
 
@@ -312,7 +312,7 @@ class UsersController extends AppController
 
 			$this->request->data['User']['groups'] = json_decode($this->request->data['User']['groups'], true);
 
-			$this->__setFlash('Não foi possível salvar a alteração. Tente novamente, por favor.');
+			$this->__setFlash('Não foi possível salvar a alteração. Tente novamente, por favor.', 'alert');
 		}
 
 		if (empty($this->request->data))
@@ -326,7 +326,7 @@ class UsersController extends AppController
 	{
 		if (!$id)
 		{
-			$this->__setFlash('Usuário inválido');
+			$this->__setFlash('Usuário inválido', 'error');
 			$this->redirect(array('action'=>'index'));
 		}
 
@@ -364,7 +364,7 @@ class UsersController extends AppController
 				$this->redirect('/');
 			}
 
-			$this->__setFlash('Erro ao Atualizar Dados');
+			$this->__setFlash('Erro ao Atualizar Dados', 'alert');
 		}
 
 		$this->request->data = $this->User->read(null, $this->activeUser['id']);
@@ -419,7 +419,7 @@ class UsersController extends AppController
 
 			if($this->__sendMailNotification($userData['User']['email'], $sub, 'reset_password'))
 			{
-				$this->__setFlash('Instruções para redefinir a senha foram enviadas para seu email cadastrado');
+				$this->__setFlash('Instruções para redefinir a senha foram enviadas para seu email cadastrado', 'alert');
 				return;
 			}
 		}
