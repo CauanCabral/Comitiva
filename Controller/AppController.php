@@ -205,6 +205,11 @@ class AppController extends Controller
 					'controller' => 'events',
 					'action' => 'index',
 					'participant' => true
+				),
+				__('Pagamentos') => array(
+					'controller' => 'payments',
+					'action' => 'index',
+					'participant' => true
 				)
 			);
 
