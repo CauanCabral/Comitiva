@@ -26,7 +26,13 @@
 				<?php echo $this->Locale->currency($payment['Payment']['amount']); ?>
 			</td>
 			<td>
-				<?php echo ($payment['Payment']['confirmed']?__('Sim'):__('Não')); ?>
+				<?php
+					echo ($payment['Payment']['confirmed']?__('Sim'):__('Não')), '&nbsp;';
+
+					if(!$payment['Payment']['confirmed']) {
+						echo '( ', $this->Html->link(__('Gerar novo'), array('controller' => 'payments', 'action' => 'renew', $payment['Payment']['id']), array('icon' => 'credit-card large', 'glyph' => true)), ' )';
+					}
+				?>
 			</td>
 		</tr>
 	<?php endforeach; ?>

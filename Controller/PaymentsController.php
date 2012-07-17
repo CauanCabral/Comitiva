@@ -202,46 +202,81 @@ class PaymentsController extends AppController
 		);
 	}
 
+	public function participant_renew($id)
+	{
+		$this->Payment->id = $id;
+
+		if(!$this->Payment->exists()) {
+			throw new NotFoundException("Pagamento não encontrado");
+		}
+
+		$data = $this->Payment->find('first', array('conditions' => array('Payment.id' => $id), 'contain' => array('Subscription', 'Subscription.Event')));
+
+		if($data['Subscription']['user_id'] != $this->activeUser['id']) {
+			$this->__setFlash('Você não possui autorização para realizar esta ação!', 'error');
+			$this->redirect(array('action' => 'index'));
+		}
+
+		$this->Payment->delete($id);
+
+		$this->Payment->Subscription->id = $data['Subscription']['id'];
+		$payment = $this->Payment->Subscription->buildPaymentParams($data['Subscription']['Event'], $this->activeUser, $data['Subscription']['event_price_id']);
+		$name = substr($this->activeUser['name'] . ' ' . $this->activeUser['nickname'], 0, 50);
+
+		$this->Checkout->setReference($payment['reference']);
+		unset($payment['reference']);
+		$this->Checkout->setItem($payment['item']);
+		unset($payment['item']);
+		$this->Checkout->setCustomer($this->activeUser['email'], $name);
+		unset($payment['sender']);
+
+		$this->Checkout->config($payment);
+		$response = $this->Checkout->finalize(false);
+
+		if(isset($response['checkout'])) {
+			$msg = __("Sua inscrição no evento foi efetuada com sucesso!\nIremos agora redirecionar você para o PagSeguro, onde será possível pagar sua inscrição.");
+			$this->flash($msg, $response['redirectTo'], 2);
+			return;
+		}
+
+		$email = Configure::read('Message.replyTo');
+		$this->__setFlash("Não foi possível iniciar processo de pagamento. Entre em contato atráves do email {$email}", 'error');
+		$this->redirect(array('action' => 'index'));
+	}
+
 	public function participant_add($subscription_id = null)
 	{
-		if(isset($this->request->data['Subscription']['id']))
-		{
+		if(isset($this->request->data['Subscription']['id'])) {
 			$subscription_id = $this->request->data['Subscription']['id'];
 		}
 
 		$subscription = $this->Payment->Subscription->find('first', array('conditions' => array('Subscription.id' => $subscription_id)));
 
-		if ($subscription_id == null)
-		{
+		if ($subscription_id == null) {
 			$this->__setFlash('Inscrição Inválida', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 
-		if($subscription['Subscription']['user_id'] != $this->activeUser['id'])
-		{
+		if($subscription['Subscription']['user_id'] != $this->activeUser['id']) {
 			$this->__setFlash('Você não possui autorização para realizar esta ação!', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 
-		if($subscription['Event']['free'])
-		{
+		if($subscription['Event']['free']) {
 			$this->__setFlash('Este evento é gratuito!', 'success');
 			$this->__goBack();
 		}
 
-		if(!empty($subscription['Payment']['id']))
-		{
+		if(!empty($subscription['Payment']['id'])) {
 			$this->__setFlash('Este pagamento já foi informado!');
 			$this->__goBack();
 		}
 
-		if (!empty($this->request->data))
-		{
+		if (!empty($this->request->data)) {
 			$this->Payment->create();
 			$this->request->data['Payment']['subscription_id'] = $subscription_id;
 
-			if ($this->Payment->save($this->request->data))
-			{
+			if ($this->Payment->save($this->request->data)) {
 				$this->__setFlash('Pagamento Informado!', 'success');
 				$this->redirect(array('action' => 'index'));
 			}
