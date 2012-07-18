@@ -17,7 +17,8 @@ class User extends AppModel
 
 	public $actsAs = array(
 		'Search.Searchable',
-		'Locale.Locale'
+		'Locale.Locale',
+		'UserGuard.AutoTrim'
 	);
 
 	public $validate = array(

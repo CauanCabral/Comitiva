@@ -28,3 +28,6 @@
 [submodule "Plugin/PagSeguro"]
 	path = Plugin/PagSeguro
 	url = git://github.com/radig/pagseguro.git
+[submodule "Plugin/UserGuard"]
+	path = Plugin/UserGuard
+	url = git://github.com/radig/user_guard.git
