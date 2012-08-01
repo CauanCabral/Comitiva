@@ -38,7 +38,7 @@
 						echo $this->Html->link(__('Ver'), array('action' => 'view', $subscription['Subscription']['id']), array('glyph' => true, 'icon' => 'file large'));
 
 						if($subscription['Event']['free'] === false && !isset($subscription['Payment']['id']))
-							echo $this->Html->link(__('Informar pagamento'), array('controller' => 'payments', 'action' => 'add', $subscription['Subscription']['id']), array('glyph' => 'glyph-tag glyph-large'));
+							echo $this->Html->link(__('Efetuar pagamento'), array('controller' => 'payments', 'action' => 'pay', $subscription['Subscription']['id']), array('glyph' => true, 'icon' => 'tag large'));
 						if($subscription['Event']['free'])
 							echo $this->Html->link(__('Remover'), array('action' => 'delete', $subscription['Subscription']['id']), array('glyph' => true, 'icon' => 'trash large'), sprintf(__('Deseja realmente excluir a inscrição #%s?'), $subscription['Subscription']['id']));
 					?>

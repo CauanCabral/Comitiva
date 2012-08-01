@@ -244,6 +244,39 @@ class PaymentsController extends AppController
 		$this->redirect(array('action' => 'index'));
 	}
 
+	public function participant_pay($subscription_id) {
+
+		if(isset($this->request->data['Subscription']['id'])) {
+			$subscription_id = $this->request->data['Subscription']['id'];
+		}
+
+		$eventData = $this->Payment->Subscription->find('first', array('conditions' => array('Subscription.id' => $subscription_id)));
+
+		$this->Payment->Subscription->id = $subscription_id;
+		$payment = $this->Payment->Subscription->buildPaymentParams($eventData['Event'], $this->activeUser, $eventData['EventPrice']['id']);
+		$name = substr($this->activeUser['name'] . ' ' . $this->activeUser['nickname'], 0, 50);
+
+		$this->Checkout->setReference($payment['reference']);
+		unset($payment['reference']);
+		$this->Checkout->setItem($payment['item']);
+		unset($payment['item']);
+		$this->Checkout->setCustomer($this->activeUser['email'], $name);
+		unset($payment['sender']);
+
+		$this->Checkout->config($payment);
+		$response = $this->Checkout->finalize(false);
+
+		if(isset($response['checkout'])) {
+			$msg = __("Iremos agora redirecionar você para o PagSeguro, onde será possível efetivar o pagamento.");
+			$this->flash($msg, $response['redirectTo'], 2);
+			return;
+		}
+
+		$email = Configure::read('Message.replyTo');
+		$this->__setFlash("Não foi possível iniciar processo de pagamento. Entre em contato atráves do email {$email}", 'error');
+		$this->redirect(array('controller' => 'subscriptions', 'action' => 'view', $this->Subscription->id));
+	}
+
 	public function participant_add($subscription_id = null)
 	{
 		if(isset($this->request->data['Subscription']['id'])) {

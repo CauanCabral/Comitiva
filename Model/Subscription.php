@@ -3,6 +3,23 @@ class Subscription extends AppModel
 {
 	public $name = 'Subscription';
 
+	public $validate = array(
+		'user_id' => array(
+			'required' => array(
+				'rule' => array('notempty'),
+				'message' => 'Por favor, preencha o nome de usuário',
+				'required' => true
+			)
+		),
+		'event_id' => array(
+			'required' => array(
+				'rule' => array('notempty'),
+				'message' => 'Por favor, selecione o evento',
+				'required' => true
+			)
+		),
+	);
+
 	public $belongsTo = array(
 		'User' => array(
 			'className' => 'User',

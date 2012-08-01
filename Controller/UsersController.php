@@ -279,7 +279,7 @@ class UsersController extends AppController
 			if(isset($this->request->data['User']['password_confirm']))
 				unset($this->request->data['User']['password_confirm']);
 
-			$this->request->data['User']['groups'] = json_decode($groups, true);
+			$this->request->data['User']['groups'] = json_decode($this->request->data['User']['groups'], true);
 
 			$this->__setFlash('Usuário não pode ser salvo. Tente novamente, por favor.', 'alert');
 		}
