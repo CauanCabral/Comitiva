@@ -7,7 +7,7 @@
 	<fieldset>
  		<legend><?php echo __('Editar Dados');?></legend>
 	<?php
-		echo $this->Form->input('User.id', array('type' => 'hidden'));
+		echo $this->Form->input('User.id');
 		echo $this->Form->input('User.username', array(
 			'label' => __('Nome de Usuário'),
 			'disabled' => true
@@ -22,14 +22,14 @@
 			)
 		);
 		$this->Form->defineRow(array('7', '3'));
-			echo $this->Form->input('email', array('label' => __('Email'), 'class' => 'fullWidth'));
-			echo $this->Form->input('cpf', array('label' => __('CPF'), 'class' => 'fullWidth'));
+		echo $this->Form->input('email', array('label' => __('Email'), 'class' => 'fullWidth'));
+		echo $this->Form->input('User.cpf', array('label' => __('CPF'), 'class' => 'fullWidth'));
 
-			$this->Form->defineRow(array('4', '3', '1', '2'));
-			echo $this->Form->input('address', array('label' => __('Endereço'), 'class' => 'fullWidth'));
-			echo $this->Form->input('city', array('label' => __('Cidade'), 'class' => 'fullWidth'));
-			echo $this->Form->input('state', array('label' => __('Estado'), 'class' => 'fullWidth'));
-			echo $this->Form->input('phone', array('label' => __('Telefone'), 'class' => 'fullWidth'));
+		$this->Form->defineRow(array('4', '3', '1', '2'));
+		echo $this->Form->input('address', array('label' => __('Endereço'), 'class' => 'fullWidth'));
+		echo $this->Form->input('city', array('label' => __('Cidade'), 'class' => 'fullWidth'));
+		echo $this->Form->input('state', array('label' => __('Estado'), 'class' => 'fullWidth'));
+		echo $this->Form->input('phone', array('label' => __('Telefone'), 'class' => 'fullWidth'));
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Salvar', 1));?>

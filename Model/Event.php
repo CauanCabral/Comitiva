@@ -142,13 +142,14 @@ class Event extends AppModel
 	 */
 	public function openToSubscription($id, $eventData = null)
 	{
-		if($eventData == null && !empty($this->data))
+		if($eventData == null && !empty($this->data) && $this->id == $id)
 			$eventData = $this->data;
 
 		if($eventData == null)
 		{
 			$this->contain();
-			$eventData = $this->read('open', $id);
+			$this->id = $id;
+			$eventData = $this->read('open');
 		}
 
 		if($eventData['Event']['open'] == false)
