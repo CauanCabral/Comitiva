@@ -126,7 +126,16 @@ class MessagesController extends AppController
 
 		try
 		{
-			$status = (int)$mailer->sendMessage($options);
+			$to = $options['to'];
+			$status = 0;
+			if(is_array($to)) {
+				foreach($to as $dest) {
+					$options['to'] = $dest;
+					$status += (int)$mailer->sendMessage($options);
+				}
+			} else {
+				$status = (int)$mailer->sendMessage($options);
+			}
 		}
 		catch(Exception $e)
 		{
@@ -189,7 +198,7 @@ class MessagesController extends AppController
 						break;
 					// usuários que não confirmaram o pagamento
 					case 3:
-						$conditions[] = array('Payments.confirmed' => FALSE);
+						$conditions[] = array('Payment.confirmed' => FALSE);
 						break;
 				}
 
