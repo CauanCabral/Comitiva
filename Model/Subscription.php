@@ -143,4 +143,59 @@ class Subscription extends AppModel
 
 		return $conditions;
 	}
+
+	public function fixDuplicates() {
+		$subscriptions = $this->find('all', array('contain' => array()));
+
+		$bogus = array();
+        $counter = array();
+        $repeateds = array();
+
+        foreach($subscriptions as $subscription) {
+        	$index = $subscription['Subscription']['event_id'] . $subscription['Subscription']['user_id'] . $subscription['Subscription']['event_price_id'];
+
+            if(!isset($repeateds[$index])) {
+                $repeateds[$index] = array();
+                $counter[$index] = 0;
+            }
+
+            $counter[$index]++;
+            $repeateds[$index][$subscription['Subscription']['id']] = $subscription['Subscription'];
+        }
+
+        foreach($repeateds as $sub => $repeated) {
+            $aux = null;
+            if($counter[$sub] == 1) {
+                unset($repeateds[$sub]);
+                continue;
+            }
+
+            foreach($repeated as $key => $subscription) {
+            	pr($subscription);
+                if($aux === null) {
+                    $aux = $subscription;
+                    continue;
+                }
+
+                $paymentA = $this->Payment->find('first', array('conditions' => array('subscription_id' => $aux['id']), 'contain' => array()));
+                $paymentB = $this->Payment->find('first', array('conditions' => array('subscription_id' => $subscription['id']), 'contain' => array()));
+
+                if($paymentA['Payment']['confirmed'] == true && $paymentB['Payment']['confirmed'] == false) {
+                    $bogus[$subscription['id']] = $subscription['id'];
+                    continue;
+                }
+
+                if($subscription['created'] >= $aux['created']) {
+                    $bogus[$aux['id']] = $aux['id'];
+                    $aux = $subscription;
+                }
+            }
+        }
+
+        if(!empty($bogus)) {
+            return $this->deleteAll(array('Subscription.id' => $bogus));
+        }
+
+        return true;
+	}
 }

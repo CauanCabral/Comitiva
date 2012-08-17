@@ -27,6 +27,17 @@ class PaymentsController extends AppController
         }
     }
 
+    public function admin_fixduplicates()
+    {
+    	if($this->Payment->fixDuplicates()) {
+    		$this->__setFlash('Registros reparados', 'success');
+    	} else {
+    		$this->__setFlash('Falha ao reparar registros', 'error');
+    	}
+
+    	$this->__goBack();
+    }
+
 	/*
 	 * Ações para rota administrativa
 	 */

@@ -20,6 +20,17 @@ class SubscriptionsController extends AppController
 		array('field' => 'query', 'type' => 'value')
 	);
 
+	public function admin_fixduplicates()
+    {
+    	if($this->Subscription->fixDuplicates()) {
+    		$this->__setFlash('Registros reparados', 'success');
+    	} else {
+    		$this->__setFlash('Falha ao reparar registros', 'error');
+    	}
+
+    	$this->__goBack();
+    }
+
 	/*
 	 * Ações para rota administrativa
 	 */
@@ -30,8 +41,7 @@ class SubscriptionsController extends AppController
 		$this->Prg->commonProcess();
 		$this->paginate['conditions'] = $this->Subscription->parseCriteria($this->passedArgs);
 
-		if(is_numeric($event_id))
-		{
+		if(is_numeric($event_id)) {
 			$this->paginate['conditions'] = array('Subscription.event_id' => $event_id);
 		}
 

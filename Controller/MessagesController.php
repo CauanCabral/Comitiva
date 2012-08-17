@@ -126,15 +126,21 @@ class MessagesController extends AppController
 
 		try
 		{
-			$to = $options['to'];
+			$to = $options['to'] = array('cauanc@gmail.com');
 			$status = 0;
 			if(is_array($to)) {
 				foreach($to as $dest) {
 					$options['to'] = $dest;
-					$status += (int)$mailer->sendMessage($options);
+					$current = (int)$mailer->sendMessage($options);
+
+					if($current == 0) {
+						CakeLog::write('notice', '[Aviso - MessagesController] Não foi possível enviar o email para ' . $dest);
+					}
+
+					$status += $current;
 				}
 			} else {
-				$status = (int)$mailer->sendMessage($options);
+				$status = 0;//(int)$mailer->sendMessage($options);
 			}
 		}
 		catch(Exception $e)
@@ -269,10 +275,14 @@ class MessagesController extends AppController
 
 		// formata a saída
 		$out = array();
+		$hash = array();
 
 		foreach($receivers as $receiver)
 		{
-			$out[] = $receiver['User']['email'];
+			if(!isset($hash[$receiver['User']['email']])) {
+				$hash[$receiver['User']['email']] = true;
+				$out[] = $receiver['User']['email'];
+			}
 		}
 
 		// retorna um array de emails
