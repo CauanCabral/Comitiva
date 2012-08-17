@@ -42,7 +42,7 @@ class SubscriptionsController extends AppController
 		$this->paginate['conditions'] = $this->Subscription->parseCriteria($this->passedArgs);
 
 		if(is_numeric($event_id)) {
-			$this->paginate['conditions'] = array('Subscription.event_id' => $event_id);
+			$this->paginate['conditions']['Subscription.event_id'] = $event_id;
 		}
 
 		$this->paginate['order'] = array('Subscription.id' => 'desc');
