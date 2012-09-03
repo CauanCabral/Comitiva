@@ -23,8 +23,7 @@ class EventsController extends AppController
 			)
 		);
 
-		if(empty($event))
-		{
+		if(empty($event)) {
 			$this->__setFlash('Evento inválido.', 'error');
 			$this->redirect('/');
 		}
@@ -38,7 +37,6 @@ class EventsController extends AppController
 	public function admin_index()
 	{
 		$this->Event->recursive = 0;
-
 		$this->paginate = array(
 			'conditions' => array(
 				'OR' => array(

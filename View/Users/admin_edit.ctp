@@ -13,7 +13,7 @@
 				'label' => __('Ativo'),
 				'type' => 'checkbox',
 			));
-			$this->Form->defineRow(array(4, 4, 4));
+			$this->Form->defineRow(array(4, 4, 2));
 			echo $this->Form->input('name', array('label' => __('Nome'), 'class' => 'fullWidth'));
 			echo $this->Form->input('nickname', array('label' => __('Sobrenome'), 'class' => 'fullWidth'));
 			echo $this->Form->input('birthday', array(

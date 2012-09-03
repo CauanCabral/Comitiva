@@ -21,7 +21,10 @@
 		?>
 			<tr<?php echo $class;?>>
 				<td>
-					<?php echo $this->Html->link($subscription['Event']['title'], array('controller' => 'subscriptions', 'action' => 'view', $subscription['Subscription']['id'])); ?>
+					<?php echo $this->Html->link($subscription['Event']['title'], 
+							array('controller' => 'subscriptions', 'action' => 'view', $subscription['Subscription']['id'])
+						); 
+					?>
 				</td>
 				<td>
 					<?php
@@ -35,12 +38,30 @@
 				</td>
 				<td class="actions">
 					<?php
-						echo $this->Html->link(__('Ver'), array('action' => 'view', $subscription['Subscription']['id']), array('glyph' => true, 'icon' => 'file large'));
+						echo $this->Html->link(__('Ver'), 
+							array('action' => 'view', $subscription['Subscription']['id']),
+							array('glyph' => true, 'icon' => 'file large')
+						);
 
-						if($subscription['Event']['free'] === false && !isset($subscription['Payment']['id']))
-							echo $this->Html->link(__('Efetuar pagamento'), array('controller' => 'payments', 'action' => 'pay', $subscription['Subscription']['id']), array('glyph' => true, 'icon' => 'tag large'));
-						if($subscription['Event']['free'])
-							echo $this->Html->link(__('Remover'), array('action' => 'delete', $subscription['Subscription']['id']), array('glyph' => true, 'icon' => 'trash large'), sprintf(__('Deseja realmente excluir a inscrição #%s?'), $subscription['Subscription']['id']));
+						if ($subscription['Event']['free'] === false && !isset($subscription['Payment']['id']))
+							echo $this->Html->link(__('Efetuar pagamento'), 
+								array('controller' => 'payments', 'action' => 'pay', $subscription['Subscription']['id']),
+								array('glyph' => true, 'icon' => 'tag large')
+							);
+
+						if ($subscription['Event']['free'])
+							echo $this->Html->link(__('Remover Inscrição'), 
+								array('action' => 'delete', $subscription['Subscription']['id']), 
+								array('glyph' => true, 'icon' => 'trash large'), 
+								sprintf(__('Deseja realmente excluir a inscrição #%s?'), $subscription['Subscription']['id'])
+							);
+
+						if ($subscription['Event']['free']) {
+							echo $this->Html->link(__('Baixar Certificado'), 
+								array('action' => 'certified', $subscription['Subscription']['id']),
+								array('glyph' => true, 'icon' => 'download large')
+							);
+						}
 					?>
 				</td>
 			</tr>

@@ -49,7 +49,6 @@
 				&nbsp;
 			</dd>
 		</dl>
-	</div>
 	<h3><?php echo __('Inscrições do usuário');?></h3>
 	<?php if (!empty($user['Subscription'])):?>
 
@@ -66,13 +65,24 @@
 			<td><?php echo $subscription['Event']['title'];?></td>
 			<td><?php echo $this->Locale->date($subscription['Event']['created']);?></td>
 			<td class="actions">
-				<?php echo $this->Html->link(__('Ver'), array('controller' => 'subscriptions', 'action' => 'view', $subscription['id'])); ?>
-				<?php echo $this->Html->link(__('Alterar'), array('controller' => 'subscriptions', 'action' => 'edit', $subscription['id'])); ?>
-				<?php echo $this->Html->link(__('Remover'), array('controller' => 'subscriptions', 'action' => 'delete', $subscription['id']), null, sprintf(__('Deseja realmente excluir # %s?'), $subscription['id'])); ?>
+				<?php 
+					echo $this->Html->link(__('Ver'), 
+						array('controller' => 'subscriptions', 'action' => 'view', $subscription['id']),
+						array('glyph' => true, 'icon' => 'file large')
+					),
+					$this->Html->link(__('Alterar'), 
+						array('controller' => 'subscriptions', 'action' => 'edit', $subscription['id']),
+						array('glyph' => true, 'icon' => 'edit large')
+					),
+					$this->Html->link(__('Remover'), 
+						array('controller' => 'subscriptions', 'action' => 'delete', $subscription['id']), 
+						array('glyph' => true, 'icon' => 'trash large'), 
+						sprintf(__('Deseja realmente excluir # %s?'), $subscription['id'])
+					); 
+				?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
 	</table>
-
 	<?php endif; ?>
 </div>

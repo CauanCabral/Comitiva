@@ -1,7 +1,7 @@
 <?php
 App::uses('Sanitize', 'Utility');
 App::uses('Checkout', 'PagSeguro/Controller/Component');
-
+App::uses('Xtcpdf', 'Vendor');
 class SubscriptionsController extends AppController
 {
 	public $name = 'Subscriptions';
@@ -329,6 +329,35 @@ class SubscriptionsController extends AppController
 		}
 
 		$this->__goBack();
+	}
+
+	public function participant_certified($subscription_id = null)
+	{
+		if (!isset($subscription_id)) {
+			throw new Exception('Nenhum evento selecionado', 1);
+		}
+
+		$this->Subscription->id = $subscription_id;
+
+		if (!$this->Subscription->exists()) {
+			throw new Exception('Essa inscrição não existe', 1);
+		}	
+
+		$xpdf = new Xtcpdf('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+		$this->layout = 'pdf';
+		Configure::write('debug', 0);
+
+		$subscription = $this->Subscription->read();
+
+		if ($subscription['Subscription']['user_id'] != $this->activeUser['id']) {
+			$this->__setFlash('Inscrição inválida', 'error');
+			$this->redirect('index');
+		}
+
+		$this->set('user', $this->activeUser);
+		$this->set('xpdf', $xpdf);
+		$this->set('subscription', $subscription);
+		$this->response->type('application/pdf');
 	}
 
 	/**
