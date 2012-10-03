@@ -56,7 +56,7 @@
 								sprintf(__('Deseja realmente excluir a inscrição #%s?'), $subscription['Subscription']['id'])
 							);
 
-						if ($subscription['Event']['free']) {
+						if (!$subscription['Event']['free']) {
 							echo $this->Html->link(__('Baixar Certificado'), 
 								array('action' => 'certified', $subscription['Subscription']['id']),
 								array('glyph' => true, 'icon' => 'download large')
