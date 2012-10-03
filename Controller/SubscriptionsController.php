@@ -395,7 +395,7 @@ class SubscriptionsController extends AppController
 		$subscription = $this->Subscription->read();
 
 		if ($subscription['Subscription']['user_id'] != $this->activeUser['id']
-			|| (!$subscription['Event']['free'] && !$subscription['Payment']['confirmed'])
+			|| (!$subscription['Event']['free'] && $subscription['Payment']['confirmed'] != 1)
 		) {
 			$this->__setFlash('Inscrição inválida', 'error');
 			$this->redirect('index');
