@@ -202,6 +202,7 @@ class SubscriptionsController extends AppController
 		$this->Subscription->recursive = 0;
 		$this->paginate['order'] = array('Subscription.id' => 'desc');
 		$this->set('subscriptions', $this->paginate(array('user_id' => $this->activeUser['id'])));
+		$this->set('user',$this->activeUser);
 	}
 
 	public function participant_view($id = null)
@@ -353,9 +354,11 @@ class SubscriptionsController extends AppController
 		$xpdf->date = date('d-m-Y');
 
 		$this->layout = 'pdf';
-		Configure::write('debug', 0);
+		// Configure::write('debug', 0);
 
+		$this->Subscription->contain(array('Event.EventDate'));
 		$subscription = $this->Subscription->read();
+		pr($subscription); die;
 
 		if ($subscription['Subscription']['user_id'] != $this->activeUser['id']) {
 			$this->__setFlash('Inscrição inválida', 'error');
