@@ -332,6 +332,41 @@ class SubscriptionsController extends AppController
 		$this->__goBack();
 	}
 
+	public function admin_certified($subscription_id)
+	{
+		if (!isset($subscription_id)) {
+			throw new Exception('Nenhum evento selecionado', 1);
+		}
+
+		$this->Subscription->id = $subscription_id;
+
+		if (!$this->Subscription->exists()) {
+			throw new Exception('Essa inscrição não existe', 1);
+		}	
+
+		$xpdf = new Xtcpdf('L', PDF_UNIT, 'A4', true, 'UTF-8', false);
+		$xpdf->SetCreator('Comitiva - Sistema de Gerenciamento de Eventos');
+		$xpdf->SetAuthor('PHPMS');
+		$xpdf->mainTitle =  '';
+		$xpdf->xfootertext = '';
+		$xpdf->xheaderimage = Configure::read('Comitiva.certified_img');
+		$xpdf->xheadertext = '';
+		$xpdf->date = date('d-m-Y');
+
+		$this->layout = 'pdf';
+		Configure::write('debug', 0);
+
+		$this->Subscription->contain(array('Event.EventDate', 'User'));
+		$subscription = $this->Subscription->read();
+
+		$this->set('user', $subscription['User']);
+		$this->set('xpdf', $xpdf);
+		$this->set('subscription', $subscription);
+		$this->response->type('application/pdf');
+
+		$this->render('participant_certified');
+	}
+
 	public function participant_certified($subscription_id = null)
 	{
 		if (!isset($subscription_id)) {
