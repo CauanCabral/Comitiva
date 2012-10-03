@@ -370,7 +370,7 @@ class SubscriptionsController extends AppController
 	public function participant_certified($subscription_id = null)
 	{
 		if (!isset($subscription_id)) {
-			throw new Exception('Nenhum evento selecionado', 1);
+			throw new Exception('Nenhuma inscrição selecionada', 1);
 		}
 
 		$this->Subscription->id = $subscription_id;
@@ -391,11 +391,11 @@ class SubscriptionsController extends AppController
 		$this->layout = 'pdf';
 		Configure::write('debug', 0);
 
-		$this->Subscription->contain(array('Event.EventDate'));
+		$this->Subscription->contain(array('Event.EventDate', 'Subscription'));
 		$subscription = $this->Subscription->read();
 
 		if ($subscription['Subscription']['user_id'] != $this->activeUser['id']
-			|| (!$subscription['Event']['free'] && $subscription['Payment']['confirmed'] != 1)
+			|| $subscription['Payment']['confirmed'] != 1
 		) {
 			$this->__setFlash('Inscrição inválida', 'error');
 			$this->redirect('index');
