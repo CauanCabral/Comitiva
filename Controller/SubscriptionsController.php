@@ -391,7 +391,7 @@ class SubscriptionsController extends AppController
 		$this->layout = 'pdf';
 		Configure::write('debug', 0);
 
-		$this->Subscription->contain(array('Event.EventDate', 'Subscription'));
+		$this->Subscription->contain(array('Event.EventDate', 'Payment'));
 		$subscription = $this->Subscription->read();
 
 		if ($subscription['Subscription']['user_id'] != $this->activeUser['id']
