@@ -354,11 +354,10 @@ class SubscriptionsController extends AppController
 		$xpdf->date = date('d-m-Y');
 
 		$this->layout = 'pdf';
-		// Configure::write('debug', 0);
+		Configure::write('debug', 0);
 
 		$this->Subscription->contain(array('Event.EventDate'));
 		$subscription = $this->Subscription->read();
-		pr($subscription); die;
 
 		if ($subscription['Subscription']['user_id'] != $this->activeUser['id']) {
 			$this->__setFlash('Inscrição inválida', 'error');
