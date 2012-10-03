@@ -263,7 +263,7 @@ class AppController extends Controller
 			$groups = json_decode($this->activeUser['groups'], true);
 		else
 			$groups = $user_groups;
-
+		$groups =  array('participant');
 		foreach($groups as $g)
 		{
 			$tmp = str_replace('"', '', $g);

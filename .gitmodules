@@ -31,3 +31,6 @@
 [submodule "Plugin/UserGuard"]
 	path = Plugin/UserGuard
 	url = git://github.com/radig/user_guard.git
+[submodule "Plugin/Upload"]
+	path = Plugin/Upload
+	url = git://github.com/josegonzalez/upload.git

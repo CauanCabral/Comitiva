@@ -1,11 +1,14 @@
 <?php
+
 class Event extends AppModel
 {
 	public $name = 'Event';
 
 	public $displayField = 'title';
 
-	public $actsAs = array('Locale.Locale');
+	public $actsAs = array(
+		'Locale.Locale'
+	);
 
 	public $validate = array(
 		'title' => array(

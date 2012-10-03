@@ -4,7 +4,7 @@
 		<li><?php echo $this->Html->link(__('Listar Eventos'), array('action' => 'index'));?></li>
 	</ul>
 	<div class="span10">
-	<?php echo $this->Form->create('Event');?>
+	<?php echo $this->Form->create('Event', array('type' => 'file'));?>
 	<fieldset>
  		<legend><?php echo __('Novo Evento');?></legend>
 		<?php
@@ -52,6 +52,8 @@
 			}
 		}
 		echo $this->Form->input('EventDate.counter', array('type' => 'hidden', 'value' => $counter, 'id' => 'dateCounter'));
+		// echo $this->Form->input('EventDate.certified', array('type' => 'file', 'label' => 'Imagem do Certificado'));
+		// echo $this->Form->input('EventDate.certified_dir', array('type' => 'hidden'));
 	?>
 	</fieldset>
 	<?php echo $this->Form->end(__('Salvar'));?>

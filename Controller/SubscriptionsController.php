@@ -343,7 +343,15 @@ class SubscriptionsController extends AppController
 			throw new Exception('Essa inscrição não existe', 1);
 		}	
 
-		$xpdf = new Xtcpdf('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+		$xpdf = new Xtcpdf('L', PDF_UNIT, 'A4', true, 'UTF-8', false);
+		$xpdf->SetCreator('Comitiva - Sistema de Gerenciamento de Eventos');
+		$xpdf->SetAuthor('PHPMS');
+		$xpdf->mainTitle =  '';
+		$xpdf->xfootertext = '';
+		$xpdf->xheaderimage = Configure::read('Comitiva.certified_img');
+		$xpdf->xheadertext = '';
+		$xpdf->date = date('d-m-Y');
+
 		$this->layout = 'pdf';
 		Configure::write('debug', 0);
 
