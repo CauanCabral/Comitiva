@@ -356,7 +356,7 @@ class SubscriptionsController extends AppController
 		$this->layout = 'pdf';
 		Configure::write('debug', 0);
 
-		$this->Subscription->contain(array('Event.EventDate', 'User'));
+		$this->Subscription->contain(array('Event.EventDate', 'User', 'Payment'));
 		$subscription = $this->Subscription->read();
 
 		$this->set('user', $subscription['User']);
@@ -394,7 +394,9 @@ class SubscriptionsController extends AppController
 		$this->Subscription->contain(array('Event.EventDate'));
 		$subscription = $this->Subscription->read();
 
-		if ($subscription['Subscription']['user_id'] != $this->activeUser['id']) {
+		if ($subscription['Subscription']['user_id'] != $this->activeUser['id']
+			|| (!$subscription['Event']['free'] && !$subscription['Payment']['confirmed'])
+		) {
 			$this->__setFlash('Inscrição inválida', 'error');
 			$this->redirect('index');
 		}

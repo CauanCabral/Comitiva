@@ -72,7 +72,7 @@
 						echo $this->Html->link(__('Ver'), array('action' => 'view', $subscription['Subscription']['id']), array('glyph' => true, 'icon' => 'file large')),
 							$this->Html->link(__('Alterar'), array('action' => 'edit', $subscription['Subscription']['id']), array('glyph' => true, 'icon' => 'edit large')),
 							$this->Html->link(__('Remover'), array('action' => 'delete', $subscription['Subscription']['id']), array('glyph' => true, 'icon' => 'trash large'), sprintf(__('Deseja realmente excluir a inscrição #%s?'), $subscription['Subscription']['id']));
-						if (!$subscription['Event']['free']) {
+						if (!$subscription['Event']['id'] == 7) {
 							echo $this->Html->link(__('Baixar Certificado'), 
 								array('action' => 'certified', $subscription['Subscription']['id']),
 								array('glyph' => true, 'icon' => 'download large')
