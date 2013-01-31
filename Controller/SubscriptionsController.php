@@ -1,7 +1,12 @@
 <?php
 App::uses('Sanitize', 'Utility');
+App::uses('Inflector', 'Utility');
 App::uses('Checkout', 'PagSeguro/Controller/Component');
 App::uses('Xtcpdf', 'Vendor');
+
+/**
+ *
+ */
 class SubscriptionsController extends AppController
 {
 	public $name = 'Subscriptions';
@@ -342,29 +347,12 @@ class SubscriptionsController extends AppController
 
 		if (!$this->Subscription->exists()) {
 			throw new Exception('Essa inscrição não existe', 1);
-		}	
+		}
 
-		$xpdf = new Xtcpdf('L', PDF_UNIT, 'A4', true, 'UTF-8', false);
-		$xpdf->SetCreator('Comitiva - Sistema de Gerenciamento de Eventos');
-		$xpdf->SetAuthor('PHPMS');
-		$xpdf->mainTitle =  '';
-		$xpdf->xfootertext = '';
-		$xpdf->xheaderimage = Configure::read('Comitiva.certified_img');
-		$xpdf->xheadertext = '';
-		$xpdf->date = date('d-m-Y');
-
-		$this->layout = 'pdf';
-		Configure::write('debug', 0);
-
-		$this->Subscription->contain(array('Event.EventDate', 'User', 'Payment'));
+		$this->Subscription->contain(array('Event.EventDate', 'User', 'Payment', 'Event.CertifiedModel'));
 		$subscription = $this->Subscription->read();
 
-		$this->set('user', $subscription['User']);
-		$this->set('xpdf', $xpdf);
-		$this->set('subscription', $subscription);
-		$this->response->type('application/pdf');
-
-		$this->render('participant_certified');
+		$this->generateCertified($subscription);
 	}
 
 	public function participant_certified($subscription_id = null)
@@ -377,34 +365,19 @@ class SubscriptionsController extends AppController
 
 		if (!$this->Subscription->exists()) {
 			throw new Exception('Essa inscrição não existe', 1);
-		}	
+		}
 
-		$xpdf = new Xtcpdf('L', PDF_UNIT, 'A4', true, 'UTF-8', false);
-		$xpdf->SetCreator('Comitiva - Sistema de Gerenciamento de Eventos');
-		$xpdf->SetAuthor('PHPMS');
-		$xpdf->mainTitle =  '';
-		$xpdf->xfootertext = '';
-		$xpdf->xheaderimage = Configure::read('Comitiva.certified_img');
-		$xpdf->xheadertext = '';
-		$xpdf->date = date('d-m-Y');
-
-		$this->layout = 'pdf';
-		Configure::write('debug', 0);
-
-		$this->Subscription->contain(array('Event.EventDate', 'Payment'));
+		$this->Subscription->contain(array('Event.EventDate', 'Payment', 'Event.CertifiedModel', 'User'));
 		$subscription = $this->Subscription->read();
 
 		if ($subscription['Subscription']['user_id'] != $this->activeUser['id']
-			|| $subscription['Payment']['confirmed'] != 1
+			|| (!$subscription['Event']['free'] && $subscription['Payment']['confirmed'] != 1)
 		) {
 			$this->__setFlash('Inscrição inválida', 'error');
 			$this->redirect('index');
 		}
 
-		$this->set('user', $this->activeUser);
-		$this->set('xpdf', $xpdf);
-		$this->set('subscription', $subscription);
-		$this->response->type('application/pdf');
+		$this->generateCertified($subscription);
 	}
 
 	/**
@@ -454,5 +427,37 @@ class SubscriptionsController extends AppController
 
 		$this->set(compact('output'));
 		$this->set('_serialize', 'output');
+	}
+
+	protected function generateCertified($subscription)
+	{
+		$this->layout = 'pdf';
+
+		$this->loadModel('CertifiedModel');
+		$image = 'files'
+			. DS
+			. Inflector::underscore($this->CertifiedModel->name)
+			. DS
+			. 'image'
+			. DS
+			. $subscription['Event']['CertifiedModel']['image_dir']
+			. DS
+			. $subscription['Event']['CertifiedModel']['image'];
+
+
+		$xpdf = new Xtcpdf('L', PDF_UNIT, 'A4', true, 'UTF-8', false);
+		$xpdf->SetCreator('Comitiva - Sistema de Gerenciamento de Eventos');
+		$xpdf->SetAuthor('PHPMS');
+		$xpdf->mainTitle =  '';
+		$xpdf->xfootertext = '';
+		$xpdf->xheaderimage =
+		$xpdf->xheadertext = $image;
+		$xpdf->date = date('d-m-Y');
+
+		$this->set('user', $subscription['User']);
+		$this->set('xpdf', $xpdf);
+		$this->set('subscription', $subscription);
+		$this->response->type('application/pdf');
+		$this->render('participant_certified');
 	}
 }

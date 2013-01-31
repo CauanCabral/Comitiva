@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* SVN FILE: $Id$ */
 /* Comitiva schema generated on: 2010-05-23 12:05:11 : 1274631551*/
 class ComitivaSchema extends CakeSchema {

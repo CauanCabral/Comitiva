@@ -34,3 +34,6 @@
 [submodule "Plugin/Upload"]
 	path = Plugin/Upload
 	url = git://github.com/josegonzalez/upload.git
+[submodule "Vendor/tcpdf"]
+	path = Vendor/tcpdf
+	url = git://github.com/tcpdf-clone/tcpdf.git

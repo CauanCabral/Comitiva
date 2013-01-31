@@ -83,8 +83,10 @@ class EventsController extends AppController
 			$this->__setFlash('Novo evento não pode ser salvo. Tente novamente.', 'error');
 		}
 
+		$this->loadModel('CertifiedModel');
+		$certifiedModels = $this->CertifiedModel->find('list');
 		$events = $this->Event->find('list');
-		$this->set(compact('events'));
+		$this->set(compact('events', 'certifiedModels'));
 	}
 
 	public function admin_edit($id = null)

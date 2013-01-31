@@ -35,7 +35,8 @@ class Event extends AppModel
 		'ParentEvent' => array(
 			'className' => 'Event',
 			'foreignKey' => 'parent_id'
-		)
+		),
+		'CertifiedModel'
 	);
 
 	public $hasMany = array(

@@ -54,13 +54,12 @@
 
 		echo $this->Form->input('EventDate.counter', array('type' => 'hidden', 'value' => $counter, 'id' => 'dateCounter'));
 
-		echo $this->Form->input('EventDate.certified_dir', array('type' => 'hidden'));
 		$this->Form->defineRow(array(4,4));
-		echo $this->Form->input('EventDate.certified', array('type' => 'file', 'label' => 'Imagem do Certificado'));
-		echo $this->Form->input('EventDate.position', array('label' => 'Posição do Nome do Participante (x,y)'));
+		echo $this->Form->input('certified_model_id', array('label' => 'Modelo do Certificado'));
+		echo $this->Form->input('certified_position', array('label' => 'Posição do Nome do Participante (x,y)'));
 
 		$this->Form->defineRow(array(8));
-		echo $this->Form->input('EventDate.certified_description', array('label' => 'Texto do Certificado'));
+		echo $this->Form->input('certified_description', array('label' => 'Texto do Certificado'));
 	?>
 	</fieldset>
 	<?php echo $this->Form->end(__('Salvar'));?>

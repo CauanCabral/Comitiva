@@ -190,6 +190,11 @@ class AppController extends Controller
 				 	'action' => 'index',
 				 	'admin' => true
 				),
+				__('Certificados') => array(
+					'controller' => 'certified_models',
+				 	'action' => 'index',
+				 	'admin' => true
+				),
 				__('Minha conta') => array(
 					'controller' => 'users',
 					'action' => 'profile',
@@ -267,7 +272,7 @@ class AppController extends Controller
 		if (!isset($groups)) {
 			$groups =  array('parenticipant');
 		}
-		
+
 		foreach($groups as $g)
 		{
 			$tmp = str_replace('"', '', $g);
