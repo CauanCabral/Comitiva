@@ -19,6 +19,12 @@
 				<td><?php echo $model['CertifiedModel']['title']?></td>
 				<td><?php echo $model['CertifiedModel']['description']?></td>
 				<td><?php echo $model['CertifiedModel']['image']?></td>
+				<td>
+					<?php
+
+
+					?>
+				</td>
 			</tr>
 			<?php
 				endforeach;
