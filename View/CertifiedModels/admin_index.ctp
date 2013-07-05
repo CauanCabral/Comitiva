@@ -21,8 +21,7 @@
 				<td><?php echo $model['CertifiedModel']['image']?></td>
 				<td>
 					<?php
-
-
+					echo $this->Form->postLink(__('Remover'), array('action' => 'delete', $model['CertifiedModel']['id']), null, __('Você quer mesmo apagar o modelo \'%s\'?', $model['CertifiedModel']['title']));
 					?>
 				</td>
 			</tr>
