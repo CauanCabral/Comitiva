@@ -41,7 +41,7 @@ class CertifiedModelsController extends AppController
 			$this->CertifiedModel->create();
 			if ($this->CertifiedModel->save($this->request->data)) {
 				$this->Session->setFlash(
-					__('O certificado foi salvo', __('certified model')),
+					__('O certificado foi salvo'),
 					'alert',
 					array(
 						'plugin' => 'TwitterBootstrap',
@@ -51,7 +51,7 @@ class CertifiedModelsController extends AppController
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(
-					__('O certificado não foi salvo. Por favor, tente novamente.', __('certified model')),
+					__('O certificado não foi salvo. Por favor, tente novamente.'),
 					'alert',
 					array(
 						'plugin' => 'TwitterBootstrap',
@@ -76,7 +76,7 @@ class CertifiedModelsController extends AppController
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->CertifiedModel->save($this->request->data)) {
 				$this->Session->setFlash(
-					__('O certificado foi alterado', __('certified model')),
+					__('O certificado foi alterado'),
 					'alert',
 					array(
 						'plugin' => 'TwitterBootstrap',
@@ -86,7 +86,7 @@ class CertifiedModelsController extends AppController
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(
-					__('O certificado não foi alterado. Por favor, tente novamente.', __('certified model')),
+					__('O certificado não foi alterado. Por favor, tente novamente.'),
 					'alert',
 					array(
 						'plugin' => 'TwitterBootstrap',
@@ -115,7 +115,7 @@ class CertifiedModelsController extends AppController
 		}
 		if ($this->CertifiedModel->delete()) {
 			$this->Session->setFlash(
-				__('O certificado foi excluído', __('certified model')),
+				__('O certificado foi excluído'),
 				'alert',
 				array(
 					'plugin' => 'TwitterBootstrap',
@@ -125,7 +125,7 @@ class CertifiedModelsController extends AppController
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->Session->setFlash(
-			__('O certificado não foi excluído', __('certified model')),
+			__('O certificado não foi excluído'),
 			'alert',
 			array(
 				'plugin' => 'TwitterBootstrap',
@@ -167,7 +167,7 @@ class CertifiedModelsController extends AppController
 			$this->CertifiedModel->create();
 			if ($this->CertifiedModel->save($this->request->data)) {
 				$this->Session->setFlash(
-					__('O certificado foi salvo', __('certified model')),
+					__('O certificado foi salvo'),
 					'alert',
 					array(
 						'plugin' => 'TwitterBootstrap',
@@ -177,7 +177,7 @@ class CertifiedModelsController extends AppController
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(
-					__('O certificado não foi salvo. Por favor, tente novamente.', __('certified model')),
+					__('O certificado não foi salvo. Por favor, tente novamente.'),
 					'alert',
 					array(
 						'plugin' => 'TwitterBootstrap',

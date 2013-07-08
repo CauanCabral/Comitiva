@@ -57,13 +57,11 @@
 				</div>
 			</div>
 			<?php endif; ?>
-
 			<div class="row-fluid">
-				<?php
-				echo $this->element('alerts');
-
-				echo $this->fetch('content');
-				?>
+				<?php echo $this->element('alerts'); ?>
+			</div>
+			<div class="row-fluid">
+				<?php echo $this->fetch('content'); ?>
 			</div>
 			<hr></hr>
 			<div id="footer" class="row-fluid">

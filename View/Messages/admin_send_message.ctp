@@ -7,12 +7,10 @@
 		$this->Form->defineRow(array(3, 3, 2));
 		echo $this->Form->input('Message.to', array(
 			'label' => __('Enviar para'),
-			'options' => $types
-		));
+			'options' => $types));
 		echo $this->Form->input('Message.toFilter', array(
 			'label' => __('Selecione um filtro'),
-			'options' => $filters
-		));
+			'options' => $filters));
 		echo $this->Form->input('Message.event_id', array('label' => __('Evento'),'options' => $events));
 
 		$this->Form->defineRow(array(8));
