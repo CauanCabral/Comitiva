@@ -19,7 +19,11 @@
 			<td><?php echo $model['CertifiedModel']['description']?></td>
 			<td><?php echo $model['CertifiedModel']['image']?></td>
 			<td>
-				
+				<?php
+				echo $this->Form->postLink(__('Visualizar'), array('action' => 'view', $model['CertifiedModel']['id']));
+				?>
+				<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $model['CertifiedModel']['id'])); ?>
+
 				<?php
 				echo $this->Form->postLink(__('Remover'), array('action' => 'delete', $model['CertifiedModel']['id']), null, __('Você quer mesmo apagar o modelo \'%s\'?', $model['CertifiedModel']['title']));
 				?>
