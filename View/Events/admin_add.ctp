@@ -20,7 +20,7 @@
 		echo $this->Form->input('Event.open_for_proposals', array('type' => 'checkbox', 'label' => __('Aberto para Submissão de Propostas')));
 
 		$this->Form->defineRow(array(10));
-		echo $this->Form->input('Event.description', array('label' => __('Descrição'), 'rows' => 15));
+		echo $this->Form->input('Event.description', array('label' => __('Descrição'), 'rows' => 15, 'required' => false, 'div' => 'required'));
 
 		echo $this->Html->link(__('Adicionar preço'), array('action' => 'eventPriceAdd', 'prefix' => 'admin'), array('id' => 'addEventPrice'));
 		echo '<fieldset id="pricesEvent"></fieldset>';

@@ -30,7 +30,7 @@
 			$this->Form->defineRow(array(4, 3, 3));
 			echo $this->Form->input('username', array('label' => __('Nome de usuário'), 'class' => 'fullWidth'));
 			echo $this->Form->input('password', array('label' => __('Senha'), 'class' => 'fullWidth'));
-			echo $this->Form->input('password_confirm', array('label' => __('Confirme a senha'), 'type' => 'password', 'class' => 'fullWidth'));
+			echo $this->Form->input('password_confirm', array('label' => __('Confirme a senha'), 'type' => 'password', 'required' => true, 'class' => 'fullWidth', 'div' => 'required'));
 
 			echo "<p class='small' style='color:red;'>* Informações obrigatórias para geração de certificado.</p>";
 		?>
