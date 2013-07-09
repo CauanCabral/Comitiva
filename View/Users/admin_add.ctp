@@ -24,7 +24,7 @@
 					'participant' => __('Participante'),
 					'speaker' => __('Palestrante'),
 					'admin' => __('Administrador')
-					),
+					),'div' => 'required','required' => true,
 				'multiple' => true
 				)
 			);
