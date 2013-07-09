@@ -5,7 +5,7 @@
 	<div class="span9">
 		<?php echo $this->Form->create('CertifiedModel', array('class' => 'form-horizontal', 'type' => 'file'));?>
 			<fieldset>
-				<legend><?php echo __('Novo Modelo de Certificado'); ?></legend>
+				<legend><h2><?php echo __('Novo Modelo de Certificado'); ?></h2></legend>
 				<?php
 				$this->Form->defineRow(array(8));
 				echo $this->Form->input('title', array(
