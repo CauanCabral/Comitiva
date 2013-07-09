@@ -1,25 +1,26 @@
 <div class="row-fluid">
-	<div class="span9">
-		<h2><?php  echo __('Certified Model');?></h2>
+	<ul  class="nav nav-tabs nav-stacked span2">
+			<li><?php echo $this->Html->link(__('Editar Certificado'), array('action' => 'edit', $certifiedModel['CertifiedModel']['id'])); ?> </li>
+			<li><?php echo $this->Form->postLink(__('Excluir Certificado'), array('action' => 'delete', $certifiedModel['CertifiedModel']['id']), null, __('Quer mesmo apagar o Certificado \'%s\'?', $certifiedModel['CertifiedModel']['title'])); ?> </li>
+			<li><?php echo $this->Html->link(__('Listar Certificados'), array('action' => 'index')); ?> </li>
+			<li><?php echo $this->Html->link(__('Novo Certificado'), array('action' => 'add')); ?> </li>
+	</ul>
+	<div class="span10">
+		<legend><h2><?php  echo __('Modelo de Certificado');?></h2></legend>
 		<dl>
 			<dt><?php echo __('Id'); ?></dt>
 			<dd>
 				<?php echo h($certifiedModel['CertifiedModel']['id']); ?>
 				&nbsp;
 			</dd>
-			<dt><?php echo __('Attachment Id'); ?></dt>
-			<dd>
-				<?php echo h($certifiedModel['CertifiedModel']['attachment_id']); ?>
-				&nbsp;
-			</dd>
-			<dt><?php echo __('Event Id'); ?></dt>
-			<dd>
-				<?php echo h($certifiedModel['CertifiedModel']['event_id']); ?>
-				&nbsp;
-			</dd>
-			<dt><?php echo __('Description'); ?></dt>
+			<dt><?php echo __('Descrição'); ?></dt>
 			<dd>
 				<?php echo h($certifiedModel['CertifiedModel']['description']); ?>
+				&nbsp;
+			</dd>
+			<dt><?php echo __('Imagem'); ?></dt>
+			<dd>
+				<?php echo h($certifiedModel['CertifiedModel']['image']); ?>
 				&nbsp;
 			</dd>
 			<dt><?php echo __('Created'); ?></dt>
@@ -34,16 +35,4 @@
 			</dd>
 		</dl>
 	</div>
-	<div class="span3">
-		<div class="well" style="padding: 8px 0; margin-top:8px;">
-		<ul class="nav nav-list">
-			<li class="nav-header"><?php echo __('Actions'); ?></li>
-			<li><?php echo $this->Html->link(__('Edit %s', __('Certified Model')), array('action' => 'edit', $certifiedModel['CertifiedModel']['id'])); ?> </li>
-			<li><?php echo $this->Form->postLink(__('Delete %s', __('Certified Model')), array('action' => 'delete', $certifiedModel['CertifiedModel']['id']), null, __('Are you sure you want to delete # %s?', $certifiedModel['CertifiedModel']['id'])); ?> </li>
-			<li><?php echo $this->Html->link(__('List %s', __('Certified Models')), array('action' => 'index')); ?> </li>
-			<li><?php echo $this->Html->link(__('New %s', __('Certified Model')), array('action' => 'add')); ?> </li>
-		</ul>
-		</div>
-	</div>
-<div>
-
+</div>
