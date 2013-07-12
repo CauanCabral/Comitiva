@@ -16,6 +16,6 @@ if (count($pos) < 2) {
 	$pos = array(130, 10);
 }
 
-$xpdf->MultiCell(/*$pos[0],$pos[1],*/130,10, $subscription['Event']['certified_description'], null, 'C', null, null, 85,135);
+$xpdf->MultiCell($pos[0],$pos[1],130,10, $subscription['Event']['certified_description'], null, 'C', null, null, 85,135);
 $xpdf->Output('certificado.pdf', 'I');
 ?>
