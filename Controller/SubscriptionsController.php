@@ -431,7 +431,7 @@ class SubscriptionsController extends AppController
 
 	protected function generateCertified($subscription)
 	{
-		$this->layout = 'pdf';
+		// $this->layout = 'pdf';
 
 		$this->loadModel('CertifiedModel');
 		$image = 'files'
@@ -444,14 +444,13 @@ class SubscriptionsController extends AppController
 			. DS
 			. $subscription['Event']['CertifiedModel']['image'];
 
-
 		$xpdf = new Xtcpdf('L', PDF_UNIT, 'A4', true, 'UTF-8', false);
 		$xpdf->SetCreator('Comitiva - Sistema de Gerenciamento de Eventos');
 		$xpdf->SetAuthor('PHPMS');
 		$xpdf->mainTitle =  '';
 		$xpdf->xfootertext = '';
-		$xpdf->xheaderimage =
-		$xpdf->xheadertext = $image;
+		$xpdf->xheaderimage = $image;
+		$xpdf->xheadertext = '';
 		$xpdf->date = date('d-m-Y');
 
 		$this->set('user', $subscription['User']);

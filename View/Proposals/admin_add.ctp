@@ -22,7 +22,8 @@
 			$this->Form->defineRow(array(4));
 			echo $this->Form->input('area', array(
 				'label' => __('Área'),
-				'class' => 'fullWidth'
+				'class' => 'fullWidth',
+				'div' =>'required'
 				)
 			);
 			$this->Form->defineRow(array(8));
