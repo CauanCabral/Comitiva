@@ -19,11 +19,11 @@
 			<?php endif; ?>
 
 			<?php if (!empty($event['EventDate'])):?>
-				<h3><?php echo __('Datas');?></h3>
+				<h3><?php echo __('Informações');?></h3>
 
 				<table class="table table-striped table-bordered table-condensed">
 				<tr>
-					<th><?php echo __('Título'); ?></th>
+					<th><?php echo __('Descrição'); ?></th>
 					<th><?php echo __('Data'); ?></th>
 				</tr>
 				<?php

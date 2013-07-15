@@ -1,7 +1,10 @@
-<?php
-	echo $this->element('editor'); 
-?>
-<div class="proposals form">
+<?php echo $this->element('editor'); ?>
+<div class="row-fluid">
+	<ul class="nav nav-tabs nav-stacked span2">
+		<li><?php echo $this->Html->link(__('Página Inicial'), '/');?></li>
+	</ul>
+	<div class="span10">
+	<div class="proposals form">
 <?php echo $this->Form->create('Proposal'); ?>
 	<fieldset>
  		<legend><?php echo __('Adicionar Proposta de Apresentação'); ?></legend>
@@ -21,9 +24,6 @@
 	</fieldset>
 <?php echo $this->Form->end(__('Enviar'));?>
 </div>
-<div class="actions">
-	<h3><?php echo __('Opções'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Página Inicial'), '/');?></li>
-	</ul>
 </div>
+</div>
+

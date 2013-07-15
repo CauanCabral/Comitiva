@@ -1,7 +1,9 @@
 <div class="row-fluid">
 	<ul class="nav nav-tabs nav-stacked span2">
 		<li><?php echo $this->Html->link(__('Nova Inscrição'), array('action' => 'add')); ?></li>
+		<?php if (isset($event_id)): ?>
 		<li><?php echo $this->Html->link(__('Gerar lista de inscritos'), array('action' => 'getCsv', $event_id)); ?></li>
+		<?php endif; ?>
 		<li><?php echo $this->Html->link(__('Listar Eventos'), array('controller' => 'events', 'action' => 'index')); ?> </li>
 	</ul>
 
