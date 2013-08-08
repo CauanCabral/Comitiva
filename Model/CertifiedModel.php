@@ -22,7 +22,7 @@ class CertifiedModel extends AppModel {
 		'title' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
+				'message' => 'Preencha este campo',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -36,6 +36,7 @@ class CertifiedModel extends AppModel {
 			'image' => array(
 				'fields' => array(
 					'dir' => 'image_dir'
+					
 				)
 			)
 		)

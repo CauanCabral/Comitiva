@@ -53,7 +53,7 @@ ini_set('display_errors', 1);
  *
  * Leaving this constant undefined will result in it being defined in Cake/bootstrap.php
  */
-	//define('CAKE_CORE_INCLUDE_PATH',  DS . 'home' . DS . 'dotti' . DS . 'develop' . DS . 'php' . DS . 'cake2' . DS . 'lib');
+	// define('CAKE_CORE_INCLUDE_PATH',  DS . 'home' . DS . 'user' . DS . 'CakePHP' . DS . 'lib');
 
 /**
  * Editing below this line should not be necessary.

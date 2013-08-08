@@ -11,7 +11,8 @@
 			$this->Form->defineRow(array(3, 3));
 			echo $this->Form->input('user_id', array(
 				'label' => __('Palestrante'),
-				'class' => 'fullWidth'
+				'class' => 'fullWidth',
+				'required'=>false
 				)
 			);
 			echo $this->Form->input('event_id', array(
@@ -23,7 +24,6 @@
 			echo $this->Form->input('area', array(
 				'label' => __('Área'),
 				'class' => 'fullWidth',
-				'div' =>'required'
 				)
 			);
 			$this->Form->defineRow(array(8));
